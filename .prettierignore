@@ -1,0 +1,12 @@
+node_modules
+.next
+coverage
+playwright-report
+test-results
+work
+package-lock.json
+jetu
+docs/JETU_CODEX_SUPABASE_UIUX_PRO_MAX_MVP.md
+docs/JETU_MASTER_PROMPT.md
+src/lib/supabase/database.types.ts
+supabase/.temp

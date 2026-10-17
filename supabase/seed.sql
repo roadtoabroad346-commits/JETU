@@ -1,0 +1,2 @@
+-- Intentionally empty in Phase 04. No fabricated admissions records or accounts.
+-- Later phase fixtures must be synthetic, marked is_demo, and isolated from published data.
