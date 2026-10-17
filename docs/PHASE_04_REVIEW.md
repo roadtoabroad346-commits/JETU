@@ -40,3 +40,8 @@ source/acceptance review pass by the implementing agent, not an external audit.
 
 Final database, clean-clone and checkpoint outcomes must be read from the
 implementation log/tracker; this review alone is not a VERIFIED release gate.
+
+Final staged review caught CSV CRLF as Git trailing whitespace. Normalized to LF
+and the documented feature status vocabulary; `git diff --check` now passes.
+Fresh Git-clone `npm ci` and complete `npm run check` passed with a clean clone tree.
+The remaining DB execution gap is an explicit release blocker, not waved through.

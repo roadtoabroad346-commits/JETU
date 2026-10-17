@@ -84,3 +84,19 @@ remains documented dependency debt until the a11y plugin supports a newer major.
 Pitch-PDF visual comparison, physical-device/screen-reader/zoom review, full product
 RLS isolation, and production security/performance/operational approval are pending
 their prerequisites and phases. No flawless/production-ready claim is made.
+
+## Checkpoint / clean Git clone verification
+
+Implementation checkpoint: `bb2ed1f`. Feature CSV line endings/status normalized in
+`a4fdfeb`; no product source changed. Cloned `a4fdfeb` using
+`git clone --no-hardlinks /workspace/JETU work/checkpoint-clone`. In that fresh Git
+clone, `npm ci` exited 0 (18s), Husky configured `.husky/_`, and `npm run check`
+exited 0: formatting, zero-warning lint, route typegen/strict tsc, 50 tests and
+production build all passed. Clone `git status --porcelain` was empty after checks.
+Next warned that the parent checkout lockfile was outside this nested clone and
+ignored it; the clone's own lockfile/Git boundary was used successfully.
+
+A documentation-only checkpoint records these results and the final PARTIAL status.
+Machine-readable evidence: `docs/evidence/phase04/verification.json`. Original nested
+`jetu/` and supplied master copy remain unchanged relative to initial HEAD. No push
+or deployment was performed. Dev server is left available locally at port 3000.

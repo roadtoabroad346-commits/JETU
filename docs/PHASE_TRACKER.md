@@ -40,7 +40,7 @@ Phase 04 is **PARTIAL**, not VERIFIED. Scope is the explicit single-phase reques
 - [x] Scope/plan, root modular Next/TS structure, lockfile and runtime pins.
 - [x] Env validation, separated typed client factories and sanitized API contract.
 - [x] Local-only DB guards and migration/test/config files.
-- [x] Fresh install, formatting, lint, typecheck, unit/adapter tests and production build.
+- [x] Fresh Git-clone npm ci + complete check (format/lint/typecheck/50 tests/build), clean clone tree.
 - [x] Actual rendered three-locale browser/axe/keyboard/reduced-motion/no-JS/responsive checks.
 - [x] Dev HTTP smoke and public-bundle synthetic secret-canary scan.
 - [x] CI configuration without production secrets; hooks and docs.
