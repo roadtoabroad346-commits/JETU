@@ -34,3 +34,11 @@ pass, both advisors, generated-type drift and frontend checks. Never reset the
 hosted project. Consult the latest verification evidence and Actions links in
 IMPLEMENTATION_LOG.md before assuming the latest pushed commit passed. Finish
 only Phase 04's remaining authorized verification, then stop for user direction.
+
+## Product source added — 2026-10-18
+
+The original 8-page July 2026 pitch is now available in `docs/pitch/`, with full
+text, rendered overview, SHA-256 and page-indexed context. Read its README and
+CONTEXT before product/brand work; consult the PDF for complete detail. The old
+missing-PDF blocker is resolved; formal design reconciliation is still pending.
+This source addition does not start Phase 05 or verify pitch claims.

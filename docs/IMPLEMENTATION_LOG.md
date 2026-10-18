@@ -176,3 +176,14 @@ migration version and actual results. Repeated production E2E with cloud public
 env: 14/14 passed. Invoking the local types wrapper with JETU_ENV=development
 returned exit 1 before Docker/CLI execution, as intended. The ignored env was
 absent from tracked files and git diff --check passed.
+
+## User-provided pitch archived — 2026-10-18
+
+Saved the original 8-page July 2026 PDF unchanged in docs/pitch (7,300,048 bytes;
+SHA-256 recorded in its README), full pdftotext -layout output, an eight-page
+rendered overview and a page-indexed context summary. Read all extracted text and
+visually inspected all eight rendered slides. Added repository/handoff links for
+future context. Market figures, projected traction, pricing and prototype features
+are explicitly distinguished from verified implementation. No app/DB changes,
+founder outreach or automatic Phase 05 work. Missing attachment is resolved;
+formal pitch-to-design reconciliation remains pending.

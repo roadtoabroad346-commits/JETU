@@ -133,3 +133,10 @@ See `docs/PHASE_TRACKER.md`, `docs/IMPLEMENTATION_LOG.md`, and
 `docs/NEXT_AGENT_PROMPT.md` for actual validation, limitations and exact next steps.
 GitHub CI is configured without production secrets; remote CI is not claimed unless
 an actual run is recorded. This continuation pushes checkpoints to GitHub; it does not deploy the application.
+
+## Product pitch reference
+
+The complete user-provided July 2026 MVP presentation, extracted text, slide
+overview and page-indexed project context are preserved in
+[docs/pitch](docs/pitch/README.md). Pitch claims and roadmap are reference material,
+not evidence of implemented features or achieved traction.
