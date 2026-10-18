@@ -328,3 +328,16 @@ cloud/executor skills, local files and CLI help, but was unavailable; no Caveman
 command or mode was claimed. A structured plan/build/review/checkpoint workflow
 was used. No new Phase 07 work or remote release was performed. The local Git
 checkpoint hash is recorded in the final handoff.
+
+## Full Phase 00–06 preservation — 2026-10-18
+
+At the user's explicit request, the complete workspace checkout through Phase 06
+was copied to `/workspace/JETU_PHASE_00_06_PRESERVED`, including local Git history
+and ignored intermediate/build/dependency files. The versioned repository history,
+source, original upload, pitch, docs, tests and evidence were saved to GitHub
+`main`, `codex/phase06-landing` and the annotated
+`phase-00-06-preserved-2026-10-18` tag. GitHub retains the source and history;
+local-only caches and `work/` are held in the full workspace copy. No untracked
+credential file was present. No Supabase database mutation, deployment or new
+feature phase was performed. Exact integrity checks and scope are in
+`docs/PHASE_00_06_PRESERVATION.md`.

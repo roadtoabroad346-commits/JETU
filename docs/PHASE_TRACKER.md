@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: **Phase 06 only**. Phase 06 is **PARTIAL**: the localized landing, public information routes, SEO assets and local UI checks are implemented, but signup/onboarding, live discovery and approved pricing are absent. Phase 05 remains VERIFIED for its local scope; Phase 04 remains PARTIAL and phases 01–03 remain UNVERIFIED. Do not start Phase 07 automatically.
+Current request: **preserve the repository through Phase 06 only**. Phase 06 is **PARTIAL**: the localized landing, public information routes, SEO assets and local UI checks are implemented, but signup/onboarding, live discovery and approved pricing are absent. Phase 05 remains VERIFIED for its local scope; Phase 04 remains PARTIAL and phases 01–03 remain UNVERIFIED. Do not start Phase 07 automatically.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -86,7 +86,7 @@ unchanged. No Phase 05 DB/API change or remote schema operation was required.
 - [ ] Primary signup CTA reaches a live, secure onboarding flow. Auth is Phase 08 and is not currently implemented.
 - [ ] Verified scholarship/program discovery and dated provenance records. Catalog and ingestion are later phases.
 - [ ] Approved public pricing/checkout, verified mentor network and official support channel. Current pages state unavailable.
-- [ ] Agreed mobile release budgets and deployment/field measurement. KK local LCP measured 2.516s, 16ms above a 2.5s reference; localhost SEO is intentionally noindex.
+- [ ] Agreed mobile release budgets and deployment/field measurement. Final-build local Lighthouse scored 61–84 across four runs with LCP 2.601–3.766s; localhost SEO is intentionally noindex. See PHASE_06_REVIEW.md.
 
 Phase 06 remains PARTIAL because its master acceptance gate explicitly requires real
 onboarding rather than an informational destination. No deployment or Phase 07 work

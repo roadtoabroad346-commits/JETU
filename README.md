@@ -138,9 +138,10 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
 See `docs/PHASE_TRACKER.md`, `docs/IMPLEMENTATION_LOG.md`, and
 `docs/NEXT_AGENT_PROMPT.md` for actual validation, limitations and exact next steps.
 GitHub CI is configured without production secrets; remote CI is not claimed unless
-an actual run is recorded. Phase 04 remote checkpoints are recorded in the log; Phase 05 checkpoint 5a4f26a was pushed to main and
-codex/phase05-design-system at the user's explicit request on 2026-10-18.
-No application is deployed.
+an actual run is recorded. Phase 04 remote checkpoints are recorded in the log;
+Phase 05 checkpoint 5a4f26a and the Phase 06 preservation checkpoint were saved
+to GitHub at the user's explicit request on 2026-10-18. The preservation inventory
+is in docs/PHASE_00_06_PRESERVATION.md. No application is deployed.
 
 ## Product pitch reference
 
