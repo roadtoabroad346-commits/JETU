@@ -42,8 +42,9 @@ certification, field performance and dark theme are not claimed.
 1. Inspect `/ru/design-system` and RU/KK/EN phone/desktop references. Reproduce:
    `npm ci`, `npm run check`, then
    `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e` using
-   the documented profile. Check the local Git checkpoint before assuming it was
-   pushed. No Phase 05 remote push/deploy is implied by a local commit.
+   the documented profile. Phase 05 checkpoint 5a4f26a was pushed to main and
+   codex/phase05-design-system on 2026-10-18 at the user's explicit request.
+   Verify the latest remote refs before further work. No deployment was authorized.
 2. When the target CI browser/network is available, run the same browser suite and
    review pixel portability. Keep meaningful diffs visible. Preserve the existing
    pinned database-only CI checks; no Phase 05 migration was needed.
