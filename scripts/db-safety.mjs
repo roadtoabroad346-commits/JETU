@@ -22,7 +22,7 @@ const commands = Object.freeze({
     'advisors',
     '--local',
     '--type',
-    'security',
+    'all',
     '--fail-on',
     'error',
   ],

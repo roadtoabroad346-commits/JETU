@@ -100,3 +100,29 @@ A documentation-only checkpoint records these results and the final PARTIAL stat
 Machine-readable evidence: `docs/evidence/phase04/verification.json`. Original nested
 `jetu/` and supplied master copy remain unchanged relative to initial HEAD. No push
 or deployment was performed. Dev server is left available locally at port 3000.
+
+## Phase 04 continuation — 2026-10-18
+
+User authorized GitHub push and cloud development verification, prohibited remote
+reset, data deletion, production changes and Phase 05. No Docker is run in the
+managed workspace for this continuation; disposable GitHub Actions PostgreSQL is
+the clean-replay target.
+
+Inspected main `94a4a0b` Actions run `39106788546`, database job `117614256039`:
+both resets applied `20261017145535_foundation_security.sql`, both pgTAP passes
+reported 14/14, security advisors reported `No issues found`, and CLI 2.121.0 type
+generation succeeded. The job failed only because the committed file was still a
+placeholder. Frontend job `117614256163` passed all gates including browser tests.
+
+Recovered the actual generated source from that job's complete diff (136 lines),
+then formatted with pinned Prettier. This is introspected CI output, not manually
+invented types. The empty public schema intentionally has no product tables.
+The wrapper now formats before its atomic replacement, types participate in format
+checks, CI retains the generated file as an artifact, and advisors cover both
+security and performance. A fresh CI run must confirm no type drift.
+
+Supabase skill read and current generation/migration documentation consulted through
+MCP. The mandatory changelog fetch was attempted but the environment proxy returned
+403; no proxy bypass attempted. MCP OAuth project discovery works. `Jetuu`
+(`edpuovkgoisyzpguksdi`) is a candidate only until its development purpose is
+confirmed; project names alone do not establish authorization to mutate it.

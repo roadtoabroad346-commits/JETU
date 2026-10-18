@@ -9,6 +9,7 @@ import {
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import nextEnv from '@next/env';
+import { format, resolveConfig } from 'prettier';
 import { localCommand } from './db-safety.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -70,7 +71,11 @@ try {
     const target = path.join(root, 'src/lib/supabase/database.types.ts');
     const temporary = `${target}.tmp`;
     try {
-      writeFileSync(temporary, result.stdout, { flag: 'wx' });
+      const formatted = await format(result.stdout, {
+        ...(await resolveConfig(target)),
+        filepath: target,
+      });
+      writeFileSync(temporary, formatted, { flag: 'wx' });
       renameSync(temporary, target);
     } finally {
       if (existsSync(temporary)) unlinkSync(temporary);
