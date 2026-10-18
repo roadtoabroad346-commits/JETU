@@ -20,3 +20,8 @@ grant browser clients arbitrary function execution or private schema access.
 The transactional `supabase/tests/foundation.test.sql` checks 14 real baseline
 permissions, defaults, direct denial, and absence of public tables without RLS.
 These probes are not evidence of real student data isolation.
+
+Verified on 2026-10-18 in disposable CI (two clean replays) and authorized Jetuu
+cloud development (transaction rolled back). Both cloud advisors found no issues;
+follow-up catalog query confirmed no leftover probes. These default-privilege
+assertions cover objects created by postgres, not platform-managed admin roles.

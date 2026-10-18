@@ -66,7 +66,7 @@ Motion uses press feedback only; no content waits for entrance animations.
 
 ## Database / security
 
-Migration `20261017145535_foundation_security.sql` creates only the unexposed
+Migration `20261018072531_foundation_security.sql` creates only the unexposed
 `jetu_private` schema. It removes public schema CREATE and implicit access to future
 Postgres-owned tables/sequences/functions; PostgreSQL global PUBLIC EXECUTE is
 revoked separately because a schema-scoped revoke cannot undo that global default.
@@ -81,4 +81,6 @@ Auth refresh and identity/role enforcement are intentionally not claimed before 
 Keep development, staging and production projects separate. Local CLI scripts check
 dotenv-loaded env, fixed project identity, API exposure defaults, linked metadata,
 and Docker selectors, then append `--local` where supported. Types are replaced
-atomically after successful local generation. No remote database command is provided.
+atomically after successful local generation and formatting. The wrapper provides no
+remote command. The user-authorized existing Jetuu project is accessed separately
+through explicit MCP calls; see CLOUD_DEVELOPMENT.md. It is not an isolated branch.

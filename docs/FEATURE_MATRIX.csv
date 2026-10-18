@@ -4,6 +4,6 @@ Liveness HTTP contract,04,/api/health,src/server/http.ts,none,Vitest + Playwrigh
 Public/server env separation,04,src/lib/env,Zod + server-only,none,Vitest + bundle canary,IMPLEMENTED_AND_TESTED
 Supabase SDK factories,04,src/lib/supabase,SSR/public/admin wrappers,no product table,mocked adapter tests only,IMPLEMENTED_UNTESTED
 Local CLI guards,04,scripts/db.mjs,allowlisted local CLI,no remote access,Vitest + actual rejected unsafe commands,IMPLEMENTED_AND_TESTED
-SQL baseline,04,supabase/migrations/20261017145535_foundation_security.sql,Supabase local PostgreSQL,default grants + private schema; no business tables,pgTAP written; execution blocked,BLOCKED
-DB generated types,04,src/lib/supabase/database.types.ts,CLI generation,empty public schema placeholder,failure preservation checksum,BLOCKED
+SQL baseline,04,supabase/migrations/20261018072531_foundation_security.sql,Supabase CI + authorized cloud PostgreSQL,default grants + private schema; no business tables,14 pgTAP twice in CI + 14 cloud assertions,IMPLEMENTED_AND_TESTED
+DB generated types,04,src/lib/supabase/database.types.ts,CLI generation,actual empty public schema generation,CI generation + no-drift + cloud output saved,IMPLEMENTED_AND_TESTED
 Auth/catalog/applications/AI/payment,08+,not exposed,not implemented,not implemented,not run,BACKLOG

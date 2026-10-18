@@ -38,7 +38,9 @@
       "/kk": 200,
       "/en": 200
     },
-    "docker_used": false
+    "docker_used": false,
+    "cloud_config_e2e_passed": 14,
+    "local_db_guard_cloud_env_exit": 1
   },
   "cloud": {
     "project": "edpuovkgoisyzpguksdi",

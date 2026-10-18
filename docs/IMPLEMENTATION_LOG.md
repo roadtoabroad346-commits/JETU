@@ -170,3 +170,9 @@ and 14/14 production E2E passed. After public cloud env setup, `npm run check`
 passed again. Full local stack, direct cloud REST/SDK, and changelog index access
 remain unverified as detailed in CLOUD_DEVELOPMENT and NEXT_AGENT_PROMPT. Original
 Phase 04 full-stack gate remains PARTIAL; Phase 05 is not started.
+
+Final review updated architecture/feature/test/RLS matrices to the canonical cloud
+migration version and actual results. Repeated production E2E with cloud public
+env: 14/14 passed. Invoking the local types wrapper with JETU_ENV=development
+returned exit 1 before Docker/CLI execution, as intended. The ignored env was
+absent from tracked files and git diff --check passed.
