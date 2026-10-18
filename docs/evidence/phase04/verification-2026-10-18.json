@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-18",
+  "phase": "04/30",
+  "status": "PARTIAL",
+  "reason": "Full local non-PostgreSQL services and direct cloud REST remain unverified",
+  "verified_ci_checkpoint": "684690aba67ebf8dbabac4acd3daf6cc83bf92a8",
+  "ci_run": "https://github.com/roadtoabroad346-commits/JETU/actions/runs/39107597502",
+  "ci_jobs": {
+    "database": {
+      "id": 117616706462,
+      "conclusion": "success"
+    },
+    "frontend": {
+      "id": 117616706700,
+      "conclusion": "success"
+    }
+  },
+  "ci_database": {
+    "clean_replays": 2,
+    "assertions_per_replay": 14,
+    "advisors": ["security", "performance"],
+    "generated_types": true,
+    "type_drift": false,
+    "hosted_credentials": false
+  },
+  "workspace": {
+    "node": "24.19.0",
+    "npm": "11.9.0",
+    "npm_ci_exit": 0,
+    "check_exit": 0,
+    "cloud_config_check_exit": 0,
+    "audit_high_exit": 0,
+    "audit_findings": 0,
+    "e2e_passed": 14,
+    "dev_smoke": {
+      "/api/health": 200,
+      "/ru": 200,
+      "/kk": 200,
+      "/en": 200
+    },
+    "docker_used": false
+  },
+  "cloud": {
+    "project": "edpuovkgoisyzpguksdi",
+    "user_authorized": true,
+    "separate_project_or_branch_created": false,
+    "migration": "20261018072531_foundation_security",
+    "migration_applications": 1,
+    "transactional_sql_passed": 14,
+    "security_lints": [],
+    "performance_lints": [],
+    "remaining_public_relations": 0,
+    "remaining_probes": 0,
+    "generated_types": "cloud-database.types.txt",
+    "env_ignored": true,
+    "env_mode": "0600",
+    "privileged_key_copied": false,
+    "rest_status": "UNVERIFIED: managed proxy CONNECT 403"
+  },
+  "unverified": [
+    "Full local Auth/Storage/Realtime/email/API startup",
+    "Cloud REST/browser SDK round trip (proxy CONNECT 403)",
+    "Supabase changelog index (proxy 403)",
+    "Real Auth session refresh and product row-isolation: later phase scope",
+    "Physical devices and WebKit"
+  ],
+  "remote_reset": false,
+  "application_data_deleted": false,
+  "production_deployment": false,
+  "phase_05_started": false
+}

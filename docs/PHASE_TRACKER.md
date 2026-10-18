@@ -1,39 +1,39 @@
-# Phase tracker — 2026-10-17
+# Phase tracker — 2026-10-18
 
 Phase 04 is **PARTIAL**, not VERIFIED. Scope is the explicit single-phase request. Earlier empty documents do not establish completed phases. No automatic Phase 05 execution.
 
-| Phase | Title                                                            | Status     | Evidence / dependency                                                                                          |
-| ----- | ---------------------------------------------------------------- | ---------- | -------------------------------------------------------------------------------------------------------------- |
-| 01    | Forensic audit питча, репозитория и продуктовых утверждений      | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                |
-| 02    | Product strategy, UX research и сфокусированный wedge            | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                |
-| 03    | Supabase-first modular architecture, ADR и domain boundaries     | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                |
-| 04    | Репозиторий, зависимости и инженерный фундамент                  | PARTIAL    | App foundation tested; local DB replay/SQL/advisors/types blocked by Docker VFS ENOSPC; see IMPLEMENTATION_LOG |
-| 05    | Уникальная визуальная система Jetu и brand identity              | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 06    | High-converting landing, SEO и motion                            | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 07    | IA, mobile UX, localization и accessibility                      | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 09    | Полноценный Academic & Personal Profile Builder                  | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 10    | Canonical PostgreSQL Global Admissions Database                  | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 12    | University & Program Explorer                                    | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 22    | Verified Mentor Network and Review Workflow                      | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 25    | Post-offer Finance, Visa & Enrollment Journey                    | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 26    | B2B School / Counselor Multi-tenant Workspace                    | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 27    | Monetization, Billing, Entitlements & Unit Economics             | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 28    | Operations/Admin Studio, Content Governance & Support            | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 29    | Supabase RLS security, QA, resilience, performance and cost      | BACKLOG    | Not started; requires explicit phase authorization                                                             |
-| 30    | Production readiness, launch plan, metrics & YC-quality evidence | BACKLOG    | Not started; requires explicit phase authorization                                                             |
+| Phase | Title                                                            | Status     | Evidence / dependency                                                                                                    |
+| ----- | ---------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
+| 01    | Forensic audit питча, репозитория и продуктовых утверждений      | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                          |
+| 02    | Product strategy, UX research и сфокусированный wedge            | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                          |
+| 03    | Supabase-first modular architecture, ADR и domain boundaries     | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                          |
+| 04    | Репозиторий, зависимости и инженерный фундамент                  | PARTIAL    | App + CI DB replay/SQL/types and cloud baseline verified; full stack / direct cloud REST unverified; see latest evidence |
+| 05    | Уникальная визуальная система Jetu и brand identity              | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 06    | High-converting landing, SEO и motion                            | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 07    | IA, mobile UX, localization и accessibility                      | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 09    | Полноценный Academic & Personal Profile Builder                  | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 10    | Canonical PostgreSQL Global Admissions Database                  | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 12    | University & Program Explorer                                    | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 22    | Verified Mentor Network and Review Workflow                      | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 25    | Post-offer Finance, Visa & Enrollment Journey                    | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 26    | B2B School / Counselor Multi-tenant Workspace                    | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 27    | Monetization, Billing, Entitlements & Unit Economics             | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 28    | Operations/Admin Studio, Content Governance & Support            | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 29    | Supabase RLS security, QA, resilience, performance and cost      | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
+| 30    | Production readiness, launch plan, metrics & YC-quality evidence | BACKLOG    | Not started; requires explicit phase authorization                                                                       |
 
 ## Phase 04 gate
 
@@ -44,8 +44,12 @@ Phase 04 is **PARTIAL**, not VERIFIED. Scope is the explicit single-phase reques
 - [x] Actual rendered three-locale browser/axe/keyboard/reduced-motion/no-JS/responsive checks.
 - [x] Dev HTTP smoke and public-bundle synthetic secret-canary scan.
 - [x] CI configuration without production secrets; hooks and docs.
-- [ ] Actual local migration replay twice, pgTAP and advisors (Docker VFS image extraction ENOSPC).
-- [ ] Actual DB type generation (placeholder preserved and labeled).
-- [ ] Full local Supabase Auth/Storage runtime and remote CI execution evidence.
+- [x] Disposable CI PostgreSQL: two clean migration replays and 14 pgTAP assertions per pass; security advisor passed.
+- [x] Authorized cloud Jetuu baseline, 14 transactional SQL assertions, both cloud advisors, no leftover probes.
+- [x] Actual CI DB types saved instead of placeholder; cloud-generated output saved separately.
+- [x] Remote CI inspected; initial failure isolated to placeholder drift, frontend passed. See latest run evidence for rerun.
+- [ ] Full local Supabase Auth/Storage/Realtime/email/API runtime; excluded by no-workspace-Docker workflow.
+- [ ] Direct cloud REST/SDK round trip: managed proxy CONNECT 403; MCP SQL passed.
+- [ ] Supabase changelog index access: proxy 403; current docs consulted through MCP.
 
-Exact next action: provide adequate Docker disk/runtime, run the local commands in NEXT_AGENT_PROMPT, fix observed SQL issues, regenerate types and re-evaluate Phase 04.
+Cloud/CI database gates are now executable without workspace Docker. Phase 04 remains PARTIAL against the original full-stack gate; do not infer excluded services are verified. See CLOUD_DEVELOPMENT.md and NEXT_AGENT_PROMPT.md for remaining limits. Phase 05 is not started.

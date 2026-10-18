@@ -44,3 +44,10 @@
     mode for migration/SQL verification. Keep full-stack config and commands; do
     not equate database-only tests with a verified Auth/Storage runtime. Remove only
     task-created images/temporary install copy during recovery, not unrelated data.
+
+12. **Authorized cloud development, no workspace Docker.** On 2026-10-18 the user
+    explicitly selected the existing Jetuu project; no separate paid project or
+    branch was provisioned. Use MCP with an explicit project ID, public-only ignored
+    env, one additive baseline and transactional probes. Disposable CI remains the
+    only reset target. Match the local migration filename to the cloud-assigned
+    version; preserve all application data. See CLOUD_DEVELOPMENT.md.

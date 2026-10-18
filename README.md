@@ -32,6 +32,13 @@ Node 24.19.0 and npm 11.9.0 were used for this checkpoint. `.nvmrc`, engines,
 packageManager, save-exact, and package-lock.json define the reproducible baseline.
 No global packages are required.
 
+## Cloud development without workspace Docker
+
+The authorized Jetuu development workflow, credential setup, migration version and
+verification limits are in [CLOUD_DEVELOPMENT.md](docs/CLOUD_DEVELOPMENT.md). CI uses
+a disposable PostgreSQL database and no hosted secrets. Existing local scripts
+remain guarded; cloud setup does not authorize production changes or remote reset.
+
 ## Local Supabase
 
 Docker Engine must be running at the local Unix socket (`/var/run/docker.sock`).
@@ -53,7 +60,9 @@ npm run db:stop        # stops only jetu-local, preserves volumes
 On resource-limited CI/cloud machines, `npm run db:start:database` uses the CLI's
 documented exclusion list to start only Supabase PostgreSQL. It supports migrations,
 SQL permission tests and advisors; it does not verify Auth/Storage/Realtime runtime.
-Type generation may pull the separate postgres-meta image. The full stack needs
+Generated types are formatted with pinned Prettier before atomic replacement.
+CI compares regenerated types and retains them as an artifact. Type generation
+may pull the separate postgres-meta image. The full stack needs
 additional disk, especially with Docker's VFS storage driver. Do not change a
 managed daemon's storage driver or prune unrelated images to make it fit.
 
@@ -123,4 +132,4 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
 See `docs/PHASE_TRACKER.md`, `docs/IMPLEMENTATION_LOG.md`, and
 `docs/NEXT_AGENT_PROMPT.md` for actual validation, limitations and exact next steps.
 GitHub CI is configured without production secrets; remote CI is not claimed unless
-an actual run is recorded. Nothing has been deployed or pushed by this assignment.
+an actual run is recorded. This continuation pushes checkpoints to GitHub; it does not deploy the application.

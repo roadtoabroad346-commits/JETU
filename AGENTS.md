@@ -14,7 +14,9 @@ Use Node from `.nvmrc`, npm from packageManager, and the lockfile. Use `npm run 
 a production build; an installed system Chromium may be selected through
 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`.
 
-Supabase operations in this checkout are LOCAL ONLY through `scripts/db.mjs`.
+`scripts/db.mjs` operations remain LOCAL ONLY. The user separately authorized the
+existing Jetuu project for Phase 04 cloud development via explicit MCP project ID;
+see `docs/CLOUD_DEVELOPMENT.md`. Do not infer production authorization.
 Never link, reset, push migrations, or deploy to a remote project without explicit
 separate authorization. New exposed tables require RLS and explicit grants; no public
 privileged keys, public Storage buckets, or user-editable role claims. Generate DB

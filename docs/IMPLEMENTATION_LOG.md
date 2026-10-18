@@ -126,3 +126,47 @@ MCP. The mandatory changelog fetch was attempted but the environment proxy retur
 403; no proxy bypass attempted. MCP OAuth project discovery works. `Jetuu`
 (`edpuovkgoisyzpguksdi`) is a candidate only until its development purpose is
 confirmed; project names alone do not establish authorization to mutate it.
+
+### Cloud authorization and follow-through
+
+The user confirmed use of the existing Jetuu main project for development; no
+separate paid project/branch was created. Preflight returned empty migration
+history and zero public relations. Applied the unchanged baseline once through
+MCP; hosted version is `20261018072531_foundation_security`. Renamed the Git SQL
+file to that actual hosted version to prevent future duplicate application; its
+SQL content is unchanged. No remote reset/history repair/data deletion occurred.
+
+All 14 cloud pgTAP assertions passed using an aggregate temporary result table with
+an exception on any failure, followed by rollback. Follow-up catalog inspection:
+zero public relations and zero leftover probes. Security/performance advisors both
+returned `lints: []`. MCP generated actual hosted types; original output is retained
+in `docs/evidence/phase04/cloud-database.types.txt`. The hosted generator's internal
+PostgREST 14.18 metadata differs from the pinned local CLI; app types stay canonical
+to the pinned disposable CI generator. Both have the same empty public schema.
+Two initial cloud test-harness submissions failed SQL parsing because JavaScript
+replacement interpreted `$$`; neither executed statements. Corrected dollar
+quoting and reran successfully; no schema repair was required.
+
+Configured ignored `.env.local` (0600) with HTTPS development project URL and modern
+publishable key only, no privileged secrets. `JETU_ENV=development` blocks local DB
+commands in this configured workspace. Dev smoke returned 200 for `/api/health`,
+`/ru`, `/kk`, `/en`, with matching document languages. Direct cloud REST GET was
+blocked by proxy CONNECT 403, not reported as a successful SDK round trip.
+
+### Checkpoint and rerun evidence
+
+Checkpoint `684690aba67ebf8dbabac4acd3daf6cc83bf92a8` pushed to main. Actions
+[39107597502](https://github.com/roadtoabroad346-commits/JETU/actions/runs/39107597502)
+finished with **both jobs successful**: database `117616706462`, frontend
+`117616706700`. Database: two clean local resets in the temporary runner, both
+14-assertion SQL runs, security + performance advisors, actual type generation,
+artifact upload, zero generated-type diff, typecheck and cleanup all passed.
+Frontend: clean npm ci, complete check, audit and production browser suite passed.
+This runner used Docker for its disposable CI database; the managed workspace did
+not run Docker. No hosted credentials are present in CI.
+
+Workspace `npm ci`, `npm run check`, `npm audit --audit-level=high` (zero findings),
+and 14/14 production E2E passed. After public cloud env setup, `npm run check`
+passed again. Full local stack, direct cloud REST/SDK, and changelog index access
+remain unverified as detailed in CLOUD_DEVELOPMENT and NEXT_AGENT_PROMPT. Original
+Phase 04 full-stack gate remains PARTIAL; Phase 05 is not started.

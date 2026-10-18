@@ -121,5 +121,7 @@
   "hosted_database_touched": false,
   "deployment_performed": false,
   "phase_05_started": false,
-  "original_nested_snapshot_unchanged": true
+  "original_nested_snapshot_unchanged": true,
+  "historical_as_of": "2026-10-17",
+  "superseded_by": "verification-2026-10-18.json"
 }
