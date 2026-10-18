@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: Phase 05 only. **Phase 05 VERIFIED** for the implemented design-system scope and local Chromium acceptance evidence. Phase 04 stays **PARTIAL** under its original full-stack gate; phases 01–03 stay UNVERIFIED. Phase 06 is not started.
+Current request: **Phase 06 only**. Phase 06 is **PARTIAL**: the localized landing, public information routes, SEO assets and local UI checks are implemented, but signup/onboarding, live discovery and approved pricing are absent. Phase 05 remains VERIFIED for its local scope; Phase 04 remains PARTIAL and phases 01–03 remain UNVERIFIED. Do not start Phase 07 automatically.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -9,7 +9,7 @@ Current request: Phase 05 only. **Phase 05 VERIFIED** for the implemented design
 | 03    | Supabase-first modular architecture, ADR и domain boundaries     | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
 | 04    | Репозиторий, зависимости и инженерный фундамент                  | PARTIAL    | App + CI DB replay/SQL/types and cloud baseline verified; full stack / direct cloud REST unverified; see latest evidence                                         |
 | 05    | Уникальная визуальная система Jetu и brand identity              | VERIFIED   | Pitch reconciled; tokens/assets/shared components; RU/KK/EN showcase; 50 unit/integration + 30 E2E, axe, contrast and 6 visual diffs passed; see PHASE_05_REVIEW |
-| 06    | High-converting landing, SEO и motion                            | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
+| 06    | High-converting landing, SEO и motion                            | PARTIAL    | 39 localized pages, truthful demo, SEO, Chromium/axe and mobile Lighthouse lab evidence; onboarding/pricing/catalog gates open. See PHASE_06_REVIEW              |
 | 07    | IA, mobile UX, localization и accessibility                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 09    | Полноценный Academic & Personal Profile Builder                  | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
@@ -73,3 +73,21 @@ Playwright's bundled Chromium 156 download returned proxy 403 Domain forbidden.
 Do not claim a remote CI run, cross-browser/device certification or production
 readiness for this checkpoint. Existing Supabase runtime/network limitations are
 unchanged. No Phase 05 DB/API change or remote schema operation was required.
+
+## Phase 06 gate — 2026-10-18
+
+- [x] Explicit phase request, master criteria, project memory, pitch and design contract read; scoped plan saved.
+- [x] RU/KK/EN landing and all 12 requested information paths per locale; main links reach valid routes.
+- [x] Demo concept clearly labeled, keyboard/reduced-motion behavior; no fabricated records, AI response, partners or outcomes.
+- [x] Per-page canonical/hreflang/metadata, OG image, sitemap, robots and truthful WebSite/FAQ schema.
+- [x] Noindex by default; public indexing requires explicit server flag and nonlocal canonical origin.
+- [x] Format/lint/strict TS/unit tests/build, responsive/no-JS/axe/keyboard/route regressions and local mobile Lighthouse recorded.
+- [x] No product tables, data API, privileged browser key, remote DB mutation or migration added; RLS contract preserved.
+- [ ] Primary signup CTA reaches a live, secure onboarding flow. Auth is Phase 08 and is not currently implemented.
+- [ ] Verified scholarship/program discovery and dated provenance records. Catalog and ingestion are later phases.
+- [ ] Approved public pricing/checkout, verified mentor network and official support channel. Current pages state unavailable.
+- [ ] Agreed mobile release budgets and deployment/field measurement. KK local LCP measured 2.516s, 16ms above a 2.5s reference; localhost SEO is intentionally noindex.
+
+Phase 06 remains PARTIAL because its master acceptance gate explicitly requires real
+onboarding rather than an informational destination. No deployment or Phase 07 work
+is implied by this checkpoint. Exact review and metrics: PHASE_06_REVIEW.md.

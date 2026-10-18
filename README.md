@@ -1,9 +1,10 @@
-# JETU Admissions — foundation and Phase 05 design system
+# JETU Admissions — public site through Phase 06
 
 Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase. This
-checkpoint includes the engineering foundation and a verified local design-system
-slice. It does not implement the admissions MVP, accounts, catalog, matching,
-payments or AI. Phase 06 has not started.
+checkpoint includes the engineering foundation, a verified local design-system
+slice and a localized Phase 06 public site. Phase 06 remains PARTIAL because live
+onboarding is absent. It does not implement accounts, catalog, matching, payments
+or AI.
 
 ## Run locally
 
@@ -19,8 +20,12 @@ npm run dev
 ```
 
 Open `http://localhost:3000`. Root redirects to `/ru`; `/kk` and `/en` are available.
+The 12 information routes under each locale explain the product and current
+availability. A labeled concept preview on the landing page saves no data.
 Public pages work without Supabase credentials. Supplying only one public Supabase
 variable or an invalid/public privileged key fails configuration validation.
+Public indexing requires an approved `NEXT_PUBLIC_APP_URL` plus explicit
+`JETU_PUBLIC_INDEXING=true`; it is off by default.
 
 ```sh
 npm run check
@@ -112,9 +117,9 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
 
 ## Boundaries and readiness
 
-- `src/app/[locale]/(marketing)`: temporary public availability page. Auth/dashboard
+- `src/app/[locale]/(marketing)`: public landing and information routes. Auth/dashboard
   groups are reserved without empty working routes. `src/proxy.ts` transports locale
-  only; it is **not** an authentication gate.
+  and checks the current public path set; it is **not** an authentication gate.
 - `src/features`: future feature composition; `src/domain`: framework-free contracts;
   `src/server`: server-only orchestration. See `docs/ARCHITECTURE.md`.
 - Supabase clients: browser uses public config; server requires a writable cookie
@@ -156,3 +161,12 @@ Playwright package browser is Chromium 156; its CDN download was blocked here.
 Review/rebaseline intentionally on the target browser/OS when moving references;
 do not regenerate baselines just to hide a regression. This checkpoint does not
 claim a remote CI run with that bundled browser.
+
+## Phase 06 public site
+
+The landing, all 39 localized URLs, SEO assets and local mobile performance evidence
+are documented in docs/PHASE_06_REVIEW.md. The main CTA opens a real guide to
+checking opportunities. Registration, personalized results, verified catalog
+records, paid plans, mentor booking and contact submission are not open; the site
+does not simulate them. Phase 06 cannot be marked VERIFIED until its real onboarding
+gate and other listed prerequisites are met.

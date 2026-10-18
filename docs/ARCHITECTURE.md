@@ -1,4 +1,4 @@
-# Architecture — foundation and Phase 05 design system
+# Architecture — foundation, design system and Phase 06 public site
 
 ## State and boundaries
 
@@ -25,17 +25,18 @@ will own durable product state; browser memory is never a persistence substitute
 
 ## Implemented modules
 
-| Path                | Responsibility                                              | Boundary                                                         |
-| ------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------- |
-| `src/app`           | Public localized availability, layout, boundaries, liveness | No product mutation/data access                                  |
-| `src/proxy.ts`      | Validated locale request header                             | Overwrites caller header; no auth claim                          |
-| `src/components/ui` | Leaf language interaction using Motion                      | Public data only; SSR content works without JS                   |
-| `src/lib/env`       | Zod validation and privileged env isolation                 | Optional absent config; malformed/partial config fails closed    |
-| `src/lib/supabase`  | Typed browser/SSR/admin factories                           | SSR per request, cookie/cache propagation; admin server-only     |
-| `src/domain`        | Discriminated Result, error/status taxonomy                 | No framework or credentials                                      |
-| `src/server`        | JSON HTTP contract                                          | Server-generated request IDs, no-store, sanitized error messages |
-| `scripts/db*`       | Strict local-only CLI command allowlist                     | No remote selectors/flags/linked project/remote daemon           |
-| `supabase`          | CLI config, migration, seed, SQL security tests             | Public schema opt-in grants, unexposed private schema            |
+| Path                       | Responsibility                                                                    | Boundary                                                         |
+| -------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `src/app`                  | Public localized marketing/info routes, design gallery, SEO, boundaries, liveness | No product mutation/data access                                  |
+| `src/components/marketing` | Leaf concept preview, locale nav, footer and JSON-LD                              | Demo state only; no business-data fetch                          |
+| `src/proxy.ts`             | Validated locale request header                                                   | Overwrites caller header; no auth claim                          |
+| `src/components/ui`        | Leaf language interaction using Motion                                            | Public data only; SSR content works without JS                   |
+| `src/lib/env`              | Zod validation and privileged env isolation                                       | Optional absent config; malformed/partial config fails closed    |
+| `src/lib/supabase`         | Typed browser/SSR/admin factories                                                 | SSR per request, cookie/cache propagation; admin server-only     |
+| `src/domain`               | Discriminated Result, error/status taxonomy                                       | No framework or credentials                                      |
+| `src/server`               | JSON HTTP contract                                                                | Server-generated request IDs, no-store, sanitized error messages |
+| `scripts/db*`              | Strict local-only CLI command allowlist                                           | No remote selectors/flags/linked project/remote daemon           |
+| `supabase`                 | CLI config, migration, seed, SQL security tests                                   | Public schema opt-in grants, unexposed private schema            |
 
 No Edge Functions, background jobs, caches, queues, payments, AI providers, external
 mail, product tables, buckets, or tenant claims are implemented yet. Their absence
@@ -66,6 +67,25 @@ original path-drawn brand assets and interactions live in `src/components/ui/`.
 Approved web blue/yellow remain; contrast-safe primary/on-brand variants support
 small labels. Light-only contract: `design-system/jetu-admissions/MASTER.md`.
 Motion language press and CSS feedback never delay visible content.
+
+Phase 06 replaces the availability splash with a localized marketing home and
+12 informational paths per locale. Server-rendered copy and metadata use one typed
+RU/KK/EN content registry; only the explicitly labeled demo tabs and language
+navigation hydrate. There is no scholarship listing, AI request, student profile,
+checkout, signup or contact submission. Calls to those features would be misleading
+until their domain modules and access controls are implemented. All enabled links
+lead to real localized information paths. The existing `loading.tsx` and error
+boundary handle route transitions; page and footer render in the same stream segment
+so the footer does not jump when main content arrives (local Lighthouse CLS 0).
+
+The canonical origin is `NEXT_PUBLIC_APP_URL`. Page metadata includes canonical,
+RU/KK/EN alternates, OG/Twitter text and the original generated PNG image. Sitemap,
+robots, WebSite and FAQPage data expose only static factual content. Indexing is
+off unless `JETU_PUBLIC_INDEXING=true` and the origin is nonlocal; this prevents
+preview/staging URLs from being indexed by default. `src/proxy.ts` validates the
+current public path allowlist and returns a real localized HTTP 404 before React
+streaming for unknown paths. Future routes must be added to that allowlist when
+their phases introduce them. Locale header replacement remains independent of auth.
 
 `/{locale}/design-system` is public noindex documentation: a server route passes
 one validated locale dictionary to a leaf interactive playground. Its real section

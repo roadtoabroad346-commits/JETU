@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { locales, messages } from '../../src/lib/i18n/messages';
+import { marketing } from '../../src/lib/i18n/marketing';
 
 for (const locale of locales) {
   test(`${locale}: localized page, responsive reflow and screenshot @a11y`, async ({
@@ -12,9 +13,11 @@ for (const locale of locales) {
     expect(response?.status()).toBe(200);
     await expect(page.locator('html')).toHaveAttribute('lang', locale);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-      messages[locale].title,
+      marketing[locale].heroTitle,
     );
-    await expect(page.getByText(messages[locale].note)).toBeVisible();
+    await expect(
+      page.getByText(marketing[locale].heroDescription),
+    ).toBeVisible();
     await expect(page.locator('nav a[aria-current="page"]')).toHaveAttribute(
       'href',
       `/${locale}`,
@@ -56,7 +59,7 @@ test('language links, reload and browser history preserve locale', async ({
   await expect(page.locator('html')).toHaveAttribute('lang', 'kk');
   await page.getByRole('link', { name: 'English', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    messages.en.title,
+    marketing.en.heroTitle,
   );
   await page.goBack();
   await expect(page).toHaveURL('/kk');
@@ -98,7 +101,7 @@ test('keyboard skip, target sizes, no-JS content and reduced motion', async ({
   const staticPage = await context.newPage();
   await staticPage.goto('http://127.0.0.1:3100/en');
   await expect(staticPage.getByRole('heading', { level: 1 })).toHaveText(
-    messages.en.title,
+    marketing.en.heroTitle,
   );
   await staticPage.getByRole('link', { name: 'Қазақша', exact: true }).click();
   await expect(staticPage).toHaveURL(/\/kk$/);

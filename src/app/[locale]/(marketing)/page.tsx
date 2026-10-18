@@ -1,84 +1,166 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { LanguageLink } from '@/components/ui/language-link';
-import { BrandLogo } from '@/components/ui/brand';
-import { isLocale, locales, localeNames, messages } from '@/lib/i18n/messages';
+import { DemoPreview } from '@/components/marketing/demo-preview';
+import { isLocale } from '@/lib/i18n/messages';
+import { marketing } from '@/lib/i18n/marketing';
+import { pageMetadata } from '@/lib/marketing/seo';
+import { Icon } from '@/components/ui/icon';
+import { MarketingFooter } from '@/components/marketing/footer';
 
 type Props = { params: Promise<{ locale: string }> };
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return {
-    title: messages[locale].title,
-    description: messages[locale].description,
-  };
+  const t = marketing[locale];
+  return pageMetadata(locale, '', t.heroTitle, t.heroDescription);
 }
 
-export default async function AvailabilityPage({ params }: Props) {
+export default async function LandingPage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const t = messages[locale];
+  const t = marketing[locale];
   return (
-    <div className="page-shell">
-      <a className="skip-link" href="#main">
-        {t.skip}
-      </a>
-      <header className="site-header">
-        <a
-          href={`/${locale}`}
-          className="wordmark"
-          aria-label="JETU Admissions"
+    <>
+      <main id="main" tabIndex={-1}>
+        <section className="landing-hero">
+          <div className="page-shell hero-grid">
+            <div className="hero-copy">
+              <p className="hero-eyebrow">{t.availability}</p>
+              <h1>{t.heroTitle}</h1>
+              <p className="hero-description">{t.heroDescription}</p>
+              <div className="hero-actions">
+                <a
+                  className="ui-button ui-button--accent"
+                  href={`/${locale}/opportunities`}
+                >
+                  {t.heroAction} <Icon name="arrow" />
+                </a>
+                <a className="hero-text-link" href={`/${locale}/how-it-works`}>
+                  {t.heroSecondary} <Icon name="arrow" />
+                </a>
+              </div>
+            </div>
+            <DemoPreview locale={locale} />
+          </div>
+        </section>
+
+        <section
+          className="landing-section page-shell"
+          aria-labelledby="journey-title"
         >
-          <BrandLogo />
-          <small>Admissions</small>
-        </a>
-        <nav className="language-nav" aria-label={t.language}>
-          {locales.map((item) => (
-            <LanguageLink
-              key={item}
-              locale={item}
-              label={localeNames[item]}
-              current={item === locale}
-            />
-          ))}
-        </nav>
-      </header>
-      <main id="main" tabIndex={-1} className="intro">
-        <div className="intro-copy">
-          <p className="status-label">{t.status}</p>
-          <h1>{t.title}</h1>
-          <p className="intro-description">{t.description}</p>
-          <p className="availability">{t.note}</p>
-        </div>
-        <aside className="brand-panel" aria-label={t.belief}>
-          <svg
-            viewBox="0 0 400 320"
-            fill="none"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M28 268H128V198H228V128H328V58H372"
-              stroke="var(--accent)"
-              strokeWidth="24"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M28 224H88V154H188V84H288V14"
-              stroke="white"
-              strokeOpacity=".35"
-              strokeWidth="2"
-              strokeDasharray="6 8"
-            />
-            <circle cx="372" cy="58" r="12" fill="var(--accent)" />
-          </svg>
-          <p>{t.belief}</p>
-        </aside>
+          <div className="section-intro">
+            <p className="section-kicker">01 / JETU</p>
+            <h2 id="journey-title">{t.sectionJourney}</h2>
+            <p>{t.sectionJourneyIntro}</p>
+          </div>
+          <ol className="journey-grid">
+            {t.steps.map((step, index) => (
+              <li key={step.title} className="journey-card">
+                <span className="journey-number">0{index + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section
+          className="landing-section landing-section-tint"
+          aria-labelledby="tools-title"
+        >
+          <div className="page-shell">
+            <div className="section-intro">
+              <p className="section-kicker">02 / JETU</p>
+              <h2 id="tools-title">{t.sectionTools}</h2>
+            </div>
+            <div className="tool-grid">
+              {t.tools.map((tool, index) => (
+                <article className="tool-card" key={tool.title}>
+                  <span className="tool-index" aria-hidden="true">
+                    0{index + 1}
+                  </span>
+                  <h3>{tool.title}</h3>
+                  <p>{tool.body}</p>
+                  <a href={`/${locale}/${tool.slug}`}>
+                    {t.explore} <Icon name="arrow" />
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="landing-section page-shell trust-grid"
+          aria-labelledby="trust-title"
+        >
+          <div>
+            <p className="section-kicker">03 / JETU</p>
+            <h2 id="trust-title">{t.sectionTrust}</h2>
+          </div>
+          <div className="trust-copy">
+            <p>{t.trustBody}</p>
+            <a href={`/${locale}/scholarships`}>
+              {t.pages.scholarships.title} <Icon name="arrow" />
+            </a>
+          </div>
+        </section>
+
+        <section
+          className="landing-section landing-section-tint"
+          aria-labelledby="pricing-title"
+        >
+          <div className="page-shell trust-grid">
+            <div>
+              <p className="section-kicker">04 / JETU</p>
+              <h2 id="pricing-title">{t.sectionPricing}</h2>
+            </div>
+            <div className="trust-copy">
+              <p>{t.pricingBody}</p>
+              <a href={`/${locale}/pricing`}>
+                {t.pages.pricing.title} <Icon name="arrow" />
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="landing-section page-shell"
+          aria-labelledby="faq-title"
+        >
+          <div className="section-intro">
+            <p className="section-kicker">05 / JETU</p>
+            <h2 id="faq-title">{t.sectionFaq}</h2>
+          </div>
+          <div className="faq-list">
+            {t.faq.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+          <a className="section-more" href={`/${locale}/faq`}>
+            {t.pages.faq.title} <Icon name="arrow" />
+          </a>
+        </section>
+
+        <section className="landing-end" aria-labelledby="end-title">
+          <div className="page-shell end-inner">
+            <div>
+              <h2 id="end-title">{t.finalTitle}</h2>
+              <p>{t.finalBody}</p>
+            </div>
+            <a
+              className="ui-button ui-button--accent"
+              href={`/${locale}/opportunities`}
+            >
+              {t.heroAction} <Icon name="arrow" />
+            </a>
+          </div>
+        </section>
       </main>
-      <footer className="site-footer">{t.footer}</footer>
-    </div>
+      <MarketingFooter locale={locale} />
+    </>
   );
 }

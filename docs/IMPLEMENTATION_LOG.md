@@ -271,3 +271,60 @@ succeeded without force: main advanced bbbd258 -> 5a4f26a and branch
 codex/phase05-design-system was created at 5a4f26a. This saves all existing project
 history/materials through Phase 05, not a claim that phases 01–30 are implemented.
 Follow-up documentation records this push; no deployment or new phase execution.
+
+## Phase 06 landing and public site — 2026-10-18
+
+Status: **PARTIAL** against `docs/JETU_MASTER_PROMPT.md`. The landing and 39
+localized public pages are implemented. The master exit gate requires a CTA to real
+onboarding, which cannot be met until the separate Auth/onboarding work exists. No
+verified scholarship catalog, approved public prices, checkout or support channel
+was invented. Phase 07 was not started.
+
+### Delivered and decisions
+
+- Replaced the availability splash with a blue/yellow RU/KK/EN landing, mobile
+  navigation, labeled interactive Motion concept demo, three-step explanation,
+  six planned-capability cards, provenance and pricing clarity, FAQ, and guide CTA.
+- Added 12 informational paths per locale, truthful empty/availability wording,
+  shared typed copy, accessible language links and current-path preservation.
+- Added canonical and alternate metadata, OG/Twitter graphic, sitemap, robots,
+  factual structured data, and an explicit `JETU_PUBLIC_INDEXING=true` gate that
+  also requires a nonlocal public origin. Unknown public paths return HTTP 404.
+- No API, Supabase migration/table/policy/Storage bucket, account flow, data write,
+  remote database operation, app deployment or privileged browser key was added.
+  Existing Phase 04/05 modules and contracts remain in place.
+- `docs/PHASE_06_PLAN.md`, `docs/PHASE_06_REVIEW.md`, updated tracker,
+  architecture, decisions and design memory record the acceptance boundary.
+
+### Actual verification
+
+| Check                                                                    | Result                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm ci --ignore-scripts`                                                | PASS; exact lockfile dependencies installed without changing versions.                                                                                                                                                                             |
+| `npm run check`                                                          | PASS; Prettier, zero-warning ESLint, Next typegen/strict TypeScript, 51 unit/integration tests and production build.                                                                                                                               |
+| `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e` | PASS, 40/40 desktop/mobile tests, including prior design-system coverage, 39 locale routes, 404/headers, CTA links, keyboard/no-JS/reduced-motion and axe.                                                                                         |
+| `npm audit --audit-level=high`                                           | PASS, zero reported vulnerabilities.                                                                                                                                                                                                               |
+| `git diff --check`                                                       | PASS.                                                                                                                                                                                                                                              |
+| Final-build Lighthouse 13.5.0, Chromium 154, local `next start`          | RU performance 73/LCP 3.234s/TBT 686ms; KK 84/2.755s/458ms; EN 75/2.601s/1000ms; warmed RU repeat 61/3.766s/1718ms. CLS 0, accessibility 100, best practices 100 and local SEO 66 in all four. Compressed reports are in `docs/evidence/phase06/`. |
+| Screens at 320/375/1440px                                                | Reviewed and stored in `docs/evidence/phase06/`; no 320px overflow, guide CTA visible above 700px, RU/KK/EN desktop/mobile captures.                                                                                                               |
+| Supabase policy, Storage and direct REST tests                           | Not run for this phase: no new database objects or data path. Prior Phase 04 limits still apply.                                                                                                                                                   |
+
+An initial 404 rendered with a 200 HTTP status because Next streamed before
+`notFound`; the proxy now rejects unknown public paths before streaming. A first
+mobile Lighthouse run had CLS 0.425 because a footer arrived before page content;
+moving the footer into each page measured CLS 0 afterward. The first proxy version
+blocked `/opengraph-image`; the final browser suite verifies PNG 200. Browser review
+also found missing Unicode glyphs and wrapped navigation; SVG icons and shorter
+labels fixed these. A prior page iteration scored 96–98 in Lighthouse, but the
+final build did not reproduce those scores on the two-core host. The final four
+reports, including a warmed repeat, are the performance evidence; no mobile
+budget, field sample or deployed result is claimed.
+
+UI/UX Pro Max's actual installed skill, source data and search script were read;
+the four executed design/landing/UX/Next searches and applied findings are listed
+in `docs/design/PHASE_06_EVIDENCE.md`. Existing brand tokens prevailed over the
+skill's generated alternate palette/font. Caveman was searched across available
+cloud/executor skills, local files and CLI help, but was unavailable; no Caveman
+command or mode was claimed. A structured plan/build/review/checkpoint workflow
+was used. No new Phase 07 work or remote release was performed. The local Git
+checkpoint hash is recorded in the final handoff.

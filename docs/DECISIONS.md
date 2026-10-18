@@ -80,3 +80,32 @@
     commands executed; raw outputs/hashes retained. Reject generated teal/fonts for
     existing JETU/RU/KK. Caveman unavailable; use saved structured workflow. Existing
     SSR/HTTP/env/security contracts remain under regression. Light theme only.
+
+## Phase 06 — 2026-10-18
+
+20. **Truthful public conversion path.** Phase 08 auth/onboarding and catalog are
+    absent. The hero action explicitly offers a working opportunities guide, not a
+    simulated signup or match. Keep the master signup exit gate open and phase PARTIAL.
+21. **Pitch content stays a hypothesis.** No unverified traction, social proof,
+    institution names/scores, scholarship records, prices, mentor profiles or AI
+    output are published. The hero's matching/essay concept is labeled DEMO and
+    is local-only. Pricing/contact pages explicitly state current unavailability.
+22. **One typed public content source.** Server components render localized home and
+    12 informational paths per locale. A small Motion tab leaf carries demo state;
+    public pages have no product API, table, bucket or new RLS policy.
+23. **Explicit SEO release switch.** Canonical URLs come from the configured app
+    origin. Indexing requires `JETU_PUBLIC_INDEXING=true` plus a nonlocal origin,
+    preventing previews from being indexed by default. Site and FAQ schema state
+    only static facts. Public SEO score on localhost is expected to reflect noindex.
+24. **HTTP 404 before streaming.** With request-scoped locale headers, React can
+    stream a not-found body after sending status 200. The existing Next proxy now
+    checks the finite public route set and returns a localized HTML 404 early.
+    The allowlist must be extended when a later phase adds routes.
+25. **Footer belongs to the page stream.** Initial mobile Lighthouse saw CLS .425
+    because the layout footer appeared before streamed main content. Moving the
+    footer into both page components yielded CLS 0 in the measured local run.
+26. **Skill evidence and phase boundary.** UI/UX Pro Max's actual design-system,
+    landing, reduced-motion and Next.js searches were run. Keep the approved JETU
+    palette/system font instead of generated teal/hosted fonts. Caveman remains
+    unavailable after cloud, executor, local-file and CLI checks; use the saved
+    plan → build → test → fix → review → checkpoint process without invented modes.
