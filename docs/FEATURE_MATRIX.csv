@@ -7,3 +7,5 @@ Local CLI guards,04,scripts/db.mjs,allowlisted local CLI,no remote access,Vitest
 SQL baseline,04,supabase/migrations/20261018072531_foundation_security.sql,Supabase CI + authorized cloud PostgreSQL,default grants + private schema; no business tables,14 pgTAP twice in CI + 14 cloud assertions,IMPLEMENTED_AND_TESTED
 DB generated types,04,src/lib/supabase/database.types.ts,CLI generation,actual empty public schema generation,CI generation + no-drift + cloud output saved,IMPLEMENTED_AND_TESTED
 Auth/catalog/applications/AI/payment,08+,not exposed,not implemented,not implemented,not run,BACKLOG
+Visual system and vector identity,05,src/styles/tokens.css + public/brand,shared semantic UI,none,contrast + axe + screenshots,IMPLEMENTED_AND_TESTED
+Localized component playground,05,/{locale}/design-system,local preview + actual section registry,none,Playwright UI/keyboard/no-JS/offline + visual diff,IMPLEMENTED_AND_TESTED

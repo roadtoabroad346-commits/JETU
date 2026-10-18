@@ -1,6 +1,12 @@
-# Phase 04 design guidance
+# JETU design system — Phase 05
 
-Canonical provisional contract: `design-system/jetu-admissions/MASTER.md` and
-`pages/availability.md`. Research evidence: `docs/design/UX_PRO_MAX_EVIDENCE.md`.
-The full Phase 05 visual system and product showcase have not been implemented.
-Original pitch PDF is absent; blue/yellow follow the supplied textual reference.
+Canonical contract: design-system/jetu-admissions/MASTER.md; page rules in
+pages/availability.md and pages/showcase.md. Tokens: src/styles/tokens.css;
+shared components: src/components/ui.
+
+Run npm run build then npm run start; open /{ru,kk,en}/design-system.
+The interactive library contains explicitly local specimens. Admissions/auth/catalog
+flows remain in their designated phases.
+
+Original July 2026 pitch inspected. Source reconciliation and actual skill-command
+evidence: docs/design/PHASE_05_EVIDENCE.md.

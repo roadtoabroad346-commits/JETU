@@ -1,0 +1,197 @@
+{
+  "stats": {
+    "startTime": "2026-10-18T08:20:38.396Z",
+    "duration": 44087.894,
+    "expected": 30,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "tests": [
+    {
+      "test": "no-JS content has inert previews and usable navigation; vector assets resolve",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 1758
+    },
+    {
+      "test": "ru: design system responsive, axe and visual baseline @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 4528
+    },
+    {
+      "test": "kk: design system responsive, axe and visual baseline @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 4063
+    },
+    {
+      "test": "en: design system responsive, axe and visual baseline @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 4712
+    },
+    {
+      "test": "semantic text, control, chart and hover pairs meet measured contrast",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 1510
+    },
+    {
+      "test": "keyboard tabs, native dialog containment, Escape and tooltip @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 4337
+    },
+    {
+      "test": "local form errors, long text, state feedback, offline behavior and reload",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2530
+    },
+    {
+      "test": "real registry filters, sort, empty recovery and spotlight destination",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2839
+    },
+    {
+      "test": "no-JS content has inert previews and usable navigation; vector assets resolve",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 1296
+    },
+    {
+      "test": "ru: design system responsive, axe and visual baseline @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 3894
+    },
+    {
+      "test": "kk: design system responsive, axe and visual baseline @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 3623
+    },
+    {
+      "test": "en: design system responsive, axe and visual baseline @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 3730
+    },
+    {
+      "test": "semantic text, control, chart and hover pairs meet measured contrast",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 1400
+    },
+    {
+      "test": "keyboard tabs, native dialog containment, Escape and tooltip @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 4420
+    },
+    {
+      "test": "local form errors, long text, state feedback, offline behavior and reload",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2252
+    },
+    {
+      "test": "real registry filters, sort, empty recovery and spotlight destination",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2313
+    },
+    {
+      "test": "ru: localized page, responsive reflow and screenshot @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 3122
+    },
+    {
+      "test": "kk: localized page, responsive reflow and screenshot @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2971
+    },
+    {
+      "test": "en: localized page, responsive reflow and screenshot @a11y",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2506
+    },
+    {
+      "test": "language links, reload and browser history preserve locale",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2712
+    },
+    {
+      "test": "root redirects, unknown locales and missing pages return real 404",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2765
+    },
+    {
+      "test": "keyboard skip, target sizes, no-JS content and reduced motion",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 2268
+    },
+    {
+      "test": "liveness and security headers are real HTTP contracts",
+      "project": "desktop-chromium",
+      "status": "passed",
+      "durationMs": 76
+    },
+    {
+      "test": "ru: localized page, responsive reflow and screenshot @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2730
+    },
+    {
+      "test": "kk: localized page, responsive reflow and screenshot @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2894
+    },
+    {
+      "test": "en: localized page, responsive reflow and screenshot @a11y",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2791
+    },
+    {
+      "test": "language links, reload and browser history preserve locale",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 1840
+    },
+    {
+      "test": "root redirects, unknown locales and missing pages return real 404",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 2224
+    },
+    {
+      "test": "keyboard skip, target sizes, no-JS content and reduced motion",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 1990
+    },
+    {
+      "test": "liveness and security headers are real HTTP contracts",
+      "project": "mobile-chromium",
+      "status": "passed",
+      "durationMs": 95
+    }
+  ],
+  "snapshotDiffPolicy": {
+    "maxDiffPixels": 0,
+    "count": 6,
+    "note": "Initial Phase 05 baselines created this phase; repeated production render compared with no changes. Not a pre-existing historical baseline."
+  }
+}

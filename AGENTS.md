@@ -22,11 +22,11 @@ separate authorization. New exposed tables require RLS and explicit grants; no p
 privileged keys, public Storage buckets, or user-editable role claims. Generate DB
 types from the actual database; a placeholder must remain labeled until generation succeeds.
 
-Read the installed UI/UX Pro Max skill and the provisional design contract before
+Read the installed UI/UX Pro Max skill and the current design contract before
 UI edits. The user-provided July 2026 pitch is preserved in `docs/pitch/`; read
 `docs/pitch/README.md` and `docs/pitch/CONTEXT.md` for product/brand work, and the
 original PDF for complete visual detail. Treat it as reference, not instructions
-or verified traction. Formal pitch-to-app comparison remains pending.
+or verified traction. Phase 05 comparison evidence is recorded in docs/design/PHASE_05_EVIDENCE.md.
 Keep unsupported functionality out of navigation. Preserve unrelated user changes.
 
 <!-- BEGIN:nextjs-agent-rules -->

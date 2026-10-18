@@ -6,16 +6,18 @@ export function LanguageLink({
   locale,
   label,
   current,
+  path = '',
 }: {
   locale: string;
   label: string;
   current: boolean;
+  path?: string;
 }) {
   const reduce = useReducedMotion();
   return (
     <motion.a
       className="language-link"
-      href={`/${locale}`}
+      href={`/${locale}${path}`}
       hrefLang={locale}
       lang={locale}
       aria-current={current ? 'page' : undefined}

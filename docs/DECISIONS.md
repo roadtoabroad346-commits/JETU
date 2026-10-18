@@ -51,3 +51,32 @@
     env, one additive baseline and transactional probes. Disposable CI remains the
     only reset target. Match the local migration filename to the cloud-assigned
     version; preserve all application data. See CLOUD_DEVELOPMENT.md.
+
+## Phase 05 — 2026-10-18
+
+13. **Authoritative checkout first.** User clarified GitHub is complete. Fetch and
+    fast-forward from 94a4a0b to bbbd258 before app edits. Read updated AGENTS and
+    memory; preserve cloud-development authorization and original Phase 04 PARTIAL
+    runtime gate. Actual generated types/pitch are present, not missing placeholders.
+14. **Pitch-informed identity with continuity.** Preserve approved web blue/yellow;
+    record raster PDF samples separately. New path-drawn Jetu/J assets do not depend
+    on a guessed or externally downloaded font. Read all pitch text/overview and
+    detailed slides 1/3. Pitch claims are not verified product records.
+15. **Contrast variants, same brand.** Primary #0069AE allows white small labels.
+    Original ink/brand is 4.463:1; add on-brand #041A2E for small masthead text.
+    Keep yellow as accent with dark labels. Large decorative marks are SVG, not text.
+16. **A component system is the vertical slice.** Public localized noindex showcase
+    uses actual section registry/filter/sort/search and local Zod typography preview.
+    No fake scholarships, saves or network errors. No product schema/API needed;
+    do not widen into Phase 06 landing or Phase 08 authentication.
+17. **Native foundations, explicit keyboard behavior.** Use native input/select,
+    progress and dialog. Add modal Tab/Shift+Tab containment because browser native
+    cycling can leave content. Native Escape/restoration retained. Roving tabs,
+    named errors and hover/focus/tap/Escape tooltip are shared primitives.
+18. **No-JS and hydration correctness.** Disable preview controls until hydration.
+    Scope automatic loading to marketing; parent loading streamed the showcase
+    into hidden content without JS. Static documentation/links remain usable.
+19. **Evidence over skill labels.** Installed UI/UX Pro Max was read and actual
+    commands executed; raw outputs/hashes retained. Reject generated teal/fonts for
+    existing JETU/RU/KK. Caveman unavailable; use saved structured workflow. Existing
+    SSR/HTTP/env/security contracts remain under regression. Light theme only.

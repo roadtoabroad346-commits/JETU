@@ -1,4 +1,4 @@
-# Architecture — Phase 04 foundation
+# Architecture — foundation and Phase 05 design system
 
 ## State and boundaries
 
@@ -60,9 +60,26 @@ pages render dynamically; future static marketing optimization needs a reviewed
 locale-root routing design. Public URLs contain their locale; no session cookie
 or sensitive state is read here. Global 404 uses a safe fallback with home links.
 
-The provisional brand contract preserves supplied blue/yellow references; no pitch
-PDF was available. Phase 05 still owns the full visual system, logo assets and showcase.
-Motion uses press feedback only; no content waits for entrance animations.
+Phase 05 reconciles the visual contract with the actual July 2026 pitch now in
+`docs/pitch/`. Semantic tokens live in `src/styles/tokens.css`; shared primitives,
+original path-drawn brand assets and interactions live in `src/components/ui/`.
+Approved web blue/yellow remain; contrast-safe primary/on-brand variants support
+small labels. Light-only contract: `design-system/jetu-admissions/MASTER.md`.
+Motion language press and CSS feedback never delay visible content.
+
+`/{locale}/design-system` is public noindex documentation: a server route passes
+one validated locale dictionary to a leaf interactive playground. Its real section
+registry provides filters, sorting and spotlight navigation. The typography form
+validates locally with Zod and never sends/persists input. No API, product record or
+DB dependency was added. No-JS content/links work; SSR-disabled preview controls
+become interactive only after hydration. Loading/error specimens are labeled.
+
+Native HTML dialog supplies top-layer/inert/Escape/focus-restoration behavior;
+explicit Tab/Shift+Tab cycling keeps focus inside. Tabs use roving focus and
+Home/End/arrows. Tooltip supports focus/hover/tap/Escape. Native fields/selects
+own control semantics; form errors use a named focusable summary and inline IDs.
+Automatic loading is scoped to `(marketing)/loading.tsx`, so an ancestor streaming
+fallback cannot hide documentation content when JavaScript is disabled.
 
 ## Database / security
 

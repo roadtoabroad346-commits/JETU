@@ -22,3 +22,20 @@ local PostgreSQL/adapter/browser validation; record actual outcomes in the log.
 advisors and SQL probes passed. Public cloud env build and 14 production E2E passed.
 Direct hosted REST is unverified because workspace proxy CONNECT returns 403.
 See verification-2026-10-18.json and CLOUD_DEVELOPMENT.md for exact scope.
+
+## Phase 05 extension
+
+- Design library: RU/KK/EN; 320/375/768/1024/1440/1920 and 812x375 landscape;
+  375px at 200% text; six full-page pixel baselines (desktop/phone per locale).
+- Actual semantic color pair ratios; primary hover/focus; axe page and open modal.
+- Native modal repeated opens, bidirectional Tab cycle, Escape/restoration, close
+  button; tabs arrows/Home/End, hover/focus/click tooltip and Escape.
+- Zod invalid/empty/81-character negative, 80-character Kazakh positive, linked
+  summary focus, local output, no mutation requests, offline operation and reload.
+- Real registry group/query/sort/empty reset, spotlight zero/results/destination
+  focus, locale links retain route, no-JS controls disabled and real SVG assets.
+- Existing 50 unit/integration and original 14 browser regressions retained.
+
+No new DB data access exists in Phase 05: SQL/policy/cross-user mutation tests are
+not applicable to this read-only public library. Prior cloud/CI results are retained;
+no remote operation or workspace Docker was needed or run for this phase.

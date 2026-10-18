@@ -10,7 +10,12 @@ export default async function NotFound() {
       <p>{t.missingBody}</p>
       <nav aria-label={t.language} className="language-nav">
         {locales.map((locale) => (
-          <a key={locale} className="action" href={`/${locale}`} lang={locale}>
+          <a
+            key={locale}
+            className="ui-button ui-button--primary"
+            href={`/${locale}`}
+            lang={locale}
+          >
             {localeNames[locale]} · {messages[locale].home}
           </a>
         ))}

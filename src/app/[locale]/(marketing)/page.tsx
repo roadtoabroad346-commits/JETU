@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { LanguageLink } from '@/components/ui/language-link';
+import { BrandLogo } from '@/components/ui/brand';
 import { isLocale, locales, localeNames, messages } from '@/lib/i18n/messages';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -31,7 +32,7 @@ export default async function AvailabilityPage({ params }: Props) {
           className="wordmark"
           aria-label="JETU Admissions"
         >
-          <span>Jetu</span>
+          <BrandLogo />
           <small>Admissions</small>
         </a>
         <nav className="language-nav" aria-label={t.language}>

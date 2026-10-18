@@ -1,8 +1,9 @@
-# JETU Admissions — Phase 04 foundation
+# JETU Admissions — foundation and Phase 05 design system
 
 Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase. This
-checkpoint initializes engineering infrastructure. It does not implement the admissions
-MVP, accounts, catalog, matching, payments, or AI. Phase 05 has not been started.
+checkpoint includes the engineering foundation and a verified local design-system
+slice. It does not implement the admissions MVP, accounts, catalog, matching,
+payments or AI. Phase 06 has not started.
 
 ## Run locally
 
@@ -132,7 +133,8 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
 See `docs/PHASE_TRACKER.md`, `docs/IMPLEMENTATION_LOG.md`, and
 `docs/NEXT_AGENT_PROMPT.md` for actual validation, limitations and exact next steps.
 GitHub CI is configured without production secrets; remote CI is not claimed unless
-an actual run is recorded. This continuation pushes checkpoints to GitHub; it does not deploy the application.
+an actual run is recorded. Phase 04 remote checkpoints are recorded in the log; the Phase 05 checkpoint is
+local unless a later log explicitly records a push. No application is deployed.
 
 ## Product pitch reference
 
@@ -140,3 +142,16 @@ The complete user-provided July 2026 MVP presentation, extracted text, slide
 overview and page-indexed project context are preserved in
 [docs/pitch](docs/pitch/README.md). Pitch claims and roadmap are reference material,
 not evidence of implemented features or achieved traction.
+
+## Phase 05 component library
+
+Open /ru/design-system, /kk/design-system or /en/design-system. The public noindex
+library includes brand assets, semantic tokens, shared controls and explicit local
+state specimens. Preview text is never sent/saved. No-JS static content/links work;
+preview controls stay disabled. See docs/DESIGN_SYSTEM.md and docs/PHASE_05_REVIEW.md.
+
+Screenshot references use Linux system Chromium 154.0.8037.57 and Liberation Sans.
+Playwright package browser is Chromium 156; its CDN download was blocked here.
+Review/rebaseline intentionally on the target browser/OS when moving references;
+do not regenerate baselines just to hide a regression. This checkpoint does not
+claim a remote CI run with that bundled browser.

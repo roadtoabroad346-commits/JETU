@@ -1,8 +1,9 @@
-# Phase 04 token map
+# Phase 05 token map
 
-Code source: `src/app/globals.css`. Brand #008BDF; accent #FFB500; ink #09213A;
-muted #43556B; canvas #F3F9FD; surface #FFFFFF; border #C8D8E6; focus #00548B.
-No raw colors in component JSX; illustration uses CSS variables. Spacing is 4/8px
-based; main width is fluid, capped at 1248px. Body minimum 16px, line height 1.6,
-intro 18px, heading clamp 40–80px. Border is decorative except focus/control state.
-These are initial scaffold values, not the completed Phase 05 token package.
+Canonical definitions: src/styles/tokens.css. Contract and pairing rules:
+design-system/jetu-admissions/MASTER.md. Tailwind theme maps semantic color aliases.
+Brand blue/yellow stay #008BDF/#FFB500. Normal white labels use darker #0069AE;
+small blue-field text uses #041A2E. Original ink on blue is large-text-only (4.463:1).
+Text/focus/control/chart contrast measurements: docs/evidence/phase05/contrast.json.
+4/8 spacing, type scale, radii/elevation, icons, chart palette, motion and responsive
+breakpoints are documented in MASTER. No dark theme or inferred font licensing.

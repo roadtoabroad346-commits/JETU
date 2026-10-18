@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { isLocale, messages } from '@/lib/i18n/messages';
+import { Button } from '@/components/ui/primitives';
 
 export default function ErrorBoundary({
   reset,
@@ -16,10 +17,8 @@ export default function ErrorBoundary({
     <main className="page-shell boundary">
       <h1>{t.error}</h1>
       <p role="alert">{t.errorBody}</p>
-      <button className="action" type="button" onClick={reset}>
-        {t.retry}
-      </button>
-      <a className="action" href={`/${locale}`}>
+      <Button onClick={reset}>{t.retry}</Button>
+      <a className="ui-button ui-button--secondary" href={`/${locale}`}>
         {t.home}
       </a>
     </main>

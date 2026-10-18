@@ -1,0 +1,26 @@
+[
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/en-showcase-desktop-chromium-linux.png",
+    "sha256": "92ff843c0e16ca579d4ef17fc5a61c996db9aa65ca6044fcffb18035edd854ef"
+  },
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/en-showcase-mobile-chromium-linux.png",
+    "sha256": "d4345a31857647b4dc9cfe48561051095c578f52598cd83cc771005fdf6e9233"
+  },
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/kk-showcase-desktop-chromium-linux.png",
+    "sha256": "46672feb32b73890a9e4c8650f1b936b2f48791bd9042592bf327ea7e854ec6d"
+  },
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/kk-showcase-mobile-chromium-linux.png",
+    "sha256": "0a58d1a95f61a1e0672249c1ffa5c945b4300b10f0e16853cef914a7dc9902c1"
+  },
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/ru-showcase-desktop-chromium-linux.png",
+    "sha256": "78507eac820bc985621cac7ac57aeac5f0a1d357c0c522481404cbbc8f1b427e"
+  },
+  {
+    "file": "tests/e2e/design-system.spec.ts-snapshots/ru-showcase-mobile-chromium-linux.png",
+    "sha256": "09fd571dd64e855af12399e13ef3d44c7ff658acb4bc05cf7eb0474ec50dee0d"
+  }
+]

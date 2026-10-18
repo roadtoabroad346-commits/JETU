@@ -1,0 +1,240 @@
+[
+  {
+    "project": "desktop-chromium",
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "surface",
+        "minimum": 4.5,
+        "ratio": 16.27584440167355
+      },
+      {
+        "fg": "muted",
+        "bg": "canvas",
+        "minimum": 4.5,
+        "ratio": 7.191618507522266
+      },
+      {
+        "fg": "muted",
+        "bg": "surface",
+        "minimum": 4.5,
+        "ratio": 7.635348692282252
+      },
+      {
+        "fg": "on-brand",
+        "bg": "brand",
+        "minimum": 4.5,
+        "ratio": 4.8295266621250885
+      },
+      {
+        "fg": "ink",
+        "bg": "brand",
+        "minimum": 3,
+        "ratio": 4.46313892343221
+      },
+      {
+        "fg": "ink",
+        "bg": "accent",
+        "minimum": 4.5,
+        "ratio": 9.193177735567316
+      },
+      {
+        "fg": "ink",
+        "bg": "accent-hover",
+        "minimum": 4.5,
+        "ratio": 7.443080028509598
+      },
+      {
+        "fg": "on-primary",
+        "bg": "primary",
+        "minimum": 4.5,
+        "ratio": 5.782211147126292
+      },
+      {
+        "fg": "on-primary",
+        "bg": "primary-hover",
+        "minimum": 4.5,
+        "ratio": 7.951697464188811
+      },
+      {
+        "fg": "primary-hover",
+        "bg": "surface-blue",
+        "minimum": 4.5,
+        "ratio": 7.077245301187995
+      },
+      {
+        "fg": "success",
+        "bg": "success-surface",
+        "minimum": 4.5,
+        "ratio": 6.54347352099916
+      },
+      {
+        "fg": "warning",
+        "bg": "warning-surface",
+        "minimum": 4.5,
+        "ratio": 6.4161605406163895
+      },
+      {
+        "fg": "danger",
+        "bg": "danger-surface",
+        "minimum": 4.5,
+        "ratio": 6.180652547997194
+      },
+      {
+        "fg": "focus",
+        "bg": "surface",
+        "minimum": 3,
+        "ratio": 7.951697464188811
+      },
+      {
+        "fg": "focus",
+        "bg": "canvas",
+        "minimum": 3,
+        "ratio": 7.489582592014538
+      },
+      {
+        "fg": "control-border",
+        "bg": "surface",
+        "minimum": 3,
+        "ratio": 3.7552029642568114
+      },
+      {
+        "fg": "primary",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 5.146338483798321
+      },
+      {
+        "fg": "warning",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 6.218740674129901
+      },
+      {
+        "fg": "success",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 6.4657139456855175
+      }
+    ]
+  },
+  {
+    "project": "mobile-chromium",
+    "pairs": [
+      {
+        "fg": "ink",
+        "bg": "surface",
+        "minimum": 4.5,
+        "ratio": 16.27584440167355
+      },
+      {
+        "fg": "muted",
+        "bg": "canvas",
+        "minimum": 4.5,
+        "ratio": 7.191618507522266
+      },
+      {
+        "fg": "muted",
+        "bg": "surface",
+        "minimum": 4.5,
+        "ratio": 7.635348692282252
+      },
+      {
+        "fg": "on-brand",
+        "bg": "brand",
+        "minimum": 4.5,
+        "ratio": 4.8295266621250885
+      },
+      {
+        "fg": "ink",
+        "bg": "brand",
+        "minimum": 3,
+        "ratio": 4.46313892343221
+      },
+      {
+        "fg": "ink",
+        "bg": "accent",
+        "minimum": 4.5,
+        "ratio": 9.193177735567316
+      },
+      {
+        "fg": "ink",
+        "bg": "accent-hover",
+        "minimum": 4.5,
+        "ratio": 7.443080028509598
+      },
+      {
+        "fg": "on-primary",
+        "bg": "primary",
+        "minimum": 4.5,
+        "ratio": 5.782211147126292
+      },
+      {
+        "fg": "on-primary",
+        "bg": "primary-hover",
+        "minimum": 4.5,
+        "ratio": 7.951697464188811
+      },
+      {
+        "fg": "primary-hover",
+        "bg": "surface-blue",
+        "minimum": 4.5,
+        "ratio": 7.077245301187995
+      },
+      {
+        "fg": "success",
+        "bg": "success-surface",
+        "minimum": 4.5,
+        "ratio": 6.54347352099916
+      },
+      {
+        "fg": "warning",
+        "bg": "warning-surface",
+        "minimum": 4.5,
+        "ratio": 6.4161605406163895
+      },
+      {
+        "fg": "danger",
+        "bg": "danger-surface",
+        "minimum": 4.5,
+        "ratio": 6.180652547997194
+      },
+      {
+        "fg": "focus",
+        "bg": "surface",
+        "minimum": 3,
+        "ratio": 7.951697464188811
+      },
+      {
+        "fg": "focus",
+        "bg": "canvas",
+        "minimum": 3,
+        "ratio": 7.489582592014538
+      },
+      {
+        "fg": "control-border",
+        "bg": "surface",
+        "minimum": 3,
+        "ratio": 3.7552029642568114
+      },
+      {
+        "fg": "primary",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 5.146338483798321
+      },
+      {
+        "fg": "warning",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 6.218740674129901
+      },
+      {
+        "fg": "success",
+        "bg": "surface-blue",
+        "minimum": 3,
+        "ratio": 6.4657139456855175
+      }
+    ]
+  }
+]

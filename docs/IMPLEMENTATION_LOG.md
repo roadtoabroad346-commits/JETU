@@ -187,3 +187,73 @@ future context. Market figures, projected traction, pricing and prototype featur
 are explicitly distinguished from verified implementation. No app/DB changes,
 founder outreach or automatic Phase 05 work. Missing attachment is resolved;
 formal pitch-to-design reconciliation remains pending.
+
+## Phase 05 — visual system and component library — 2026-10-18
+
+Status: VERIFIED for Phase 05 local design-system acceptance, not production readiness.
+Direct request authorizes only Phase 05. Phase 06 was not started; Phase 04 stays
+PARTIAL under its existing full-stack gate. No unrelated changes overwritten.
+
+### Source, plan and decisions
+
+Initial workspace HEAD 94a4a0b lagged GitHub. User clarified GitHub is authoritative;
+git remote update and git merge --ff-only origin/main advanced to bbbd258 before
+app edits. Reread latest AGENTS/memory, cloud evidence and full preserved pitch text /
+8-slide overview; inspect slides 1 and 3 at 1500px. PDF hash verified. The first
+saved plan's missing-PDF/bootstrap-type assumptions were corrected after the fetch.
+Plan: PHASE_05_PLAN.md. Actual research/commands: design/PHASE_05_EVIDENCE.md.
+Caveman absent; used saved plan/build/test/fix/separate review/checkpoint fallback.
+
+### Implementation
+
+Added src/styles/tokens.css and shared UI/brand/icon/interactions. New original
+vector Jetu/J assets and App Router SVG favicon. Brand blue/yellow retained; primary
+and on-brand variants fix small-text contrast. Three-locale noindex showcase at
+/{locale}/design-system demonstrates every requested component family. Actual
+library-registry filter/sort/search, local Zod text preview, explicit loading/error
+specimens; no fake scholarship/application/AI/save. Existing pages/boundaries reuse
+new primitives. Automatic loading moved to marketing so no-JS gallery renders.
+No new packages, API/data access, migrations, grants, RLS, buckets or credentials.
+No remote DB operations, workspace Docker, push or application deployment.
+
+### Verification and fixes
+
+- npm ci: PASS, Node 24.19.0 / npm 11.9.0, lockfile unchanged.
+- npm run check: PASS formatting/lint/strict TS/50 unit-integration/production build.
+- npm audit --json: PASS, zero vulnerabilities.
+- UI/UX Pro Max help/design-system/UX focus/form/Next queries and isolated persisted
+  research: PASS. Raw results/hashes saved. Generated teal/fonts deliberately rejected.
+- Initial browser runs caught modal Tab cycling, 4.463:1 small ink/blue contrast,
+  missing decorative glyph, no-JS streaming and tooltip focus/click sequence issues.
+  Fixed them. Test harness fixes covered shorthand colors, required-field name,
+  hydration readiness and named alert versus Next route announcer. Initial concurrent
+  build/E2E scheduling was removed for final runs. No failed run counted as acceptance.
+- PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e --
+  tests/e2e/design-system.spec.ts --update-snapshots: PASS 16/16 after fixes.
+- PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium
+  PLAYWRIGHT_JSON_OUTPUT_FILE=work/e2e-final.json npm run test:e2e --
+  --reporter=list,json: PASS 30/30, 44.1s; no skipped/flaky/unexpected cases.
+  Six newly created baseline images compared at maxDiffPixels=0: all pass.
+- After adding explicit reverse modal cycling, targeted --grep 'keyboard tabs':
+  PASS 2/2, 7.0s. Ten saved axe reports have zero violations/incomplete findings.
+  Nineteen contrast pairs pass (on-brand/blue 4.830:1). RU/KK/EN, 320–1920px,
+  landscape, 200% text, reduced motion, no-JS, local offline behavior, negative form
+  cases, long Kazakh text, duplicate opens, empty/recovery and reload verified.
+- Separate production browser smoke on port 3101: reverse Tab wrap, 20 visible
+  controls >=44px height, no console/external requests; viewport/field/modal captures.
+  Timing sample is local/unthrottled with cached scripts, not a field/Lighthouse claim.
+- git diff --check: PASS. Separate source/security/acceptance review: PHASE_05_REVIEW.
+
+### Limits and checkpoint
+
+System Chromium 154.0.8037.57 / Linux / Liberation Sans used. Attempt to install
+Playwright's bundled Chromium 156 through normal proxy failed: HTTP 403 Domain
+forbidden for cdn.playwright.dev; no bypass. Target CI browser pixel portability
+and remote CI run are not verified for this checkpoint. Review references deliberately
+on the target runner; do not refresh them to hide regressions. No physical-device,
+manual screen-reader, dark-theme or production-readiness claim. Prior Supabase
+runtime/direct REST gaps persist; no new data flow makes SQL/policy tests applicable.
+
+Updated tracker/architecture/decisions/design/feature/test matrices and next-agent
+handoff. Checkpoint is a local phase-scoped branch/commit; final response/report
+records its actual hash. No automatic Phase 06 or production release.
