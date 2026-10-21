@@ -1,5 +1,8 @@
 -- Disposable role/integrity probe. Run after migration replay; every fixture rolls back.
 begin;
+create extension if not exists pgtap with schema extensions;
+set local search_path = public, extensions;
+select plan(1);
 insert into auth.users(id) values ('11111111-1111-4111-8111-111111111111');
 set role service_role;
 select public.scholarship_create_draft(
@@ -62,4 +65,6 @@ do $$ begin
   end if;
 end $$;
 reset role;
+select pass('scholarship publication, visibility and saves passed');
+select * from finish();
 rollback;

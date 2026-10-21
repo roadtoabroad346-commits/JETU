@@ -1,5 +1,8 @@
 -- Full authenticated RPC policy probe; synthetic records are rolled back.
 begin;
+create extension if not exists pgtap with schema extensions;
+set local search_path = public, extensions;
+select plan(1);
 insert into auth.users(id) values
   ('22222222-2222-4222-8222-222222222222'),
   ('33333333-3333-4333-8333-333333333333');
@@ -48,4 +51,6 @@ do $$ begin
   end if;
 end $$;
 reset role;
+select pass('editor and reviewer RPC boundaries passed');
+select * from finish();
 rollback;
