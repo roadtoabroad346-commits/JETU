@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: **Phase 12 University & Program Explorer — PARTIAL**. Read-only search and detail routes use the recovered Phase 10 cloud schema. SQL fixtures pass; no real reviewed catalog records exist and workspace REST access is blocked. Phase 05 remains VERIFIED for its local scope; other prior statuses are not upgraded by this work. Do not start Phase 13 automatically.
+Current request: **Phase 13 Scholarship Intelligence & Financial Aid Explorer — PARTIAL**. Four additive migrations are installed on the Jetuu development database; local and cloud rollback-only role/funding probes pass. No official scholarship rows, Auth UI, personalized watchlist/reminder flow or confirmed deployed REST path exist. Earlier phases retain their recorded statuses. Do not start Phase 14.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,7 +16,7 @@ Current request: **Phase 12 University & Program Explorer — PARTIAL**. Read-on
 | 10    | Canonical PostgreSQL Global Admissions Database                  | UNVERIFIED | Cloud normalized schema exists; migration SQL recovered, phase acceptance not rechecked                                                                          |
 | 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 12    | University & Program Explorer                                    | PARTIAL    | Read-only cloud SQL search, pages, filter fixtures; no real reviewed rows; REST proxy 403; see Phase 12 review                                                   |
-| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
+| 13    | Scholarship Intelligence & Financial Aid Explorer                | PARTIAL    | Canonical DB extension, editor role/API, public explorer and cloud SQL checks passed; official data/Auth/personalized flows remain open. See PHASE_13_REVIEW.    |
 | 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
@@ -105,3 +105,14 @@ is implied by this checkpoint. Exact review and metrics: PHASE_06_REVIEW.md.
 - [ ] Local PostgreSQL replay: container registry denied image pull with 403. Cloud SQL transaction verified function, not clean-room replay of recovered migration chain.
 
 See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding criteria.
+
+## Phase 13 gate — 2026-10-21
+
+- [x] Reconciled the current Phase 08–12 migration history before editing; original old checkout preserved in its separate worktree.
+- [x] Four additive Phase 13 migrations applied to Jetuu development, with public/editor RLS, source and funding publication gates, and indexed search.
+- [x] Local and development rollback-only role tests passed; zero fixture rows persist.
+- [x] RU/KK/EN catalog/detail, server-checked editor API and mobile browser regression implemented.
+- [x] `npm run check` passed 54/54 unit/integration tests and build; Chromium E2E passed 56/56 with axe and narrow mobile checks.
+- [ ] Factual reviewed scholarship/cycle corpus, live REST detail read, authenticated editor/student session and save/watchlist/compare/reminder acceptance.
+
+See `docs/PHASE_13_REVIEW.md`. Phase 14 remains untouched.

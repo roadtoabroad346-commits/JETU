@@ -45,8 +45,20 @@ export function proxy(request: NextRequest) {
         /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')) ||
         (segments[1] === 'programs' &&
           /^[1-9][0-9]*$/.test(segments[2] ?? '')));
+    const isScholarshipCatalog =
+      segments[1] === 'scholarships' &&
+      ((segments.length === 3 && segments[2] === 'catalog') ||
+        (segments.length === 4 &&
+          segments[2] === 'catalog' &&
+          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(segments[3] ?? '')));
+    const isScholarshipAdmin =
+      segments.length === 3 &&
+      segments[1] === 'admin' &&
+      segments[2] === 'scholarships';
     if (
       !isCatalogDetail &&
+      !isScholarshipCatalog &&
+      !isScholarshipAdmin &&
       (segments.length > 2 ||
         (segments.length === 2 &&
           segments[1] !== 'design-system' &&

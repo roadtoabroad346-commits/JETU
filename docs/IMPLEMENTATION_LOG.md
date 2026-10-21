@@ -351,3 +351,9 @@ feature phase was performed. Exact integrity checks and scope are in
 - UI/UX Pro Max SKILL.md and existing JETU design contract read; cloud skill search script unavailable in filesystem, so no search result is claimed. Caveman skill/CLI not installed; structured plan/build/review used.
 
 Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run check` passed (54 tests/build). Latest production-build catalog browser rerun: 4/4 desktop tests passed; earlier affected 10/10 desktop/mobile rerun passed. SQL fixture now raises on any of 11 wrong filter/isolation results; it passed under anon and rolled back. No fixture rows persist.
+
+## Phase 13 — 2026-10-21
+
+- Fetched current `origin/main` and used isolated `codex/phase13-scholarships` worktree after discovering the original checkout was behind Phase 08–12 and its proposed schema conflicted with cloud.
+- Added migrations `20261021154711`, `20261021154759`, `20261021155015`, `20261021155400` to Jetuu development `edpuovkgoisyzpguksdi`; no reset or production migration. Cloud role/funding probe passed inside rollback; follow-up found zero synthetic users/scholarships/events. Security advisor: only expected private-table INFO no-policy; follow-up removed five new unindexed-FK findings. Remaining unused-index INFO reflects the empty catalog.
+- Added editor API/page, public catalog/detail, source/funding UI, RLS/integrity probe, generated local PostgreSQL types and Chromium tests. `npm run check`: 54/54 unit/integration and build passed. `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e`: 56/56 passed. Direct cloud REST, real Auth role flows and factual rows remain unverified; see PHASE_13_REVIEW.

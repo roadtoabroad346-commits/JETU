@@ -116,3 +116,10 @@
 28. Add a read-only `catalog_search` SQL function as `SECURITY INVOKER`, with published/verified RLS visibility and verified source-claim gating. Apply only to the previously authorized Jetuu development project. No remote fixture persists; no production deploy/reset.
 29. Keep URL-backed native GET forms and server rendering. Hide save, compare, plan and requirement-check actions until Auth/plan contracts exist. A real catalog with zero reviewed rows shows an empty state; a transport failure shows unavailable. Preserve the existing blue/yellow design contract and locale dictionaries.
 30. Mark Phase 12 PARTIAL. Cloud SQL filter and isolation tests pass, but verified public content is empty, direct REST is blocked by this workspace proxy, and Phase 11 ingestion/review is absent. Do not claim end-to-end live data or a production performance baseline.
+
+## Phase 13 — 2026-10-21
+
+30. Extend the existing Phase 10 bigint catalog rather than introduce new scholarship or university tables. The initial Phase 06 worktree was stale against `origin/main` and the connected Jetuu development schema; Phase 13 work is isolated on a branch from current main.
+31. Keep externally factual entries draft until an official source claim has been reviewed. A publication trigger rejects recent-source gaps, conflicts and unsupported full-tuition/stipend/comprehensive labels. `unknown` remains an explicit state; no full-ride inference is made from tuition.
+32. Public scholarship search is a bounded `SECURITY INVOKER` RPC over existing RLS. Editorial functions are executable only by `service_role` and called from a server route after `auth.getUser()` and DB membership checks. Browser roles have no editorial note/event grants; student saves require owner identity and visible scholarship.
+33. Apply only to the previously identified Jetuu development project. Synthetic probes always roll back. No factual listings are seeded without official checked evidence. An empty catalog and incomplete Auth UI keep Phase 13 PARTIAL even after cloud migration.

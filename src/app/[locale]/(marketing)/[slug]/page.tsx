@@ -10,6 +10,7 @@ import { pageMetadata } from '@/lib/marketing/seo';
 import { StructuredData } from '@/components/marketing/structured-data';
 import { getPublicEnv } from '@/lib/env/public';
 import { Icon } from '@/components/ui/icon';
+import { scholarshipCopy } from '@/features/scholarships/copy';
 import { MarketingFooter } from '@/components/marketing/footer';
 import { CatalogSearch } from '@/features/catalog/views';
 
@@ -64,6 +65,16 @@ export default async function MarketingInfoPage({
             <h1>{content.title}</h1>
             <p>{content.description}</p>
           </div>
+          {slug === 'scholarships' && (
+            <p className="page-shell">
+              <a
+                className="ui-button ui-button--primary"
+                href={`/${locale}/scholarships/catalog`}
+              >
+                {scholarshipCopy[locale].title}
+              </a>
+            </p>
+          )}
           <div className="info-sections">
             {content.sections.map((section, index) => (
               <section
