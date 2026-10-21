@@ -25,7 +25,7 @@ if (Test-Path (Join-Path $ProjectPath ".git")) {
 
 Push-Location $ProjectPath
 try {
-  npm ci
+  npm ci --include=dev
   if (-not (Test-Path ".env.local")) {
     Copy-Item ".env.example" ".env.local"
     Write-Host "Created .env.local from .env.example. Add Supabase values before testing cloud features." -ForegroundColor Yellow
