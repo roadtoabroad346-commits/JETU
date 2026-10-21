@@ -40,6 +40,8 @@ export default defineConfig([
     files: [
       'src/server/**/*.ts',
       'src/app/**/route.ts',
+      // Phase 13 server component checks the editor role before rendering the desk.
+      'src/app/**/admin/scholarships/page.tsx',
       'src/lib/supabase/{server,admin}.ts',
     ],
     rules: { 'no-restricted-imports': 'off' },

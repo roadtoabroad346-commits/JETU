@@ -7,11 +7,6 @@ export type Json =
   | Json[];
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
-  __InternalSupabase: {
-    PostgrestVersion: '14.18';
-  };
   public: {
     Tables: {
       academic_units: {
@@ -24,6 +19,7 @@ export type Database = {
           title: string;
           unit_type: string;
         };
+        ComputedFields: never;
         Insert: {
           campus_id?: number | null;
           id: number;
@@ -90,6 +86,7 @@ export type Database = {
           starts_on: string | null;
           term_code: string;
         };
+        ComputedFields: never;
         Insert: {
           academic_year_start: number;
           ends_on?: string | null;
@@ -144,6 +141,7 @@ export type Database = {
           application_round_id: number;
           deadline_id: number;
         };
+        ComputedFields: never;
         Insert: {
           application_round_id: number;
           deadline_id: number;
@@ -180,6 +178,7 @@ export type Database = {
           round_code: string;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           closes_at?: string | null;
           decision_by?: string | null;
@@ -234,6 +233,7 @@ export type Database = {
           institution_id: number;
           name: string;
         };
+        ComputedFields: never;
         Insert: {
           address_line?: string | null;
           campus_code: string;
@@ -304,6 +304,7 @@ export type Database = {
           updated_at: string;
           verification_state_code: string;
         };
+        ComputedFields: never;
         Insert: {
           archived_at?: string | null;
           created_at?: string;
@@ -352,6 +353,7 @@ export type Database = {
           catalog_entity_id: number;
           tag_code: string;
         };
+        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           tag_code: string;
@@ -388,6 +390,7 @@ export type Database = {
           region_id: number | null;
           slug: string;
         };
+        ComputedFields: never;
         Insert: {
           country_id: number;
           id?: never;
@@ -431,6 +434,7 @@ export type Database = {
           eligibility_kind: string;
           eligibility_requirement_id: number;
         };
+        ComputedFields: never;
         Insert: {
           country_id: number;
           eligibility_kind: string;
@@ -469,6 +473,7 @@ export type Database = {
           id: number;
           includes_housing: boolean;
         };
+        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min: number;
@@ -536,6 +541,7 @@ export type Database = {
           iso3: string;
           name: string;
         };
+        ComputedFields: never;
         Insert: {
           default_currency_code?: string | null;
           id?: never;
@@ -568,6 +574,7 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -588,9 +595,10 @@ export type Database = {
           created_at: string;
           id: number;
           revision: number;
-          snapshot: Json;
+          snapshot: NonNullable<Json>;
           source_claim_id: number | null;
         };
+        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           change_reason: string;
@@ -598,7 +606,7 @@ export type Database = {
           created_at?: string;
           id?: never;
           revision: number;
-          snapshot: Json;
+          snapshot: NonNullable<Json>;
           source_claim_id?: number | null;
         };
         Update: {
@@ -608,7 +616,7 @@ export type Database = {
           created_at?: string;
           id?: never;
           revision?: number;
-          snapshot?: Json;
+          snapshot?: NonNullable<Json>;
           source_claim_id?: number | null;
         };
         Relationships: [
@@ -637,6 +645,7 @@ export type Database = {
           timezone_name: string | null;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           deadline_type: string;
           due_at?: string | null;
@@ -670,6 +679,7 @@ export type Database = {
           label: string;
           rank: number;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -689,6 +699,7 @@ export type Database = {
           delivery_mode_code: string;
           program_id: number;
         };
+        ComputedFields: never;
         Insert: {
           delivery_mode_code: string;
           program_id: number;
@@ -734,6 +745,7 @@ export type Database = {
           minimum_share_percent: number | null;
           program_id: number;
         };
+        ComputedFields: never;
         Insert: {
           language_code: string;
           minimum_share_percent?: number | null;
@@ -787,6 +799,7 @@ export type Database = {
           slug: string;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           academic_unit_id: number;
           credit_system?: string | null;
@@ -862,6 +875,7 @@ export type Database = {
           requirement_type: string;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           description: string;
           id: number;
@@ -899,6 +913,7 @@ export type Database = {
           intake_id: number | null;
           program_id: number;
         };
+        ComputedFields: never;
         Insert: {
           academic_year_start?: number | null;
           amount_max?: number | null;
@@ -987,6 +1002,7 @@ export type Database = {
           is_refundable: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min: number;
@@ -1026,6 +1042,7 @@ export type Database = {
           minor_unit: number;
           name: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1048,6 +1065,7 @@ export type Database = {
           name: string;
           parent_id: number | null;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           id?: never;
@@ -1080,6 +1098,7 @@ export type Database = {
           scheme_code: string;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           aid_type: string;
           id: number;
@@ -1128,6 +1147,7 @@ export type Database = {
           renewal_conditions: string | null;
           scholarship_benefit_id: number;
         };
+        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min?: number | null;
@@ -1173,6 +1193,7 @@ export type Database = {
           id: number;
           institution_id: number;
         };
+        ComputedFields: never;
         Insert: {
           accreditation_code?: string | null;
           accreditation_status: string;
@@ -1224,6 +1245,7 @@ export type Database = {
           source_claim_id: number;
           translated_name: string;
         };
+        ComputedFields: never;
         Insert: {
           id?: never;
           institution_id: number;
@@ -1275,6 +1297,7 @@ export type Database = {
           slug: string;
           website_url: string | null;
         };
+        ComputedFields: never;
         Insert: {
           city_id?: number | null;
           country_id: number;
@@ -1324,6 +1347,7 @@ export type Database = {
           eligibility_requirement_id: number;
           intake_id: number;
         };
+        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           intake_id: number;
@@ -1362,6 +1386,7 @@ export type Database = {
           is_active: boolean;
           name: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1383,6 +1408,7 @@ export type Database = {
           scholarship_cycle_id: number;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           description: string;
           id: number;
@@ -1439,6 +1465,7 @@ export type Database = {
           source_type: string;
           updated_at: string;
         };
+        ComputedFields: never;
         Insert: {
           canonical_url: string;
           created_at?: string;
@@ -1482,6 +1509,7 @@ export type Database = {
           starts_on: string | null;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           ends_on?: string | null;
           id: number;
@@ -1531,6 +1559,7 @@ export type Database = {
           deadline_id: number;
           opportunity_id: number;
         };
+        ComputedFields: never;
         Insert: {
           deadline_id: number;
           opportunity_id: number;
@@ -1562,6 +1591,7 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1584,6 +1614,7 @@ export type Database = {
           subject: string | null;
           value_unit: string | null;
         };
+        ComputedFields: never;
         Insert: {
           description: string;
           eligibility_requirement_id: number;
@@ -1618,6 +1649,7 @@ export type Database = {
           is_primary: boolean;
           program_id: number;
         };
+        ComputedFields: never;
         Insert: {
           campus_id: number;
           is_primary?: boolean;
@@ -1672,6 +1704,7 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1689,6 +1722,7 @@ export type Database = {
           eligibility_requirement_id: number;
           program_id: number;
         };
+        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           program_id: number;
@@ -1734,6 +1768,7 @@ export type Database = {
           is_public: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_public?: boolean;
@@ -1754,6 +1789,7 @@ export type Database = {
           is_active: boolean;
           name: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           country_id: number;
@@ -1786,6 +1822,7 @@ export type Database = {
           test_code: string;
           waivers_allowed: boolean;
         };
+        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           id?: never;
@@ -1817,6 +1854,59 @@ export type Database = {
           },
         ];
       };
+      scholarship_application_details: {
+        Row: {
+          admissions_linkage: string;
+          application_method: string;
+          application_url: string | null;
+          instructions: string | null;
+          scholarship_id: number;
+          source_claim_id: number | null;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          admissions_linkage?: string;
+          application_method?: string;
+          application_url?: string | null;
+          instructions?: string | null;
+          scholarship_id: number;
+          source_claim_id?: number | null;
+          updated_at?: string;
+        };
+        Update: {
+          admissions_linkage?: string;
+          application_method?: string;
+          application_url?: string | null;
+          instructions?: string | null;
+          scholarship_id?: number;
+          source_claim_id?: number | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_application_claim_parent';
+            columns: ['source_claim_id', 'scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_application_details_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_application_details_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_benefits: {
         Row: {
           coverage_item_code: string;
@@ -1826,6 +1916,7 @@ export type Database = {
           is_in_kind: boolean;
           scholarship_cycle_id: number;
         };
+        ComputedFields: never;
         Insert: {
           coverage_item_code: string;
           coverage_percent?: number | null;
@@ -1878,6 +1969,7 @@ export type Database = {
           deadline_id: number;
           scholarship_cycle_id: number;
         };
+        ComputedFields: never;
         Insert: {
           deadline_id: number;
           scholarship_cycle_id: number;
@@ -1921,6 +2013,7 @@ export type Database = {
           opens_at: string | null;
           scholarship_id: number;
         };
+        ComputedFields: never;
         Insert: {
           academic_year_start: number;
           award_end_on?: string | null;
@@ -1965,11 +2058,161 @@ export type Database = {
           },
         ];
       };
+      scholarship_document_requirements: {
+        Row: {
+          document_name: string;
+          id: number;
+          requirement_state: string;
+          scholarship_cycle_id: number;
+          source_claim_id: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          document_name: string;
+          id?: never;
+          requirement_state?: string;
+          scholarship_cycle_id: number;
+          source_claim_id?: number | null;
+        };
+        Update: {
+          document_name?: string;
+          id?: never;
+          requirement_state?: string;
+          scholarship_cycle_id?: number;
+          source_claim_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_document_claim_parent';
+            columns: ['source_claim_id', 'scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_document_requirements_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_cycle_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_document_requirements_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_editor_memberships: {
+        Row: {
+          granted_at: string;
+          granted_by: string | null;
+          role: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          granted_at?: string;
+          granted_by?: string | null;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          granted_at?: string;
+          granted_by?: string | null;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      scholarship_editor_notes: {
+        Row: {
+          note: string;
+          scholarship_id: number;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          note: string;
+          scholarship_id: number;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          note?: string;
+          scholarship_id?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_editor_notes_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_editor_notes_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_editorial_events: {
+        Row: {
+          action: string;
+          actor_id: string | null;
+          created_at: string;
+          id: number;
+          note: string | null;
+          scholarship_id: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          action: string;
+          actor_id?: string | null;
+          created_at?: string;
+          id?: never;
+          note?: string | null;
+          scholarship_id: number;
+        };
+        Update: {
+          action?: string;
+          actor_id?: string | null;
+          created_at?: string;
+          id?: never;
+          note?: string | null;
+          scholarship_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_editorial_events_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_editorial_events_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_eligibility_requirements: {
         Row: {
           eligibility_requirement_id: number;
           scholarship_cycle_id: number;
         };
+        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           scholarship_cycle_id: number;
@@ -2002,12 +2245,66 @@ export type Database = {
           },
         ];
       };
+      scholarship_funding_profiles: {
+        Row: {
+          annual_change_note: string | null;
+          duration_note: string | null;
+          funding_label: string;
+          renewal_conditions: string | null;
+          scholarship_id: number;
+          source_claim_id: number | null;
+          uncovered_costs_note: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          annual_change_note?: string | null;
+          duration_note?: string | null;
+          funding_label?: string;
+          renewal_conditions?: string | null;
+          scholarship_id: number;
+          source_claim_id?: number | null;
+          uncovered_costs_note?: string | null;
+        };
+        Update: {
+          annual_change_note?: string | null;
+          duration_note?: string | null;
+          funding_label?: string;
+          renewal_conditions?: string | null;
+          scholarship_id?: number;
+          source_claim_id?: number | null;
+          uncovered_costs_note?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_funding_claim_parent';
+            columns: ['source_claim_id', 'scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_funding_profiles_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_funding_profiles_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_program_links: {
         Row: {
           program_id: number;
           relationship_type: string;
           scholarship_cycle_id: number;
         };
+        ComputedFields: never;
         Insert: {
           program_id: number;
           relationship_type?: string;
@@ -2062,16 +2359,21 @@ export type Database = {
           financial_aid_scheme_id: number | null;
           id: number;
           official_url: string;
+          provider_country_code: string | null;
           provider_institution_id: number | null;
+          provider_name: string | null;
           slug: string;
           title: string;
         };
+        ComputedFields: never;
         Insert: {
           award_type: string;
           financial_aid_scheme_id?: number | null;
           id: number;
           official_url: string;
+          provider_country_code?: string | null;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
           slug: string;
           title: string;
         };
@@ -2080,7 +2382,9 @@ export type Database = {
           financial_aid_scheme_id?: number | null;
           id?: number;
           official_url?: string;
+          provider_country_code?: string | null;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
           slug?: string;
           title?: string;
         };
@@ -2129,6 +2433,7 @@ export type Database = {
           source_id: number;
           verification_state_code: string;
         };
+        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           claim_key: string;
@@ -2188,6 +2493,7 @@ export type Database = {
           name: string;
           score_unit: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -2211,6 +2517,7 @@ export type Database = {
           started_at: string;
           user_id: string;
         };
+        ComputedFields: never;
         Insert: {
           started_at?: string;
           user_id: string;
@@ -2232,6 +2539,7 @@ export type Database = {
           object_path: string;
           user_id: string;
         };
+        ComputedFields: never;
         Insert: {
           byte_size: number;
           category: string;
@@ -2256,19 +2564,20 @@ export type Database = {
       };
       student_profile_versions: {
         Row: {
-          document: Json;
+          document: NonNullable<Json>;
           saved_at: string;
           user_id: string;
           version: number;
         };
+        ComputedFields: never;
         Insert: {
-          document: Json;
+          document: NonNullable<Json>;
           saved_at?: string;
           user_id: string;
           version: number;
         };
         Update: {
-          document?: Json;
+          document?: NonNullable<Json>;
           saved_at?: string;
           user_id?: string;
           version?: number;
@@ -2285,24 +2594,59 @@ export type Database = {
       };
       student_profiles: {
         Row: {
-          document: Json;
+          document: NonNullable<Json>;
           updated_at: string;
           user_id: string;
           version: number;
         };
+        ComputedFields: never;
         Insert: {
-          document?: Json;
+          document?: NonNullable<Json>;
           updated_at?: string;
           user_id: string;
           version?: number;
         };
         Update: {
-          document?: Json;
+          document?: NonNullable<Json>;
           updated_at?: string;
           user_id?: string;
           version?: number;
         };
         Relationships: [];
+      };
+      student_scholarship_saves: {
+        Row: {
+          created_at: string;
+          scholarship_id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          scholarship_id: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          scholarship_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_scholarship_saves_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'student_scholarship_saves_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       test_score_thresholds: {
         Row: {
@@ -2313,6 +2657,7 @@ export type Database = {
           required_test_id: number;
           score_unit: string;
         };
+        ComputedFields: never;
         Insert: {
           component?: string;
           id?: never;
@@ -2350,6 +2695,7 @@ export type Database = {
           translated_text: string;
           updated_at: string;
         };
+        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           created_at?: string;
@@ -2398,6 +2744,7 @@ export type Database = {
           source_id: number;
           started_at: string;
         };
+        ComputedFields: never;
         Insert: {
           completed_at?: string | null;
           created_at?: string;
@@ -2434,6 +2781,7 @@ export type Database = {
           is_verified: boolean;
           label: string;
         };
+        ComputedFields: never;
         Insert: {
           code: string;
           is_verified?: boolean;
@@ -2476,6 +2824,7 @@ export type Database = {
           starts_on: string | null;
           term_code: string | null;
         };
+        ComputedFields: never;
         Relationships: [
           {
             foreignKeyName: 'academic_units_id_fkey';
@@ -2533,6 +2882,7 @@ export type Database = {
           scholarship_source_url: string | null;
           scholarship_title: string | null;
         };
+        ComputedFields: never;
         Relationships: [
           {
             foreignKeyName: 'degree_programs_id_fkey';
@@ -2591,6 +2941,67 @@ export type Database = {
       };
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
+        Returns: number;
+      };
+      scholarship_create_draft: {
+        Args: { p_actor: string; p_bundle: Json };
+        Returns: number;
+      };
+      scholarship_editor_create_draft: {
+        Args: { p_bundle: Json };
+        Returns: number;
+      };
+      scholarship_editor_list: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          id: number;
+          publication_status_code: string;
+          slug: string;
+          title: string;
+          verification_state_code: string;
+        }[];
+      };
+      scholarship_editor_preview: {
+        Args: { p_slug: string };
+        Returns: boolean;
+      };
+      scholarship_editor_transition: {
+        Args: { p_action: string; p_id: number; p_note?: string };
+        Returns: number;
+      };
+      scholarship_search: {
+        Args: {
+          p_award_type?: string;
+          p_country?: string;
+          p_limit?: number;
+          p_offset?: number;
+          p_query?: string;
+          p_slug?: string;
+          p_sort?: string;
+        };
+        Returns: {
+          award_type: string;
+          benefit_summary: string;
+          deadline_at: string;
+          deadline_timezone: string;
+          id: number;
+          official_url: string;
+          provider_country_code: string;
+          provider_name: string;
+          slug: string;
+          source_checked_at: string;
+          source_url: string;
+          title: string;
+          total_count: number;
+        }[];
+      };
+      scholarship_transition: {
+        Args: {
+          p_action: string;
+          p_actor: string;
+          p_id: number;
+          p_note?: string;
+        };
         Returns: number;
       };
     };

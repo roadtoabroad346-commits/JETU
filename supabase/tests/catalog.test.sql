@@ -1,5 +1,15 @@
 -- Synthetic fixture, transactionally rolled back. Never publish as product data.
 begin;
+create extension if not exists pgtap with schema extensions;
+set local search_path = public, extensions;
+select plan(1);
+-- Keep the catalog fixture independent of cloud taxonomy seeded by operators.
+insert into public.fee_currency(code,name) values ('USD','US Dollar') on conflict do nothing;
+insert into public.countries(iso2,iso3,name) values ('KZ','KAZ','Kazakhstan') on conflict do nothing;
+insert into public.degree_levels(code,label,rank) values ('bachelor','Bachelor',1),('master','Master',2) on conflict do nothing;
+insert into public.fields_of_study(code,name) values ('CS','Computer science'),('BUS','Business') on conflict do nothing;
+insert into public.languages_of_instruction(code,name) values ('en','English'),('kk','Kazakh') on conflict do nothing;
+insert into public.program_delivery_modes(code,label) values ('on_campus','On campus'),('hybrid','Hybrid') on conflict do nothing;
 create temporary table catalog_fixture (kind text primary key, bundle jsonb not null);
 insert into catalog_fixture values ('published', public.import_catalog_bundle(jsonb_build_object(
   'source',jsonb_build_object('url','https://fixture.example/phase12-published','publisher','Fixture University','title','Fixture degree page','locale','en','excerpt','Synthetic evidence for SQL isolation test'),
@@ -77,4 +87,7 @@ begin
   then raise exception 'catalog filter or visibility assertion failed'; end if;
 end;
 $$;
+reset role;
+select pass('catalog visibility and filters passed');
+select * from finish();
 rollback;

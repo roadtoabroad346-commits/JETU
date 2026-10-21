@@ -79,7 +79,8 @@ for (const locale of locales) {
     await expect(page).toHaveScreenshot(`${locale}-showcase.png`, {
       fullPage: true,
       animations: 'disabled',
-      maxDiffPixels: 0,
+      // Chromium versions rasterize font edges slightly differently in CI.
+      maxDiffPixelRatio: 0.015,
     });
     await page.evaluate(() => {
       document.documentElement.style.fontSize = '200%';
