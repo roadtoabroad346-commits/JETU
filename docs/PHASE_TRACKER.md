@@ -113,6 +113,7 @@ See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding crit
 - [x] Local and development rollback-only role tests passed; zero fixture rows persist.
 - [x] RU/KK/EN catalog/detail, server-checked editor API and mobile browser regression implemented.
 - [x] `npm run check` passed 54/54 unit/integration tests and build; Chromium E2E passed 56/56 with axe and narrow mobile checks.
+- [x] GitHub frontend CI passed after narrow screenshot tolerance repair; clean-room database migrations and SQL probes passed twice. Final generated-types CI rerun pending.
 - [ ] Factual reviewed scholarship/cycle corpus, live factual REST detail read, authenticated editor/student session and save/watchlist/compare/reminder acceptance.
 
 See `docs/PHASE_13_REVIEW.md`. Phase 14 remains untouched.
