@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: **preserve the repository through Phase 06 only**. Phase 06 is **PARTIAL**: the localized landing, public information routes, SEO assets and local UI checks are implemented, but signup/onboarding, live discovery and approved pricing are absent. Phase 05 remains VERIFIED for its local scope; Phase 04 remains PARTIAL and phases 01–03 remain UNVERIFIED. Do not start Phase 07 automatically.
+Current request: **Phase 12 University & Program Explorer — PARTIAL**. Read-only search and detail routes use the recovered Phase 10 cloud schema. SQL fixtures pass; no real reviewed catalog records exist and workspace REST access is blocked. Phase 05 remains VERIFIED for its local scope; other prior statuses are not upgraded by this work. Do not start Phase 13 automatically.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -11,11 +11,11 @@ Current request: **preserve the repository through Phase 06 only**. Phase 06 is 
 | 05    | Уникальная визуальная система Jetu и brand identity              | VERIFIED   | Pitch reconciled; tokens/assets/shared components; RU/KK/EN showcase; 50 unit/integration + 30 E2E, axe, contrast and 6 visual diffs passed; see PHASE_05_REVIEW |
 | 06    | High-converting landing, SEO и motion                            | PARTIAL    | 39 localized pages, truthful demo, SEO, Chromium/axe and mobile Lighthouse lab evidence; onboarding/pricing/catalog gates open. See PHASE_06_REVIEW              |
 | 07    | IA, mobile UX, localization и accessibility                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 09    | Полноценный Academic & Personal Profile Builder                  | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 10    | Canonical PostgreSQL Global Admissions Database                  | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
+| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | UNVERIFIED | Cloud migrations recovered; functional scope and tests not audited in Phase 12                                                                                   |
+| 09    | Полноценный Academic & Personal Profile Builder                  | UNVERIFIED | Cloud profile migrations recovered; functional scope and tests not audited in Phase 12                                                                           |
+| 10    | Canonical PostgreSQL Global Admissions Database                  | UNVERIFIED | Cloud normalized schema exists; migration SQL recovered, phase acceptance not rechecked                                                                          |
 | 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 12    | University & Program Explorer                                    | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
+| 12    | University & Program Explorer                                    | PARTIAL    | Read-only cloud SQL search, pages, filter fixtures; no real reviewed rows; REST proxy 403; see Phase 12 review                                                   |
 | 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
@@ -91,3 +91,17 @@ unchanged. No Phase 05 DB/API change or remote schema operation was required.
 Phase 06 remains PARTIAL because its master acceptance gate explicitly requires real
 onboarding rather than an informational destination. No deployment or Phase 07 work
 is implied by this checkpoint. Exact review and metrics: PHASE_06_REVIEW.md.
+
+## Phase 12 gate — 2026-10-21
+
+- [x] Exact Phase 12 criteria, design contract, pitch context and code dependencies inspected; plan saved. Caveman unavailable. UI/UX Pro Max skill read; its cloud search script is unavailable in this workspace.
+- [x] Recovered missing Phase 08–10 migration files from authorized development migration history; no duplicate catalog tables.
+- [x] Read-only SECURITY INVOKER SQL search, existing RLS/grants and verified source-claim gate; applied migrations `20261021113901` and `20261021114706` to Jetuu development only.
+- [x] Server search API and RU/KK/EN explorer/detail routes, URL forms, source/cost/funding/requirements/intake display, actionable error/empty states. Unsupported save/compare/plan controls omitted.
+- [x] Synthetic rollback test: published_visible=1, matching_facets=1, secondary_facets=1, budget_match=1, budget_excludes=0, deadline_match=1, deadline_excludes=0, draft_hidden=0, wrong_country=0, search_match=1, hidden_search=0; leftover fixtures=0.
+- [x] `npm run check`: format, ESLint, strict TypeScript, 54 unit/integration tests, production build passed. Cloud-generated database types saved.
+- [ ] Real reviewed university/program/funding corpus and Phase 11 editorial ingestion/review workflow.
+- [ ] Direct Supabase REST/API rendering from this workspace: CONNECT tunnel 403. UI currently shows its verified unavailable state; live records cannot be checked end to end here.
+- [ ] Local PostgreSQL replay: container registry denied image pull with 403. Cloud SQL transaction verified function, not clean-room replay of recovered migration chain.
+
+See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding criteria.

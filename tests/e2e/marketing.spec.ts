@@ -40,7 +40,13 @@ test('compact hero keeps the guide action visible and deep links work without Ja
   await page.setViewportSize({ width: 320, height: 700 });
   for (const locale of locales) {
     await page.goto(`/${locale}`);
-    const box = await page.locator('.hero-actions .ui-button').boundingBox();
+    await expect(
+      page.locator('.hero-actions .ui-button').first(),
+    ).toBeVisible();
+    const box = await page
+      .locator('.hero-actions .ui-button')
+      .first()
+      .boundingBox();
     expect(box, locale).not.toBeNull();
     expect(box!.y + box!.height, locale).toBeLessThanOrEqual(700);
     expect(

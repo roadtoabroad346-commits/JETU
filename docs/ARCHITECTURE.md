@@ -121,3 +121,9 @@ and Docker selectors, then append `--local` where supported. Types are replaced
 atomically after successful local generation and formatting. The wrapper provides no
 remote command. The user-authorized existing Jetuu project is accessed separately
 through explicit MCP calls; see CLOUD_DEVELOPMENT.md. It is not an isolated branch.
+
+## Phase 12 catalog read path — 2026-10-21
+
+The development database contains the normalized Phase 10 catalog (migration files recovered from its history into this checkout); the original architecture note above predates that remote schema. Phase 12 adds a single `SECURITY INVOKER` search RPC over the existing canonical relationships. Public search and detail reads use the publishable key only, explicit grants and existing RLS. They cannot write. Source claims and publication state gate results. REST access is server-side, request-scoped and `no-store`; URL query parameters are the search state. RU/KK/EN detail pages expose source date, costs with currency/period/as-of, requirements, intakes and linked funding where published. No Auth-derived save, compare or plan action exists yet.
+
+The cloud SQL call worked; a direct REST tunnel from this workspace returned HTTP proxy CONNECT 403. The app therefore renders the unavailable state here. Real data read-path and performance at scale are still open verification gates.

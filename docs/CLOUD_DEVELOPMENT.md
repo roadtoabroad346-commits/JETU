@@ -54,3 +54,7 @@ no-Docker workspace workflow. Database-only CI verifies Supabase PostgreSQL,
 migrations, privileges, advisors and type generation; excluded services remain
 unverified. Authentication/session refresh and product row isolation require later
 phase-specific tests, not empty-schema assertions.
+
+## Phase 12 development update — 2026-10-21
+
+Cloud had Phase 08–10 migrations absent from Git; exact migration statements were recovered into this checkout. Phase 12 added `20261021113901_catalog_explorer` and `20261021114706_catalog_search_multivalue_fix` to this same authorized development project. Both contain only a read-only SECURITY INVOKER search function. Synthetic fixture tests were rolled back and follow-up row count was zero. Direct REST remains blocked by this workspace proxy; do not infer a production release or live read-path verification.

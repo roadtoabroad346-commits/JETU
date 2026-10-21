@@ -109,3 +109,10 @@
     palette/system font instead of generated teal/hosted fonts. Caveman remains
     unavailable after cloud, executor, local-file and CLI checks; use the saved
     plan → build → test → fix → review → checkpoint process without invented modes.
+
+## Phase 12 — 2026-10-21
+
+27. Reuse the existing normalized Phase 10 development schema. Six migrations were present in cloud history but absent from Git; recover their exact statements under their recorded versions instead of adding duplicate catalog tables. This recovers code history only; it does not verify phases 08–10.
+28. Add a read-only `catalog_search` SQL function as `SECURITY INVOKER`, with published/verified RLS visibility and verified source-claim gating. Apply only to the previously authorized Jetuu development project. No remote fixture persists; no production deploy/reset.
+29. Keep URL-backed native GET forms and server rendering. Hide save, compare, plan and requirement-check actions until Auth/plan contracts exist. A real catalog with zero reviewed rows shows an empty state; a transport failure shows unavailable. Preserve the existing blue/yellow design contract and locale dictionaries.
+30. Mark Phase 12 PARTIAL. Cloud SQL filter and isolation tests pass, but verified public content is empty, direct REST is blocked by this workspace proxy, and Phase 11 ingestion/review is absent. Do not claim end-to-end live data or a production performance baseline.

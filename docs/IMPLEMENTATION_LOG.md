@@ -341,3 +341,13 @@ local-only caches and `work/` are held in the full workspace copy. No untracked
 credential file was present. No Supabase database mutation, deployment or new
 feature phase was performed. Exact integrity checks and scope are in
 `docs/PHASE_00_06_PRESERVATION.md`.
+
+## Phase 12 — 2026-10-21
+
+- Recovered six previously applied Phase 08–10 development migrations from migration history because Git/origin/main only contained Phase 06. Reused canonical tables; no duplicate catalog schema.
+- Added `20261021113901_catalog_explorer.sql` and `20261021114706_catalog_search_multivalue_fix.sql` read-only SECURITY INVOKER RPC, server search/detail adapter, localized university/program pages, URL filters, API, states and scoped styles. Migration applied to authorized Jetuu development project; no data rows changed.
+- Synthetic `supabase/tests/catalog.test.sql` ran in a cloud transaction: published_visible=1, matching_facets=1, secondary_facets=1, budget_match=1, budget_excludes=0, deadline_match=1, deadline_excludes=0, draft_hidden=0, wrong_country=0, search_match=1, hidden_search=0. Follow-up leftover fixture count=0. Security advisor: two existing INFO no-policy tables (intentional private write-only histories); performance advisor: unused indexes on empty catalog. One-row synthetic EXPLAIN ANALYZE: 36.072 ms, 1,416 shared hits (not a production baseline).
+- `npm run check`: PASS (format, ESLint, strict TypeScript, 54 unit/integration tests, production build). Direct REST curl: CONNECT tunnel 403. Local PostgreSQL Docker startup: registry 403; stopped. Browser: 45/46 first system-Chromium run; fixed a streamed hero timing race; affected rerun 10/10 passed, catalog axe clear on RU/KK/EN mobile/desktop and 320px reduced motion. Initial browser attempt lacked executable path.
+- UI/UX Pro Max SKILL.md and existing JETU design contract read; cloud skill search script unavailable in filesystem, so no search result is claimed. Caveman skill/CLI not installed; structured plan/build/review used.
+
+Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run check` passed (54 tests/build). Latest production-build catalog browser rerun: 4/4 desktop tests passed; earlier affected 10/10 desktop/mobile rerun passed. SQL fixture now raises on any of 11 wrong filter/isolation results; it passed under anon and rolled back. No fixture rows persist.

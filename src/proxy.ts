@@ -39,11 +39,18 @@ export function proxy(request: NextRequest) {
     /\/[^/]+\.[^/]+$/.test(pathname);
   if (!isAsset && pathname !== '/') {
     if (!isLocale(candidate)) return notFoundResponse('ru');
+    const isCatalogDetail =
+      segments.length === 3 &&
+      ((segments[1] === 'universities' &&
+        /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')) ||
+        (segments[1] === 'programs' &&
+          /^[1-9][0-9]*$/.test(segments[2] ?? '')));
     if (
-      segments.length > 2 ||
-      (segments.length === 2 &&
-        segments[1] !== 'design-system' &&
-        !isMarketingSlug(segments[1] ?? ''))
+      !isCatalogDetail &&
+      (segments.length > 2 ||
+        (segments.length === 2 &&
+          segments[1] !== 'design-system' &&
+          !isMarketingSlug(segments[1] ?? '')))
     ) {
       return notFoundResponse(candidate);
     }

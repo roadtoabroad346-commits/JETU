@@ -11,8 +11,12 @@ import { StructuredData } from '@/components/marketing/structured-data';
 import { getPublicEnv } from '@/lib/env/public';
 import { Icon } from '@/components/ui/icon';
 import { MarketingFooter } from '@/components/marketing/footer';
+import { CatalogSearch } from '@/features/catalog/views';
 
-type Props = { params: Promise<{ locale: string; slug: string }> };
+type Props = {
+  params: Promise<{ locale: string; slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 export function generateStaticParams() {
   return marketingSlugs.map((slug) => ({ slug }));
 }
@@ -23,9 +27,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = marketing[locale].pages[slug];
   return pageMetadata(locale, slug, page.title, page.description);
 }
-export default async function MarketingInfoPage({ params }: Props) {
+export default async function MarketingInfoPage({
+  params,
+  searchParams,
+}: Props) {
   const { locale, slug } = await params;
   if (!isLocale(locale) || !isMarketingSlug(slug)) notFound();
+  if (slug === 'universities')
+    return <CatalogSearch locale={locale} input={await searchParams} />;
   const t = marketing[locale];
   const content = t.pages[slug];
   return (
