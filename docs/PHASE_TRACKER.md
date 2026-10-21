@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: **Phase 13 Scholarship Intelligence & Financial Aid Explorer — PARTIAL**. Five additive migrations are installed on the Jetuu development database; local and cloud rollback-only role/funding probes pass. No official scholarship rows, Auth UI, personalized watchlist/reminder flow or confirmed deployed REST path exist. Earlier phases retain their recorded statuses. Do not start Phase 14.
+Current request: **Phase 13 Scholarship Intelligence & Financial Aid Explorer — PARTIAL**. Five additive migrations are installed on the Jetuu development database; local and cloud rollback-only role/funding probes pass. No official scholarship rows, Auth UI or personalized watchlist/reminder flow exist; the deployed empty REST path now works. Earlier phases retain their recorded statuses. Do not start Phase 14.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -113,6 +113,8 @@ See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding crit
 - [x] Local and development rollback-only role tests passed; zero fixture rows persist.
 - [x] RU/KK/EN catalog/detail, server-checked editor API and mobile browser regression implemented.
 - [x] `npm run check` passed 54/54 unit/integration tests and build; Chromium E2E passed 56/56 with axe and narrow mobile checks.
-- [ ] Factual reviewed scholarship/cycle corpus, live REST detail read, authenticated editor/student session and save/watchlist/compare/reminder acceptance.
+- [ ] Factual reviewed scholarship/cycle corpus, live factual REST detail read, authenticated editor/student session and save/watchlist/compare/reminder acceptance.
 
 See `docs/PHASE_13_REVIEW.md`. Phase 14 remains untouched.
+
+- [x] SSO-protected Vercel preview from commit `21958aa` READY; deployed health and empty catalog HTTP 200 through the connector.
