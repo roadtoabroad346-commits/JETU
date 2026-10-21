@@ -2947,6 +2947,28 @@ export type Database = {
         Args: { p_actor: string; p_bundle: Json };
         Returns: number;
       };
+      scholarship_editor_create_draft: {
+        Args: { p_bundle: Json };
+        Returns: number;
+      };
+      scholarship_editor_list: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          id: number;
+          publication_status_code: string;
+          slug: string;
+          title: string;
+          verification_state_code: string;
+        }[];
+      };
+      scholarship_editor_preview: {
+        Args: { p_slug: string };
+        Returns: boolean;
+      };
+      scholarship_editor_transition: {
+        Args: { p_action: string; p_id: number; p_note?: string };
+        Returns: number;
+      };
       scholarship_search: {
         Args: {
           p_award_type?: string;

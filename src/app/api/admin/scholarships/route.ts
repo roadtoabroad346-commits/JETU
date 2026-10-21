@@ -2,7 +2,6 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { createAdminSupabaseClient } from '@/lib/supabase/admin';
 
 const source = z.object({
   url: z.url().startsWith('https://').max(2000),
@@ -73,7 +72,7 @@ async function authorization() {
     .eq('user_id', user.id)
     .maybeSingle();
   if (role.error || !role.data) return null;
-  return { userId: user.id, role: role.data.role };
+  return { role: role.data.role, client: userClient };
 }
 
 const json = (data: unknown, status = 200) =>
@@ -82,12 +81,7 @@ export async function GET() {
   try {
     const actor = await authorization();
     if (!actor) return json({ error: 'Unauthorized' }, 401);
-    const admin = createAdminSupabaseClient();
-    const { data, error } = await admin
-      .from('scholarships')
-      .select('id,slug,title,provider_name')
-      .order('id', { ascending: false })
-      .limit(50);
+    const { data, error } = await actor.client.rpc('scholarship_editor_list');
     if (error) return json({ error: 'Catalog unavailable' }, 503);
     return json({ data });
   } catch {
@@ -104,27 +98,26 @@ export async function POST(request: Request) {
     if (!actor) return json({ error: 'Unauthorized' }, 401);
     const body = await request.json();
     const action = body?.action;
-    const admin = createAdminSupabaseClient();
     if (action === 'preview' || action === 'create') {
       const parsed = draft.safeParse(body);
       if (!parsed.success)
         return json({ error: 'Invalid scholarship draft' }, 400);
-      const existing = await admin
-        .from('scholarships')
-        .select('id')
-        .eq('slug', parsed.data.slug)
-        .maybeSingle();
+      const existing = await actor.client.rpc('scholarship_editor_preview', {
+        p_slug: parsed.data.slug,
+      });
       if (existing.error) return json({ error: 'Catalog unavailable' }, 503);
       if (parsed.data.action === 'preview')
-        return json({ duplicate: !!existing.data, ready: !existing.data });
+        return json({ duplicate: existing.data, ready: !existing.data });
       if (existing.data)
         return json({ error: 'Duplicate scholarship slug' }, 409);
       const { action: _action, ...bundle } = parsed.data;
       void _action;
-      const created = await admin.rpc('scholarship_create_draft', {
-        p_bundle: bundle,
-        p_actor: actor.userId,
-      });
+      const created = await actor.client.rpc(
+        'scholarship_editor_create_draft',
+        {
+          p_bundle: bundle,
+        },
+      );
       if (created.error)
         return json({ error: 'Draft rejected by catalog constraints' }, 422);
       return json({ id: created.data, status: 'draft' }, 201);
@@ -138,10 +131,9 @@ export async function POST(request: Request) {
       (!parsed.data.note || parsed.data.note.length < 10)
     )
       return json({ error: 'A dated review note is required' }, 400);
-    const changed = await admin.rpc('scholarship_transition', {
+    const changed = await actor.client.rpc('scholarship_editor_transition', {
       p_id: parsed.data.id,
       p_action: parsed.data.action,
-      p_actor: actor.userId,
       p_note: parsed.data.note,
     });
     if (changed.error)

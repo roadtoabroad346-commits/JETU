@@ -1,6 +1,6 @@
 # Phase tracker — 2026-10-18
 
-Current request: **Phase 13 Scholarship Intelligence & Financial Aid Explorer — PARTIAL**. Four additive migrations are installed on the Jetuu development database; local and cloud rollback-only role/funding probes pass. No official scholarship rows, Auth UI, personalized watchlist/reminder flow or confirmed deployed REST path exist. Earlier phases retain their recorded statuses. Do not start Phase 14.
+Current request: **Phase 13 Scholarship Intelligence & Financial Aid Explorer — PARTIAL**. Five additive migrations are installed on the Jetuu development database; local and cloud rollback-only role/funding probes pass. No official scholarship rows, Auth UI, personalized watchlist/reminder flow or confirmed deployed REST path exist. Earlier phases retain their recorded statuses. Do not start Phase 14.
 
 | Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
 | ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -109,7 +109,7 @@ See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding crit
 ## Phase 13 gate — 2026-10-21
 
 - [x] Reconciled the current Phase 08–12 migration history before editing; original old checkout preserved in its separate worktree.
-- [x] Four additive Phase 13 migrations applied to Jetuu development, with public/editor RLS, source and funding publication gates, and indexed search.
+- [x] Five additive Phase 13 migrations applied to Jetuu development, with public/editor RLS, source and funding publication gates, and indexed search.
 - [x] Local and development rollback-only role tests passed; zero fixture rows persist.
 - [x] RU/KK/EN catalog/detail, server-checked editor API and mobile browser regression implemented.
 - [x] `npm run check` passed 54/54 unit/integration tests and build; Chromium E2E passed 56/56 with axe and narrow mobile checks.
