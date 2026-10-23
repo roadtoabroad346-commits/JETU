@@ -256,6 +256,147 @@ h1 {
   }
 }
 
+/* Authentication and private workspace */
+.auth-page,
+.dashboard-page {
+  min-height: 100dvh;
+  background:
+    radial-gradient(circle at 90% 5%, rgb(0 139 223 / 16%), transparent 34rem),
+    var(--canvas);
+}
+.auth-header,
+.dashboard-header-inner {
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+.auth-header .wordmark,
+.dashboard-header .wordmark {
+  color: var(--brand);
+}
+.auth-home-link,
+.auth-links a,
+.dashboard-nav a {
+  color: var(--primary-hover);
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+.auth-main {
+  display: grid;
+  place-items: center;
+  padding-block: clamp(32px, 8vh, 96px);
+}
+.auth-card,
+.profile-panel {
+  width: min(100%, 600px);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-2);
+  padding: clamp(24px, 5vw, 48px);
+}
+.auth-card h1,
+.profile-panel h1,
+.dashboard-main h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  margin-block: var(--space-3);
+}
+.auth-lead {
+  color: var(--muted);
+  margin-bottom: var(--space-8);
+}
+.auth-submit {
+  width: 100%;
+  margin-top: var(--space-3);
+}
+.auth-links {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+}
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-block: var(--space-4);
+  cursor: pointer;
+}
+.check-row input {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+}
+.dashboard-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.dashboard-header-inner {
+  flex-wrap: wrap;
+  padding-block: var(--space-4);
+}
+.dashboard-nav {
+  display: flex;
+  gap: var(--space-5);
+}
+.dashboard-main {
+  padding-block: clamp(40px, 7vw, 80px);
+}
+.dashboard-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.account-card {
+  max-width: 720px;
+}
+.account-card h2 {
+  margin-top: 0;
+}
+.account-card p {
+  font-size: var(--text-lead);
+  margin-bottom: var(--space-6);
+}
+.profile-panel {
+  margin-inline: auto;
+}
+.profile-form {
+  margin-top: var(--space-8);
+}
+.marketing-account {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.marketing-login {
+  color: #06172a;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+@media (max-width: 700px) {
+  .dashboard-nav {
+    order: 3;
+    width: 100%;
+  }
+  .dashboard-heading {
+    display: block;
+  }
+  .dashboard-heading .ui-badge {
+    margin-top: var(--space-4);
+  }
+  .auth-links {
+    display: grid;
+  }
+}
+
 /* Shared component language. Breakpoints: 640 / 768 / 1024 / 1440px. */
 html {
   scroll-padding-block: 24px;

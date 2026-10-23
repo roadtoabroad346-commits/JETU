@@ -148,7 +148,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Можно ли сейчас создать аккаунт?',
         answer:
-          'Пока нет. Регистрация и личный кабинет появятся после проверки основных функций и безопасности.',
+          'Да. Доступны регистрация, подтверждение почты, восстановление пароля, личный кабинет и приватная анкета.',
       },
       {
         question: 'JETU гарантирует поступление или стипендию?',
@@ -303,8 +303,8 @@ export const marketing: Record<Locale, MarketingContent> = {
         description: 'Ответы о доступности JETU, источниках, ИИ и результатах.',
         sections: [
           {
-            heading: 'Когда появится личный кабинет?',
-            body: 'Публичной даты пока нет. Мы сообщим о доступности после проверки регистрации и безопасности.',
+            heading: 'Доступен ли личный кабинет?',
+            body: 'Да. Можно зарегистрироваться, подтвердить почту, войти и сохранить приватную анкету.',
           },
           {
             heading: 'Можно ли доверять подсказкам ИИ?',
@@ -337,7 +337,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: 'Текущий сайт',
-            body: 'Эти публичные страницы не предлагают регистрацию или отправку документов. Переключение языка и демо-превью работают без сохранения профиля.',
+            body: 'Публичные страницы доступны без аккаунта. Регистрация и приватная анкета работают отдельно; загрузка документов пока не предлагается.',
           },
           {
             heading: 'Технические данные',
@@ -454,7 +454,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Қазір тіркелуге бола ма?',
         answer:
-          'Әзірге жоқ. Тіркелу мен жеке кабинет негізгі функциялар мен қауіпсіздік тексерілген соң ашылады.',
+          'Иә. Тіркелу, поштаны растау, құпиясөзді қалпына келтіру, жеке кабинет және жеке сауалнама қолжетімді.',
       },
       {
         question: 'JETU оқуға түсуге не стипендияға кепілдік бере ме?',
@@ -610,8 +610,8 @@ export const marketing: Record<Locale, MarketingContent> = {
           'JETU қолжетімділігі, дереккөздер, ЖИ және нәтижелер туралы жауаптар.',
         sections: [
           {
-            heading: 'Жеке кабинет қашан ашылады?',
-            body: 'Әзірге ашық күні жоқ. Тіркелу мен қауіпсіздік тексерілген соң хабарлаймыз.',
+            heading: 'Жеке кабинет қолжетімді ме?',
+            body: 'Иә. Тіркелуге, поштаны растауға, кіруге және жеке сауалнаманы сақтауға болады.',
           },
           {
             heading: 'ЖИ кеңестеріне сенуге бола ма?',
@@ -644,7 +644,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: 'Қазіргі сайт',
-            body: 'Бұл беттерде тіркелу не құжат жіберу жоқ. Тіл ауыстыру мен демо профильді сақтамайды.',
+            body: 'Ашық беттер аккаунтсыз қолжетімді. Тіркелу мен жеке сауалнама бөлек жұмыс істейді; құжат жүктеу әзірге ұсынылмайды.',
           },
           {
             heading: 'Техникалық деректер',
@@ -761,7 +761,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Can I create an account now?',
         answer:
-          'Not yet. Registration and a personal workspace will open after the core features and security have been checked.',
+          'Yes. Registration, email confirmation, password recovery, the personal workspace and a private profile are available.',
       },
       {
         question: 'Does JETU guarantee admission or a scholarship?',
@@ -917,8 +917,8 @@ export const marketing: Record<Locale, MarketingContent> = {
           'Answers about JETU availability, sources, AI and outcomes.',
         sections: [
           {
-            heading: 'When will accounts open?',
-            body: 'There is no public date yet. We will announce availability after registration and security are checked.',
+            heading: 'Are accounts available?',
+            body: 'Yes. You can register, confirm your email, sign in and save a private profile.',
           },
           {
             heading: 'Can I trust AI prompts?',
@@ -951,7 +951,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: 'Current site',
-            body: 'These public pages offer no registration or document submission. Language selection and demo preview do not save a profile.',
+            body: 'Public pages remain available without an account. Registration and the private profile are separate; document uploads are not offered yet.',
           },
           {
             heading: 'Technical data',

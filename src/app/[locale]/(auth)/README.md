@@ -1,4 +1,5 @@
-# Reserved route group
+# Authentication routes
 
-Phase 08 owns real signup, login, recovery, verification, callbacks, sessions, and
-onboarding. There is deliberately no placeholder auth route in Phase 04.
+Localized signup, login, password recovery and reset pages use Supabase Auth with
+server actions. PKCE and token confirmation are handled by the global `/auth`
+route handlers; session cookies are refreshed by the root proxy.

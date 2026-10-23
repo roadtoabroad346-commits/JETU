@@ -50,7 +50,12 @@ export default async function MarketingLayout({
               </a>
             ))}
           </nav>
-          <MarketingLanguageNav locale={locale} />
+          <div className="marketing-account">
+            <a className="marketing-login" href={`/${locale}/login`}>
+              {locale === 'ru' ? 'Войти' : locale === 'kk' ? 'Кіру' : 'Sign in'}
+            </a>
+            <MarketingLanguageNav locale={locale} />
+          </div>
         </div>
       </header>
       {children}

@@ -14,7 +14,7 @@ export const messages = {
     description:
       'Создаём JETU — платформу для студентов Центральной Азии, которые планируют учёбу за рубежом и ищут финансирование.',
     status: 'Готовимся к запуску',
-    note: 'Регистрация и подбор программ пока недоступны. Мы откроем их, когда основные возможности будут готовы.',
+    note: 'Регистрация и личный кабинет доступны. Каталог программ продолжает наполняться проверенными данными.',
     belief: 'Большие цели начинаются с ясного пути.',
     footer: 'Международное образование. Ближе к тебе.',
     language: 'Язык',
@@ -34,7 +34,7 @@ export const messages = {
     description:
       'JETU — шетелде білім алуды жоспарлап, қаржыландыру іздеп жүрген Орталық Азия студенттеріне арналған платформа. Біз оны әзірлеп жатырмыз.',
     status: 'Іске қосуға дайындалып жатырмыз',
-    note: 'Тіркелу мен бағдарламаларды іздеу әзірге қолжетімсіз. Негізгі мүмкіндіктер дайын болғанда оларды ашамыз.',
+    note: 'Тіркелу мен жеке кабинет қолжетімді. Бағдарламалар каталогы тексерілген деректермен толықтырылуда.',
     belief: 'Үлкен мақсат айқын жолдан басталады.',
     footer: 'Халықаралық білім. Саған жақынырақ.',
     language: 'Тіл',
@@ -52,7 +52,7 @@ export const messages = {
     description:
       'We’re building JETU for Central Asian students planning to study abroad and looking for funding.',
     status: 'Preparing to launch',
-    note: 'Registration and program discovery are not available yet. We’ll open them when the core features are ready.',
+    note: 'Registration and the personal workspace are available. The program catalog is being populated with verified data.',
     belief: 'Big ambitions start with a clear path.',
     footer: 'International education. Closer to you.',
     language: 'Language',
