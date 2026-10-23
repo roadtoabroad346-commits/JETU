@@ -12,11 +12,12 @@
 | Reproducibility         | npm ci without node_modules/env/build artifacts; format/lint/type/unit/build; lockfile                                                    | Clean source copy + root checks              |
 | Secret exposure         | Build with a synthetic admin-secret canary; inspect public chunks/HTML, safety unit cases                                                 | Production build + artifact scan             |
 
-Not applicable yet: persistence after student edits, duplicate mutations, cross-user/
-cross-tenant business isolation, uploads, OAuth, email delivery, AI, payments, catalog
-query performance. No such behavior is enabled. Do not count these as passed tests.
-Full Auth/Storage/Realtime stack readiness and remote GitHub CI are separate from
-local PostgreSQL/adapter/browser validation; record actual outcomes in the log.
+Not applicable yet: duplicate mutations, cross-user/cross-tenant business
+isolation, uploads, OAuth, email delivery, AI, payments, query performance at
+real corpus scale. No such behavior is enabled. Do not count these as passed
+tests. Full Auth/Storage/Realtime stack readiness and remote GitHub CI are
+separate from local PostgreSQL/adapter/browser validation; record actual
+outcomes in the log.
 
 2026-10-18 continuation: disposable CI replay/SQL/advisors/types passed; both cloud
 advisors and SQL probes passed. Public cloud env build and 14 production E2E passed.
@@ -39,3 +40,23 @@ See verification-2026-10-18.json and CLOUD_DEVELOPMENT.md for exact scope.
 No new DB data access exists in Phase 05: SQL/policy/cross-user mutation tests are
 not applicable to this read-only public library. Prior cloud/CI results are retained;
 no remote operation or workspace Docker was needed or run for this phase.
+
+## Phase 08–09 coverage (implemented, pending phase verification)
+
+These regression suites exist in the repo at HEAD; no phase gate has verified
+live Supabase Auth/Storage behavior — the environment limit (proxy CONNECT 403)
+still applies.
+
+- `tests/unit/auth-redirect.test.ts`: allowlist/explicit-destination contract
+  for post-auth navigation.
+- `tests/integration/supabase-clients.test.ts`: client factory contracts, now
+  including the admin/browser scaffolding that Phase 08+ code paths may adopt.
+- `tests/e2e/auth.spec.ts`: account form traffic, feedback states and
+  non-enumeration; the anonymous-dashboard redirect assertion is gated with
+  `test.skip` to configured-Supabase runs because unconfigured runs fail
+  closed with the documented EnvironmentError.
+- `tests/unit/catalog.test.ts` + `tests/e2e/catalog.spec.ts`: `catalog_search`
+  transport (anon key, POST, no-store, filters) and degraded-mode UI states.
+- Phase 12 SQL: synthetic filter/isolation transaction with **eleven**
+  assertions recorded in PHASE_TRACKER.md (source claim gate, 11 wrong
+  filter/isolation results → error, leftover fixtures = 0).

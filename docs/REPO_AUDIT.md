@@ -19,9 +19,12 @@ completed-phase evidence existed. No unrelated working-tree change was overwritt
 | Pitch presentation                        | MISSING                    | No PDF/PPTX in supplied repository or attachments; textual master extract only     |
 | Existing dependencies/secrets             | MISSING                    | No initial dependency manifest content or env configuration                        |
 
-The new `docs/JETU_MASTER_PROMPT.md` is an exact copy of the attachment and existing
-master (SHA-256 `8726fde824453eefd1daba2f3a68a943e4d148c7dad768e5258b37ee0122cb18`).
-Original source copies remain unchanged. Direct user phase instructions control
+The new `docs/JETU_MASTER_PROMPT.md` is a copy of the attachment surviving through
+later checkpoints. **Correction 2026-10-23:** the audit originally recorded
+SHA-256 `8726fde…` and 157725 bytes for the master copy; the byte-accurate value
+of the committed master is
+`12832cadbb83578b15da0d0f68bc4e2f34db24b7cf6353644bb7b25e35eb2de5` (158,752
+bytes). Original source copies remain unchanged. Direct user phase instructions control
 scope when the source document proposes automatic all-phase execution.
 
 Network initially denied the Supabase changelog host and public.ecr.aws. Official

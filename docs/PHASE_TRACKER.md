@@ -1,39 +1,41 @@
-# Phase tracker — 2026-10-18
+# Phase tracker — updated 2026-10-23
 
-Current request: **Phase 12 University & Program Explorer — PARTIAL**. Read-only search and detail routes use the recovered Phase 10 cloud schema. SQL fixtures pass; no real reviewed catalog records exist and workspace REST access is blocked. Phase 05 remains VERIFIED for its local scope; other prior statuses are not upgraded by this work. Do not start Phase 13 automatically.
+Current request state: **Phase 12 PARTIAL; Phases 08–09 implemented locally but
+NOT phase-verified**. Read-only search and detail routes use the recovered
+Phase 10 cloud schema. SQL fixtures pass; no real reviewed catalog records exist and workspace REST access is blocked. Phase 05 remains VERIFIED for its local scope; other prior statuses are not upgraded by this work. Do not start Phase 13 automatically.
 
-| Phase | Title                                                            | Status     | Evidence / dependency                                                                                                                                            |
-| ----- | ---------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 01    | Forensic audit питча, репозитория и продуктовых утверждений      | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
-| 02    | Product strategy, UX research и сфокусированный wedge            | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
-| 03    | Supabase-first modular architecture, ADR и domain boundaries     | UNVERIFIED | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
-| 04    | Репозиторий, зависимости и инженерный фундамент                  | PARTIAL    | App + CI DB replay/SQL/types and cloud baseline verified; full stack / direct cloud REST unverified; see latest evidence                                         |
-| 05    | Уникальная визуальная система Jetu и brand identity              | VERIFIED   | Pitch reconciled; tokens/assets/shared components; RU/KK/EN showcase; 50 unit/integration + 30 E2E, axe, contrast and 6 visual diffs passed; see PHASE_05_REVIEW |
-| 06    | High-converting landing, SEO и motion                            | PARTIAL    | 39 localized pages, truthful demo, SEO, Chromium/axe and mobile Lighthouse lab evidence; onboarding/pricing/catalog gates open. See PHASE_06_REVIEW              |
-| 07    | IA, mobile UX, localization и accessibility                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | UNVERIFIED | Cloud migrations recovered; functional scope and tests not audited in Phase 12                                                                                   |
-| 09    | Полноценный Academic & Personal Profile Builder                  | UNVERIFIED | Cloud profile migrations recovered; functional scope and tests not audited in Phase 12                                                                           |
-| 10    | Canonical PostgreSQL Global Admissions Database                  | UNVERIFIED | Cloud normalized schema exists; migration SQL recovered, phase acceptance not rechecked                                                                          |
-| 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 12    | University & Program Explorer                                    | PARTIAL    | Read-only cloud SQL search, pages, filter fixtures; no real reviewed rows; REST proxy 403; see Phase 12 review                                                   |
-| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 22    | Verified Mentor Network and Review Workflow                      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 25    | Post-offer Finance, Visa & Enrollment Journey                    | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 26    | B2B School / Counselor Multi-tenant Workspace                    | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 27    | Monetization, Billing, Entitlements & Unit Economics             | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 28    | Operations/Admin Studio, Content Governance & Support            | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 29    | Supabase RLS security, QA, resilience, performance and cost      | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
-| 30    | Production readiness, launch plan, metrics & YC-quality evidence | BACKLOG    | Not started; requires explicit phase authorization                                                                                                               |
+| Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                            |
+| ----- | ---------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 01    | Forensic audit питча, репозитория и продуктовых утверждений      | UNVERIFIED                 | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
+| 02    | Product strategy, UX research и сфокусированный wedge            | UNVERIFIED                 | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
+| 03    | Supabase-first modular architecture, ADR и domain boundaries     | UNVERIFIED                 | No prior checkpoint or implementation evidence in supplied repo                                                                                                  |
+| 04    | Репозиторий, зависимости и инженерный фундамент                  | PARTIAL                    | App + CI DB replay/SQL/types and cloud baseline verified; full stack / direct cloud REST unverified; see latest evidence                                         |
+| 05    | Уникальная визуальная система Jetu и brand identity              | VERIFIED                   | Pitch reconciled; tokens/assets/shared components; RU/KK/EN showcase; 50 unit/integration + 30 E2E, axe, contrast and 6 visual diffs passed; see PHASE_05_REVIEW |
+| 06    | High-converting landing, SEO и motion                            | PARTIAL                    | 39 localized pages, truthful demo, SEO, Chromium/axe and mobile Lighthouse lab evidence; onboarding/pricing/catalog gates open. See PHASE_06_REVIEW              |
+| 07    | IA, mobile UX, localization и accessibility                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 08    | Supabase Auth, RLS, sessions, roles и onboarding                 | IMPLEMENTED (NOT VERIFIED) | Auth actions/callbacks/session refresh shipped in `6dde0de`; no phase gate or acceptance evidence recorded yet                                                   |
+| 09    | Полноценный Academic & Personal Profile Builder                  | IMPLEMENTED (NOT VERIFIED) | Dashboard group and `student_profiles` persistence shipped in `4e7e7e0`; unit tests only; no phase gate recorded yet                                             |
+| 10    | Canonical PostgreSQL Global Admissions Database                  | UNVERIFIED                 | Cloud normalized schema exists; migration SQL recovered, phase acceptance not rechecked                                                                          |
+| 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 12    | University & Program Explorer                                    | PARTIAL                    | Read-only cloud SQL search, pages, filter fixtures; no real reviewed rows; REST proxy 403; see Phase 12 review                                                   |
+| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 15    | Unified Search, Saved Lists и Side-by-side Compare               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 22    | Verified Mentor Network and Review Workflow                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 25    | Post-offer Finance, Visa & Enrollment Journey                    | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 26    | B2B School / Counselor Multi-tenant Workspace                    | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 27    | Monetization, Billing, Entitlements & Unit Economics             | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 28    | Operations/Admin Studio, Content Governance & Support            | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 29    | Supabase RLS security, QA, resilience, performance and cost      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
+| 30    | Production readiness, launch plan, metrics & YC-quality evidence | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                               |
 
 ## Phase 04 gate
 
@@ -105,3 +107,25 @@ is implied by this checkpoint. Exact review and metrics: PHASE_06_REVIEW.md.
 - [ ] Local PostgreSQL replay: container registry denied image pull with 403. Cloud SQL transaction verified function, not clean-room replay of recovered migration chain.
 
 See `docs/PHASE_12_REVIEW.md` for browser/security evidence and outstanding criteria.
+
+## Addendum — 2026-10-23 audit and maintenance pass
+
+A full-repository audit found and fixed defects outside any single phase:
+
+- `npm run check` was failing on Windows (Prettier line-endings); the gate is
+  now platform-neutral (`endOfLine: "auto"` + `.gitattributes`). Lint, strict
+  typecheck, 62 unit/integration tests, production build and the format gate
+  all pass locally at this state.
+- Documentation set was out of sync with HEAD (Phases 08–09 shipped while docs
+  still described Phase 06-era scope). Status tables, README, architecture,
+  schema, RLS/TEST matrices and the feature matrix now reflect actual state
+  without upgrading any phase to VERIFIED.
+- User-facing copy contradictions fixed: `marketing` copy previously said the
+  verified catalog did not exist while `/universities` renders a live search;
+  auth/dashboard pages had hardcoded English `<title>` metadata; a DB read
+  error in onboarding rendered an empty form silently.
+- `scripts/db.mjs` now selects the Docker named pipe on Windows instead of
+  failing with a Unix-only `DOCKER_HOST`; CI deduplicates push/PR runs; e2e
+  webServer always builds a fresh bundle.
+
+No new phase work is implied by the addendum and no phase was upgraded.

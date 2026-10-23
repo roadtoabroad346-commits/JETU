@@ -25,23 +25,29 @@ will own durable product state; browser memory is never a persistence substitute
 
 ## Implemented modules
 
-| Path                       | Responsibility                                                                    | Boundary                                                         |
-| -------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `src/app`                  | Public localized marketing/info routes, design gallery, SEO, boundaries, liveness | No product mutation/data access                                  |
-| `src/components/marketing` | Leaf concept preview, locale nav, footer and JSON-LD                              | Demo state only; no business-data fetch                          |
-| `src/proxy.ts`             | Validated locale request header                                                   | Overwrites caller header; no auth claim                          |
-| `src/components/ui`        | Leaf language interaction using Motion                                            | Public data only; SSR content works without JS                   |
-| `src/lib/env`              | Zod validation and privileged env isolation                                       | Optional absent config; malformed/partial config fails closed    |
-| `src/lib/supabase`         | Typed browser/SSR/admin factories                                                 | SSR per request, cookie/cache propagation; admin server-only     |
-| `src/domain`               | Discriminated Result, error/status taxonomy                                       | No framework or credentials                                      |
-| `src/server`               | JSON HTTP contract                                                                | Server-generated request IDs, no-store, sanitized error messages |
-| `scripts/db*`              | Strict local-only CLI command allowlist                                           | No remote selectors/flags/linked project/remote daemon           |
-| `supabase`                 | CLI config, migration, seed, SQL security tests                                   | Public schema opt-in grants, unexposed private schema            |
+| Path                       | Responsibility                                                                    | Boundary                                                                     |
+| -------------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `src/app/(marketing)`      | Public localized marketing/info routes, design gallery, SEO, boundaries, liveness | Read-only product reads via catalog feature; no product mutation             |
+| `src/features/catalog`     | Read-only catalog server access and localized views                               | Anon-key RPC `catalog_search`/REST GET only; no writes                       |
+| `src/app/(auth)`           | Registration, sign-in, password reset and callback/confirm routes                 | Zod-validated server actions; no product tables                              |
+| `src/app/(dashboard)`      | Private workspace: account card and student-profile form                          | Owner-RLS `student_profiles` reads/writes after identity check               |
+| `src/components/marketing` | Leaf concept preview, locale nav, footer and JSON-LD                              | Demo state only; no business-data fetch                                      |
+| `src/proxy.ts`             | Locale header, session refresh, route-set 404 guard                               | Overwrites caller header; assets skip auth work                              |
+| `src/components/ui`        | Leaf language interaction using Motion                                            | Public data only; SSR content works without JS                               |
+| `src/lib/env`              | Zod validation and privileged env isolation                                       | Optional absent config; malformed/partial config fails closed                |
+| `src/lib/supabase`         | Typed browser/SSR/admin factories                                                 | SSR per request, cookie/cache propagation; admin server-only                 |
+| `src/lib/i18n`             | Typed RU/KK/EN copy registries (marketing, auth, catalog, messages)               | Copy only; no env, DB or secrets                                             |
+| `src/domain`               | Discriminated Result, error/status taxonomy                                       | No framework or credentials                                                  |
+| `src/server`               | JSON HTTP contract                                                                | Server-generated request IDs, no-store, sanitized error messages             |
+| `scripts/db*`              | Strict local-only CLI command allowlist                                           | No remote selectors/flags/linked project; Linux socket or Windows named pipe |
+| `supabase`                 | CLI config, migrations, seed, SQL security tests                                  | RLS + explicit opt-in grants per exposed table; unexposed private schema     |
 
 No Edge Functions, background jobs, caches, queues, payments, AI providers, external
-mail, product tables, buckets, or tenant claims are implemented yet. Their absence
-is intentional Phase 04 scope. RLS policies and per-user authorization must be
-implemented with the relevant data model before exposing a future feature.
+mail, buckets, or tenant claims are implemented yet. Student-profile persistence and
+the read-only catalog explorer exist; their phase acceptance is not verified. RLS
+policies and per-user authorization remain mandatory before exposing any new
+product table. Unsupported save/compare/plan controls do not exist and are not
+rendered.
 
 ## HTTP / failure contract
 

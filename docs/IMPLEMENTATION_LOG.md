@@ -351,3 +351,43 @@ feature phase was performed. Exact integrity checks and scope are in
 - UI/UX Pro Max SKILL.md and existing JETU design contract read; cloud skill search script unavailable in filesystem, so no search result is claimed. Caveman skill/CLI not installed; structured plan/build/review used.
 
 Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run check` passed (54 tests/build). Latest production-build catalog browser rerun: 4/4 desktop tests passed; earlier affected 10/10 desktop/mobile rerun passed. SQL fixture now raises on any of 11 wrong filter/isolation results; it passed under anon and rolled back. No fixture rows persist.
+
+## 2026-10-23 — full-repository audit and maintenance pass (no new phase)
+
+- Audited the whole tree (source, migrations, tests, CI, docs, git history). No
+  secrets tracked or in history; `.env` on disk is an empty template; RLS/grant
+  discipline, the private bucket and the locked SECURITY DEFINER function are
+  compliant.
+- Fixed the platform-broken gate: Prettier `endOfLine: "auto"` plus a new
+  `.gitattributes` (`* text=auto`). `npm run check` (format/lint/typecheck/62
+  unit-integration tests/build) now passes on Windows at a clean checkout.
+- Corrected user-facing contradictions: marketing copy claiming no verified
+  catalog while `/universities` served a live search; hardcoded English
+  metadata on the six auth/dashboard pages; root-layout/metadata reuse of the
+  unused `messages` strings; media queries for the missing-page/loading paths
+  unchanged.
+- Code defects fixed: onboarding silent profile-read failure now renders a
+  visible error; catalog deadline sorting is chronological with a lexicographic
+  fallback and 500-row union bounds; unstable React keys; duplicate error
+  branch in `views.tsx`; redundant dynamic imports; roleless `aria-label`;
+  ArrowLeft/ArrowRight asymmetry; proxy auth round-trip on static assets;
+  inline `signIn` translation in the marketing layout; dead recovery-error
+  copy now rendered on `?error=recovery`.
+- Tooling: `turbopack.root` pinned (removes the stray-lockfile warning);
+  Playwright validates `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` and always
+  builds fresh; CI triggers limited to `main` pushes + PRs; db scripts pick
+  the Docker named pipe on Windows; Husky `pre-push` runs typecheck + unit
+  tests; e2e specs use `baseURL`; db-safety test covers all 12 remote
+  selectors; duplicate vitest env cleanup removed; ESLint `@/server/**` deep
+  import pattern fixed; `package.json` version 0.4.0 → 0.12.0.
+- Documentation synced to HEAD: tracker rows/addendum (Phases 08–09 marked
+  IMPLEMENTED, NOT PHASE-VERIFIED), rewritten handoff, README, feature matrix,
+  architecture table, design-system note, TEST/RLS matrices, DATABASE_SCHEMA
+  later-phase section, CLOUD_DEVELOPMENT drift warning for the unmerged
+  Phase 13 branch, corrected master-prompt SHA in REPO_AUDIT, pitch addenda.
+- Migration SQL files were NOT edited (applied history is immutable here).
+  Long-term hygiene notes (dead superseded definitions, deny-all
+  `verification_runs`/`data_revisions`, blanket sequence grant) are documented
+  in DATABASE_SCHEMA.md and RLS_MATRIX.md instead.
+- Verification recorded: `npm run check` pass; production build pass
+  (Turbopack warning resolved); no cloud/remote operation performed.

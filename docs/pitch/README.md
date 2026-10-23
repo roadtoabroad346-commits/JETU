@@ -28,5 +28,9 @@ sha256sum docs/pitch/jetu-mvp-pitch-july-2026.pdf
 
 The PDF contains public-facing contact details and founder photographs as supplied
 by the user. Do not automatically copy them into application pages or use the
-contact details to send messages. This addition stores context only; Phase 05 and
-formal pitch-to-implementation/design reconciliation have not started.
+contact details to send messages. This addition stores context only.
+
+Update 2026-10-18 (same checkpoint day): Phase 05 ran the formal
+pitch-to-implementation/design reconciliation with explicit user authorization
+and is VERIFIED — see docs/design/PHASE_05_EVIDENCE.md and docs/PHASE_TRACKER.md.
+The pitch itself remains reference material, not verified traction.

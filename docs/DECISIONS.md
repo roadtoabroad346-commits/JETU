@@ -116,3 +116,12 @@
 28. Add a read-only `catalog_search` SQL function as `SECURITY INVOKER`, with published/verified RLS visibility and verified source-claim gating. Apply only to the previously authorized Jetuu development project. No remote fixture persists; no production deploy/reset.
 29. Keep URL-backed native GET forms and server rendering. Hide save, compare, plan and requirement-check actions until Auth/plan contracts exist. A real catalog with zero reviewed rows shows an empty state; a transport failure shows unavailable. Preserve the existing blue/yellow design contract and locale dictionaries.
 30. Mark Phase 12 PARTIAL. Cloud SQL filter and isolation tests pass, but verified public content is empty, direct REST is blocked by this workspace proxy, and Phase 11 ingestion/review is absent. Do not claim end-to-end live data or a production performance baseline.
+
+## 2026-10-23 — maintenance pass
+
+31. Make the quality gate platform-neutral. Prettier gains `endOfLine: "auto"` and a new `.gitattributes` (`* text=auto`): repositories stay LF-normalized in Git while Windows checkouts keep native endings, so `npm run check` matches CI on either OS.
+32. Documentation is synced to reality, phases are not upgraded by sync. Phases 08–09 shipped by `6dde0de`/`4e7e7e0` are labeled IMPLEMENTED (NOT PHASE-VERIFIED) everywhere; VERIFIED is reserved for phases with their own acceptance evidence.
+33. Browser tests always run against a freshly built production bundle (Playwright `webServer` builds first) and an explicitly validated `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`; a wrong path warns and falls back instead of failing cryptically.
+34. CI runs for `main` pushes and pull requests only, eliminating duplicate per-PR-commit pipelines; e2e continues to run in unconfigured-env degraded mode by design and any real-database run stays a separate authorized step.
+35. Local DB scripts select the Docker endpoint per platform (Unix socket on Linux, named pipe on Windows); remote selectors stay rejected. Migration SQL history is immutable in this checkout: superseded definitions in the migration chain are documented in DATABASE_SCHEMA.md rather than edited in place.
+36. `package.json` version tracks shipped scope (0.12.0 after the Phase 12 catalog explorer and the 08–09 account-workspace commits); the Husky `pre-push` hook runs typecheck + unit tests so failures surface before CI.

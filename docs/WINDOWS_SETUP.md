@@ -34,3 +34,10 @@ npm ci --include=dev
 ```
 
 If `C:\workspace\JETU` already exists and is not a Git repository, do not clone over it. Move it to a backup directory or choose a new path. The repository's `scripts\setup-windows.ps1` automates the safe clone/update/install/check flow.
+
+For the local Supabase stack, start Docker Desktop first: `scripts\db.mjs` then
+targets `npipe:////./pipe/docker_engine` and the safety guard accepts the Linux
+socket and the Windows named pipe (everything remote stays rejected). Linux-only
+socket assumptions no longer apply, but the Windows path itself has not been
+exercised in recorded evidence yet — run `npm run db:start` and stop at the
+first error instead of working around the guard.

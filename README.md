@@ -1,14 +1,18 @@
-# JETU Admissions — public site through Phase 06
+# JETU Admissions — current shipped state
 
-Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase. This
-checkpoint includes the engineering foundation, a verified local design-system
-slice and a localized Phase 06 public site. Phase 06 remains PARTIAL because live
-onboarding is absent. It does not implement accounts, catalog, matching, payments
-or AI.
+Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase.
+Shipped: engineering foundation, a verified local design-system slice, the
+localized Phase 06 public site, a read-only university & program catalog
+explorer (Phase 12 scope) and account flows — registration, sign-in, password
+reset, dashboard and a private student profile (Phase 08–09 scope). Phase 08/09
+work is implemented but **not** phase-verified. Matching, save/compare, paid
+plans, mentor booking, AI coaching and document vault are not implemented; the
+site does not simulate them.
 
 ## Run locally
 
-Run commands from the Git root, `/workspace/JETU`, **not** `jetu/`.
+Run commands from the Git repository root (this checkout, not the preserved
+`jetu/` snapshot).
 
 ```sh
 nvm install
@@ -47,11 +51,12 @@ remain guarded; cloud setup does not authorize production changes or remote rese
 
 ## Local Supabase
 
-Docker Engine must be running at the local Unix socket (`/var/run/docker.sock`).
-This safety baseline is tested on Linux; Windows users should use WSL2 with a local
-Docker socket. The wrapper refuses remote Docker contexts/endpoints, hosted database
-selectors, a linked project, staging/production envs, and extra CLI arguments.
-It reads `.env.local` using Next's env loader before checking these guards.
+Docker Engine must be running. On Linux the wrapper uses the local Unix socket
+(`/var/run/docker.sock`); on Windows it uses Docker Desktop's named pipe
+(`npipe:////./pipe/docker_engine`). The wrapper refuses remote Docker
+contexts/endpoints, hosted database selectors, a linked project,
+staging/production envs, and extra CLI arguments. It reads `.env.local` using
+Next's env loader before checking these guards.
 
 ```sh
 npm run db:start
@@ -98,12 +103,12 @@ The guard prevents accidental targeting, not a developer intentionally bypassing
 
 ```sh
 npx --no-install playwright install --with-deps chromium
-npm run build
 npm run test:e2e
 npm run test:a11y
 ```
 
-Alternatively, use an already installed Chromium:
+`npm run test:e2e` builds a fresh production bundle and starts it at port 3100
+automatically. Alternatively, use an already installed Chromium:
 
 ```sh
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e
@@ -117,15 +122,20 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
 
 ## Boundaries and readiness
 
-- `src/app/[locale]/(marketing)`: public landing and information routes. Auth/dashboard
-  groups are reserved without empty working routes. `src/proxy.ts` transports locale
-  and checks the current public path set; it is **not** an authentication gate.
-- `src/features`: future feature composition; `src/domain`: framework-free contracts;
-  `src/server`: server-only orchestration. See `docs/ARCHITECTURE.md`.
+- `src/app/[locale]/(marketing)`: public landing, information routes and the
+  catalog explorer. `src/app/[locale]/(auth)` and `(dashboard)`: account
+  registration/sign-in/reset and the private student profile (Phase 08–09
+  scope, implemented, not phase-verified). `src/proxy.ts` transports locale,
+  refreshes sessions and checks the current public path set; it is **not** the
+  only authorization layer — server actions validate identity per request.
+- `src/features/catalog`: read-only catalog access and views backed by the
+  `catalog_search` RPC; no write path. `src/features`: further feature
+  composition; `src/domain`: framework-free contracts; `src/server`: server-only
+  orchestration. See `docs/ARCHITECTURE.md`.
 - Supabase clients: browser uses public config; server requires a writable cookie
   adapter and forwards SSR cache headers; admin imports `server-only`, disables
-  session persistence, and is unused by public code. Full session/auth authorization
-  belongs to Phase 08 and must verify identity on every protected server operation.
+  session persistence, and is unused by public code. Protected server operations
+  re-check identity; RLS remains the persistence boundary.
 - `/api/health` is process liveness, not a Supabase readiness probe.
 - Public configuration is build-time in Next browser bundles. Rebuild when changing it.
 - Dependency updates require lockfile review and `npm ci`, `npm audit`, and all checks.
@@ -166,8 +176,8 @@ claim a remote CI run with that bundled browser.
 ## Phase 06 public site
 
 The landing, all 39 localized URLs, SEO assets and local mobile performance evidence
-are documented in docs/PHASE_06_REVIEW.md. The main CTA opens a real guide to
-checking opportunities. Registration, personalized results, verified catalog
-records, paid plans, mentor booking and contact submission are not open; the site
-does not simulate them. Phase 06 cannot be marked VERIFIED until its real onboarding
-gate and other listed prerequisites are met.
+are documented in docs/PHASE_06_REVIEW.md. The Phase 06 gate remains open because
+its original acceptance required the real onboarding flow that shipped later under
+Phase 08–09 commits — that work has its own pending verification. Matching,
+save/compare plans, verified scholarship records, paid plans, mentor booking and
+contact submission are not implemented; the site does not simulate them.
