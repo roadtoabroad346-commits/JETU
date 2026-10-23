@@ -71,3 +71,7 @@ cloud migration, run `supabase migration list` on the authorized project (or
 inspect its history via MCP) and reconcile remote history against BOTH `main`
 and that branch. This document previously recorded one drift incident
 (Phase 08–10); treat unpulled cloud state as likely to recur.
+
+## Phase 14 reconciliation — 2026-10-23
+
+Read-only migration listing found all five Phase 13 migrations applied, followed by `20261022135412_phase_13_security_and_phase_14_opportunities` and `20261022135919_phase_14_deadline_filter_fix`. The five Phase 13 files were recovered from the existing GitHub branch; the two Phase 14 files were recovered verbatim from `supabase_migrations.schema_migrations.statements` in the authorized development project. This is history recovery, not a new remote deployment. The current database has zero opportunity rows. A rollback-only nine-assertion Phase 14 fixture passed; follow-up counts found zero opportunity, save, plan and fixture-auth rows. Direct REST remains unavailable in this workspace.

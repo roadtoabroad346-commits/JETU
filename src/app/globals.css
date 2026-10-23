@@ -1810,6 +1810,20 @@ fieldset.showcase-layout {
   margin-block: var(--space-6);
   overflow-wrap: anywhere;
 }
+.catalog-card select {
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--control-border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.catalog-card form label {
+  display: grid;
+  gap: var(--space-2);
+  font-weight: 700;
+}
 @media (max-width: 600px) {
   .catalog-main {
     padding-block: var(--space-8);

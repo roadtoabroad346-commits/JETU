@@ -3,6 +3,7 @@ import { BrandLogo } from '@/components/ui/brand';
 import { authCopy } from '@/lib/i18n/auth';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
+import { opportunityCopy } from '@/features/opportunities/copy';
 import { signOut } from './actions';
 
 export default async function DashboardLayout({
@@ -36,6 +37,9 @@ export default async function DashboardLayout({
           <nav aria-label={t.dashboard} className="dashboard-nav">
             <a href={`/${locale}/dashboard`}>{t.dashboard}</a>
             <a href={`/${locale}/onboarding`}>{t.onboarding}</a>
+            <a href={`/${locale}/dashboard/opportunities`}>
+              {opportunityCopy[locale].activities}
+            </a>
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

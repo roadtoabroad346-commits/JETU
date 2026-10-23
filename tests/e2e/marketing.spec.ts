@@ -24,9 +24,15 @@ test('every requested public path resolves with localized metadata and content',
       expect(html, path).toContain('hrefLang="kk"');
       expect(html, path).toContain('hrefLang="en"');
       expect(html, path).toContain(
-        slug
-          ? marketing[locale].pages[slug].title
-          : marketing[locale].heroTitle,
+        slug === 'opportunities'
+          ? {
+              ru: 'Возможности вне университета',
+              kk: 'Университеттен тыс мүмкіндіктер',
+              en: 'Opportunities beyond university',
+            }[locale]
+          : slug
+            ? marketing[locale].pages[slug].title
+            : marketing[locale].heroTitle,
       );
     }
   }

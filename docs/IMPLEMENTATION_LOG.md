@@ -391,3 +391,12 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
   in DATABASE_SCHEMA.md and RLS_MATRIX.md instead.
 - Verification recorded: `npm run check` pass; production build pass
   (Turbopack warning resolved); no cloud/remote operation performed.
+
+## Phase 14 — 2026-10-23
+
+- Read project memory, Phase 14 master criteria, pitch context and JETU design contract. UI/UX Pro Max skill and quick reference were read; no mounted search script or Caveman skill/CLI was present.
+- Audited clean `work` branch and cloud migration history. Discovered pre-existing applied Phase 13 and Phase 14 migrations absent from this checkout. Recovered five Phase 13 migration files from `origin/codex/phase13-scholarships` and two exact Phase 14 applied statements from the development database. Discarded a redundant local Phase 14 migration draft. Generated actual database TypeScript types through connected Supabase.
+- Implemented RU/KK/EN opportunities search/detail, age/grade/type URL filters, official-source and eligibility display, public empty/unavailable states, server-side save/plan actions and private status list. Reused canonical RLS and search RPC. Updated the public nav route and metadata regression test.
+- `npm run check` passed after app changes: Prettier, ESLint, strict TypeScript, 65 unit/integration tests and production build. Full first browser run: 58 passed, 2 skipped, 2 failed on missing canonical metadata for the replaced opportunities path. Metadata fixed; targeted rerun recorded in `PHASE_14_REVIEW.md`.
+- Rollback-only connected SQL fixture passed nine assertions for published/draft visibility, age/grade filtering, anonymous write denial and cross-user save/plan isolation. Follow-up counts were all zero. Local DB image pull was blocked by registry 403, so no local SQL replay; direct REST/Auth write path remains unverified. Security advisor reports four INFO deny-all editorial tables; performance advisor reports one unindexed opportunity currency FK plus unused indexes on an empty catalog.
+- Final `npm run check` after generated types and empty-response handling: format, ESLint, strict TypeScript, 66 unit/integration tests and production build passed. The affected browser rerun passed 18/18 checks.

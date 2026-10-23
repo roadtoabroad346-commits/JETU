@@ -5,6 +5,7 @@ import { getPublicEnv } from '@/lib/env/public';
 import { authCopy } from '@/lib/i18n/auth';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { marketing } from '@/lib/i18n/marketing';
+import { opportunityCopy } from '@/features/opportunities/copy';
 import { notFound } from 'next/navigation';
 
 export default async function MarketingLayout({
@@ -47,7 +48,9 @@ export default async function MarketingLayout({
           <nav className="marketing-nav" aria-label={t.nav}>
             {t.navLinks.map(({ slug, label }) => (
               <a key={slug} href={`/${locale}/${slug}`}>
-                {label}
+                {slug === 'opportunities'
+                  ? opportunityCopy[locale].title
+                  : label}
               </a>
             ))}
           </nav>

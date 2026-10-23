@@ -125,3 +125,9 @@
 34. CI runs for `main` pushes and pull requests only, eliminating duplicate per-PR-commit pipelines; e2e continues to run in unconfigured-env degraded mode by design and any real-database run stays a separate authorized step.
 35. Local DB scripts select the Docker endpoint per platform (Unix socket on Linux, named pipe on Windows); remote selectors stay rejected. Migration SQL history is immutable in this checkout: superseded definitions in the migration chain are documented in DATABASE_SCHEMA.md rather than edited in place.
 36. `package.json` version tracks shipped scope (0.12.0 after the Phase 12 catalog explorer and the 08–09 account-workspace commits); the Husky `pre-push` hook runs typecheck + unit tests so failures surface before CI.
+
+## Phase 14 — 2026-10-23
+
+37. Recover the exact applied Phase 13 prerequisite and Phase 14 migration statements from the authorized development project's migration history. A first additive Phase 14 draft was discarded after discovering those migrations; no duplicate tables or RPC overloads are shipped. Generate database types from the actual development schema.
+38. Use the existing `opportunity_search(jsonb)` and canonical owner-RLS save/plan tables. Keep degree programs, scholarships and extracurricular opportunities separate. Treat the private plan action as a profile-building activity, not an admissions outcome claim or the full Phase 17 roadmap.
+39. Publish no synthetic opportunity records. The user-facing catalog is honest about no reviewed records and network errors; live REST/Auth verification remains a release gate. Retain JETU blue/yellow tokens and existing native filter patterns.
