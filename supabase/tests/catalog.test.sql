@@ -1,5 +1,17 @@
 -- Synthetic fixture, transactionally rolled back. Never publish as product data.
 begin;
+-- The catalog migration defines taxonomy tables but intentionally seeds no product data.
+-- Supply only the reference values required by this rollback-only fixture.
+insert into public.countries (iso2, iso3, name, default_currency_code)
+values ('KZ', 'KAZ', 'Kazakhstan', 'KZT');
+insert into public.degree_levels (code, label, rank)
+values ('bachelor', 'Bachelor', 1), ('master', 'Master', 2);
+insert into public.fields_of_study (code, name)
+values ('CS', 'Computer science'), ('BUS', 'Business');
+insert into public.languages_of_instruction (code, name)
+values ('en', 'English'), ('kk', 'Kazakh');
+insert into public.program_delivery_modes (code, label)
+values ('on_campus', 'On campus'), ('hybrid', 'Hybrid');
 create temporary table catalog_fixture (kind text primary key, bundle jsonb not null);
 insert into catalog_fixture values ('published', public.import_catalog_bundle(jsonb_build_object(
   'source',jsonb_build_object('url','https://fixture.example/phase12-published','publisher','Fixture University','title','Fixture degree page','locale','en','excerpt','Synthetic evidence for SQL isolation test'),
