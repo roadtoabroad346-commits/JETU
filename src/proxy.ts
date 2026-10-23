@@ -7,6 +7,18 @@ import {
   type Locale,
 } from '@/lib/i18n/messages';
 import { isMarketingSlug } from '@/lib/i18n/marketing';
+import { getPublicEnv } from '@/lib/env/public';
+import { createRouteSupabaseClient } from '@/lib/supabase/server';
+
+const APP_ROUTES = new Set([
+  'design-system',
+  'login',
+  'signup',
+  'forgot-password',
+  'reset-password',
+  'dashboard',
+  'onboarding',
+]);
 
 function notFoundResponse(locale: Locale) {
   const t = messages[locale];
@@ -27,8 +39,8 @@ function notFoundResponse(locale: Locale) {
   });
 }
 
-/** Locale transport only; this does not implement authentication. */
-export function proxy(request: NextRequest) {
+/** Validate locale routes and refresh signed-in sessions for Server Components. */
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const segments = pathname.split('/').filter(Boolean);
   const candidate = segments[0] ?? '';
@@ -37,7 +49,9 @@ export function proxy(request: NextRequest) {
     pathname.startsWith('/brand/') ||
     pathname === '/opengraph-image' ||
     /\/[^/]+\.[^/]+$/.test(pathname);
-  if (!isAsset && pathname !== '/') {
+  const isAuthCallback =
+    pathname === '/auth/callback' || pathname === '/auth/confirm';
+  if (!isAsset && pathname !== '/' && !isAuthCallback) {
     if (!isLocale(candidate)) return notFoundResponse('ru');
     const isCatalogDetail =
       segments.length === 3 &&
@@ -49,7 +63,7 @@ export function proxy(request: NextRequest) {
       !isCatalogDetail &&
       (segments.length > 2 ||
         (segments.length === 2 &&
-          segments[1] !== 'design-system' &&
+          !APP_ROUTES.has(segments[1] ?? '') &&
           !isMarketingSlug(segments[1] ?? '')))
     ) {
       return notFoundResponse(candidate);
@@ -58,8 +72,19 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   // Overwrite client-supplied header; never trust it as identity or locale.
   requestHeaders.set('x-jetu-locale', isLocale(candidate) ? candidate : 'ru');
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  const env = getPublicEnv();
+  if (
+    env.NEXT_PUBLIC_SUPABASE_URL &&
+    env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  ) {
+    const supabase = createRouteSupabaseClient(request, response);
+    await supabase.auth.getClaims();
+  }
+  return response;
 }
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+  ],
 };

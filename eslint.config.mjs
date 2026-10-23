@@ -40,6 +40,10 @@ export default defineConfig([
     files: [
       'src/server/**/*.ts',
       'src/app/**/route.ts',
+      'src/app/**/actions.ts',
+      'src/app/**/page.tsx',
+      'src/app/**/layout.tsx',
+      'src/proxy.ts',
       'src/lib/supabase/{server,admin}.ts',
     ],
     rules: { 'no-restricted-imports': 'off' },
