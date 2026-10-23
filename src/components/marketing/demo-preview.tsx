@@ -22,8 +22,10 @@ export function DemoPreview({ locale }: { locale: Locale }) {
     index: number,
   ) => {
     let next: 0 | 1 | null = null;
-    if (event.key === 'ArrowRight') next = ((index + 1) % 2) as 0 | 1;
-    if (event.key === 'ArrowLeft') next = ((index + 1) % 2) as 0 | 1;
+    if (event.key === 'ArrowRight')
+      next = ((index + 1) % labels.length) as 0 | 1;
+    if (event.key === 'ArrowLeft')
+      next = ((index + labels.length - 1) % labels.length) as 0 | 1;
     if (event.key === 'Home') next = 0;
     if (event.key === 'End') next = 1;
     if (next !== null) {
@@ -33,7 +35,7 @@ export function DemoPreview({ locale }: { locale: Locale }) {
     }
   };
   return (
-    <div className="demo-window" aria-label={t.demo}>
+    <div className="demo-window">
       <div className="demo-topline">
         <span className="demo-dots" aria-hidden="true">
           <i />

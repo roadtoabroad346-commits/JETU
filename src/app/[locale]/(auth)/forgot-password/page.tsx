@@ -4,10 +4,18 @@ import { authCopy } from '@/lib/i18n/auth';
 import { isLocale } from '@/lib/i18n/messages';
 import { requestPasswordReset } from '../actions';
 
-export const metadata: Metadata = {
-  title: 'Reset password',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return {
+    title: authCopy[locale].forgotTitle,
+    robots: { index: false, follow: false },
+  };
+}
 export default async function ForgotPasswordPage({
   params,
   searchParams,

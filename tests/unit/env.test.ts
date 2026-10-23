@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   getPublicEnv,
   parsePublicEnv,
@@ -13,7 +13,6 @@ const valid = {
   NEXT_PUBLIC_SUPABASE_URL: 'http://127.0.0.1:54321',
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_local_test_key_12345',
 };
-afterEach(() => vi.unstubAllEnvs());
 
 describe('environment boundary', () => {
   it('allows an unconfigured public informational app without fake Supabase values', () => {

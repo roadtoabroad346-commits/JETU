@@ -3,10 +3,18 @@ import { authCopy } from '@/lib/i18n/auth';
 import { isLocale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 
-export const metadata: Metadata = {
-  title: 'Dashboard',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return {
+    title: authCopy[locale].dashboard,
+    robots: { index: false, follow: false },
+  };
+}
 export default async function DashboardPage({
   params,
   searchParams,

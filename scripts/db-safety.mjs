@@ -64,13 +64,19 @@ export function localCommand(args, env, config, linked) {
     );
   }
   if (
-    (env.DOCKER_HOST && env.DOCKER_HOST !== 'unix:///var/run/docker.sock') ||
+    (env.DOCKER_HOST &&
+      ![
+        'unix:///var/run/docker.sock',
+        'npipe:////./pipe/docker_engine',
+      ].includes(env.DOCKER_HOST)) ||
     (env.DOCKER_CONTEXT && env.DOCKER_CONTEXT !== 'default') ||
     env.DOCKER_TLS ||
     env.DOCKER_TLS_VERIFY ||
     env.DOCKER_CERT_PATH
   ) {
-    throw new Error('Local database commands require the local Docker socket.');
+    throw new Error(
+      'Local database commands require the local Docker socket or Windows named pipe.',
+    );
   }
   if (
     !/^project_id\s*=\s*"jetu-local"\s*$/m.test(config) ||

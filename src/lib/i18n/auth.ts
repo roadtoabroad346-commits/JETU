@@ -48,6 +48,8 @@ export const authCopy = {
     passwordUpdated: 'Пароль обновлён. Теперь можно продолжить работу.',
     home: 'На главную',
     authError: 'Ссылка недействительна или истекла.',
+    profileLoadError:
+      'Не удалось загрузить сохранённую анкету — поля показаны пустыми.',
   },
   kk: {
     signIn: 'Кіру',
@@ -93,6 +95,8 @@ export const authCopy = {
     passwordUpdated: 'Құпиясөз жаңартылды.',
     home: 'Басты бетке',
     authError: 'Сілтеме жарамсыз немесе мерзімі өткен.',
+    profileLoadError:
+      'Сақталған сауалнаманы жүктеу мүмкін болмады — өрістер бос көрсетілген.',
   },
   en: {
     signIn: 'Sign in',
@@ -139,5 +143,7 @@ export const authCopy = {
     passwordUpdated: 'Password updated. You can continue.',
     home: 'Back to home',
     authError: 'This link is invalid or has expired.',
+    profileLoadError:
+      'Saved profile could not be loaded — the form is shown empty.',
   },
 } satisfies Record<Locale, Record<string, string>>;

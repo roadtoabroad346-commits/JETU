@@ -9,7 +9,7 @@ test('no-JS content has inert previews and usable navigation; vector assets reso
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:3100/en/design-system');
+  await page.goto('/en/design-system');
   await expect(
     page.getByText(designMessages.en.javascriptRequired, { exact: true }),
   ).toBeVisible();

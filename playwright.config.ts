@@ -1,4 +1,16 @@
+import { existsSync } from 'node:fs';
 import { defineConfig, devices } from '@playwright/test';
+
+// A system Chromium may be selected through PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH.
+// Validate that it exists so a typo or a WSL-style path fails with a clear
+// diagnostic instead of a cryptic launch error.
+const configuredExecutable =
+  process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined;
+if (configuredExecutable && !existsSync(configuredExecutable)) {
+  console.warn(
+    `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH is set but the file does not exist: ${configuredExecutable}. Falling back to the Playwright-managed Chromium.`,
+  );
+}
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -12,8 +24,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     launchOptions: {
-      executablePath:
-        process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+      executablePath: configuredExecutable,
     },
   },
   projects: [
@@ -27,9 +38,11 @@ export default defineConfig({
     { name: 'mobile-chromium', use: { ...devices['Pixel 7'] } },
   ],
   webServer: {
-    command: 'npm run start -- --port 3100',
+    // Always build a fresh production bundle so browser tests never exercise
+    // a stale .next output.
+    command: 'npm run build && npm run start -- --port 3100',
     url: 'http://127.0.0.1:3100/api/health',
     reuseExistingServer: false,
-    timeout: 60_000,
+    timeout: 240_000,
   },
 });

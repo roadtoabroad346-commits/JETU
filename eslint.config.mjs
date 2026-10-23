@@ -23,7 +23,7 @@ export default defineConfig([
           patterns: [
             {
               group: [
-                '@/server/*',
+                '@/server/**',
                 '@/lib/env/server',
                 '@/lib/supabase/admin',
                 '@/lib/supabase/server',

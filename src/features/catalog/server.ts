@@ -340,7 +340,7 @@ export async function getIntakes(programId: string) {
     starts_on: string | null;
   }>(
     'admission_intakes',
-    `program_id=eq.${encodeURIComponent(programId)}&select=id,term_code,starts_on&order=starts_on.asc.nullslast&limit=100`,
+    `program_id=eq.${encodeURIComponent(programId)}&select=id,term_code,starts_on&order=starts_on.asc.nullslast&limit=500`,
   );
   if (!rows.length) return [];
   const rounds = await table<{
@@ -349,18 +349,18 @@ export async function getIntakes(programId: string) {
     closes_at: string | null;
   }>(
     'application_rounds',
-    `intake_id=in.(${rows.map((row) => row.id).join(',')})&select=id,intake_id,closes_at&limit=100`,
+    `intake_id=in.(${rows.map((row) => row.id).join(',')})&select=id,intake_id,closes_at&limit=500`,
   );
   const deadlineLinks = rounds.length
     ? await table<{ application_round_id: number; deadline_id: number }>(
         'application_round_deadlines',
-        `application_round_id=in.(${rounds.map((round) => round.id).join(',')})&select=application_round_id,deadline_id&limit=100`,
+        `application_round_id=in.(${rounds.map((round) => round.id).join(',')})&select=application_round_id,deadline_id&limit=500`,
       )
     : [];
   const deadlines = deadlineLinks.length
     ? await table<{ id: number; due_at: string | null }>(
         'deadlines',
-        `id=in.(${deadlineLinks.map((link) => link.deadline_id).join(',')})&select=id,due_at&limit=100`,
+        `id=in.(${deadlineLinks.map((link) => link.deadline_id).join(',')})&select=id,due_at&limit=500`,
       )
     : [];
   return rows.map((row) => {
@@ -380,7 +380,15 @@ export async function getIntakes(programId: string) {
         (value): value is string =>
           Boolean(value) && new Date(value!).getTime() >= Date.now(),
       )
-      .sort();
+      .sort((a, b) => {
+        // Chronological when both are parseable timestamps (uniform
+        // Postgres timestamptz ISO output); lexicographic otherwise.
+        const ta = Date.parse(a);
+        const tb = Date.parse(b);
+        if (Number.isNaN(ta) || Number.isNaN(tb))
+          return a < b ? -1 : a > b ? 1 : 0;
+        return ta - tb;
+      });
     return {
       label: row.term_code,
       starts_on: row.starts_on,

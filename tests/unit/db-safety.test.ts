@@ -30,10 +30,15 @@ describe('local-only database safety', () => {
     'DATABASE_URL',
     'SUPABASE_DB_URL',
     'SUPABASE_PROJECT_ID',
+    'SUPABASE_PROJECT_REF',
     'SUPABASE_ACCESS_TOKEN',
     'PGHOST',
     'PGSERVICE',
+    'PGPORT',
+    'PGDATABASE',
+    'PGUSER',
     'PGPASSWORD',
+    'PGSERVICEFILE',
   ])('rejects remote selector %s before execution', (name) => {
     expect(() =>
       localCommand(['reset'], { [name]: 'do-not-log-me' }, config, false),

@@ -23,19 +23,18 @@ try {
     readFileSync(path.join(root, 'supabase/config.toml'), 'utf8'),
     existsSync(path.join(root, 'supabase/.temp/project-ref')),
   );
+  const dockerHost =
+    process.platform === 'win32'
+      ? 'npipe:////./pipe/docker_engine'
+      : 'unix:///var/run/docker.sock';
   const localEnv = {
     ...process.env,
-    DOCKER_HOST: 'unix:///var/run/docker.sock',
+    DOCKER_HOST: dockerHost,
   };
   delete localEnv.DOCKER_CONTEXT;
   const check = spawnSync(
     'docker',
-    [
-      '--host=unix:///var/run/docker.sock',
-      'info',
-      '--format',
-      '{{.ServerVersion}}',
-    ],
+    ['--host=' + dockerHost, 'info', '--format', '{{.ServerVersion}}'],
     {
       env: localEnv,
       encoding: 'utf8',

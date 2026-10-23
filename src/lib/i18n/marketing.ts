@@ -139,7 +139,7 @@ export const marketing: Record<Locale, MarketingContent> = {
     ],
     sectionTrust: 'Доверие начинается с источника',
     trustBody:
-      'На JETU пока нет опубликованного проверенного каталога. Когда записи появятся, каждая должна показывать официальный источник, дату проверки и точные условия. Решение о зачислении и финансировании всегда принимает организация, а не JETU или ИИ.',
+      'Каталог программ JETU наполняется записями, каждая из которых ссылается на официальный источник и дату проверки. Решение о зачислении и финансировании всегда принимает организация, а не JETU или ИИ.',
     sectionPricing: 'Прозрачность до оплаты',
     pricingBody:
       'Платные планы и оплата ещё не открыты. Мы опубликуем цену, состав услуг и условия до запуска продаж.',
@@ -158,7 +158,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Откуда будут данные о стипендиях?',
         answer:
-          'Планируется указывать официальный источник, дату проверки, требования и состав покрытия для каждой записи. Проверенного каталога пока нет.',
+          'Планируется указывать официальный источник, дату проверки, требования и состав покрытия для каждой записи. Каталог программ уже работает, проверенный каталог стипендий готовится.',
       },
     ],
     finalTitle: 'Начните с надёжной информации.',
@@ -178,7 +178,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Что уже доступно',
-            body: 'Сейчас доступны публичные объяснения подхода и демонстрация интерфейса. Персональные аккаунты и подбор ещё не открыты.',
+            body: 'Сейчас доступны публичные объяснения и демонстрация интерфейса, регистрация с личным кабинетом и приватной анкетой, а также поиск по каталогу программ. Персональный подбор ещё в разработке.',
           },
         ],
       },
@@ -189,7 +189,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: '1. Отправная точка',
-            body: 'Опишите образование, интересы, язык и ограничения. Не публикуйте личные документы до запуска защищённого кабинета.',
+            body: 'Опишите образование, интересы, язык и ограничения. Загрузка личных документов на текущем этапе не предусмотрена.',
           },
           {
             heading: '2. Поиск и проверка',
@@ -222,11 +222,12 @@ export const marketing: Record<Locale, MarketingContent> = {
       },
       universities: {
         title: 'Университеты и программы',
-        description: 'Метод выбора программ до запуска проверенного каталога.',
+        description:
+          'Поиск опубликованных программ: официальный источник и дата проверки для каждой записи.',
         sections: [
           {
-            heading: 'Поиск готовится',
-            body: 'Сейчас JETU не публикует перечень университетов или автоматические шансы поступления.',
+            heading: 'Что показывает поиск',
+            body: 'Поиск выдаёт только опубликованные записи каталога — без шансов поступления и приоритетов. Каталог продолжает наполняться.',
           },
           {
             heading: 'Сравнивайте по делу',
@@ -249,7 +250,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Персональный подбор ещё закрыт',
-            body: 'Мы откроем поиск и аккаунты после проверки данных, доступа и сохранения профиля. Сейчас эта страница служит руководством, а не выдачей результатов.',
+            body: 'Аккаунты и анкета работают, но сохранение подборки и личный план ещё не подключены. Эта страница служит руководством к действию.',
           },
         ],
       },
@@ -312,7 +313,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Есть ли подтверждённые стипендии?',
-            body: 'Проверенный каталог ещё не опубликован. Мы не отображаем вымышленные записи.',
+            body: 'Проверенного каталога стипендий ещё нет. Мы не отображаем вымышленные записи.',
           },
         ],
       },
@@ -359,7 +360,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Сервисы в разработке',
-            body: 'На текущем этапе сайт не предлагает аккаунты, платежи, консультации или отправку заявок.',
+            body: 'Платежи, консультации и отправка заявок недоступны. Аккаунты работают в пределах регистрации и приватной анкеты.',
           },
         ],
       },
@@ -445,7 +446,7 @@ export const marketing: Record<Locale, MarketingContent> = {
     ],
     sectionTrust: 'Сенім дереккөзден басталады',
     trustBody:
-      'JETU сайтында тексерілген каталог әзірге жарияланбады. Жазбалар шыққанда әрқайсысында ресми дереккөз, тексеру күні және нақты шарттар көрсетілуі тиіс. Қабылдау мен қаржыландыру шешімін JETU немесе ЖИ емес, тиісті ұйым қабылдайды.',
+      'JETU бағдарламалар каталогы ресми дереккөз бен тексеру күніне сілтеме беретін жазбалармен толықтырылуда. Қабылдау мен қаржыландыру шешімін JETU немесе ЖИ емес, тиісті ұйым қабылдайды.',
     sectionPricing: 'Төлемге дейінгі ашықтық',
     pricingBody:
       'Ақылы жоспарлар мен төлем әлі ашылған жоқ. Сатылым басталмай тұрып баға, қызмет құрамы және шарттар жарияланады.',
@@ -464,7 +465,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Стипендия деректері қайдан алынады?',
         answer:
-          'Әр жазбада ресми дереккөз, тексеру күні, талаптар және жабылатын шығындар көрсетілуі жоспарланған. Тексерілген каталог әлі жоқ.',
+          'Әр жазбада ресми дереккөз, тексеру күні, талаптар және жабылатын шығындар көрсетілуі жоспарланған. Бағдарламалар каталогы жұмыс істейді, стипендиялар каталогы әзірленуде.',
       },
     ],
     finalTitle: 'Сенімді ақпараттан бастаңыз.',
@@ -483,7 +484,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Қазір не бар',
-            body: 'Әзірше ашық ақпарат пен интерфейс көрсетілімі бар. Жеке аккаунт пен іріктеу әлі ашылмады.',
+            body: 'Әзірше ашық ақпарат пен интерфейс көрсетілімі, тіркелу (жеке кабинет пен жеке сауалнамамен) және бағдарламалар каталогын іздеу бар. Жеке іріктеу әзірленуде.',
           },
         ],
       },
@@ -494,7 +495,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: '1. Бастапқы нүкте',
-            body: 'Біліміңізді, қызығушылығыңызды, тіліңізді және шектеулеріңізді анықтаңыз. Қорғалған кабинет ашылмайынша жеке құжаттарды жүктемеңіз.',
+            body: 'Біліміңізді, қызығушылығыңызды, тіліңізді және шектеулеріңізді анықтаңыз. Жеке құжаттарды жүктеу қазір қарастырылмаған.',
           },
           {
             heading: '2. Іздеу және тексеру',
@@ -528,11 +529,11 @@ export const marketing: Record<Locale, MarketingContent> = {
       universities: {
         title: 'Университеттер мен бағдарламалар',
         description:
-          'Тексерілген каталог іске қосылғанға дейін бағдарлама таңдау әдісі.',
+          'Жарияланған бағдарламаларды іздеу: әр жазбада ресми дереккөз және тексеру күні.',
         sections: [
           {
-            heading: 'Іздеу әзірленуде',
-            body: 'JETU қазір университет тізімін не түсу ықтималдығын жарияламайды.',
+            heading: 'Іздеу нені көрсетеді',
+            body: 'Іздеу жарияланған каталог жазбаларын ғана көрсетеді — түсу ықтималдығы мен артықшылықтарсыз. Каталог толықтырылуда.',
           },
           {
             heading: 'Маңыздысын салыстырыңыз',
@@ -555,7 +556,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Жеке іріктеу әлі жабық',
-            body: 'Деректер, қолжетімділік және профиль сақталуы тексерілген соң іздеу мен аккаунттар ашылады. Бұл бет әзірге нұсқаулық қана.',
+            body: 'Аккаунт пен сауалнама жұмыс істейді, бірақ таңдауларды сақтау мен жеке жоспар әзірше қосылмады. Бұл бет әзірге нұсқаулық.',
           },
         ],
       },
@@ -619,7 +620,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Расталған стипендиялар бар ма?',
-            body: 'Тексерілген каталог әлі жарияланбады. Ойдан шығарылған жазбаларды көрсетпейміз.',
+            body: 'Тексерілген стипендия каталогы әзірге жоқ. Ойдан шығарылған жазбаларды көрсетпейміз.',
           },
         ],
       },
@@ -666,7 +667,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Қызметтер әзірленуде',
-            body: 'Қазір сайт аккаунт, төлем, кеңес не өтінім жіберуді ұсынбайды.',
+            body: 'Төлем, кеңес не өтінім жіберу әзірге қолжетімсіз. Аккаунттар тіркелу мен жеке сауалнама шегінде жұмыс істейді.',
           },
         ],
       },
@@ -752,7 +753,7 @@ export const marketing: Record<Locale, MarketingContent> = {
     ],
     sectionTrust: 'Trust starts with a source',
     trustBody:
-      'JETU does not yet publish a verified catalog. When records become available, each should show an official source, a review date and exact terms. Admissions and funding decisions belong to the institution, never to JETU or AI.',
+      'The JETU program catalog is being filled with records that each cite an official source and a review date. Admissions and funding decisions belong to the institution, never to JETU or AI.',
     sectionPricing: 'Clarity before payment',
     pricingBody:
       'Paid plans and checkout are not open. We will publish the price, included services and terms before sales start.',
@@ -771,7 +772,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Where will scholarship information come from?',
         answer:
-          'The plan is to show an official source, review date, eligibility and coverage for each record. A verified catalog is not available yet.',
+          'The plan is to show an official source, review date, eligibility and coverage for each record. The program catalog is live; the scholarship catalog is in development.',
       },
     ],
     finalTitle: 'Begin with reliable information.',
@@ -791,7 +792,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'What is available',
-            body: 'Public explanations and a concept interface are available now. Accounts and personal matching are not open.',
+            body: 'Public explanations and a concept interface, registration with a personal workspace and private profile, and program catalog search are available now. Personal matching is still in development.',
           },
         ],
       },
@@ -802,7 +803,7 @@ export const marketing: Record<Locale, MarketingContent> = {
         sections: [
           {
             heading: '1. Starting point',
-            body: 'Understand your studies, interests, language and constraints. Do not submit personal documents until a secure workspace is available.',
+            body: 'Understand your studies, interests, language and constraints. Personal document uploads are not part of the current stage.',
           },
           {
             heading: '2. Search and verify',
@@ -836,11 +837,11 @@ export const marketing: Record<Locale, MarketingContent> = {
       universities: {
         title: 'Universities and programs',
         description:
-          'A way to choose programs before the verified catalog launches.',
+          'Search published programs: an official source and review date for every record.',
         sections: [
           {
-            heading: 'Search in progress',
-            body: 'JETU does not currently publish university listings or automated admission odds.',
+            heading: 'What the search shows',
+            body: 'The search lists only published catalog records — no admission odds and no priorities. The catalog keeps growing.',
           },
           {
             heading: 'Compare what matters',
@@ -863,7 +864,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Personal matching is not open yet',
-            body: 'Search and accounts will open after data, access and profile storage are checked. This page is a guide, not a result list.',
+            body: 'Accounts and the profile work, but saving selections and the personal plan are not connected yet. This page remains a guide.',
           },
         ],
       },
@@ -926,7 +927,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Are there verified scholarships?',
-            body: 'A verified catalog has not been published. We do not show fictional records.',
+            body: 'A verified scholarship catalog is not available yet. We do not show fictional records.',
           },
         ],
       },
@@ -973,7 +974,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Services in development',
-            body: 'At present this site does not offer accounts, payments, consultations or application submission.',
+            body: 'Payments, consultations and application submission are unavailable. Accounts work within registration and the private profile.',
           },
         ],
       },

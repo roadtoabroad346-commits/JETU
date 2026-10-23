@@ -99,7 +99,7 @@ test('keyboard skip, target sizes, no-JS content and reduced motion', async ({
   }
   const context = await browser.newContext({ javaScriptEnabled: false });
   const staticPage = await context.newPage();
-  await staticPage.goto('http://127.0.0.1:3100/en');
+  await staticPage.goto('/en');
   await expect(staticPage.getByRole('heading', { level: 1 })).toHaveText(
     marketing.en.heroTitle,
   );

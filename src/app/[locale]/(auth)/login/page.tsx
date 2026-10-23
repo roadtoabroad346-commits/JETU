@@ -6,10 +6,18 @@ import { isLocale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signIn } from '../actions';
 
-export const metadata: Metadata = {
-  title: 'Sign in',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return {
+    title: authCopy[locale].signIn,
+    robots: { index: false, follow: false },
+  };
+}
 
 export default async function LoginPage({
   params,
@@ -23,7 +31,8 @@ export default async function LoginPage({
   const supabase = await createRequestSupabaseClient();
   const { data } = await supabase.auth.getClaims();
   if (data?.claims?.sub) redirect(`/${locale}/dashboard`);
-  const error = Boolean((await searchParams).error);
+  const errorParam = (await searchParams).error;
+  const error = Boolean(errorParam);
   const t = authCopy[locale];
   return (
     <main id="main" tabIndex={-1} className="auth-main page-shell">
@@ -33,7 +42,7 @@ export default async function LoginPage({
         <p className="auth-lead">{t.loginBody}</p>
         {error && (
           <p className="feedback-box feedback-box--error" role="alert">
-            {t.invalid}
+            {errorParam === 'recovery' ? t.authError : t.invalid}
           </p>
         )}
         <form action={signIn}>

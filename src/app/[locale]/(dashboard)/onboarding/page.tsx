@@ -5,10 +5,18 @@ import { isLocale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { saveProfile } from '../actions';
 
-export const metadata: Metadata = {
-  title: 'Student profile',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return {
+    title: authCopy[locale].onboardingTitle,
+    robots: { index: false, follow: false },
+  };
+}
 type ProfileDocument = {
   country?: string;
   studyLevel?: string;
@@ -26,14 +34,15 @@ export default async function OnboardingPage({
   if (!isLocale(locale)) return null;
   const supabase = await createRequestSupabaseClient();
   const { data: userData } = await supabase.auth.getUser();
-  const { data } = userData.user
+  const { data, error } = userData.user
     ? await supabase
         .from('student_profiles')
         .select('document')
         .eq('user_id', userData.user.id)
         .maybeSingle()
-    : { data: null };
+    : { data: null, error: null };
   const profile = (data?.document ?? {}) as ProfileDocument;
+  const loadFailed = Boolean(error);
   const state = await searchParams;
   const t = authCopy[locale];
   return (
@@ -42,6 +51,11 @@ export default async function OnboardingPage({
         <p className="eyebrow">JETU / {t.onboarding}</p>
         <h1 id="profile-title">{t.onboardingTitle}</h1>
         <p className="auth-lead">{t.onboardingBody}</p>
+        {loadFailed && (
+          <p className="feedback-box feedback-box--error" role="alert">
+            {t.profileLoadError}
+          </p>
+        )}
         {state.error && (
           <p className="feedback-box feedback-box--error" role="alert">
             {t.invalid}

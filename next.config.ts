@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { resolve } from 'node:path';
 import { getPublicEnv } from './src/lib/env/public';
 import { assertPublicEnvironmentSafety } from './src/lib/env/safety';
 
@@ -6,6 +7,9 @@ getPublicEnv();
 assertPublicEnvironmentSafety(process.env);
 
 const nextConfig: NextConfig = {
+  // Pin the app root explicitly so a stray lockfile in a parent directory
+  // (e.g. the user home) cannot widen Turbopack's watched root on Windows.
+  turbopack: { root: resolve() },
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {

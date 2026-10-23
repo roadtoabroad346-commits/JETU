@@ -51,7 +51,9 @@ export async function proxy(request: NextRequest) {
     /\/[^/]+\.[^/]+$/.test(pathname);
   const isAuthCallback =
     pathname === '/auth/callback' || pathname === '/auth/confirm';
-  if (!isAsset && pathname !== '/' && !isAuthCallback) {
+  // Static SEO/brand assets skip locale validation and auth refresh entirely.
+  if (isAsset) return NextResponse.next();
+  if (pathname !== '/' && !isAuthCallback) {
     if (!isLocale(candidate)) return notFoundResponse('ru');
     const isCatalogDetail =
       segments.length === 3 &&

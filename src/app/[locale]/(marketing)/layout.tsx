@@ -2,6 +2,7 @@ import { BrandLogo } from '@/components/ui/brand';
 import { MarketingLanguageNav } from '@/components/marketing/language-nav';
 import { StructuredData } from '@/components/marketing/structured-data';
 import { getPublicEnv } from '@/lib/env/public';
+import { authCopy } from '@/lib/i18n/auth';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { marketing } from '@/lib/i18n/marketing';
 import { notFound } from 'next/navigation';
@@ -52,7 +53,7 @@ export default async function MarketingLayout({
           </nav>
           <div className="marketing-account">
             <a className="marketing-login" href={`/${locale}/login`}>
-              {locale === 'ru' ? 'Войти' : locale === 'kk' ? 'Кіру' : 'Sign in'}
+              {authCopy[locale].signIn}
             </a>
             <MarketingLanguageNav locale={locale} />
           </div>

@@ -58,7 +58,7 @@ test('compact hero keeps the guide action visible and deep links work without Ja
   }
   const context = await browser.newContext({ javaScriptEnabled: false });
   const staticPage = await context.newPage();
-  await staticPage.goto('http://127.0.0.1:3100/en/scholarships');
+  await staticPage.goto('/en/scholarships');
   await expect(
     staticPage.locator('.language-nav a[lang="kk"]'),
   ).toHaveAttribute('href', '/kk/scholarships');

@@ -13,9 +13,11 @@ import {
   getRequirements,
   getFunding,
   getProgram,
+  getUniversityById,
   getProgramsForUniversity,
   getSource,
   getUniversity,
+  parseFilters,
   searchCatalog,
 } from './server';
 import { MarketingFooter } from '@/components/marketing/footer';
@@ -76,16 +78,15 @@ export async function CatalogSearch({
   input: Record<string, string | string[] | undefined>;
 }) {
   const t = catalogCopy[locale];
-  const parsed = (await import('./server')).parseFilters(input);
+  const parsed = parseFilters(input);
   let rows: CatalogRow[] = [];
   let error = '';
   if (!parsed.success) error = t.invalid;
   else
     try {
       rows = await searchCatalog(parsed.data);
-    } catch (cause) {
-      error =
-        cause instanceof CatalogUnavailable ? t.unavailable : t.unavailable;
+    } catch {
+      error = t.unavailable;
     }
   const filters = parsed.success ? parsed.data : null;
   const total = rows[0]?.total_count ?? 0;
@@ -255,7 +256,7 @@ export async function CatalogSearch({
             </div>
           )}
           {filters && total > 12 && (
-            <nav className="catalog-pages" aria-label={t.results}>
+            <nav className="catalog-pages" aria-label={t.pagination}>
               {filters.page > 1 && (
                 <a href={link(locale, filters, filters.page - 1)}>
                   {t.previous}
@@ -386,7 +387,7 @@ export async function ProgramDetail({
     program = await getProgram(id);
     if (!program) notFound();
     const rows = await Promise.all([
-      (await import('./server')).getUniversityById(program.university_id),
+      getUniversityById(program.university_id),
       program.campus_id ? getCampus(program.campus_id) : Promise.resolve(null),
       getSource(program.source_id),
       getIntakes(program.id),
@@ -437,8 +438,8 @@ export async function ProgramDetail({
             <h2>{t.requirements}</h2>
             {requirements.descriptions.length ? (
               <ul>
-                {requirements.descriptions.map((item) => (
-                  <li key={item}>{item}</li>
+                {requirements.descriptions.map((item, index) => (
+                  <li key={`${index}-${item}`}>{item}</li>
                 ))}
               </ul>
             ) : (
@@ -466,8 +467,8 @@ export async function ProgramDetail({
             <h2>{t.fundingLabel}</h2>
             {funding.length ? (
               <ul>
-                {funding.map((item) => (
-                  <li key={item.official_url}>
+                {funding.map((item, index) => (
+                  <li key={`${index}-${item.official_url}`}>
                     <a
                       href={item.official_url}
                       target="_blank"
