@@ -1,5 +1,8 @@
 -- Synthetic fixture, transactionally rolled back. Never publish as product data.
 begin;
+create extension if not exists pgtap with schema extensions;
+set local search_path = public, extensions;
+select plan(11);
 -- The catalog migration defines taxonomy tables but intentionally seeds no product data.
 -- Supply only the reference values required by this rollback-only fixture.
 insert into public.fee_currency (code, name)
@@ -74,33 +77,37 @@ insert into public.source_claims(source_id,catalog_entity_id,claim_key,claim_tex
 select (f.bundle->>'sourceId')::bigint,d.id,'deadline','Synthetic deadline fixture',md5('phase12-application-deadline'),'verified'
 from catalog_deadline_fixture d cross join catalog_fixture f where f.kind='published';
 select public.publish_catalog_entity(id,now()) from catalog_deadline_fixture;
+create temporary table catalog_results (
+  published_visible integer, matching_facets integer, secondary_facets integer,
+  budget_match integer, budget_excludes integer, deadline_match integer,
+  deadline_excludes integer, draft_hidden integer, wrong_country integer,
+  search_match integer, hidden_search integer
+);
+grant insert on catalog_results to anon;
 set local role anon;
-select
-  (select count(*) from public.catalog_search('{}'::jsonb)) as published_visible,
-  (select count(*) from public.catalog_search('{"country":"KZ","level":"bachelor","major":"Computer science","language":"en","mode":"on_campus","intake":"fall"}'::jsonb)) as matching_facets,
-  (select count(*) from public.catalog_search('{"language":"kk","mode":"hybrid"}'::jsonb)) as secondary_facets,
-  (select count(*) from public.catalog_search('{"maxTuition":13000,"currency":"USD"}'::jsonb)) as budget_match,
-  (select count(*) from public.catalog_search('{"maxTuition":11000,"currency":"USD"}'::jsonb)) as budget_excludes,
-  (select count(*) from public.catalog_search('{"deadline":"2027-04-01"}'::jsonb)) as deadline_match,
-  (select count(*) from public.catalog_search('{"deadline":"2027-02-01"}'::jsonb)) as deadline_excludes,
-  (select count(*) from public.catalog_search('{"level":"master"}'::jsonb)) as draft_hidden,
-  (select count(*) from public.catalog_search('{"country":"US"}'::jsonb)) as wrong_country,
-  (select count(*) from public.catalog_search('{"q":"Fixture Computing"}'::jsonb)) as search_match,
-  (select count(*) from public.catalog_search('{"q":"Fixture Hidden"}'::jsonb)) as hidden_search;
-do $$
-begin
-  if (select count(*) from public.catalog_search('{}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"country":"KZ","level":"bachelor","major":"Computer science","language":"en","mode":"on_campus","intake":"fall"}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"language":"kk","mode":"hybrid"}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"maxTuition":13000,"currency":"USD"}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"maxTuition":11000,"currency":"USD"}'::jsonb)) <> 0
-    or (select count(*) from public.catalog_search('{"deadline":"2027-04-01"}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"deadline":"2027-02-01"}'::jsonb)) <> 0
-    or (select count(*) from public.catalog_search('{"level":"master"}'::jsonb)) <> 0
-    or (select count(*) from public.catalog_search('{"country":"US"}'::jsonb)) <> 0
-    or (select count(*) from public.catalog_search('{"q":"Fixture Computing"}'::jsonb)) <> 1
-    or (select count(*) from public.catalog_search('{"q":"Fixture Hidden"}'::jsonb)) <> 0
-  then raise exception 'catalog filter or visibility assertion failed'; end if;
-end;
-$$;
+insert into catalog_results select
+  (select count(*) from public.catalog_search('{}'::jsonb)),
+  (select count(*) from public.catalog_search('{"country":"KZ","level":"bachelor","major":"Computer science","language":"en","mode":"on_campus","intake":"fall"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"language":"kk","mode":"hybrid"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"maxTuition":13000,"currency":"USD"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"maxTuition":11000,"currency":"USD"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"deadline":"2027-04-01"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"deadline":"2027-02-01"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"level":"master"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"country":"US"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"q":"Fixture Computing"}'::jsonb)),
+  (select count(*) from public.catalog_search('{"q":"Fixture Hidden"}'::jsonb));
+reset role;
+select is(published_visible, 1, 'published program visible') from catalog_results;
+select is(matching_facets, 1, 'combined facets match') from catalog_results;
+select is(secondary_facets, 1, 'secondary language and mode match') from catalog_results;
+select is(budget_match, 1, 'budget includes eligible program') from catalog_results;
+select is(budget_excludes, 0, 'budget excludes expensive program') from catalog_results;
+select is(deadline_match, 1, 'deadline includes eligible program') from catalog_results;
+select is(deadline_excludes, 0, 'deadline excludes late program') from catalog_results;
+select is(draft_hidden, 0, 'draft program is hidden') from catalog_results;
+select is(wrong_country, 0, 'wrong country is excluded') from catalog_results;
+select is(search_match, 1, 'published title is searchable') from catalog_results;
+select is(hidden_search, 0, 'draft title is not searchable') from catalog_results;
+select * from finish();
 rollback;
