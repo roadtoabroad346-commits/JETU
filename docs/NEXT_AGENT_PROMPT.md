@@ -11,7 +11,7 @@ Read `AGENTS.md`, `PHASE_TRACKER.md`, `PHASE_14_PLAN.md`, `PHASE_14_REVIEW.md`, 
 
 ## Exact next actions for Phase 14
 
-1. Confirm GitHub branch/CI and any Vercel preview checkpoint listed in `PHASE_14_REVIEW.md`; do not infer production deployment from a preview.
+1. Inspect branch `codex/phase14-opportunities` and preview `dpl_DjaW3RRT4pXUjNmHy91BeoycxyDr` if further work requires them; preview reached READY with correct canonical URLs. No production promotion or PR CI run is claimed.
 2. In an environment with reachable Supabase REST, test a sourced reviewed opportunity end-to-end: search, detail, save, reload, plan status change, age/grade exclusion and cross-account isolation. Editorial content must use official sources and review dates; do not seed fiction as product data.
 3. Run local migration replay and SQL tests once the Supabase image registry is reachable. Review the performance advisor's opportunity currency FK index with real data; empty-catalog unused-index advice is not a scale measurement.
 4. Reassess Phase 14 against its release gate and update status only with evidence. Keep Phase 08/09 and 12/13 statuses honest. Phase 15 requires separate user authorization.

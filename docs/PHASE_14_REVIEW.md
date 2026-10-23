@@ -2,7 +2,7 @@
 
 **Status: PARTIAL.** The catalog UI and private action flow are implemented against the already applied development schema. There are zero reviewed opportunity records, and direct Supabase REST/Auth calls from this workspace cannot be verified. No production deployment or real student write was claimed.
 
-Git checkpoint `a4f48f2` was pushed to `codex/phase14-opportunities`. Vercel preview deployment `dpl_8xgU2u6ccxtKTXqG7usA6dANvG5i` reached READY from that exact commit. Its protected `/en/opportunities` URL returned HTTP 200 through the connected Vercel fetch tool and showed the true zero-record empty state. The preview exposed a pre-existing localhost canonical URL caused by missing `NEXT_PUBLIC_APP_URL`; a follow-up code fix now derives a safe preview origin from Vercel's system URL and awaits redeployment.
+Git checkpoints `a4f48f2` and `ece9742` were pushed to `codex/phase14-opportunities`. Vercel preview deployment `dpl_DjaW3RRT4pXUjNmHy91BeoycxyDr` reached READY from `ece9742`. Its protected English and Russian opportunities URLs returned HTTP 200 through the connected Vercel fetch tool and showed true zero-record empty states. The English canonical URL is the preview deployment's HTTPS host; the first preview's localhost canonical bug is fixed. This is a preview, not a production promotion.
 
 ## Scope delivered
 
@@ -21,6 +21,7 @@ Git checkpoint `a4f48f2` was pushed to `codex/phase14-opportunities`. Vercel pre
 | Connected `supabase/tests/opportunities.test.sql`                                          | Nine rollback-only assertions passed: published/draft visibility, age/grade exclusion, anon write denial, cross-user save/plan isolation. Follow-up opportunity, save, plan and fixture user counts all zero. |
 | `JETU_ENV=test npm run db:start:database`                                                  | Blocked: `public.ecr.aws` registry returned 403; stopped retries. No local migration replay.                                                                                                                  |
 | Supabase advisors                                                                          | Security: four INFO RLS-without-policy tables intentionally deny public reads. Performance: one INFO unindexed opportunity currency FK and unused indexes on empty tables.                                    |
+| Vercel preview `dpl_DjaW3RRT4pXUjNmHy91BeoycxyDr`                                          | READY; English and filtered Russian opportunities returned 200, true empty states and HTTPS canonical URLs on the preview host.                                                                               |
 
 ## Acceptance review
 
