@@ -2,16 +2,18 @@
 begin;
 -- The catalog migration defines taxonomy tables but intentionally seeds no product data.
 -- Supply only the reference values required by this rollback-only fixture.
+insert into public.fee_currency (code, name)
+values ('KZT', 'Kazakhstani tenge'), ('USD', 'US dollar') on conflict do nothing;
 insert into public.countries (iso2, iso3, name, default_currency_code)
-values ('KZ', 'KAZ', 'Kazakhstan', 'KZT');
+values ('KZ', 'KAZ', 'Kazakhstan', 'KZT') on conflict do nothing;
 insert into public.degree_levels (code, label, rank)
-values ('bachelor', 'Bachelor', 1), ('master', 'Master', 2);
+values ('bachelor', 'Bachelor', 1), ('master', 'Master', 2) on conflict do nothing;
 insert into public.fields_of_study (code, name)
-values ('CS', 'Computer science'), ('BUS', 'Business');
+values ('CS', 'Computer science'), ('BUS', 'Business') on conflict do nothing;
 insert into public.languages_of_instruction (code, name)
-values ('en', 'English'), ('kk', 'Kazakh');
+values ('en', 'English'), ('kk', 'Kazakh') on conflict do nothing;
 insert into public.program_delivery_modes (code, label)
-values ('on_campus', 'On campus'), ('hybrid', 'Hybrid');
+values ('on_campus', 'On campus'), ('hybrid', 'Hybrid') on conflict do nothing;
 create temporary table catalog_fixture (kind text primary key, bundle jsonb not null);
 insert into catalog_fixture values ('published', public.import_catalog_bundle(jsonb_build_object(
   'source',jsonb_build_object('url','https://fixture.example/phase12-published','publisher','Fixture University','title','Fixture degree page','locale','en','excerpt','Synthetic evidence for SQL isolation test'),
@@ -60,6 +62,18 @@ insert into public.source_claims(source_id,catalog_entity_id,claim_key,claim_tex
 select (f.bundle->>'sourceId')::bigint,r.id,'deadline','Synthetic deadline fixture',md5('phase12-deadline'),'verified'
 from catalog_round_fixture r cross join catalog_fixture f where f.kind='published';
 select public.publish_catalog_entity(id,now()) from catalog_round_fixture;
+create temporary table catalog_deadline_fixture (id bigint);
+with entity as (insert into public.catalog_entities(entity_type) values ('deadline') returning id)
+insert into catalog_deadline_fixture select id from entity;
+insert into public.deadlines(id,deadline_type,title,due_at,timezone_name)
+select id,'application','Application deadline','2027-03-01T12:00:00Z','UTC'
+from catalog_deadline_fixture;
+insert into public.application_round_deadlines(application_round_id,deadline_id)
+select r.id,d.id from catalog_round_fixture r cross join catalog_deadline_fixture d;
+insert into public.source_claims(source_id,catalog_entity_id,claim_key,claim_text,content_hash,verification_state_code)
+select (f.bundle->>'sourceId')::bigint,d.id,'deadline','Synthetic deadline fixture',md5('phase12-application-deadline'),'verified'
+from catalog_deadline_fixture d cross join catalog_fixture f where f.kind='published';
+select public.publish_catalog_entity(id,now()) from catalog_deadline_fixture;
 set local role anon;
 select
   (select count(*) from public.catalog_search('{}'::jsonb)) as published_visible,
