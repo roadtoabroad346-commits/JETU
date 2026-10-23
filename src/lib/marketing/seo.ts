@@ -3,6 +3,7 @@ import { getPublicEnv } from '@/lib/env/public';
 import { locales, type Locale } from '@/lib/i18n/messages';
 
 export function isIndexableSite(): boolean {
+  if (process.env.VERCEL_ENV === 'preview') return false;
   const host = new URL(getPublicEnv().NEXT_PUBLIC_APP_URL).hostname;
   return (
     process.env.JETU_PUBLIC_INDEXING === 'true' &&

@@ -78,8 +78,20 @@ export function parsePublicEnv(input: Record<string, unknown>) {
 
 // Direct references are required for Next.js browser env substitution. Never spread process.env.
 export function getPublicEnv() {
+  const configuredAppUrl = process.env.NEXT_PUBLIC_APP_URL || undefined;
+  const vercelHost = process.env.VERCEL_URL;
+  const previewUrl =
+    process.env.VERCEL_ENV === 'preview' &&
+    vercelHost &&
+    /^[A-Za-z0-9.-]+\.vercel\.app$/.test(vercelHost)
+      ? `https://${vercelHost}`
+      : undefined;
   return parsePublicEnv({
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    NEXT_PUBLIC_APP_URL:
+      previewUrl &&
+      (!configuredAppUrl || configuredAppUrl === 'http://localhost:3000')
+        ? previewUrl
+        : configuredAppUrl,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,

@@ -78,6 +78,16 @@ describe('environment boundary', () => {
     expect(getPublicEnv().NEXT_PUBLIC_SUPABASE_URL).toBeUndefined();
     expect(() => requireSupabaseConfig()).toThrow('Check .env.example');
   });
+  it('uses the trusted Vercel preview host instead of localhost for public metadata', () => {
+    vi.stubEnv('NEXT_PUBLIC_APP_URL', '');
+    vi.stubEnv('VERCEL_ENV', 'preview');
+    vi.stubEnv('VERCEL_URL', 'jetu-preview.vercel.app');
+    expect(getPublicEnv().NEXT_PUBLIC_APP_URL).toBe(
+      'https://jetu-preview.vercel.app',
+    );
+    vi.stubEnv('VERCEL_URL', 'evil.example');
+    expect(getPublicEnv().NEXT_PUBLIC_APP_URL).toBe('http://localhost:3000');
+  });
   it('refuses sensitive NEXT_PUBLIC names and secret values even under innocent names', () => {
     expect(() =>
       assertPublicEnvironmentSafety({
