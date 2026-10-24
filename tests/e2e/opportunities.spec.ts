@@ -38,3 +38,34 @@ test('opportunities fit 320px with reduced motion', async ({ page }) => {
     ),
   ).toBe(true);
 });
+
+for (const locale of ['ru', 'kk', 'en']) {
+  test(`${locale} schools directory renders a separate sourced catalog @a11y`, async ({
+    page,
+  }) => {
+    const response = await page.goto(`/${locale}/schools`);
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('main h1')).toHaveText(/.+/);
+    await expect(page.locator('main a[href$="/opportunities"]')).toBeVisible();
+    await expect(page.locator('main a[href$="/for-schools"]')).toBeVisible();
+    expect(
+      (await new AxeBuilder({ page }).include('main').analyze()).violations,
+    ).toEqual([]);
+  });
+}
+
+test('opportunity detail slug reaches the app route', async ({ page }) => {
+  await page.goto('/en/opportunities/reviewed-example');
+  await expect(page.locator('main#main')).toBeVisible();
+});
+
+test('schools directory fits 320px with reduced motion', async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/en/schools');
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+});

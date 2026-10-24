@@ -20,3 +20,9 @@ Build an opportunities hub over the existing Phase 10 `opportunities` entity, wi
 ## Release gate
 
 `npm run check`, SQL policy/fixture tests where a local database is available, E2E/a11y on actual rendered states, and cloud migration/REST confirmation if credentials and network allow. Mark PARTIAL if live round trips, reviewed content or roadmap integration remain unverified.
+
+## Completion pass — 2026-10-24
+
+The clean pushed branch has a route guard defect: it rejects every opportunity detail URL. Repair the guard and cover both valid and invalid slugs at HTTP level. The private status selector also offers `saved` without removing an existing plan; make that transition persist a save and remove the owner's plan row. Add a separate public schools route backed by the existing `institution_school_profiles` taxonomy, with bounded reads through public RLS, official source links, truthful partner labels, RU/KK/EN copy, and empty/error states. Reuse the JETU design tokens. No new table or remote migration is required.
+
+Acceptance checks: detail route reaches the page rather than proxy 404; invalid slug stays 404; school directory does not mix university programs, school kinds or unverified partnerships; keyboard, 320px and axe checks pass; `npm run check` and E2E pass. Live reviewed content and authenticated persistence still require actual evidence before VERIFIED.

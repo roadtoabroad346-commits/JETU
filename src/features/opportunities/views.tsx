@@ -4,6 +4,7 @@ import type { Locale } from '@/lib/i18n/messages';
 import { opportunityCopy } from './copy';
 import { saveOpportunityAction } from './actions';
 import { OpportunitySubmitButton } from './submit-button';
+import { schoolsCopy } from '@/features/schools/copy';
 import {
   defaultOpportunityFilters,
   OpportunityUnavailable,
@@ -73,6 +74,9 @@ export async function OpportunityExplorer({
           <p className="section-kicker">JETU / {t.title}</p>
           <h1>{t.title}</h1>
           <p>{t.intro}</p>
+          <p>
+            <a href={`/${locale}/schools`}>{schoolsCopy[locale].title}</a>
+          </p>
         </div>
         <form
           method="get"

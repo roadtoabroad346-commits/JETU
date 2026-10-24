@@ -60,6 +60,19 @@ export async function saveOpportunityAction(formData: FormData) {
         },
         token,
       );
+      const existing = await opportunityRest<Plan[]>(
+        `student_opportunity_plan_actions?user_id=eq.${userData.user.id}&opportunity_id=eq.${visible.id}&select=id,status,version&limit=1`,
+        undefined,
+        token,
+      );
+      if (existing[0]) {
+        const removed = await opportunityRest<Plan[]>(
+          `student_opportunity_plan_actions?id=eq.${existing[0].id}&version=eq.${existing[0].version}`,
+          { method: 'DELETE', headers: { Prefer: 'return=representation' } },
+          token,
+        );
+        if (removed.length !== 1) throw new Error('Concurrent update');
+      }
     } else {
       const existing = await opportunityRest<Plan[]>(
         `student_opportunity_plan_actions?user_id=eq.${userData.user.id}&opportunity_id=eq.${visible.id}&select=id,status,version&limit=1`,

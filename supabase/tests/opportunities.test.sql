@@ -34,11 +34,11 @@ create temporary table phase14_results (visible int, aged int, excluded int, gra
 grant insert on phase14_results to anon;
 set local role anon;
 insert into phase14_results select
-  (select count(*) from public.opportunity_search('{}'::jsonb)),
-  (select count(*) from public.opportunity_search('{"age":16}'::jsonb)),
-  (select count(*) from public.opportunity_search('{"age":18}'::jsonb)),
-  (select count(*) from public.opportunity_search('{"grade":10}'::jsonb)),
-  (select count(*) from public.opportunity_search('{"grade":12}'::jsonb)),
+  (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-published"}'::jsonb)),
+  (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-published","age":16}'::jsonb)),
+  (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-published","age":18}'::jsonb)),
+  (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-published","grade":10}'::jsonb)),
+  (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-published","grade":12}'::jsonb)),
   (select count(*) from public.opportunity_search('{"slug":"fixture-phase14-draft"}'::jsonb));
 reset role;
 do $$
