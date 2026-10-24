@@ -1286,6 +1286,50 @@ export type Database = {
           },
         ];
       };
+      institution_school_profiles: {
+        Row: {
+          institution_id: number;
+          partnership_state: string;
+          school_kind: string;
+          source_claim_id: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          institution_id: number;
+          partnership_state?: string;
+          school_kind: string;
+          source_claim_id: number;
+        };
+        Update: {
+          institution_id?: number;
+          partnership_state?: string;
+          school_kind?: string;
+          source_claim_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'institution_school_profiles_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: true;
+            referencedRelation: 'institutions';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'institution_school_profiles_institution_id_fkey';
+            columns: ['institution_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['institution_id'];
+          },
+          {
+            foreignKeyName: 'institution_school_profiles_source_claim_id_institution_id_fkey';
+            columns: ['source_claim_id', 'institution_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+        ];
+      };
       institutions: {
         Row: {
           city_id: number | null;
@@ -1500,37 +1544,105 @@ export type Database = {
       };
       opportunities: {
         Row: {
+          cost_amount_max: number | null;
+          cost_amount_min: number | null;
+          cost_currency_code: string | null;
+          cost_state: string;
+          country_id: number | null;
+          eligibility_age_max: number | null;
+          eligibility_age_min: number | null;
+          eligibility_grade_max: number | null;
+          eligibility_grade_min: number | null;
+          eligibility_summary: string | null;
           ends_on: string | null;
           id: number;
+          location_text: string | null;
+          official_application_url: string | null;
           official_url: string;
           opportunity_type: string;
+          participation_format: string;
           provider_institution_id: number | null;
+          provider_name: string | null;
+          risk_summary: string | null;
           slug: string;
+          source_claim_id: number | null;
+          sponsor_name: string | null;
           starts_on: string | null;
+          summary: string | null;
           title: string;
         };
         ComputedFields: never;
         Insert: {
+          cost_amount_max?: number | null;
+          cost_amount_min?: number | null;
+          cost_currency_code?: string | null;
+          cost_state?: string;
+          country_id?: number | null;
+          eligibility_age_max?: number | null;
+          eligibility_age_min?: number | null;
+          eligibility_grade_max?: number | null;
+          eligibility_grade_min?: number | null;
+          eligibility_summary?: string | null;
           ends_on?: string | null;
           id: number;
+          location_text?: string | null;
+          official_application_url?: string | null;
           official_url: string;
           opportunity_type: string;
+          participation_format?: string;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
+          risk_summary?: string | null;
           slug: string;
+          source_claim_id?: number | null;
+          sponsor_name?: string | null;
           starts_on?: string | null;
+          summary?: string | null;
           title: string;
         };
         Update: {
+          cost_amount_max?: number | null;
+          cost_amount_min?: number | null;
+          cost_currency_code?: string | null;
+          cost_state?: string;
+          country_id?: number | null;
+          eligibility_age_max?: number | null;
+          eligibility_age_min?: number | null;
+          eligibility_grade_max?: number | null;
+          eligibility_grade_min?: number | null;
+          eligibility_summary?: string | null;
           ends_on?: string | null;
           id?: number;
+          location_text?: string | null;
+          official_application_url?: string | null;
           official_url?: string;
           opportunity_type?: string;
+          participation_format?: string;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
+          risk_summary?: string | null;
           slug?: string;
+          source_claim_id?: number | null;
+          sponsor_name?: string | null;
           starts_on?: string | null;
+          summary?: string | null;
           title?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: 'opportunities_cost_currency_code_fkey';
+            columns: ['cost_currency_code'];
+            isOneToOne: false;
+            referencedRelation: 'fee_currency';
+            referencedColumns: ['code'];
+          },
+          {
+            foreignKeyName: 'opportunities_country_id_fkey';
+            columns: ['country_id'];
+            isOneToOne: false;
+            referencedRelation: 'countries';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'opportunities_id_fkey';
             columns: ['id'];
@@ -1551,6 +1663,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'published_degree_programs';
             referencedColumns: ['institution_id'];
+          },
+          {
+            foreignKeyName: 'opportunities_source_claim_parent';
+            columns: ['source_claim_id', 'id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
           },
         ];
       };
@@ -1582,6 +1701,92 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'opportunities';
             referencedColumns: ['id'];
+          },
+        ];
+      };
+      opportunity_eligibility_rules: {
+        Row: {
+          description: string;
+          id: number;
+          opportunity_id: number;
+          requirement_state: string;
+          rule_kind: string;
+          source_claim_id: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          description: string;
+          id?: never;
+          opportunity_id: number;
+          requirement_state?: string;
+          rule_kind: string;
+          source_claim_id: number;
+        };
+        Update: {
+          description?: string;
+          id?: never;
+          opportunity_id?: number;
+          requirement_state?: string;
+          rule_kind?: string;
+          source_claim_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'opportunity_eligibility_rules_opportunity_id_fkey';
+            columns: ['opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'opportunities';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'opportunity_eligibility_rules_source_claim_id_opportunity__fkey';
+            columns: ['source_claim_id', 'opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+        ];
+      };
+      opportunity_risk_flags: {
+        Row: {
+          description: string;
+          id: number;
+          opportunity_id: number;
+          risk_code: string;
+          severity: string;
+          source_claim_id: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          description: string;
+          id?: never;
+          opportunity_id: number;
+          risk_code: string;
+          severity: string;
+          source_claim_id: number;
+        };
+        Update: {
+          description?: string;
+          id?: never;
+          opportunity_id?: number;
+          risk_code?: string;
+          severity?: string;
+          source_claim_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'opportunity_risk_flags_opportunity_id_fkey';
+            columns: ['opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'opportunities';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'opportunity_risk_flags_source_claim_id_opportunity_id_fkey';
+            columns: ['source_claim_id', 'opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
           },
         ];
       };
@@ -1854,6 +2059,59 @@ export type Database = {
           },
         ];
       };
+      scholarship_application_details: {
+        Row: {
+          admissions_linkage: string;
+          application_method: string;
+          application_url: string | null;
+          instructions: string | null;
+          scholarship_id: number;
+          source_claim_id: number | null;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          admissions_linkage?: string;
+          application_method?: string;
+          application_url?: string | null;
+          instructions?: string | null;
+          scholarship_id: number;
+          source_claim_id?: number | null;
+          updated_at?: string;
+        };
+        Update: {
+          admissions_linkage?: string;
+          application_method?: string;
+          application_url?: string | null;
+          instructions?: string | null;
+          scholarship_id?: number;
+          source_claim_id?: number | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_application_claim_parent';
+            columns: ['source_claim_id', 'scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_application_details_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_application_details_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_benefits: {
         Row: {
           coverage_item_code: string;
@@ -2005,6 +2263,155 @@ export type Database = {
           },
         ];
       };
+      scholarship_document_requirements: {
+        Row: {
+          document_name: string;
+          id: number;
+          requirement_state: string;
+          scholarship_cycle_id: number;
+          source_claim_id: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          document_name: string;
+          id?: never;
+          requirement_state?: string;
+          scholarship_cycle_id: number;
+          source_claim_id?: number | null;
+        };
+        Update: {
+          document_name?: string;
+          id?: never;
+          requirement_state?: string;
+          scholarship_cycle_id?: number;
+          source_claim_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_document_claim_parent';
+            columns: ['source_claim_id', 'scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_document_requirements_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_cycle_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_document_requirements_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_editor_memberships: {
+        Row: {
+          granted_at: string;
+          granted_by: string | null;
+          role: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          granted_at?: string;
+          granted_by?: string | null;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          granted_at?: string;
+          granted_by?: string | null;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      scholarship_editor_notes: {
+        Row: {
+          note: string;
+          scholarship_id: number;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          note: string;
+          scholarship_id: number;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          note?: string;
+          scholarship_id?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_editor_notes_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_editor_notes_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_editorial_events: {
+        Row: {
+          action: string;
+          actor_id: string | null;
+          created_at: string;
+          id: number;
+          note: string | null;
+          scholarship_id: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          action: string;
+          actor_id?: string | null;
+          created_at?: string;
+          id?: never;
+          note?: string | null;
+          scholarship_id: number;
+        };
+        Update: {
+          action?: string;
+          actor_id?: string | null;
+          created_at?: string;
+          id?: never;
+          note?: string | null;
+          scholarship_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_editorial_events_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_editorial_events_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_eligibility_requirements: {
         Row: {
           eligibility_requirement_id: number;
@@ -2039,6 +2446,59 @@ export type Database = {
             columns: ['scholarship_cycle_id'];
             isOneToOne: false;
             referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_funding_profiles: {
+        Row: {
+          annual_change_note: string | null;
+          duration_note: string | null;
+          funding_label: string;
+          renewal_conditions: string | null;
+          scholarship_id: number;
+          source_claim_id: number | null;
+          uncovered_costs_note: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          annual_change_note?: string | null;
+          duration_note?: string | null;
+          funding_label?: string;
+          renewal_conditions?: string | null;
+          scholarship_id: number;
+          source_claim_id?: number | null;
+          uncovered_costs_note?: string | null;
+        };
+        Update: {
+          annual_change_note?: string | null;
+          duration_note?: string | null;
+          funding_label?: string;
+          renewal_conditions?: string | null;
+          scholarship_id?: number;
+          source_claim_id?: number | null;
+          uncovered_costs_note?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_funding_claim_parent';
+            columns: ['source_claim_id', 'scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id', 'catalog_entity_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_funding_profiles_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_funding_profiles_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: true;
+            referencedRelation: 'scholarships';
             referencedColumns: ['id'];
           },
         ];
@@ -2104,7 +2564,9 @@ export type Database = {
           financial_aid_scheme_id: number | null;
           id: number;
           official_url: string;
+          provider_country_code: string | null;
           provider_institution_id: number | null;
+          provider_name: string | null;
           slug: string;
           title: string;
         };
@@ -2114,7 +2576,9 @@ export type Database = {
           financial_aid_scheme_id?: number | null;
           id: number;
           official_url: string;
+          provider_country_code?: string | null;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
           slug: string;
           title: string;
         };
@@ -2123,7 +2587,9 @@ export type Database = {
           financial_aid_scheme_id?: number | null;
           id?: number;
           official_url?: string;
+          provider_country_code?: string | null;
           provider_institution_id?: number | null;
+          provider_name?: string | null;
           slug?: string;
           title?: string;
         };
@@ -2267,6 +2733,123 @@ export type Database = {
         };
         Relationships: [];
       };
+      student_opportunity_plan_actions: {
+        Row: {
+          created_at: string;
+          id: string;
+          note: string | null;
+          opportunity_id: number;
+          status: string;
+          target_date: string | null;
+          updated_at: string;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          id?: string;
+          note?: string | null;
+          opportunity_id: number;
+          status?: string;
+          target_date?: string | null;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          note?: string | null;
+          opportunity_id?: number;
+          status?: string;
+          target_date?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_opportunity_plan_actions_opportunity_id_fkey';
+            columns: ['opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'opportunities';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      student_opportunity_reminders: {
+        Row: {
+          channel: string;
+          created_at: string;
+          id: string;
+          opportunity_id: number;
+          remind_at: string;
+          status: string;
+          timezone_name: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          channel?: string;
+          created_at?: string;
+          id?: string;
+          opportunity_id: number;
+          remind_at: string;
+          status?: string;
+          timezone_name: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          channel?: string;
+          created_at?: string;
+          id?: string;
+          opportunity_id?: number;
+          remind_at?: string;
+          status?: string;
+          timezone_name?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_opportunity_reminders_opportunity_id_fkey';
+            columns: ['opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'opportunities';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      student_opportunity_saves: {
+        Row: {
+          created_at: string;
+          opportunity_id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          opportunity_id: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          opportunity_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_opportunity_saves_opportunity_id_fkey';
+            columns: ['opportunity_id'];
+            isOneToOne: false;
+            referencedRelation: 'opportunities';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       student_profile_attachments: {
         Row: {
           byte_size: number;
@@ -2352,6 +2935,40 @@ export type Database = {
           version?: number;
         };
         Relationships: [];
+      };
+      student_scholarship_saves: {
+        Row: {
+          created_at: string;
+          scholarship_id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          scholarship_id: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          scholarship_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'student_scholarship_saves_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'student_scholarship_saves_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       test_score_thresholds: {
         Row: {
@@ -2640,12 +3257,109 @@ export type Database = {
         }[];
       };
       import_catalog_bundle: { Args: { p_bundle: Json }; Returns: Json };
+      opportunity_search: {
+        Args: { p_filters?: Json };
+        Returns: {
+          age_fit: string;
+          cost_amount_max: number;
+          cost_amount_min: number;
+          cost_currency_code: string;
+          cost_state: string;
+          country_code: string;
+          deadline_at: string;
+          deadline_timezone: string;
+          eligibility_age_max: number;
+          eligibility_age_min: number;
+          eligibility_grade_max: number;
+          eligibility_grade_min: number;
+          eligibility_summary: string;
+          ends_on: string;
+          grade_fit: string;
+          id: number;
+          location_text: string;
+          official_application_url: string;
+          opportunity_type: string;
+          participation_format: string;
+          provider_name: string;
+          risk_summary: string;
+          slug: string;
+          source_checked_at: string;
+          source_url: string;
+          sponsor_name: string;
+          starts_on: string;
+          summary: string;
+          tags: string[];
+          title: string;
+          total_count: number;
+        }[];
+      };
       publish_catalog_entity: {
         Args: { p_catalog_entity_id: number; p_checked_at: string };
         Returns: number;
       };
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
+        Returns: number;
+      };
+      scholarship_create_draft: {
+        Args: { p_actor: string; p_bundle: Json };
+        Returns: number;
+      };
+      scholarship_editor_create_draft: {
+        Args: { p_bundle: Json };
+        Returns: number;
+      };
+      scholarship_editor_list: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          id: number;
+          publication_status_code: string;
+          slug: string;
+          title: string;
+          verification_state_code: string;
+        }[];
+      };
+      scholarship_editor_preview: {
+        Args: { p_slug: string };
+        Returns: boolean;
+      };
+      scholarship_editor_transition: {
+        Args: { p_action: string; p_id: number; p_note?: string };
+        Returns: number;
+      };
+      scholarship_search: {
+        Args: {
+          p_award_type?: string;
+          p_country?: string;
+          p_limit?: number;
+          p_offset?: number;
+          p_query?: string;
+          p_slug?: string;
+          p_sort?: string;
+        };
+        Returns: {
+          award_type: string;
+          benefit_summary: string;
+          deadline_at: string;
+          deadline_timezone: string;
+          id: number;
+          official_url: string;
+          provider_country_code: string;
+          provider_name: string;
+          slug: string;
+          source_checked_at: string;
+          source_url: string;
+          title: string;
+          total_count: number;
+        }[];
+      };
+      scholarship_transition: {
+        Args: {
+          p_action: string;
+          p_actor: string;
+          p_id: number;
+          p_note?: string;
+        };
         Returns: number;
       };
     };

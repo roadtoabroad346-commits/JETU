@@ -142,3 +142,8 @@ No new phase work is implied by the addendum and no phase was upgraded.
   tests and production build. Local database replay was blocked before execution
   by Docker image-layer registration (`no space left on device`); CI and the
   post-push Supabase Preview are the remaining integration evidence.
+- Push run `40093573608` subsequently passed startup, two clean migration resets,
+  both pgTAP runs, advisors and type generation. Its sole database-job failure was
+  the intentional generated-type drift check. The exact retained CI artifact was
+  committed as `src/lib/supabase/database.types.ts`; frontend and Supabase Preview
+  were already green.

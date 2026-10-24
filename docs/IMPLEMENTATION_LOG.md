@@ -408,3 +408,18 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
   documented deny-by-default RLS INFO notices; performance retained empty-catalog
   unused-index INFO and one Phase 14 currency-FK index INFO. This history repair did
   not mutate the cloud schema to address unrelated advisory debt.
+
+## 2026-10-24 — generated database type synchronization
+
+- Inspected GitHub Actions run `40093573608`, database job `120871065768`.
+  Database startup, both clean resets, both pgTAP runs, advisors and CLI type
+  generation passed. The only failing command was the expected
+  `git diff --exit-code -- src/lib/supabase/database.types.ts` drift guard.
+- Downloaded retained artifact `generated-database-types` (artifact
+  `12559683858`) from that exact run and persisted its unmodified
+  `database.types.ts`. SHA-256 is
+  `71f250cc97a4b3d4e94980f2248f22664a0cfa9fc12786c740e31e33883ba1ce`.
+  This repeats the proven recovery method from commit `684690a`; no types were
+  handwritten and no schema or cloud data was changed.
+- Local `npm run check` passed formatting, lint, strict TypeScript, 62
+  unit/integration tests and production build with the synchronized artifact.

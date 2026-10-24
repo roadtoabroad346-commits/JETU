@@ -42,10 +42,12 @@ but absent from `main`. Their exact files were recovered from
 `origin/codex/phase14-opportunities`; blob hashes match that source. This repairs
 version-control history only and does not merge or verify the Phase 13/14 app.
 
-`npm run check` passes with 62 tests and a production build. A local clean replay
-could not start because Docker failed to register the PostgreSQL image layer with
-`no space left on device`; remote Supabase Preview and CI remain the integration
-proof after push.
+`npm run check` passes with 62 tests and a production build. Push run
+`40093573608` proved two clean migration replays, both pgTAP passes and advisors,
+then exposed only a stale committed `database.types.ts`. The exact generated
+artifact from that failed job (SHA-256
+`71f250cc97a4b3d4e94980f2248f22664a0cfa9fc12786c740e31e33883ba1ce`) is now
+committed, matching the pattern established by fix `684690a`.
 
 ## Maintenance pass — 2026-10-23 (this working tree)
 
