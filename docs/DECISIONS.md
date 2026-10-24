@@ -125,3 +125,12 @@
 34. CI runs for `main` pushes and pull requests only, eliminating duplicate per-PR-commit pipelines; e2e continues to run in unconfigured-env degraded mode by design and any real-database run stays a separate authorized step.
 35. Local DB scripts select the Docker endpoint per platform (Unix socket on Linux, named pipe on Windows); remote selectors stay rejected. Migration SQL history is immutable in this checkout: superseded definitions in the migration chain are documented in DATABASE_SCHEMA.md rather than edited in place.
 36. `package.json` version tracks shipped scope (0.12.0 after the Phase 12 catalog explorer and the 08–09 account-workspace commits); the Husky `pre-push` hook runs typecheck + unit tests so failures surface before CI.
+
+## 2026-10-24 — Supabase Preview repair
+
+37. Reconcile Git with the immutable applied migration history at the narrowest
+    layer. The connected Jetuu branch was `MIGRATIONS_FAILED` because seven
+    already-applied Phase 13/14 versions were absent from `main`. Recover the
+    exact SQL blobs from the existing Phase 14 branch without merging its app,
+    editing historical SQL, re-applying cloud migrations, or upgrading phase
+    status.

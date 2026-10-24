@@ -1,4 +1,4 @@
-# Next agent handoff — current state after the 2026-10-23 audit/maintenance pass
+# Next agent handoff — current state after the 2026-10-24 migration-history repair
 
 ## Shipped-but-not-phase-verified work
 
@@ -33,6 +33,20 @@ reviewed corpus.
 - Unsupported save/compare/plan remain out of scope until their owning modules
   exist.
 
+## Supabase Preview repair — 2026-10-24
+
+The connected Jetuu project reported its Git-linked `main` branch as
+`MIGRATIONS_FAILED`. MCP migration history proved that five Phase 13 and two
+Phase 14 migrations were already applied to the authorized development project
+but absent from `main`. Their exact files were recovered from
+`origin/codex/phase14-opportunities`; blob hashes match that source. This repairs
+version-control history only and does not merge or verify the Phase 13/14 app.
+
+`npm run check` passes with 62 tests and a production build. A local clean replay
+could not start because Docker failed to register the PostgreSQL image layer with
+`no space left on device`; remote Supabase Preview and CI remain the integration
+proof after push.
+
 ## Maintenance pass — 2026-10-23 (this working tree)
 
 A full repository audit was executed and its approved findings were fixed:
@@ -58,9 +72,8 @@ A full repository audit was executed and its approved findings were fixed:
 1. Record Phase 08/09 acceptance evidence (auth flows and profile persistence
    against a reachable Supabase environment) before starting any new phase.
 2. Check `supabase migration list` on the authorized cloud project before any
-   new SQL: branch `codex/phase13-scholarships` on origin carries five
-   unmerged migrations from 2026-10-21; their cloud application state is
-   unknown (see CLOUD_DEVELOPMENT.md).
+   new SQL. As of 2026-10-24, all sixteen applied versions through
+   `20261022135919_phase_14_deadline_filter_fix` are represented in `main`.
 3. Do not start Phase 13 automatically; explicit user request required.
 4. The Phase 12 synthetic filter/isolation transaction measured **eleven**
    conditions (see PHASE_TRACKER.md); earlier text saying "six" was a summary

@@ -391,3 +391,20 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
   in DATABASE_SCHEMA.md and RLS_MATRIX.md instead.
 - Verification recorded: `npm run check` pass; production build pass
   (Turbopack warning resolved); no cloud/remote operation performed.
+
+## 2026-10-24 — Supabase Preview migration-history repair
+
+- Diagnosed the failing GitHub check through the connected Supabase project:
+  Jetuu's Git-linked `main` branch status was `MIGRATIONS_FAILED` and its applied
+  history had seven versions missing from Git `main`.
+- Recovered the five Phase 13 and two Phase 14 migration files byte-for-byte from
+  `origin/codex/phase14-opportunities`. No Phase 13/14 application code was merged
+  and no remote SQL or data mutation was performed.
+- Verified exact Git blob equality for all seven files. `npm run check` passed
+  formatting, lint, strict TypeScript, 62 unit/integration tests and the production
+  build. Docker failed while registering the PostgreSQL image layer before a local
+  replay could begin; remote CI/Preview provides the clean integration replay.
+- Current cloud advisors reported no ERROR or WARN findings. Security retained four
+  documented deny-by-default RLS INFO notices; performance retained empty-catalog
+  unused-index INFO and one Phase 14 currency-FK index INFO. This history repair did
+  not mutate the cloud schema to address unrelated advisory debt.

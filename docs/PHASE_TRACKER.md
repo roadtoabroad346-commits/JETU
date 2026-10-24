@@ -129,3 +129,16 @@ A full-repository audit found and fixed defects outside any single phase:
   webServer always builds a fresh bundle.
 
 No new phase work is implied by the addendum and no phase was upgraded.
+
+## Addendum — 2026-10-24 Supabase Preview repair
+
+- Supabase MCP reported the Git-linked Jetuu `main` branch as
+  `MIGRATIONS_FAILED`; remote history contained sixteen versions while `main`
+  contained nine.
+- Restored the exact five Phase 13 and two Phase 14 migration files from
+  `origin/codex/phase14-opportunities`. Their Git blob hashes match; no cloud SQL,
+  data mutation, feature merge, or phase-status change occurred.
+- `npm run check` passed: formatting, lint, strict TypeScript, 62 unit/integration
+  tests and production build. Local database replay was blocked before execution
+  by Docker image-layer registration (`no space left on device`); CI and the
+  post-push Supabase Preview are the remaining integration evidence.
