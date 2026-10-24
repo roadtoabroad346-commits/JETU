@@ -69,3 +69,10 @@ test('schools directory fits 320px with reduced motion', async ({ page }) => {
     ),
   ).toBe(true);
 });
+
+test('schools directory rejects an unbounded page', async ({ page }) => {
+  await page.goto('/en/schools?page=201');
+  await expect(page.getByRole('status')).toContainText(
+    'Check the page number.',
+  );
+});

@@ -4,6 +4,9 @@ export const schoolsCopy = {
     intro:
       'Старшие школы и образовательные организации отдельно от внеклассных программ. Партнёрство отмечено только после проверки.',
     empty: 'Проверенных школ и организаций пока нет.',
+    invalid: 'Проверьте номер страницы.',
+    previous: 'Назад',
+    next: 'Далее',
     unavailable: 'Каталог школ временно недоступен. Попробуйте позже.',
     kinds: {
       partner_school: 'Школа',
@@ -26,6 +29,9 @@ export const schoolsCopy = {
     intro:
       'Жоғары мектептер мен білім беру ұйымдары қосымша бағдарламалардан бөлек. Серіктестік тек тексерілгеннен кейін көрсетіледі.',
     empty: 'Тексерілген мектептер мен ұйымдар әзірге жоқ.',
+    invalid: 'Бет нөмірін тексеріңіз.',
+    previous: 'Алдыңғы',
+    next: 'Келесі',
     unavailable: 'Мектептер каталогы уақытша қолжетімсіз. Кейін қайталаңыз.',
     kinds: {
       partner_school: 'Мектеп',
@@ -48,6 +54,9 @@ export const schoolsCopy = {
     intro:
       'High schools and education organizations are listed separately from extracurricular programs. Partnership is shown only after verification.',
     empty: 'No reviewed schools or organizations are listed yet.',
+    invalid: 'Check the page number.',
+    previous: 'Previous',
+    next: 'Next',
     unavailable:
       'The schools directory is temporarily unavailable. Try again later.',
     kinds: {
