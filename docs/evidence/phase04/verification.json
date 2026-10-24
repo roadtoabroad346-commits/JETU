@@ -1,0 +1,127 @@
+{
+  "phase": "04/30",
+  "status": "PARTIAL",
+  "source_checkpoint_tested": "a4fdfeb",
+  "root_checks": [
+    {
+      "command": "npm run format:check",
+      "exit": 0
+    },
+    {
+      "command": "npm run lint",
+      "exit": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npm run test:unit",
+      "exit": 0
+    },
+    {
+      "command": "npm run build",
+      "exit": 0
+    },
+    {
+      "command": "npm audit --audit-level=high",
+      "exit": 0
+    }
+  ],
+  "clean_git_clone": [
+    {
+      "command": "npm ci",
+      "exit": 0
+    },
+    {
+      "command": "npm run check",
+      "exit": 0
+    }
+  ],
+  "unit_integration": {
+    "files": 4,
+    "passed": 50,
+    "sdk_transport": "mocked in adapter tests"
+  },
+  "production_browser": {
+    "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e",
+    "exit": 0,
+    "passed": 14,
+    "axe_audits": 6,
+    "reported_violations": 0,
+    "devices": "desktop Chromium + Pixel 7 emulation",
+    "widths": [320, 360, 375, 390, 768, 1024, 1440, 1920]
+  },
+  "dev_http": [
+    {
+      "route": "/api/health",
+      "status": 200,
+      "localized": true
+    },
+    {
+      "route": "/ru",
+      "status": 200,
+      "localized": true
+    },
+    {
+      "route": "/kk",
+      "status": 200,
+      "localized": true
+    },
+    {
+      "route": "/en",
+      "status": 200,
+      "localized": true
+    }
+  ],
+  "secret_canary": {
+    "public_static_files_scanned": 13,
+    "matches": 0,
+    "real_credentials_used": false
+  },
+  "database": {
+    "reason": "Supabase image extraction ENOSPC on managed 32GB Docker VFS; full and PostgreSQL-only startup both blocked",
+    "sql_executed": false,
+    "types_generated": false,
+    "results": [
+      {
+        "command": "npm run db:reset:local",
+        "exit": 1
+      },
+      {
+        "command": "npm run test:db",
+        "exit": 1
+      },
+      {
+        "command": "npm run db:types",
+        "exit": 1
+      },
+      {
+        "command": "node scripts/db.mjs advisors",
+        "exit": 1
+      },
+      {
+        "guard": "production",
+        "exit": 1,
+        "message": "Local database commands refuse staging/production environments."
+      },
+      {
+        "guard": "remote-flag",
+        "exit": 1,
+        "message": "Use a documented local database command without extra arguments."
+      },
+      {
+        "guard": "remote-env",
+        "exit": 1,
+        "message": "Remote database selectors or linked project detected. Use an isolated local checkout."
+      }
+    ]
+  },
+  "remote_ci_executed": false,
+  "hosted_database_touched": false,
+  "deployment_performed": false,
+  "phase_05_started": false,
+  "original_nested_snapshot_unchanged": true,
+  "historical_as_of": "2026-10-17",
+  "superseded_by": "verification-2026-10-18.json"
+}

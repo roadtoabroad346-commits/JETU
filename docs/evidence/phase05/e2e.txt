@@ -1,0 +1,49 @@
+
+> jetu-admissions@0.4.0 test:e2e
+> playwright test --reporter=list,json
+
+[WebServer] (node:10848) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 30 tests using 2 workers
+
+(node:10863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:10862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop-chromium] › tests/e2e/design-system.spec.ts:6:1 › no-JS content has inert previews and usable navigation; vector assets resolve (1.8s)
+  ✓   2 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › ru: design system responsive, axe and visual baseline @a11y (4.5s)
+  ✓   3 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › kk: design system responsive, axe and visual baseline @a11y (4.1s)
+  ✓   5 [desktop-chromium] › tests/e2e/design-system.spec.ts:97:1 › semantic text, control, chart and hover pairs meet measured contrast (1.5s)
+  ✓   4 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › en: design system responsive, axe and visual baseline @a11y (4.7s)
+  ✓   6 [desktop-chromium] › tests/e2e/design-system.spec.ts:170:1 › keyboard tabs, native dialog containment, Escape and tooltip @a11y (4.3s)
+  ✓   7 [desktop-chromium] › tests/e2e/design-system.spec.ts:228:1 › local form errors, long text, state feedback, offline behavior and reload (2.5s)
+  ✓   8 [desktop-chromium] › tests/e2e/design-system.spec.ts:283:1 › real registry filters, sort, empty recovery and spotlight destination (2.8s)
+  ✓   9 [desktop-chromium] › tests/e2e/foundation.spec.ts:6:3 › ru: localized page, responsive reflow and screenshot @a11y (3.1s)
+  ✓  11 [desktop-chromium] › tests/e2e/foundation.spec.ts:6:3 › en: localized page, responsive reflow and screenshot @a11y (2.5s)
+  ✓  10 [desktop-chromium] › tests/e2e/foundation.spec.ts:6:3 › kk: localized page, responsive reflow and screenshot @a11y (3.0s)
+  ✓  12 [desktop-chromium] › tests/e2e/foundation.spec.ts:49:1 › language links, reload and browser history preserve locale (2.7s)
+  ✓  13 [desktop-chromium] › tests/e2e/foundation.spec.ts:65:1 › root redirects, unknown locales and missing pages return real 404 (2.8s)
+  ✓  15 [desktop-chromium] › tests/e2e/foundation.spec.ts:108:1 › liveness and security headers are real HTTP contracts (76ms)
+(node:11629) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  14 [desktop-chromium] › tests/e2e/foundation.spec.ts:80:1 › keyboard skip, target sizes, no-JS content and reduced motion (2.3s)
+(node:11793) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  16 [mobile-chromium] › tests/e2e/design-system.spec.ts:6:1 › no-JS content has inert previews and usable navigation; vector assets resolve (1.3s)
+  ✓  18 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › kk: design system responsive, axe and visual baseline @a11y (3.6s)
+  ✓  17 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › ru: design system responsive, axe and visual baseline @a11y (3.9s)
+  ✓  20 [mobile-chromium] › tests/e2e/design-system.spec.ts:97:1 › semantic text, control, chart and hover pairs meet measured contrast (1.4s)
+  ✓  19 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › en: design system responsive, axe and visual baseline @a11y (3.7s)
+  ✓  22 [mobile-chromium] › tests/e2e/design-system.spec.ts:228:1 › local form errors, long text, state feedback, offline behavior and reload (2.3s)
+  ✓  21 [mobile-chromium] › tests/e2e/design-system.spec.ts:170:1 › keyboard tabs, native dialog containment, Escape and tooltip @a11y (4.4s)
+  ✓  23 [mobile-chromium] › tests/e2e/design-system.spec.ts:283:1 › real registry filters, sort, empty recovery and spotlight destination (2.3s)
+  ✓  24 [mobile-chromium] › tests/e2e/foundation.spec.ts:6:3 › ru: localized page, responsive reflow and screenshot @a11y (2.7s)
+  ✓  25 [mobile-chromium] › tests/e2e/foundation.spec.ts:6:3 › kk: localized page, responsive reflow and screenshot @a11y (2.9s)
+  ✓  26 [mobile-chromium] › tests/e2e/foundation.spec.ts:6:3 › en: localized page, responsive reflow and screenshot @a11y (2.8s)
+  ✓  27 [mobile-chromium] › tests/e2e/foundation.spec.ts:49:1 › language links, reload and browser history preserve locale (1.8s)
+  ✓  28 [mobile-chromium] › tests/e2e/foundation.spec.ts:65:1 › root redirects, unknown locales and missing pages return real 404 (2.2s)
+  ✓  30 [mobile-chromium] › tests/e2e/foundation.spec.ts:108:1 › liveness and security headers are real HTTP contracts (95ms)
+  ✓  29 [mobile-chromium] › tests/e2e/foundation.spec.ts:80:1 › keyboard skip, target sizes, no-JS content and reduced motion (2.0s)
+
+  30 passed (44.1s)

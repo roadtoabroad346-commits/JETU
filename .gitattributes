@@ -1,0 +1,4 @@
+# Normalize all text files to LF in the repository.
+# Working-tree endings stay OS-neutral thanks to `endOfLine: "auto"` in
+# .prettierrc.json, so `prettier --check .` passes on Windows and Linux alike.
+* text=auto

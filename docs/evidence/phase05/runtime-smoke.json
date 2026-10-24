@@ -1,0 +1,59 @@
+{
+  "note": "Local production Chromium sample, unthrottled with cached script resources; not field/Lighthouse metrics.",
+  "reverseModalCycle": true,
+  "visibleControlCount": 20,
+  "minVisibleControlHeight": 44,
+  "tooSmall": [],
+  "errors": [],
+  "navigation": [
+    {
+      "duration": 85,
+      "domContentLoaded": 67.80000000004657,
+      "transfer": 10792,
+      "decoded": 40043
+    }
+  ],
+  "scripts": [
+    {
+      "path": "/_next/static/chunks/22579k2m_q2sx.js",
+      "transfer": 0,
+      "decoded": 170215
+    },
+    {
+      "path": "/_next/static/chunks/2khxl0v1q4i6n.js",
+      "transfer": 0,
+      "decoded": 229820
+    },
+    {
+      "path": "/_next/static/chunks/turbopack-3-ry682tkyiqk.js",
+      "transfer": 0,
+      "decoded": 10030
+    },
+    {
+      "path": "/_next/static/chunks/42onvq6nokjl2.js",
+      "transfer": 0,
+      "decoded": 13822
+    },
+    {
+      "path": "/_next/static/chunks/274sgxkwccxoe.js",
+      "transfer": 0,
+      "decoded": 6558
+    },
+    {
+      "path": "/_next/static/chunks/11knybrs2l_9b.js",
+      "transfer": 0,
+      "decoded": 2761
+    },
+    {
+      "path": "/_next/static/chunks/3bfanb86n932w.js",
+      "transfer": 0,
+      "decoded": 130578
+    },
+    {
+      "path": "/_next/static/chunks/1zfdxh7i6wpqa.js",
+      "transfer": 0,
+      "decoded": 116839
+    }
+  ],
+  "externalRequests": []
+}
