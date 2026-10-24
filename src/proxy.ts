@@ -56,16 +56,17 @@ export async function proxy(request: NextRequest) {
   if (isAsset) return NextResponse.next();
   if (pathname !== '/' && !isAuthCallback) {
     if (!isLocale(candidate)) return notFoundResponse('ru');
-    const isCatalogDetail =
+    const isKnownNestedRoute =
       segments.length === 3 &&
       ((segments[1] === 'universities' &&
         /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')) ||
         (segments[1] === 'programs' &&
           /^[1-9][0-9]*$/.test(segments[2] ?? '')) ||
         (segments[1] === 'opportunities' &&
-          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(segments[2] ?? '')));
+          /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(segments[2] ?? '')) ||
+        (segments[1] === 'dashboard' && segments[2] === 'opportunities'));
     if (
-      !isCatalogDetail &&
+      !isKnownNestedRoute &&
       (segments.length > 2 ||
         (segments.length === 2 &&
           !APP_ROUTES.has(segments[1] ?? '') &&
