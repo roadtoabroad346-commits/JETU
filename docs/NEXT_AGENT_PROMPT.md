@@ -7,7 +7,7 @@ Read `AGENTS.md`, `PHASE_TRACKER.md`, `PHASE_14_PLAN.md`, `PHASE_14_REVIEW.md`, 
 - Localized RU/KK/EN opportunity search/detail, age/grade/type filters, source/date/fee/eligibility display and separate owner workspace exist. The proxy explicitly allows both detail and private workspace nested routes. Authenticated server actions persist saves and versioned plan statuses under owner RLS; Saved from a plan deletes the plan action while retaining the save.
 - A separate `/schools` directory reads RLS-visible `institution_school_profiles`, institutions, verified source claims and active official sources. It excludes university institutions, marks a partner only when `verified_partner`, links to `/for-schools`, and currently shows a true empty state. B2B multi-tenant tooling is Phase 26, not silently included here.
 - One reviewed real catalog record, the 2027 Blue Planet Awareness Contest, was inserted into authorized development project `edpuovkgoisyzpguksdi` with `supabase/content/20261024_blue_planet_2027.sql`. The exact official sources and checked facts are linked in `PHASE_14_REVIEW.md`. Do not rerun the one-time editorial script or replace its facts without source review. Existing Phase 13/14 migrations were recovered exactly into Git and already applied.
-- Final code preview `dpl_AQd4ZT3uzH7zHdbQpTVbgHyRgqw4` from `62a227a` is READY on Vercel. The branch `codex/phase14-opportunities` is pushed. No production promotion or PR CI was claimed.
+- Final code preview `dpl_Cr3QLXtrABKDrBTEdW75dCDM4nD2` from `770b17b` is READY on Vercel. It returned the real detail, school empty state and invalid-page state. The branch `codex/phase14-opportunities` is pushed. No production promotion or PR CI was claimed.
 
 ## Verification and limits
 
