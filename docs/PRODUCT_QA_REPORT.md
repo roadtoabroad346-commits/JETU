@@ -25,10 +25,11 @@ Phase 15 benchmark as a pgTAP file with no plan. The benchmark has been moved to
 tests. The next run passed two clean replays and 66 assertions per replay, then
 failed on generated database type drift. The exact generated artifact from that
 run was committed unchanged after local format, type, unit and build checks. A
-fresh remote run must confirm the final type drift guard before the database
-gate is counted as passed.
+final GitHub Actions run `40205477945` passed both the database and frontend
+jobs, including two clean migration replays, 66 pgTAP assertions per replay,
+advisors, the generated-type drift guard, typecheck and Chromium E2E.
 
 1. A human editor must review official evidence and resolve the conflicting Pearson timeline before approving any deadline or publication. The staged `scholarship_program_links` relation also needs program-specific review.
 2. Use two isolated non-production accounts against reachable hosted Auth/REST. Exercise profile update, matching, save/revisit, cross-user denial, invalid session, logout and anonymous redirect. Existing SQL owner checks are narrower evidence.
-3. Run migration replay and pgTAP on a clean disposable stack or CI, then inspect populated desktop/mobile result and detail pages with axe and screenshots.
-4. Confirm the Vercel preview built from the final PR commit and smoke test its health, public routes, anonymous Auth boundary and database-backed catalog. Keep production promotion gated.
+3. After editorial publication, inspect populated desktop/mobile result and detail pages with axe and screenshots; the empty catalog cannot provide this evidence.
+4. Keep production promotion gated until the remaining editorial, Auth and populated-page checks pass.

@@ -2,12 +2,14 @@
 
 Remote CI run `40204392572` exposed a test discovery issue: four pgTAP files
 passed 66 assertions, but the manual Phase 15 benchmark had no TAP plan. That
-benchmark now lives in `supabase/benchmarks/`; verify a fresh database job
-completes both migration replays, pgTAP, advisors and generated-type drift gate.
+benchmark now lives in `supabase/benchmarks/`.
 Run `40204849253` completed two replays and 66 pgTAP assertions per pass but
 found generated-type drift. The exact CI artifact `12603092932` was recovered
-as `src/lib/supabase/database.types.ts`; local `npm run check` passed. The next
-remote run must close the type drift gate.
+as `src/lib/supabase/database.types.ts`; local `npm run check` passed. Final
+remote run `40205477945` passed both the database and frontend jobs, including
+two clean migration replays, 66 pgTAP assertions per replay, advisors, generated
+type drift, typecheck and Chromium E2E. Draft PR #2 and its final-commit Vercel
+preview are ready for review; the editorial and two-user Auth gates remain open.
 
 Phase 16.5 continuation on draft PR #2 fixed matching Origin scheme checks and
 malformed deadline rendering, and refined mobile navigation/card feedback.

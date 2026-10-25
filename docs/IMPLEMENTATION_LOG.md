@@ -16,7 +16,9 @@
   formatted `database.types.ts` unchanged into the repository. SHA-256:
   `9bfcdef85710b507a51d24de487dd2efa3a3e9e68643df903d220f80f9c60154`.
   Local format, lint, strict TypeScript, 81 tests and build passed with the
-  generated artifact. A fresh remote run must prove the drift guard now passes.
+  generated artifact. Final run `40205477945` passed the database and frontend
+  jobs, including two clean migration replays, 66 pgTAP assertions per replay,
+  advisors, the generated-type drift guard, typecheck and Chromium E2E.
 
 - Recovered draft PR #2 on `codex/phase16-5-hardening`; preserved the clean
   branch, staged source data and existing commits. Supabase project

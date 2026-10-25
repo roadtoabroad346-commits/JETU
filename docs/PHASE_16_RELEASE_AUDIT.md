@@ -51,11 +51,15 @@ The first remote CI database job passed 66 pgTAP assertions after migration
 replay but failed because it discovered the manual Phase 15 benchmark as a test
 file without a TAP plan. The rollback-only benchmark was moved to
 `supabase/benchmarks/` to keep it runnable by an operator while excluding it from
-automatic pgTAP discovery. The clean two-replay remote gate must be rerun.
+automatic pgTAP discovery.
 The following run completed both clean replays, 66 assertions per replay and
 advisors, then caught drift in the checked-in generated database types. The
-exact CI-generated artifact was recovered and checked locally; final remote
-drift verification remains pending.
+exact CI-generated artifact was recovered and checked locally. Final GitHub
+Actions run `40205477945` passed the database and frontend jobs: two clean
+migration replays, 66 pgTAP assertions per replay, advisors, generated-type
+drift guard, typecheck, application checks and Chromium E2E. The final-commit
+Vercel preview was READY and passed health, search, anonymous matching and
+universities API smoke checks. Editorial and real two-user Auth gates remain open.
 
 The matching POST Origin check now rejects a different scheme as well as a
 different host. A malformed result deadline renders unknown instead of throwing.
