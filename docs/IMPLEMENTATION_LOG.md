@@ -9,6 +9,14 @@
   `supabase/benchmarks/phase15_benchmark.sql` and labeled as such. A subsequent
   remote run is required for a complete database gate; no SQL assertion was
   weakened or removed.
+- Run `40204849253`: frontend passed; the database job completed two clean
+  migration replays, 66 pgTAP assertions on each replay, and local advisors with
+  no issues. Its generated-type drift guard failed. Recovered the exact
+  `generated-database-types` artifact `12603092932` from that run and copied its
+  formatted `database.types.ts` unchanged into the repository. SHA-256:
+  `9bfcdef85710b507a51d24de487dd2efa3a3e9e68643df903d220f80f9c60154`.
+  Local format, lint, strict TypeScript, 81 tests and build passed with the
+  generated artifact. A fresh remote run must prove the drift guard now passes.
 
 - Recovered draft PR #2 on `codex/phase16-5-hardening`; preserved the clean
   branch, staged source data and existing commits. Supabase project

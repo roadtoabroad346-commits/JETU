@@ -22,7 +22,10 @@ The first remote database CI job replayed migrations and passed 66 assertions
 across four pgTAP files, then failed because the runner also treated the manual
 Phase 15 benchmark as a pgTAP file with no plan. The benchmark has been moved to
 `supabase/benchmarks/` so the normal `test:db` discovery includes only TAP
-tests. A fresh remote CI run must confirm both replays and type drift before this
+tests. The next run passed two clean replays and 66 assertions per replay, then
+failed on generated database type drift. The exact generated artifact from that
+run was committed unchanged after local format, type, unit and build checks. A
+fresh remote run must confirm the final type drift guard before the database
 gate is counted as passed.
 
 1. A human editor must review official evidence and resolve the conflicting Pearson timeline before approving any deadline or publication. The staged `scholarship_program_links` relation also needs program-specific review.
