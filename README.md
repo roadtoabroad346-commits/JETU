@@ -3,11 +3,13 @@
 Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase.
 Shipped: engineering foundation, a verified local design-system slice, the
 localized Phase 06 public site, a read-only university & program catalog
-explorer (Phase 12 scope) and account flows — registration, sign-in, password
+explorer (Phase 12 scope), Phase 15 unified search/saves/program comparison,
+and account flows — registration, sign-in, password
 reset, dashboard and a private student profile (Phase 08–09 scope). Phase 08/09
-work is implemented but **not** phase-verified. Matching, save/compare, paid
-plans, mentor booking, AI coaching and document vault are not implemented; the
-site does not simulate them.
+work is implemented but **not** phase-verified. Phase 15 is PARTIAL because the
+reviewed corpus has only one opportunity and hosted REST/Auth/deployment proof is unavailable.
+Matching, paid plans, mentor booking, AI coaching and document vault are not
+implemented; the site does not simulate them.
 
 ## Run locally
 
@@ -128,8 +130,10 @@ device emulation, not a physical-phone or WebKit certification. Reports are in
   scope, implemented, not phase-verified). `src/proxy.ts` transports locale,
   refreshes sessions and checks the current public path set; it is **not** the
   only authorization layer — server actions validate identity per request.
-- `src/features/catalog`: read-only catalog access and views backed by the
-  `catalog_search` RPC; no write path. `src/features`: further feature
+- `src/features/catalog`: read-only university/program catalog access backed by the
+  `catalog_search` RPC. `src/features/search`: published program/scholarship/
+  opportunity discovery, private saves and program comparison; public reads
+  preserve RLS and never compute eligibility. `src/features`: further feature
   composition; `src/domain`: framework-free contracts; `src/server`: server-only
   orchestration. See `docs/ARCHITECTURE.md`.
 - Supabase clients: browser uses public config; server requires a writable cookie
@@ -151,7 +155,8 @@ GitHub CI is configured without production secrets; remote CI is not claimed unl
 an actual run is recorded. Phase 04 remote checkpoints are recorded in the log;
 Phase 05 checkpoint 5a4f26a and the Phase 06 preservation checkpoint were saved
 to GitHub at the user's explicit request on 2026-10-18. The preservation inventory
-is in docs/PHASE_00_06_PRESERVATION.md. No application is deployed.
+is in docs/PHASE_00_06_PRESERVATION.md. No application deployment is claimed;
+the current workspace has no Vercel link or credentials.
 
 ## Product pitch reference
 

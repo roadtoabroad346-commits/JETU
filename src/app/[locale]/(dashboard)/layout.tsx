@@ -4,6 +4,7 @@ import { authCopy } from '@/lib/i18n/auth';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signOut } from './actions';
+import { searchCopy } from '@/features/search/copy';
 
 export default async function DashboardLayout({
   children,
@@ -36,6 +37,9 @@ export default async function DashboardLayout({
           <nav aria-label={t.dashboard} className="dashboard-nav">
             <a href={`/${locale}/dashboard`}>{t.dashboard}</a>
             <a href={`/${locale}/onboarding`}>{t.onboarding}</a>
+            <a href={`/${locale}/saved`}>
+              {searchCopy[locale].savedDestination}
+            </a>
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

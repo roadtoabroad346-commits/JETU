@@ -1,5 +1,32 @@
 # Next agent handoff — current state after the 2026-10-24 verified history consolidation
 
+## Phase 15 checkpoint — PARTIAL (stop before Phase 16)
+
+Unified search now covers published/source-backed programs, scholarships and
+opportunities. Routes: `/{locale}/search`, `/api/search/suggest`, localized
+scholarship/opportunity details, protected `/{locale}/saved`, and program-only
+`/{locale}/compare?ids=...`. URL filters, deterministic pages, autocomplete,
+source freshness, private idempotent saves and sparse 2–4 comparison are shipped.
+Eligibility/personal fit is always not evaluated.
+
+Applied Jetuu development migrations through
+`20261025052618_phase_15_opportunity_range_truth` are represented in Git.
+Cloud pgTAP passed 23 checks, including factual range outcomes and two-user
+saved-search isolation. The
+rollback-only 10,003-row benchmark covered all three result types, Latin,
+Cyrillic, Kazakh, diacritics, typo tolerance, composed filters,
+stable/disjoint sampled pages and hidden=0.
+Measured SQL execution: 327.675 ms browse and 698.999 ms filtered after repairing
+an initial 21.834-second plan. Local unit tests (66) and Phase 15 Playwright
+desktop/mobile tests (10) passed; the complete browser suite passed 62 with two
+hosted-Supabase-configured auth cases skipped.
+
+Keep status PARTIAL until a reviewed corpus exists and hosted REST/Auth browser
+flows can prove real search/detail/save/reload behavior. Local database replay
+was blocked by Docker disk exhaustion. Vercel is unlinked/unauthenticated, so no
+deployment is claimed. Read `docs/PHASE_15_REVIEW.md`; do not start Phase 16
+without a new explicit request.
+
 ## Shipped-but-not-phase-verified work
 
 Two historical feature commits implemented real work that no phase gate has
@@ -28,11 +55,12 @@ reviewed corpus.
 
 - Workspace direct REST proxy returns CONNECT 403; local PostgreSQL image pull
   returns registry 403.
-- Real published records: zero. Do not publish synthetic records.
+- Real published records: one current source-backed opportunity, zero programs
+  and scholarships. Do not publish synthetic records.
 - REST/Auth/Storage round trips must be verified in an environment with access
   before any phase is marked VERIFIED.
-- Unsupported save/compare/plan remain out of scope until their owning modules
-  exist.
+- Save and program comparison now exist under Phase 15. Matching/plan remains out
+  of scope until Phase 16+ explicitly begins.
 
 ## Supabase Preview repair — 2026-10-24
 
@@ -81,12 +109,12 @@ A full repository audit was executed and its approved findings were fixed:
 
 ## Next actions
 
-1. Record Phase 08/09 acceptance evidence (auth flows and profile persistence
-   against a reachable Supabase environment) before starting any new phase.
+1. Preserve the Phase 15 PARTIAL boundary; first close real-corpus and hosted
+   REST/Auth/deployment evidence if credentials and network access become available.
 2. Check `supabase migration list` on the authorized cloud project before any
    new SQL. As of 2026-10-24, all sixteen applied versions through
    `20261022135919_phase_14_deadline_filter_fix` are represented in `main`.
-3. Do not start Phase 13 automatically; explicit user request required.
+3. Do not start Phase 16 automatically; explicit user request required.
 4. The Phase 12 synthetic filter/isolation transaction measured **eleven**
    conditions (see PHASE_TRACKER.md); earlier text saying "six" was a summary
    error and has been corrected.

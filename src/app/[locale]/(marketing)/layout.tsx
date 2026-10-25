@@ -6,6 +6,7 @@ import { authCopy } from '@/lib/i18n/auth';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { marketing } from '@/lib/i18n/marketing';
 import { notFound } from 'next/navigation';
+import { searchCopy } from '@/features/search/copy';
 
 export default async function MarketingLayout({
   children,
@@ -45,6 +46,7 @@ export default async function MarketingLayout({
             <small>Admissions</small>
           </a>
           <nav className="marketing-nav" aria-label={t.nav}>
+            <a href={`/${locale}/search`}>{searchCopy[locale].search}</a>
             {t.navLinks.map(({ slug, label }) => (
               <a key={slug} href={`/${locale}/${slug}`}>
                 {label}

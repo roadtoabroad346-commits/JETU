@@ -50,3 +50,16 @@ Recovered/applied Phase 08–12 migrations follow the same model:
 The live cloud application state of any policy change beyond Phase 12 is not
 recorded here and must be checked with `supabase migration list` (see
 CLOUD_DEVELOPMENT.md drift warning) before future SQL work.
+
+## Phase 15 public/private matrix
+
+| Resource                 | anon    | authenticated                                               | service_role | Enforcement                                                 |
+| ------------------------ | ------- | ----------------------------------------------------------- | ------------ | ----------------------------------------------------------- |
+| `unified_catalog_search` | EXECUTE | EXECUTE                                                     | EXECUTE      | SECURITY INVOKER + underlying published/verified/source RLS |
+| `saved_catalog_items`    | none    | SELECT/INSERT/DELETE; limited UPDATE through owner policies | full         | four owner policies; allowed entity-type check              |
+| `saved_searches`         | none    | SELECT/INSERT/DELETE; limited UPDATE through owner policies | full         | four owner policies; JSON size/type checks                  |
+
+Cloud pgTAP exercised two disposable Auth users inside a rollback transaction:
+the owner read one saved-search row; the other user read, updated and deleted
+zero rows. Autocomplete, facets/counts and comparison all reuse the same invoker
+RPC, so they have no elevated bypass or separate cache leakage path.

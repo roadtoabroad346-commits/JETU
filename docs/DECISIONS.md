@@ -140,3 +140,32 @@
     annotated remote tag `archive-main-before-rewrite-2026-10-24`, and use an
     exact `--force-with-lease` so concurrent remote work cannot be overwritten.
     This is commit-timeline cleanup only; do not change evidence or phase status.
+
+## Phase 15 — 2026-10-24
+
+39. **The Master Prompt defines the unified result set.** Search programs,
+    scholarships and opportunities; keep universities discoverable through
+    program provider links and the existing explorer rather than inventing a
+    fourth unified result kind. Only programs are mutually comparable.
+40. **PostgreSQL remains the search engine.** Reuse Supabase/PostgreSQL FTS,
+    `pg_trgm`, explicit indexes and one `SECURITY INVOKER` RPC. A hosted search
+    service is unjustified for the observed one-row public corpus and would add a
+    second authorization/caching boundary.
+41. **Discovery is not eligibility.** Factual filters and Phase 14 range matches
+    cannot assert qualification. Rename the misleading `eligible` verdict to
+    `within_range` and `ineligible` to `outside_range`; comparison always says
+    personal fit was not evaluated.
+42. **Preaggregate bounded evidence once per request.** The recovered unified
+    RPC performed correlated evidence/facet work per candidate and measured
+    21.834 seconds at 10k rows. Materialized CTE aggregation reduced measured
+    browse execution to 327.675 ms and the representative filtered query to
+    698.999 ms. Use those observations as development budgets, not an SLA.
+43. **Public reads use the anonymous role and preserve RLS.** Search,
+    autocomplete, detail and comparison never use `service_role`; private saves
+    are authenticated server actions that re-check identity and owner-RLS tables
+    enforce isolation. URL/API keys and sort values are Zod allowlists.
+44. **Mark Phase 15 PARTIAL.** The implementation and synthetic evidence are
+    real, but no reviewed records exist, the workspace cannot perform a hosted
+    REST/Auth browser round trip, local Docker ran out of disk during database
+    image extraction, and Vercel is unlinked/unauthenticated. Do not promote
+    synthetic fixtures or begin Phase 16 to conceal those limits.

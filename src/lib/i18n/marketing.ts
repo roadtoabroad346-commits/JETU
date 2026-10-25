@@ -158,7 +158,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Откуда будут данные о стипендиях?',
         answer:
-          'Планируется указывать официальный источник, дату проверки, требования и состав покрытия для каждой записи. Каталог программ уже работает, проверенный каталог стипендий готовится.',
+          'Единый поиск программ, стипендий и возможностей показывает только опубликованные записи с официальным источником и датой проверки. Пока проверенных записей нет, он честно остаётся пустым.',
       },
     ],
     finalTitle: 'Начните с надёжной информации.',
@@ -313,7 +313,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Есть ли подтверждённые стипендии?',
-            body: 'Проверенного каталога стипендий ещё нет. Мы не отображаем вымышленные записи.',
+            body: 'Единый поиск стипендий работает, но показывает только опубликованные проверенные записи. Сейчас таких записей нет, и мы не подставляем вымышленные данные.',
           },
         ],
       },
@@ -465,7 +465,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Стипендия деректері қайдан алынады?',
         answer:
-          'Әр жазбада ресми дереккөз, тексеру күні, талаптар және жабылатын шығындар көрсетілуі жоспарланған. Бағдарламалар каталогы жұмыс істейді, стипендиялар каталогы әзірленуде.',
+          'Бағдарламалар, стипендиялар және мүмкіндіктердің бірыңғай іздеуі ресми дереккөзі мен тексеру күні бар жарияланған жазбаларды ғана көрсетеді. Тексерілген жазба жоқ кезде нәтиже бос қалады.',
       },
     ],
     finalTitle: 'Сенімді ақпараттан бастаңыз.',
@@ -510,7 +510,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       scholarships: {
         title: 'Стипендиялар: алдымен шарттар',
         description:
-          'Қаржыландыруды бағалау жолы. Тексерілген стипендия іздеуі әзірленуде.',
+          'Қаржыландыруды бағалау жолы. Бірыңғай іздеу тек жарияланған және тексерілген стипендияларды көрсетеді.',
         sections: [
           {
             heading: 'Каталог әзірленуде',
@@ -620,7 +620,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Расталған стипендиялар бар ма?',
-            body: 'Тексерілген стипендия каталогы әзірге жоқ. Ойдан шығарылған жазбаларды көрсетпейміз.',
+            body: 'Стипендия іздеуі жұмыс істейді, бірақ тек жарияланған тексерілген жазбаларды көрсетеді. Қазір ондай жазба жоқ, ойдан шығарылған дерек қоспаймыз.',
           },
         ],
       },
@@ -772,7 +772,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       {
         question: 'Where will scholarship information come from?',
         answer:
-          'The plan is to show an official source, review date, eligibility and coverage for each record. The program catalog is live; the scholarship catalog is in development.',
+          'Unified program, scholarship and opportunity search shows only published records with an official source and review date. It stays honestly empty until reviewed records are published.',
       },
     ],
     finalTitle: 'Begin with reliable information.',
@@ -818,7 +818,7 @@ export const marketing: Record<Locale, MarketingContent> = {
       scholarships: {
         title: 'Scholarships: start with the terms',
         description:
-          'Learn to assess funding. A verified scholarship search is still in development.',
+          'Learn to assess funding. Unified search shows only published, reviewed scholarship records.',
         sections: [
           {
             heading: 'Catalog in progress',
@@ -927,7 +927,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Are there verified scholarships?',
-            body: 'A verified scholarship catalog is not available yet. We do not show fictional records.',
+            body: 'Scholarship search is available but only returns published, reviewed records. There are no such records yet, and we do not substitute fictional data.',
           },
         ],
       },

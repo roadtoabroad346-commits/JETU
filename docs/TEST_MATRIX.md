@@ -60,3 +60,24 @@ still applies.
 - Phase 12 SQL: synthetic filter/isolation transaction with **eleven**
   assertions recorded in PHASE_TRACKER.md (source claim gate, 11 wrong
   filter/isolation results → error, leftover fixtures = 0).
+
+## Phase 15 extension
+
+| Area                          | Evidence                                                                                              | Outcome                                                           |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| URL/API parser                | invalid type/sort/page/deadline, multilingual query, compare IDs                                      | Vitest pass                                                       |
+| Search transport              | bounded payload, anon key, no-store, no service role                                                  | Vitest pass                                                       |
+| Sparse compare                | unknown fields, max four, fixed batched reads                                                         | Vitest pass                                                       |
+| SQL security                  | invoker/grants/RLS/indexes/range truth/two-user save isolation                                        | Cloud pgTAP 23 pass                                               |
+| 10k query behavior            | mixed types, composed filters, range truth, scripts/diacritics, typo, stable/disjoint pages, hidden=0 | Cloud rollback benchmark pass                                     |
+| Browser/a11y                  | RU/KK/EN reload, axe, 320px, invalid compare, keyboard autocomplete                                   | Chromium desktop/mobile 10 pass                                   |
+| Local DB replay               | PostgreSQL-only Supabase startup                                                                      | BLOCKED: Docker VFS disk exhausted during image extraction        |
+| Hosted REST/Auth + deployment | real save/reload and production URL                                                                   | NOT RUN: network unavailable; Vercel unlinked and unauthenticated |
+
+Observed development SQL execution was 327.675 ms for a title browse and
+698.999 ms for the representative filtered query at 10k rows. These are
+environment-specific measurements, not latency guarantees.
+
+Full production-browser regression: 62 passed, 2 skipped. The skipped cases are
+the existing anonymous-dashboard redirects gated on reachable hosted Supabase;
+all runnable desktop/mobile cases passed.

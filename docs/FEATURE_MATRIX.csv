@@ -10,6 +10,9 @@ Canonical catalog schema,10,supabase/migrations/20261020145643_phase_10_admissio
 Auth account flows,08,/{locale}/{signup,login,forgot-password,reset-password} + /auth/callback + /auth/confirm,server actions + PKCE routes,auth.users via SDK,unit fixture tests + degraded-mode e2e,IMPLEMENTED (NOT PHASE-VERIFIED)
 Student profile workspace,09,/{locale}/{dashboard,onboarding},server actions writing student_profiles,student_profiles + owner RLS + version trigger,unit fixture tests + degraded-mode e2e,IMPLEMENTED (NOT PHASE-VERIFIED)
 Catalog explorer (read-only),12,/{locale}/universities + /{locale}/programs/{id},REST RPC catalog_search via anon key,published catalog views/tables,pgTAP fixtures + unit transport + e2e degraded mode,IMPLEMENTED (NOT FULLY VERIFIED; no real corpus)
-Matching/save/compare/scholarships/AI/doc vault,13+,not exposed,not implemented,not implemented,not run,BACKLOG
+Unified catalog search,15,/{locale}/search + /api/search/suggest,anon SECURITY INVOKER RPC,published catalog RLS,Vitest + cloud pgTAP/10k rollback + Playwright,IMPLEMENTED (PHASE PARTIAL; no real corpus/live REST)
+Private saves,15,/{locale}/saved,authenticated server actions,saved_catalog_items + saved_searches owner RLS,Vitest + two-user cloud pgTAP,IMPLEMENTED (PHASE PARTIAL; live Auth browser blocked)
+Program comparison,15,/{locale}/compare,batched anon reads through unified RPC,published catalog RLS,Vitest sparse comparison + Playwright responsive/invalid state,IMPLEMENTED (PHASE PARTIAL)
+Matching/AI/doc vault,16+,not exposed,not implemented,not implemented,not run,BACKLOG
 Visual system and vector identity,05,src/styles/tokens.css + public/brand,shared semantic UI,none,contrast + axe + screenshots,IMPLEMENTED_AND_TESTED
 Localized component playground,05,/{locale}/design-system,local preview + actual section registry,none,Playwright UI/keyboard/no-JS/offline + visual diff,IMPLEMENTED_AND_TESTED

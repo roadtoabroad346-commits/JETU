@@ -18,6 +18,9 @@ const APP_ROUTES = new Set([
   'reset-password',
   'dashboard',
   'onboarding',
+  'search',
+  'compare',
+  'saved',
 ]);
 
 function notFoundResponse(locale: Locale) {
@@ -60,7 +63,9 @@ export async function proxy(request: NextRequest) {
       ((segments[1] === 'universities' &&
         /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')) ||
         (segments[1] === 'programs' &&
-          /^[1-9][0-9]*$/.test(segments[2] ?? '')));
+          /^[1-9][0-9]*$/.test(segments[2] ?? '')) ||
+        ((segments[1] === 'scholarships' || segments[1] === 'opportunities') &&
+          /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')));
     if (
       !isCatalogDetail &&
       (segments.length > 2 ||

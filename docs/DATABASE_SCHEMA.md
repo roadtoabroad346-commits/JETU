@@ -45,3 +45,23 @@ review workflow lands.
 This evolution is recorded from migration SQL, not from live cloud inspection.
 Whether every recovered file is applied to the authorized cloud project is a
 deployment-state question — see docs/CLOUD_DEVELOPMENT.md.
+
+## Phase 15 additions
+
+- `saved_catalog_items`: one private row per user/catalog entity, optional list
+  label and note, unique `(user_id, catalog_entity_id)`.
+- `saved_searches`: private canonical JSON filters with generated MD5
+  fingerprint, unique `(user_id, fingerprint)`.
+- `unified_catalog_search(jsonb)`: bounded `SECURITY INVOKER` table function for
+  published, verified, source-backed programs, scholarships and opportunities.
+  It returns a discriminated common shape, aggregate counts and stable sort keys.
+- `pg_trgm` title/provider indexes plus partial verified-evidence, source-date,
+  deadline, tuition, study-mode and funding relationship indexes support the
+  preaggregated query. `opportunity_search` now uses `within_range` /
+  `outside_range`, never `eligible` / `ineligible`, for factual numeric ranges;
+  current filtering excludes rows outside a requested range.
+
+Applied development versions are `20261024142350`, `20261024182608`,
+`20261024183658` and `20261025052618`. The real catalog has one opportunity and
+no programs or scholarships; the 10k performance corpus is transactional and
+rolls back.

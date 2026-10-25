@@ -438,3 +438,43 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - The consolidated root must pass the same three remote checks: Supabase Preview,
   database and frontend. Historical phase statuses and evidence boundaries remain
   unchanged by Git-history cleanup.
+
+## 2026-10-24–25 — Phase 15 unified search, saves and comparison
+
+- Recovered the exact already-applied
+  `20261024142350_phase_15_unified_search_compare.sql` migration from the
+  authorized Jetuu development history and regenerated current database types.
+- Applied additive development migrations
+  `20261024182608_phase_15_search_hardening` (misleading opportunity verdict
+  renamed to `within_range`) and
+  `20261024183658_phase_15_search_query_optimization` (preaggregated unified
+  search plus evidence/FTS indexes), followed by
+  `20261025052618_phase_15_opportunity_range_truth` (`outside_range` replaces
+  the remaining overclaiming `ineligible` value). No synthetic row persisted.
+- Added localized search, autocomplete, filters, stable pagination, source
+  freshness, details, authenticated saved items/searches and 2–4 program
+  comparison routes. Public reads use the anon key and no-store requests; all
+  mutations re-authenticate and rely on owner RLS.
+- Cloud rollback benchmark: 10,002 synthetic records plus one existing published
+  opportunity, all three result types, composed filters, disjoint/stable pages,
+  factual within/outside range behavior, Latin/Cyrillic/Kazakh/diacritic and typo
+  queries returned rows, invalid direct type input stayed public-only, and hidden
+  match count was zero. `EXPLAIN`:
+  327.675 ms browse and 698.999 ms filtered after an
+  initial 21,834 ms browse plan exposed the prerequisite performance defect.
+- Cloud pgTAP: 23 assertions including grants, invoker mode, indexes, factual
+  range outcomes and two-user saved-search select/update/delete isolation. Local unit
+  suite: 66 passed. Phase-focused production-browser suite: 10 passed on desktop
+  and mobile Chromium, including axe, URL reload, 320px, invalid compare and
+  keyboard autocomplete. The complete browser suite passed 62 with two existing
+  hosted-Supabase-configured auth cases skipped. Production dependency audit:
+  zero vulnerabilities.
+- Final Supabase security/performance advisors had no ERROR/WARN findings. Four
+  intentional deny-by-default tables and unused indexes on the one-row real
+  public corpus remain INFO-only findings.
+- Final cloud type generation structurally matched the committed formatted
+  `database.types.ts`; migration history through `20261025052618` matches Git.
+- Local PostgreSQL replay was attempted after the required Docker runtime check,
+  but image-layer registration exhausted workspace disk. Vercel inspection was
+  attempted with pinned CLI 65.2.0; no project link or credentials exist and
+  platform access failed, so no deployment is claimed. Phase 15 remains PARTIAL.

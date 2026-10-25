@@ -49,6 +49,31 @@ policies and per-user authorization remain mandatory before exposing any new
 product table. Unsupported save/compare/plan controls do not exist and are not
 rendered.
 
+## Phase 15 unified discovery boundary
+
+`src/features/search` owns a discriminated public search contract for
+`program | scholarship | opportunity`. Server components parse URL state with
+Zod and call `unified_catalog_search` over the public Supabase key with
+`cache: no-store`; autocomplete uses the same bounded RPC through
+`/api/search/suggest`. Stable identity is `entity_type + entity_id`, pages contain
+20 rows, suggestions eight, and comparison accepts two to four unique program
+IDs. Scholarship and opportunity detail pages expose only published,
+source-backed fields.
+
+The RPC is `SECURITY INVOKER`: catalog RLS remains authoritative for results,
+counts, autocomplete and comparison. It preaggregates verified evidence,
+deadline, tuition, language/mode and funding facts before joining the three
+entity branches. FTS (`simple`) and trigram indexes support Latin, Cyrillic,
+Kazakh and diacritic queries; all filters and sort keys come from fixed
+allowlists. There is no cross-request result cache that could outlive a
+publication change.
+
+`saved_catalog_items` and `saved_searches` are private owner-RLS tables.
+Authenticated server actions re-read the current user for every mutation;
+unique `(user_id, catalog_entity_id)` and `(user_id, fingerprint)` constraints
+make saves race-safe and idempotent. Comparison is a read-only normalized table
+with explicit unknown/not-evaluated values, never a Phase 16 match score.
+
 ## HTTP / failure contract
 
 `GET /api/health` returns `{data:{status:'ok'},requestId}` and does not probe Supabase.
