@@ -6,8 +6,8 @@ Development data remains one draft/needs_review institution, program and
 scholarship; zero published. Authenticated two-user E2E and human editorial
 review remain unperformed. Read `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
 `PHASE_16_RELEASE_AUDIT.md` before release work. The final local full Chromium
-run passed 64 cases with four Auth skips; the PR SHA is recorded after push.
-Do not start Phase 17.
+run passed 64 cases with four Auth skips. Read the latest PR head from Git
+history before continuing. Do not start Phase 17.
 
 Phase 16.5 staged one University of Toronto program and one Pearson scholarship
 cycle in Jetuu development using `scripts/phase16-stage-official-sample.sql`.
