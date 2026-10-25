@@ -18,6 +18,13 @@ Status: **PARTIAL**. The code checks and public browser tests exercise the imple
 
 ## Release blockers
 
+The first remote database CI job replayed migrations and passed 66 assertions
+across four pgTAP files, then failed because the runner also treated the manual
+Phase 15 benchmark as a pgTAP file with no plan. The benchmark has been moved to
+`supabase/benchmarks/` so the normal `test:db` discovery includes only TAP
+tests. A fresh remote CI run must confirm both replays and type drift before this
+gate is counted as passed.
+
 1. A human editor must review official evidence and resolve the conflicting Pearson timeline before approving any deadline or publication. The staged `scholarship_program_links` relation also needs program-specific review.
 2. Use two isolated non-production accounts against reachable hosted Auth/REST. Exercise profile update, matching, save/revisit, cross-user denial, invalid session, logout and anonymous redirect. Existing SQL owner checks are narrower evidence.
 3. Run migration replay and pgTAP on a clean disposable stack or CI, then inspect populated desktop/mobile result and detail pages with axe and screenshots.

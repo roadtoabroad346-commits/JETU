@@ -2,6 +2,14 @@
 
 ## Phase 16.5 product continuation — 2026-10-25
 
+- Remote GitHub Actions run `40204392572`: frontend succeeded; the database job
+  replayed migrations and passed 66 pgTAP assertions in four files but failed
+  overall because `supabase/tests/phase15_benchmark.sql` has no TAP plan. It is a
+  manual rollback-only 10k-row benchmark, so it was moved unchanged to
+  `supabase/benchmarks/phase15_benchmark.sql` and labeled as such. A subsequent
+  remote run is required for a complete database gate; no SQL assertion was
+  weakened or removed.
+
 - Recovered draft PR #2 on `codex/phase16-5-hardening`; preserved the clean
   branch, staged source data and existing commits. Supabase project
   `edpuovkgoisyzpguksdi` was ACTIVE_HEALTHY with 23 matching migration versions.

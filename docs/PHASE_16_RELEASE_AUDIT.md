@@ -47,6 +47,12 @@ while reviewed rows are unpublished.
 
 ## PR #2 continuation
 
+The first remote CI database job passed 66 pgTAP assertions after migration
+replay but failed because it discovered the manual Phase 15 benchmark as a test
+file without a TAP plan. The rollback-only benchmark was moved to
+`supabase/benchmarks/` to keep it runnable by an operator while excluding it from
+automatic pgTAP discovery. The clean two-replay remote gate must be rerun.
+
 The matching POST Origin check now rejects a different scheme as well as a
 different host. A malformed result deadline renders unknown instead of throwing.
 Mobile public navigation has a right-edge scroll cue and keyboard focus reaches its

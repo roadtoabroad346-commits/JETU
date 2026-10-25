@@ -1,5 +1,10 @@
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
+Remote CI run `40204392572` exposed a test discovery issue: four pgTAP files
+passed 66 assertions, but the manual Phase 15 benchmark had no TAP plan. That
+benchmark now lives in `supabase/benchmarks/`; verify a fresh database job
+completes both migration replays, pgTAP, advisors and generated-type drift gate.
+
 Phase 16.5 continuation on draft PR #2 fixed matching Origin scheme checks and
 malformed deadline rendering, and refined mobile navigation/card feedback.
 Development data remains one draft/needs_review institution, program and
