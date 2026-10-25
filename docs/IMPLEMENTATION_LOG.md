@@ -22,6 +22,12 @@
   findings. No visual claim is made for unpublished catalog records.
 - Release remains PARTIAL; see `PHASE_16_RELEASE_AUDIT.md` and
   `DATA_VERIFICATION.md`. Phase 17 was not started.
+- Git branch `codex/phase16-5-hardening` was pushed at `fa0cace` and draft
+  PR #2 opened. Git-linked Vercel preview
+  `jetu-phase13-preview-pinnw2uyw-impact-hub.vercel.app` reached READY for
+  that commit. Health, homepage, search, anonymous matching sign-in and empty
+  published university API were checked through protected preview fetches.
+  Production alias still serves preflight `6b0657c`; no promotion was done.
 
 Status: **PARTIAL**. The application/tooling foundation is implemented and tested;
 actual local migration replay, pgTAP, DB advisors and generated database types remain

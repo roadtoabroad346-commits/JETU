@@ -33,6 +33,13 @@ or matching until reviewed and published.
   `prj_ym5uK7EQumiSASSFdO4sSQMM1UxD` held a READY production-target Git
   deployment of preflight commit `6b0657c`; the separate `jetu` project had no
   deployment. The default alias is not a custom JETU production domain.
+- Git branch `codex/phase16-5-hardening` was pushed as `fa0cace` and opened as
+  draft PR #2. Vercel built that commit to READY preview deployment
+  `dpl_jwH1EKwRzXYS3ur9qRBUwGAdsDUr` at
+  `https://jetu-phase13-preview-pinnw2uyw-impact-hub.vercel.app`.
+  Protected preview fetches returned health 200, homepage 200, search 200,
+  anonymous matching sign-in, and public universities API `{"data":[]}`.
+  The staged Pearson record was absent from public pages as intended.
 
 No new UI motion or redesign is claimed. Existing desktop/mobile accessibility
 regressions were rerun; visual inspection of new live catalog cards cannot happen
