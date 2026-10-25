@@ -1,5 +1,28 @@
 # Phase 04 implementation log — 2026-10-17
 
+## Phase 16.5 production hardening checkpoint — 2026-10-25
+
+- Confirmed GitHub `main` and checkout at `6b0657c`, Jetuu development project
+  `edpuovkgoisyzpguksdi`, 23 applied migrations through Phase 16, and the
+  separate Vercel `jetu-phase13-preview` production-target deployment of that
+  commit. The `jetu` Vercel project had no deployment.
+- Inspected official University of Toronto Computer Science and Pearson award
+  pages. Staged one institution, one program, one scholarship, one scholarship
+  cycle and four separate funding component claims with an idempotent SQL script.
+  Replayed the script twice; counts stayed at one per natural key. All entities
+  remain draft/needs_review and zero are published. No new migration or
+  destructive operation was performed.
+- Fixed malformed deadline, duplicate exam score and repeated candidate cases
+  in matching. Added unit regressions. `npm run check` passed: formatting,
+  ESLint, TypeScript, 80 unit/integration tests, production build. `npm audit
+--omit=dev --audit-level=high` found zero vulnerabilities. Chromium E2E:
+  64 passed, four Auth-dependent skips. Authenticated two-user E2E remains open.
+- Verified catalog and private matching RLS policy definitions by SQL. Supabase
+  security advisor: four INFO no-policy private/editorial tables, no elevated
+  findings. No visual claim is made for unpublished catalog records.
+- Release remains PARTIAL; see `PHASE_16_RELEASE_AUDIT.md` and
+  `DATA_VERIFICATION.md`. Phase 17 was not started.
+
 Status: **PARTIAL**. The application/tooling foundation is implemented and tested;
 actual local migration replay, pgTAP, DB advisors and generated database types remain
 blocked by the managed Docker VFS filesystem capacity. Do not mark VERIFIED yet.

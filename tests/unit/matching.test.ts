@@ -203,6 +203,56 @@ describe('matching eligibility', () => {
       ).eligibility,
     ).toBe('eligible');
   });
+  it('does not treat a malformed sourced deadline as an open application', () => {
+    const item = {
+      ...candidate,
+      requirements: [requirement],
+      deadlineAt: 'invalid-date',
+      deadlineVerification: 'verified' as const,
+      deadlineSourceUrl: 'https://example.edu/deadline',
+      deadlineCheckedAt: '2026-10-01T00:00:00Z',
+    };
+    expect(
+      evaluate(item, profile, prefs, now).rules.find(
+        (rule) => rule.id === 'deadline',
+      )?.status,
+    ).toBe('UNKNOWN');
+  });
+  it('requires manual resolution of duplicate exam scores', () => {
+    const item = {
+      ...candidate,
+      requirements: [
+        {
+          ...requirement,
+          tests: [
+            {
+              code: 'IELTS',
+              minimum: 6.5,
+              maximum: null,
+              waiversAllowed: false,
+              unsupportedComponents: false,
+            },
+          ],
+        },
+      ],
+    };
+    const result = evaluate(
+      item,
+      {
+        ...profile,
+        testScores: [
+          { code: 'IELTS', score: 8, verified: true },
+          { code: 'IELTS', score: 5, verified: true },
+        ],
+      },
+      prefs,
+      now,
+    );
+    expect(
+      result.rules.find((rule) => rule.id === 'requirement:7:test:IELTS')
+        ?.status,
+    ).toBe('UNKNOWN');
+  });
   it('never converts an unknown GPA scale into a pass or failure', () => {
     const item = {
       ...candidate,
@@ -250,6 +300,7 @@ describe('matching eligibility', () => {
         (item) => item.candidate.id,
       ),
     ).toEqual([1, 2]);
+    expect(recommend([first, first], profile, prefs, now)).toHaveLength(1);
   });
   it('uses only sourced annual USD tuition for a budget preference', () => {
     const item = {

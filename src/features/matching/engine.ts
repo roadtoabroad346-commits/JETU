@@ -237,9 +237,14 @@ export function evaluate(
     );
   const checkedAt = new Date(candidate.deadlineCheckedAt ?? '').getTime();
   const evaluatedAt = new Date(now).getTime();
+  const deadlineAt = candidate.deadlineAt
+    ? new Date(candidate.deadlineAt).getTime()
+    : NaN;
   const deadlineVerified =
     candidate.deadlineVerification === 'verified' &&
     Boolean(candidate.deadlineSourceUrl?.startsWith('https://')) &&
+    Number.isFinite(deadlineAt) &&
+    Number.isFinite(evaluatedAt) &&
     Number.isFinite(checkedAt) &&
     checkedAt <= evaluatedAt &&
     evaluatedAt - checkedAt <= 180 * 86400000;
@@ -248,14 +253,14 @@ export function evaluate(
       'deadline',
       !deadlineVerified || !candidate.deadlineAt
         ? 'UNKNOWN'
-        : new Date(candidate.deadlineAt).getTime() < new Date(now).getTime()
+        : deadlineAt < evaluatedAt
           ? 'NOT_MET'
           : 'MET',
       !candidate.deadlineAt
         ? 'No verified application deadline is available.'
         : !deadlineVerified
           ? 'Deadline source needs a fresh review.'
-          : new Date(candidate.deadlineAt).getTime() < new Date(now).getTime()
+          : deadlineAt < evaluatedAt
             ? 'The listed application deadline has passed.'
             : 'The listed application deadline has not passed.',
       candidate.deadlineAt ?? 'Application deadline',
@@ -333,12 +338,15 @@ export function evaluate(
     }
     for (const required of requirement.tests ?? []) {
       interpreted = true;
-      const actual = profile.testScores.find(
+      const matchingScores = profile.testScores.filter(
         (test) => test.code === required.code,
       );
+      const actual = matchingScores[0];
       const status = !actual
         ? 'UNKNOWN'
-        : requirement.ambiguousTests || required.unsupportedComponents
+        : matchingScores.length !== 1 ||
+            requirement.ambiguousTests ||
+            required.unsupportedComponents
           ? 'UNKNOWN'
           : !actual.verified
             ? 'UNKNOWN'
@@ -352,8 +360,10 @@ export function evaluate(
       add(
         `test:${required.code}`,
         status,
-        requirement.ambiguousTests || required.unsupportedComponents
-          ? 'Alternative tests or component thresholds need manual review.'
+        matchingScores.length > 1 ||
+          requirement.ambiguousTests ||
+          required.unsupportedComponents
+          ? 'Duplicate scores, alternative tests or component thresholds need manual review.'
           : !actual
             ? `${required.code} score is missing.`
             : status === 'UNKNOWN'
@@ -550,7 +560,15 @@ export function recommend(
     insufficient_information: 2,
     not_eligible: 3,
   };
-  return candidates
+  const uniqueCandidates = [
+    ...new Map(
+      candidates.map((candidate) => [
+        `${candidate.entityType}:${candidate.id}`,
+        candidate,
+      ]),
+    ).values(),
+  ];
+  return uniqueCandidates
     .map((candidate) => ({
       candidate,
       ...evaluate(candidate, profile, preferences, now),

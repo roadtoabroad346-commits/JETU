@@ -1,5 +1,13 @@
 # Phase 04 decisions — 2026-10-17
 
+## Phase 16.5 decision — 2026-10-25
+
+Official pages inspected by an AI-assisted workflow are staged with field-level
+source claims, never automatically called human-reviewed. Pearson deadline fields
+remain empty because its current timeline and older FAQ conflict. Until an editor
+resolves this and signs a real verification run, the sample remains unpublished.
+No production promotion or Phase 17 work follows from the staging step.
+
 1. **Root application, single package.** Existing root `src/` and `supabase/` are
    placeholders; nested `jetu/` is a duplicate document upload and empty package.
    Keep it untouched and document the root, rather than introduce a monorepo.
