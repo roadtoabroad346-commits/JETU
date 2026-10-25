@@ -6,7 +6,11 @@ import { searchCopy } from '@/features/search/copy';
 import { authCopy } from '@/lib/i18n/auth';
 import type { Locale } from '@/lib/i18n/messages';
 import { matchingCopy } from './copy';
-import { localizedReason, localizedRule } from './localized';
+import {
+  formatMatchingDate,
+  localizedReason,
+  localizedRule,
+} from './localized';
 import {
   profileReadiness,
   type MatchingPreferences,
@@ -387,11 +391,7 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
                     </p>
                     <p>
                       <strong>{t.deadline}:</strong>{' '}
-                      {c.deadlineAt
-                        ? new Intl.DateTimeFormat(localeTag[locale], {
-                            dateStyle: 'medium',
-                          }).format(new Date(c.deadlineAt))
-                        : '—'}
+                      {formatMatchingDate(c.deadlineAt, locale) ?? '—'}
                     </p>
                     {c.entityType === 'scholarship' && (
                       <p>

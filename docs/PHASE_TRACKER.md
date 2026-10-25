@@ -1,6 +1,13 @@
 # Phase tracker — updated 2026-10-25
 
-Current request state: **Phase 16 PARTIAL**. The authenticated matching API, deterministic rule/ranking engine, private owner-RLS persistence, and localized workspace are implemented and cloud SQL-tested. The authorized development catalog has zero programs and scholarships; direct hosted Auth/REST is unavailable from this workspace. Live profile-to-recommendation behavior and deployment therefore remain unverified. Earlier partial/unverified phase labels are preserved. Phase 17 has not started.
+Phase 16.5 continuation: same-host/different-scheme matching requests are now
+rejected, malformed dates cannot crash recommendation cards, and mobile public
+navigation and card feedback were refined. One institution, program and
+scholarship remain `draft`/`needs_review`; zero are published. Phase 16 remains
+**PARTIAL**. Details: `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md`, and
+`PHASE_16_RELEASE_AUDIT.md`.
+
+Current request state: **Phase 16 PARTIAL**. The authenticated matching API, deterministic rule/ranking engine, private owner-RLS persistence, and localized workspace are implemented and cloud SQL-tested. The authorized development catalog now has one staged program and scholarship, both `draft`/`needs_review`, and zero reviewed/published records. Direct hosted Auth/REST remains unavailable from this workspace; live profile-to-recommendation behavior remains unverified. See `PHASE_16_RELEASE_AUDIT.md`. Earlier partial/unverified phase labels are preserved. Phase 17 has not started.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |
 | ----- | ---------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -19,7 +26,7 @@ Current request state: **Phase 16 PARTIAL**. The authenticated matching API, det
 | 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | PARTIAL                    | Programs/scholarships/opportunities search, private saves and 2–4 program compare implemented; cloud SQL/RLS/10k benchmark and local UI checks pass; live corpus/REST/deploy gates remain open |
-| 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking, private API/UI and development RLS tests; zero live program/scholarship rows and no hosted Auth/REST E2E                                                          |
+| 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking and development RLS tests; one unpublished program/scholarship staged, zero reviewed/published, no hosted Auth/REST E2E                                            |
 | 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |

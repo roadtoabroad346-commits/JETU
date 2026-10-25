@@ -1,5 +1,15 @@
 # Architecture — current JETU application and Phase 16 matching
 
+Phase 16.5 continuation: matching POST checks the Origin host and scheme against
+the forwarded request host and request URL protocol before Auth/database access.
+The client uses a safe deadline formatter for recommendation cards. This pass
+adds no table, migration, service or privileged key.
+
+Phase 16.5 keeps official-source samples in the existing normalized catalog as
+`draft`/`needs_review`. The editorial staging SQL is idempotent and never
+publishes. Public search and matching continue to read only the published
+catalog; see `DATA_VERIFICATION.md` for the review gate.
+
 ## State and boundaries
 
 The root is a single Next.js package, not a monorepo. `jetu/` is a preserved upload

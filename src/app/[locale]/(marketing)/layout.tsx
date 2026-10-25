@@ -45,14 +45,16 @@ export default async function MarketingLayout({
             <BrandLogo />
             <small>Admissions</small>
           </a>
-          <nav className="marketing-nav" aria-label={t.nav}>
-            <a href={`/${locale}/search`}>{searchCopy[locale].search}</a>
-            {t.navLinks.map(({ slug, label }) => (
-              <a key={slug} href={`/${locale}/${slug}`}>
-                {label}
-              </a>
-            ))}
-          </nav>
+          <div className="marketing-nav-wrap">
+            <nav className="marketing-nav" aria-label={t.nav}>
+              <a href={`/${locale}/search`}>{searchCopy[locale].search}</a>
+              {t.navLinks.map(({ slug, label }) => (
+                <a key={slug} href={`/${locale}/${slug}`}>
+                  {label}
+                </a>
+              ))}
+            </nav>
+          </div>
           <div className="marketing-account">
             <a className="marketing-login" href={`/${locale}/login`}>
               {authCopy[locale].signIn}

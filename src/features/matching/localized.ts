@@ -1,6 +1,16 @@
 import type { Locale } from '@/lib/i18n/messages';
 import type { RuleResult, RuleStatus } from './engine';
 
+export function formatMatchingDate(value: string | null, locale: Locale) {
+  if (!value) return null;
+  const parsed = new Date(value);
+  if (!Number.isFinite(parsed.getTime())) return null;
+  return new Intl.DateTimeFormat(
+    locale === 'kk' ? 'kk-KZ' : locale === 'ru' ? 'ru-RU' : 'en-US',
+    { dateStyle: 'medium' },
+  ).format(parsed);
+}
+
 type Phrases = Record<string, Partial<Record<RuleStatus, string>>>;
 const translations: Record<'ru' | 'kk', Phrases> = {
   ru: {

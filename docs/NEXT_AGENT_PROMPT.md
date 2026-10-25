@@ -1,5 +1,35 @@
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
+Remote CI run `40204392572` exposed a test discovery issue: four pgTAP files
+passed 66 assertions, but the manual Phase 15 benchmark had no TAP plan. That
+benchmark now lives in `supabase/benchmarks/`.
+Run `40204849253` completed two replays and 66 pgTAP assertions per pass but
+found generated-type drift. The exact CI artifact `12603092932` was recovered
+as `src/lib/supabase/database.types.ts`; local `npm run check` passed. Final
+remote run `40205477945` passed both the database and frontend jobs, including
+two clean migration replays, 66 pgTAP assertions per replay, advisors, generated
+type drift, typecheck and Chromium E2E. Draft PR #2 and its final-commit Vercel
+preview are ready for review; the editorial and two-user Auth gates remain open.
+
+Phase 16.5 continuation on draft PR #2 fixed matching Origin scheme checks and
+malformed deadline rendering, and refined mobile navigation/card feedback.
+Development data remains one draft/needs_review institution, program and
+scholarship; zero published. Authenticated two-user E2E and human editorial
+review remain unperformed. Read `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
+`PHASE_16_RELEASE_AUDIT.md` before release work. The final local full Chromium
+run passed 64 cases with four Auth skips. Read the latest PR head from Git
+history before continuing. Do not start Phase 17.
+
+Phase 16.5 staged one University of Toronto program and one Pearson scholarship
+cycle in Jetuu development using `scripts/phase16-stage-official-sample.sql`.
+They remain unpublished and `needs_review`; no reviewer approval was simulated.
+The script is idempotent and ran twice. Matching now fails closed on malformed
+deadlines and duplicate test scores and deduplicates candidate IDs. `npm run
+check` passed (80 tests); Chromium passed 64 with four Auth-dependent skips.
+Read `docs/PHASE_16_RELEASE_AUDIT.md` and `docs/DATA_VERIFICATION.md` before
+any editorial publication or release. The 2026/2027 Pearson page contains an
+older contradictory FAQ, so deadline review is mandatory. Phase 17 remains gated.
+
 Phase 16 is implemented locally and in the authorized Jetuu development database, but **not verified end to end**. Do not start Phase 17 under this checkpoint. Read `docs/AI_MATCHING_ARCHITECTURE.md` and the Phase 16 gate in `docs/PHASE_TRACKER.md` before work.
 
 GitHub `main` contains implementation commit `afa3f11`. The existing Vercel `jetu-phase13-preview` project is now Git-linked; its matching preview reached READY with a 200 health check, anonymous match-to-login path and real public search. Git `main` auto-deploys to that project's production target at its default `.vercel.app` domain, with no custom JETU production domain. Supabase Git-linked `main` reported `ACTIVE_HEALTHY`. No signed-in matching journey or acceptance-ready product release was verified.

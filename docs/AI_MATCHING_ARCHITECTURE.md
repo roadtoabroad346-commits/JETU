@@ -1,6 +1,18 @@
 # Phase 16 matching architecture — 2026-10-25
 
-Status: **PARTIAL**. The engine and schema are implemented against the authorized Jetuu development project. Its real reviewed corpus has zero programs and scholarships, and hosted Auth/REST traffic is blocked from this workspace. No live student recommendation has been verified.
+Phase 16.5 display hardening: the evaluation engine already fails closed on a
+nonparseable deadline. The matching card now also renders that value as unknown
+instead of passing `Invalid Date` into `Intl.DateTimeFormat`. The matching POST
+Origin check now compares scheme and host; neither change alters ranking weights,
+eligibility categories or saved-result schema.
+
+Phase 16.5 rule hardening: a nonparseable deadline yields `UNKNOWN`, duplicate
+scores for one exam yield `UNKNOWN` regardless of input order, and repeated
+candidate IDs are collapsed before ranking. These cases are in unit tests.
+Official-source sample records in Jetuu development remain draft and invisible
+to the published search and matching path until editorial review.
+
+Status: **PARTIAL**. The engine and schema are implemented against the authorized Jetuu development project. Its reviewed and published corpus has zero programs and scholarships; one of each is staged for review. Hosted Auth/REST traffic is blocked from this workspace. No live student recommendation has been verified.
 
 ## Request and trust boundaries
 
@@ -36,4 +48,4 @@ At most 30 programs and 20 scholarships are considered per run; related reads ha
 
 ## Tests and release gates
 
-Unit fixtures cover missing data, citizenship mismatch, unverified/expired tests, stale sources, deadline, GPA scale, scholarship unknown linkage, deterministic ranking, and profile merge. Cloud transactional SQL exercised 18 RLS/grant/ownership assertions and rolled back fixtures. Full Chromium regression passed 64 desktop/mobile cases with four Auth-dependent skips. API/browser tests cover cross-origin and malformed requests; live authenticated matching is skipped without reachable Auth. The real development catalog has zero programs and scholarships, so live recommendations, source correctness and cross-device profile-to-match journeys remain unverified. Phase 16 stays PARTIAL until a small reviewed corpus and reachable hosted Auth/REST or an equivalent disposable full stack can exercise the entire flow.
+Unit fixtures cover missing data, citizenship mismatch, unverified/expired tests, stale sources, deadline, GPA scale, scholarship unknown linkage, deterministic ranking, and profile merge. Cloud transactional SQL exercised 18 RLS/grant/ownership assertions and rolled back fixtures. Full Chromium regression passed 64 desktop/mobile cases with four Auth-dependent skips. API/browser tests cover cross-origin and malformed requests; live authenticated matching is skipped without reachable Auth. The real development catalog has zero published programs and scholarships, so live recommendations, source correctness and cross-device profile-to-match journeys remain unverified. Phase 16 stays PARTIAL until a small reviewed corpus and reachable hosted Auth/REST or an equivalent disposable full stack can exercise the entire flow.

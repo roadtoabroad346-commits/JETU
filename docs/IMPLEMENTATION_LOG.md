@@ -1,5 +1,80 @@
 # Phase 04 implementation log — 2026-10-17
 
+## Phase 16.5 product continuation — 2026-10-25
+
+- Remote GitHub Actions run `40204392572`: frontend succeeded; the database job
+  replayed migrations and passed 66 pgTAP assertions in four files but failed
+  overall because `supabase/tests/phase15_benchmark.sql` has no TAP plan. It is a
+  manual rollback-only 10k-row benchmark, so it was moved unchanged to
+  `supabase/benchmarks/phase15_benchmark.sql` and labeled as such. A subsequent
+  remote run is required for a complete database gate; no SQL assertion was
+  weakened or removed.
+- Run `40204849253`: frontend passed; the database job completed two clean
+  migration replays, 66 pgTAP assertions on each replay, and local advisors with
+  no issues. Its generated-type drift guard failed. Recovered the exact
+  `generated-database-types` artifact `12603092932` from that run and copied its
+  formatted `database.types.ts` unchanged into the repository. SHA-256:
+  `9bfcdef85710b507a51d24de487dd2efa3a3e9e68643df903d220f80f9c60154`.
+  Local format, lint, strict TypeScript, 81 tests and build passed with the
+  generated artifact. Final run `40205477945` passed the database and frontend
+  jobs, including two clean migration replays, 66 pgTAP assertions per replay,
+  advisors, the generated-type drift guard, typecheck and Chromium E2E.
+
+- Recovered draft PR #2 on `codex/phase16-5-hardening`; preserved the clean
+  branch, staged source data and existing commits. Supabase project
+  `edpuovkgoisyzpguksdi` was ACTIVE_HEALTHY with 23 matching migration versions.
+  One institution, program and scholarship remained draft/needs_review, with
+  zero published. All 77 public tables had RLS enabled. Security advisor had
+  four INFO no-policy notices on private editorial/audit tables, no WARN/ERROR.
+- Baseline `npm run check` passed 80 tests and production build. Inspected
+  rendered public pages at 375/1440 px and identified clipped mobile navigation.
+  The first revised full browser run was 60 passed, four skipped, four failed:
+  two matching-Origin tests and two compact-hero tests (desktop/mobile). Both
+  causes were repaired. Affected desktop/mobile suite then passed 20 cases with
+  two configured-Auth skips.
+- Matching now rejects same-host cross-scheme Origins and displays malformed
+  deadlines as unknown. Mobile nav is keyboard reachable with a visible scroll
+  treatment; catalog/search/matching cards have restrained hover feedback and
+  reduced-motion suppression. `npm run check` passed 81 tests and build after
+  implementation. No schema, published data or production target was changed.
+- See `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
+  `PHASE_16_RELEASE_AUDIT.md` for the audit, evidence and remaining gates.
+- Final full Chromium suite after fixes: 64 passed, four Auth-dependent skipped.
+  Production dependency audit found zero vulnerabilities. Final screenshot review
+  covered public landing/search/university pages at 375/1440 px; a local
+  production Chromium sample measured LCP 56–856 ms, CLS 0 and no page overflow
+  over six route/width combinations. This is lab-only, mostly empty/error-state
+  data and cannot establish production Core Web Vitals or real catalog latency.
+
+## Phase 16.5 production hardening checkpoint — 2026-10-25
+
+- Confirmed GitHub `main` and checkout at `6b0657c`, Jetuu development project
+  `edpuovkgoisyzpguksdi`, 23 applied migrations through Phase 16, and the
+  separate Vercel `jetu-phase13-preview` production-target deployment of that
+  commit. The `jetu` Vercel project had no deployment.
+- Inspected official University of Toronto Computer Science and Pearson award
+  pages. Staged one institution, one program, one scholarship, one scholarship
+  cycle and four separate funding component claims with an idempotent SQL script.
+  Replayed the script twice; counts stayed at one per natural key. All entities
+  remain draft/needs_review and zero are published. No new migration or
+  destructive operation was performed.
+- Fixed malformed deadline, duplicate exam score and repeated candidate cases
+  in matching. Added unit regressions. `npm run check` passed: formatting,
+  ESLint, TypeScript, 80 unit/integration tests, production build. `npm audit
+--omit=dev --audit-level=high` found zero vulnerabilities. Chromium E2E:
+  64 passed, four Auth-dependent skips. Authenticated two-user E2E remains open.
+- Verified catalog and private matching RLS policy definitions by SQL. Supabase
+  security advisor: four INFO no-policy private/editorial tables, no elevated
+  findings. No visual claim is made for unpublished catalog records.
+- Release remains PARTIAL; see `PHASE_16_RELEASE_AUDIT.md` and
+  `DATA_VERIFICATION.md`. Phase 17 was not started.
+- Git branch `codex/phase16-5-hardening` was pushed at `fa0cace` and draft
+  PR #2 opened. Git-linked Vercel preview
+  `jetu-phase13-preview-pinnw2uyw-impact-hub.vercel.app` reached READY for
+  that commit. Health, homepage, search, anonymous matching sign-in and empty
+  published university API were checked through protected preview fetches.
+  Production alias still serves preflight `6b0657c`; no promotion was done.
+
 Status: **PARTIAL**. The application/tooling foundation is implemented and tested;
 actual local migration replay, pgTAP, DB advisors and generated database types remain
 blocked by the managed Docker VFS filesystem capacity. Do not mark VERIFIED yet.
