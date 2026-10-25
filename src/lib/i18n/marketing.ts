@@ -178,7 +178,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Что уже доступно',
-            body: 'Сейчас доступны публичные объяснения и демонстрация интерфейса, регистрация с личным кабинетом и приватной анкетой, а также поиск по каталогу программ. Персональный подбор ещё в разработке.',
+            body: 'Доступны регистрация, личная анкета, поиск программ и стипендий, сохранение вариантов и объяснимый подбор. Каталог проверенных программ и стипендий пока пуст; личный план ещё не запущен.',
           },
         ],
       },
@@ -249,8 +249,8 @@ export const marketing: Record<Locale, MarketingContent> = {
             body: 'Проверьте право на участие, дедлайн, расходы и список документов в первоисточнике. Сохраняйте ссылку и дату проверки для себя.',
           },
           {
-            heading: 'Персональный подбор ещё закрыт',
-            body: 'Аккаунты и анкета работают, но сохранение подборки и личный план ещё не подключены. Эта страница служит руководством к действию.',
+            heading: 'Персональный подбор',
+            body: 'Создайте аккаунт, заполните анкету и откройте персональный подбор. Результаты появятся после публикации проверенных программ и стипендий; личный план ещё не запущен.',
           },
         ],
       },
@@ -484,7 +484,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'Қазір не бар',
-            body: 'Әзірше ашық ақпарат пен интерфейс көрсетілімі, тіркелу (жеке кабинет пен жеке сауалнамамен) және бағдарламалар каталогын іздеу бар. Жеке іріктеу әзірленуде.',
+            body: 'Тіркелу, жеке сауалнама, бағдарлама мен стипендия іздеу, таңдауларды сақтау және түсіндірілетін жеке іріктеу қолжетімді. Расталған бағдарлама мен стипендия каталогы әзірше бос; жеке жоспар әлі іске қосылған жоқ.',
           },
         ],
       },
@@ -555,8 +555,8 @@ export const marketing: Record<Locale, MarketingContent> = {
             body: 'Қатысу құқығын, мерзімді, шығынды және құжаттарды ресми дереккөзден қараңыз. Сілтеме мен тексеру күнін сақтаңыз.',
           },
           {
-            heading: 'Жеке іріктеу әлі жабық',
-            body: 'Аккаунт пен сауалнама жұмыс істейді, бірақ таңдауларды сақтау мен жеке жоспар әзірше қосылмады. Бұл бет әзірге нұсқаулық.',
+            heading: 'Жеке іріктеу',
+            body: 'Аккаунт ашып, сауалнаманы толтырып, жеке іріктеуді көріңіз. Нәтижелер расталған бағдарламалар мен стипендиялар жарияланғаннан кейін пайда болады; жеке жоспар әзірше жоқ.',
           },
         ],
       },
@@ -792,7 +792,7 @@ export const marketing: Record<Locale, MarketingContent> = {
           },
           {
             heading: 'What is available',
-            body: 'Public explanations and a concept interface, registration with a personal workspace and private profile, and program catalog search are available now. Personal matching is still in development.',
+            body: 'Accounts, private profiles, program and scholarship search, saved items, and explainable matching are available. The reviewed program and scholarship catalog is currently empty; the personal plan is not launched.',
           },
         ],
       },
@@ -863,8 +863,8 @@ export const marketing: Record<Locale, MarketingContent> = {
             body: 'Verify eligibility, deadline, costs and documents with the official source. Keep the link and the date you checked it.',
           },
           {
-            heading: 'Personal matching is not open yet',
-            body: 'Accounts and the profile work, but saving selections and the personal plan are not connected yet. This page remains a guide.',
+            heading: 'Personal matching',
+            body: 'Create an account, complete your profile, and open personal matching. Results will appear when reviewed programs and scholarships are published; the personal plan is not launched.',
           },
         ],
       },

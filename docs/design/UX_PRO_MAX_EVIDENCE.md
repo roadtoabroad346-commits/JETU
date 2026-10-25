@@ -184,3 +184,20 @@ Subtle hover (200-250ms), smooth transitions, sharp shadows if any, clear type h
 - **Applies To:** nextjs 16.2
 - **Status:** active
 - **Verified At:** 2026-08-13
+
+# Phase 16 matching research — 2026-10-25
+
+Read the installed cloud UI/UX Pro Max `SKILL.md`, `quick-reference.md`, and `pro-rules.md` (native rules scoped out for this web screen). The canonical search script and its bundled data were retrieved from the installed skill into ignored `work/skills/ui-ux-pro-max/`, then executed with Python 3; no invented command or package install was used.
+
+Successful commands:
+
+```sh
+python3 work/skills/ui-ux-pro-max/scripts/search.py --help
+python3 work/skills/ui-ux-pro-max/scripts/search.py 'education admissions matching dashboard trustworthy' --design-system -p 'JETU Admissions' -f markdown
+python3 work/skills/ui-ux-pro-max/scripts/search.py 'student eligibility results dashboard' --design-system -p 'JETU Admissions' -f markdown
+python3 work/skills/ui-ux-pro-max/scripts/search.py 'error summary validation' --domain ux
+python3 work/skills/ui-ux-pro-max/scripts/search.py 'keyboard focus navigation' --domain ux
+python3 work/skills/ui-ux-pro-max/scripts/search.py 'server client forms loading' --stack nextjs
+```
+
+Raw outputs are in ignored `work/phase16-uipro-*.txt`. Relevant matches: Minimalism & Swiss Style, focusable error summary/inline errors, keyboard navigation and visible focus, server components by default. Generator suggested a marketing hero and non-JETU palettes; the matching page follows the existing `MASTER.md` instead. The API route is retained for the requested interactive recalculation contract despite the stack search's general Server Action preference. See `design-system/jetu-admissions/pages/matching.md`.

@@ -169,3 +169,11 @@
     REST/Auth browser round trip, local Docker ran out of disk during database
     image extraction, and Vercel is unlinked/unauthenticated. Do not promote
     synthetic fixtures or begin Phase 16 to conceal those limits.
+
+## Phase 16 — 2026-10-25
+
+31. **Known requirements before preference fit.** Current verified structured conditions alone may produce MET/NOT_MET. Unverified and text-only conditions stay UNKNOWN. Self-reported exam scores cannot be promoted to verified by editing owner-writable JSON. Eligibility status sorts before preference points.
+32. **Bounded, explainable catalog slice.** Use the published search RPC and batch relation reads for at most 30 programs and 20 scholarships. Abort on saturated caps rather than silently omit conditions. A title-ordered first page is not an exhaustive top-50 global match.
+33. **No invented funding or cost conversions.** Only source-backed benefit components display as verified coverage; no full-funding inference. Budget points require verified annual USD tuition and are separate from living cost and eligibility.
+34. **Versioned owner-scoped runs.** Additive private RLS tables and DB rate/entity guards preserve existing schemas. GET recomputes current source-backed facts from a validated run preference snapshot; incomplete run writes are rejected by count. Atomic multirow persistence remains future work.
+35. **Deterministic explanation fallback.** No AI provider is configured, so external generation is disabled. The localized UI translates fixed rule reasons. Phase 16 is PARTIAL because zero live programs/scholarships and blocked Auth/REST prevent genuine student journey verification. Phase 17 remains untouched.

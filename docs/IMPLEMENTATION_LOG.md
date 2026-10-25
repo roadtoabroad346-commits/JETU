@@ -480,3 +480,15 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
   the existing JETU preview is unlinked and creating a Git-linked `jetu` project
   failed because the team has not installed the GitHub integration. No deployment
   is claimed. Phase 15 remains PARTIAL.
+
+## 2026-10-25 — Phase 16 matching implementation and audit
+
+- Read repository instructions, Master Prompt and phase memory; audited Supabase auth/RLS, profile, normalized catalog/funding/deadlines/search and tests. Found a high-priority Phase 09 profile save overwrite risk and changed the action to merge independent profile fields while clearing removed form fields.
+- Added typed deterministic eligibility and separate preference ranking, structured source/freshness/unknown handling, bounded batched Supabase service, authenticated matching API, profile extensions, RU/KK/EN matching route, navigation, save/compare links and test fixtures. Used installed Caveman lean-build/verify-and-stop guidance and UI/UX Pro Max search; see design evidence.
+- Applied three additive migrations to the authorized Jetuu development project; refreshed database types from its actual schema. Cloud rollback-only matching SQL passed 18 assertions and left no fixtures; security advisor reported no new warning.
+- Local checks: `npm run check` passed formatting, lint, strict TypeScript, 77 unit/integration tests and production build; `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e` passed 64 desktop/mobile Chromium cases with four Auth-dependent skips. Final `npm run check` rerun after review added two unit assertions (recorded below).. Docker database-only startup attempted, but `public.ecr.aws` image pull returned 403. Direct hosted Supabase REST/Auth also returned CONNECT 403.
+- Development catalog still contains zero programs and scholarships, so a live authenticated recommendation and resulting responsive/accessible UI cannot be claimed. No external AI credentials were configured. Phase 16 PARTIAL; no Phase 17 work.
+
+- Independent review fixed stale-run preference snapshot consistency, incomplete saved-run visibility, invalid GPA pairs, and unverified expired exam classification. Final quality gate rerun: `npm run check` (format/lint/typecheck/78 unit/integration/build) passed.
+- Reconciled RU/KK/EN public and auth copy that still said matching and saves were unavailable or invited users to an unlaunched personal plan. The revised copy states that matching is available with an empty reviewed catalog and that the plan remains future work.
+- `npm audit --omit=dev --audit-level=high` found zero vulnerabilities. The final post-copy `npm run check` passed formatting, ESLint, strict TypeScript, 78 unit/integration tests and production build.

@@ -1688,6 +1688,151 @@ fieldset.showcase-layout {
     gap: var(--space-2);
   }
 }
+
+.matching-page {
+  display: grid;
+  gap: var(--space-8);
+}
+.matching-header {
+  max-width: 760px;
+}
+.matching-header h1 {
+  margin-block: var(--space-3);
+}
+.matching-readiness,
+.matching-controls,
+.matching-result,
+.matching-empty {
+  padding: var(--space-6);
+}
+.matching-readiness,
+.matching-result-top,
+.matching-result-actions,
+.matching-actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.matching-readiness h2 {
+  margin-block: var(--space-2);
+}
+.matching-controls h2,
+.matching-results h2 {
+  margin-block: var(--space-2) var(--space-6);
+}
+.matching-form-grid,
+.matching-test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  gap: var(--space-4);
+}
+.matching-form-grid .ui-field {
+  display: block;
+  min-width: 0;
+}
+.matching-form-grid .ui-field span,
+.profile-form > .ui-field > span {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+.matching-levels {
+  border: 0;
+  padding: 0;
+  margin-block: var(--space-4);
+}
+.matching-levels legend {
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+.matching-levels > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.matching-levels label,
+.matching-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+.matching-levels input,
+.matching-check input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+}
+.matching-actions {
+  justify-content: flex-start;
+  margin-top: var(--space-5);
+}
+.matching-results {
+  display: grid;
+  gap: var(--space-4);
+}
+.matching-results h2 {
+  margin-bottom: 0;
+}
+.matching-result {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.matching-result h3 {
+  margin: var(--space-2) 0;
+}
+.matching-result-top .ui-badge {
+  white-space: normal;
+}
+.matching-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+  border-block: 1px solid var(--border);
+  margin-block: var(--space-4);
+}
+.matching-muted {
+  color: var(--muted);
+}
+.matching-rule-group {
+  margin-top: var(--space-4);
+}
+.matching-rule-group li {
+  margin-block: var(--space-3);
+}
+.matching-rule-group li a {
+  margin-left: var(--space-2);
+}
+.matching-result-actions {
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: var(--space-5);
+}
+.matching-skeleton {
+  display: grid;
+  gap: var(--space-4);
+}
+.matching-skeleton span {
+  display: block;
+  height: 90px;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+@media (max-width: 700px) {
+  .dashboard-nav {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+  .matching-readiness,
+  .matching-controls,
+  .matching-result {
+    padding: var(--space-4);
+  }
+}
 /* Phase 15 unified discovery: URL-first, native controls, bounded result pages. */
 .search-main,
 .compare-main,

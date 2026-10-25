@@ -5,6 +5,7 @@ import { isLocale, messages } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
+import { matchingCopy } from '@/features/matching/copy';
 
 export default async function DashboardLayout({
   children,
@@ -40,6 +41,7 @@ export default async function DashboardLayout({
             <a href={`/${locale}/saved`}>
               {searchCopy[locale].savedDestination}
             </a>
+            <a href={`/${locale}/match`}>{matchingCopy[locale].title}</a>
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

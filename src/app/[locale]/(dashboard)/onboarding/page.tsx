@@ -4,6 +4,8 @@ import { authCopy } from '@/lib/i18n/auth';
 import { isLocale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { saveProfile } from '../actions';
+import { matchingCopy } from '@/features/matching/copy';
+import { searchCopy } from '@/features/search/copy';
 
 export async function generateMetadata({
   params,
@@ -22,6 +24,13 @@ type ProfileDocument = {
   studyLevel?: string;
   field?: string;
   budget?: number;
+  nationality?: string;
+  residency?: string;
+  educationLevel?: string;
+  graduationYear?: number;
+  gpa?: number;
+  gpaScale?: number;
+  testScores?: { code: string; score: number }[];
 };
 export default async function OnboardingPage({
   params,
@@ -45,6 +54,9 @@ export default async function OnboardingPage({
   const loadFailed = Boolean(error);
   const state = await searchParams;
   const t = authCopy[locale];
+  const m = matchingCopy[locale];
+  const testValue = (code: string) =>
+    profile.testScores?.find((item) => item.code === code)?.score;
   return (
     <main id="main" tabIndex={-1} className="dashboard-main page-shell">
       <section className="profile-panel" aria-labelledby="profile-title">
@@ -77,15 +89,30 @@ export default async function OnboardingPage({
             label={t.country}
             defaultValue={profile.country}
           />
-          <Field
-            id="studyLevel"
-            name="studyLevel"
-            required
-            minLength={2}
-            maxLength={80}
-            label={t.studyLevel}
-            defaultValue={profile.studyLevel}
-          />
+          <label className="ui-field" htmlFor="studyLevel">
+            <span>{t.studyLevel} *</span>
+            <select
+              id="studyLevel"
+              name="studyLevel"
+              required
+              defaultValue={profile.studyLevel ?? ''}
+            >
+              <option value="">—</option>
+              {(
+                [
+                  'foundation',
+                  'associate',
+                  'bachelor',
+                  'master',
+                  'doctorate',
+                ] as const
+              ).map((level) => (
+                <option key={level} value={level}>
+                  {searchCopy[locale].option[level]}
+                </option>
+              ))}
+            </select>
+          </label>
           <Field
             id="field"
             name="field"
@@ -106,6 +133,96 @@ export default async function OnboardingPage({
             label={t.budget}
             defaultValue={profile.budget}
           />
+          <h2>{m.readiness}</h2>
+          <Field
+            id="nationality"
+            name="nationality"
+            maxLength={2}
+            label={m.nationality}
+            defaultValue={profile.nationality}
+          />
+          <Field
+            id="residency"
+            name="residency"
+            maxLength={2}
+            label={m.residency}
+            defaultValue={profile.residency}
+          />
+          <label className="ui-field" htmlFor="educationLevel">
+            <span>{m.educationLevel}</span>
+            <select
+              id="educationLevel"
+              name="educationLevel"
+              defaultValue={profile.educationLevel ?? ''}
+            >
+              <option value="">—</option>
+              <option value="secondary">{m.secondary}</option>
+              <option value="bachelor">
+                {searchCopy[locale].option.bachelor}
+              </option>
+              <option value="master">{searchCopy[locale].option.master}</option>
+              <option value="other">{m.other}</option>
+            </select>
+          </label>
+          <Field
+            id="graduationYear"
+            name="graduationYear"
+            type="number"
+            min={1950}
+            max={2200}
+            label={m.graduationYear}
+            defaultValue={profile.graduationYear}
+          />
+          <Field
+            id="gpa"
+            name="gpa"
+            type="number"
+            min={0}
+            max={100}
+            step="any"
+            label={m.gpa}
+            defaultValue={profile.gpa}
+          />
+          <Field
+            id="gpaScale"
+            name="gpaScale"
+            type="number"
+            min={0.1}
+            max={100}
+            step="any"
+            label={m.gpaScale}
+            defaultValue={profile.gpaScale}
+          />
+          <h2>{m.testScores}</h2>
+          <div className="matching-test-grid">
+            {(['IELTS', 'TOEFL', 'HSK', 'TOPIK', 'SAT', 'ACT'] as const).map(
+              (code) => (
+                <Field
+                  key={code}
+                  id={code.toLowerCase()}
+                  name={code.toLowerCase()}
+                  type="number"
+                  min={0}
+                  max={
+                    code === 'IELTS'
+                      ? 9
+                      : code === 'TOEFL'
+                        ? 120
+                        : code === 'HSK'
+                          ? 300
+                          : code === 'TOPIK'
+                            ? 6
+                            : code === 'SAT'
+                              ? 1600
+                              : 36
+                  }
+                  step="any"
+                  label={code}
+                  defaultValue={testValue(code)}
+                />
+              ),
+            )}
+          </div>
           <div className="row">
             <button className="ui-button ui-button--primary" type="submit">
               {t.save}

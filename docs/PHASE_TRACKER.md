@@ -1,13 +1,6 @@
 # Phase tracker — updated 2026-10-25
 
-Current request state: **Phase 15 PARTIAL; Phase 12 remains PARTIAL; Phases
-08–09 are implemented but NOT phase-verified**. Unified discovery, private saves
-and program comparison are implemented and locally tested; cloud SQL/RLS and the
-10k rollback benchmark pass. The reviewed public corpus contains one opportunity
-and no programs/scholarships, direct hosted
-REST/Auth browser exercise is blocked, and the authenticated Vercel team has no
-GitHub integration for this repository. Phase 05 remains VERIFIED for its local
-scope. Do not start Phase 16.
+Current request state: **Phase 16 PARTIAL**. The authenticated matching API, deterministic rule/ranking engine, private owner-RLS persistence, and localized workspace are implemented and cloud SQL-tested. The authorized development catalog has zero programs and scholarships; direct hosted Auth/REST is unavailable from this workspace. Live profile-to-recommendation behavior and deployment therefore remain unverified. Earlier partial/unverified phase labels are preserved. Phase 17 has not started.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |
 | ----- | ---------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -26,7 +19,7 @@ scope. Do not start Phase 16.
 | 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | PARTIAL                    | Programs/scholarships/opportunities search, private saves and 2–4 program compare implemented; cloud SQL/RLS/10k benchmark and local UI checks pass; live corpus/REST/deploy gates remain open |
-| 16    | Explainable Matching Engine v1 + evaluation                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
+| 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking, private API/UI and development RLS tests; zero live program/scholarship rows and no hosted Auth/REST E2E                                                          |
 | 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
@@ -185,4 +178,19 @@ No new phase work is implied by the addendum and no phase was upgraded.
       linked `jetu` project was rejected because its GitHub integration is not installed.
 
 Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
-**PARTIAL**, not VERIFIED. Stop before Phase 16.
+**PARTIAL**, not VERIFIED. Phase 16 is now authorized; see the Phase 16 gate below.
+
+## Phase 16 gate — 2026-10-25
+
+- [x] Audited Phase 08–15 dependencies; repaired profile save overwriting independent JSON fields and added owner-safe matching contracts. No other unrelated module was rewritten.
+- [x] Reused normalized published search, requirement, deadline, benefit, source-claim, tuition and profile data; no fabricated catalog rows persisted.
+- [x] Separate deterministic mandatory rule statuses and weighted preference points with explicit evidence, freshness, timestamp and unknown handling. No probability or official decision claim.
+- [x] Additive development migrations `20261025081728`, `20261025082123`, `20261025083044`; generated DB types synchronized. Owner RLS, grants, limits, FK/entity guards and configuration stored.
+- [x] Authenticated bounded API, 30s/20-per-day limits, timeout, validation, origin check; RU/KK/EN profile/match UI with profile readiness, preferences, explanations, source links, save, compare and retry.
+- [x] Cloud transactional SQL: 18 matching RLS/grant/ownership assertions passed; rollback left no fixtures. Local 78 unit/integration, lint, typecheck and production build passed; full Chromium regression passed 64 with four Auth-dependent skips, recorded in `docs/AI_MATCHING_ARCHITECTURE.md` and implementation log.
+- [ ] Reviewed live programs and scholarships: development project has zero of each. Phase 11/13 editorial coverage is incomplete.
+- [ ] Hosted Auth/REST student journey and cross-device result reload: workspace proxy CONNECT 403. Local PostgreSQL image pull from registry: 403.
+- [ ] Visual authenticated browser/accessibility proof and full Supabase end-to-end regression.
+- [ ] Optional external AI provider: no configured credentials, deterministic explanations only.
+
+**Status: PARTIAL**. Keep this label until a small verified live corpus and reachable Auth/REST runtime prove login → profile → matching → details/save/compare → preference edit/recalculation and two-user isolation. Stop before Phase 17.

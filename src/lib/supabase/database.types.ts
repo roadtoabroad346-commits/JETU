@@ -1417,6 +1417,131 @@ export type Database = {
         };
         Relationships: [];
       };
+      matching_configuration: {
+        Row: {
+          is_active: boolean;
+          version: string;
+          weights: Json;
+        };
+        Insert: {
+          is_active?: boolean;
+          version: string;
+          weights: Json;
+        };
+        Update: {
+          is_active?: boolean;
+          version?: string;
+          weights?: Json;
+        };
+        Relationships: [];
+      };
+      matching_preferences: {
+        Row: {
+          preferences: Json;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          preferences?: Json;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          preferences?: Json;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      matching_results: {
+        Row: {
+          created_at: string;
+          eligibility: Json;
+          entity_id: number;
+          entity_type: string;
+          preference_score: number | null;
+          rank_order: number;
+          run_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          eligibility: Json;
+          entity_id: number;
+          entity_type: string;
+          preference_score?: number | null;
+          rank_order: number;
+          run_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          eligibility?: Json;
+          entity_id?: number;
+          entity_type?: string;
+          preference_score?: number | null;
+          rank_order?: number;
+          run_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'matching_results_entity_id_fkey';
+            columns: ['entity_id'];
+            isOneToOne: false;
+            referencedRelation: 'catalog_entities';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'matching_results_run_id_user_id_fkey';
+            columns: ['run_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'matching_runs';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      matching_runs: {
+        Row: {
+          candidate_count: number;
+          created_at: string;
+          id: string;
+          preferences_snapshot: Json;
+          profile_version: number;
+          rate_slot: number;
+          rules_version: string;
+          user_id: string;
+        };
+        Insert: {
+          candidate_count: number;
+          created_at?: string;
+          id?: string;
+          preferences_snapshot: Json;
+          profile_version: number;
+          rate_slot: number;
+          rules_version: string;
+          user_id: string;
+        };
+        Update: {
+          candidate_count?: number;
+          created_at?: string;
+          id?: string;
+          preferences_snapshot?: Json;
+          profile_version?: number;
+          rate_slot?: number;
+          rules_version?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'matching_runs_rules_version_fkey';
+            columns: ['rules_version'];
+            isOneToOne: false;
+            referencedRelation: 'matching_configuration';
+            referencedColumns: ['version'];
+          },
+        ];
+      };
       nomination_routes: {
         Row: {
           description: string;
