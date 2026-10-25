@@ -1,5 +1,15 @@
 # Phase 04 decisions — 2026-10-17
 
+## Phase 16.5 continuation decision
+
+Keep the approved brand system and the compact mobile header. Wrapping every
+mobile navigation link increased header height enough to move the landing guide
+action below the established 700 px visibility gate, so the implementation keeps
+horizontal scrolling with an arrow cue, thin scrollbar and keyboard focus proof. Treat
+malformed source dates as unknown in both eligibility and display. A live
+two-user Auth run and editorial publication remain release gates; no automated
+approval or production promotion is inferred from local checks.
+
 ## Phase 16.5 decision — 2026-10-25
 
 Official pages inspected by an AI-assisted workflow are staged with field-level

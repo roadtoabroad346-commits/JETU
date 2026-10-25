@@ -1,5 +1,12 @@
 # Phase tracker — updated 2026-10-25
 
+Phase 16.5 continuation: same-host/different-scheme matching requests are now
+rejected, malformed dates cannot crash recommendation cards, and mobile public
+navigation and card feedback were refined. One institution, program and
+scholarship remain `draft`/`needs_review`; zero are published. Phase 16 remains
+**PARTIAL**. Details: `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md`, and
+`PHASE_16_RELEASE_AUDIT.md`.
+
 Current request state: **Phase 16 PARTIAL**. The authenticated matching API, deterministic rule/ranking engine, private owner-RLS persistence, and localized workspace are implemented and cloud SQL-tested. The authorized development catalog now has one staged program and scholarship, both `draft`/`needs_review`, and zero reviewed/published records. Direct hosted Auth/REST remains unavailable from this workspace; live profile-to-recommendation behavior remains unverified. See `PHASE_16_RELEASE_AUDIT.md`. Earlier partial/unverified phase labels are preserved. Phase 17 has not started.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |

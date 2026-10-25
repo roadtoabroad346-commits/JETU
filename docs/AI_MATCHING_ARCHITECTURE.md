@@ -1,5 +1,11 @@
 # Phase 16 matching architecture — 2026-10-25
 
+Phase 16.5 display hardening: the evaluation engine already fails closed on a
+nonparseable deadline. The matching card now also renders that value as unknown
+instead of passing `Invalid Date` into `Intl.DateTimeFormat`. The matching POST
+Origin check now compares scheme and host; neither change alters ranking weights,
+eligibility categories or saved-result schema.
+
 Phase 16.5 rule hardening: a nonparseable deadline yields `UNKNOWN`, duplicate
 scores for one exam yield `UNKNOWN` regardless of input order, and repeated
 candidate IDs are collapsed before ranking. These cases are in unit tests.

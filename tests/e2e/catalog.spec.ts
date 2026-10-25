@@ -56,4 +56,9 @@ test('catalog fits a 320px viewport and reduced motion', async ({ page }) => {
   await expect(
     page.getByRole('button', { name: 'Show results' }),
   ).toBeVisible();
+  const universityLink = page
+    .locator('.marketing-nav')
+    .getByRole('link', { name: 'Universities' });
+  await universityLink.focus();
+  await expect(universityLink).toBeInViewport();
 });

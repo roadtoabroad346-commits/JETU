@@ -1,5 +1,14 @@
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
+Phase 16.5 continuation on draft PR #2 fixed matching Origin scheme checks and
+malformed deadline rendering, and refined mobile navigation/card feedback.
+Development data remains one draft/needs_review institution, program and
+scholarship; zero published. Authenticated two-user E2E and human editorial
+review remain unperformed. Read `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
+`PHASE_16_RELEASE_AUDIT.md` before release work. The final local full Chromium
+run passed 64 cases with four Auth skips; the PR SHA is recorded after push.
+Do not start Phase 17.
+
 Phase 16.5 staged one University of Toronto program and one Pearson scholarship
 cycle in Jetuu development using `scripts/phase16-stage-official-sample.sql`.
 They remain unpublished and `needs_review`; no reviewer approval was simulated.

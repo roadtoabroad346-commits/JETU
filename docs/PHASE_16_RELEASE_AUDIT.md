@@ -44,3 +44,19 @@ or matching until reviewed and published.
 No new UI motion or redesign is claimed. Existing desktop/mobile accessibility
 regressions were rerun; visual inspection of new live catalog cards cannot happen
 while reviewed rows are unpublished.
+
+## PR #2 continuation
+
+The matching POST Origin check now rejects a different scheme as well as a
+different host. A malformed result deadline renders unknown instead of throwing.
+Mobile public navigation has a right-edge scroll cue and keyboard focus reaches its
+last link. Program/search/matching cards share subtle hover feedback using the
+existing timing token; reduced-motion users get no transform. The first full
+browser run exposed two regressions in the initial origin/mobile approach; both
+were corrected and 20 affected cases passed with two configured-Auth skips.
+No new migration or publication occurred. See `DESIGN_AUDIT.md` and
+`PRODUCT_QA_REPORT.md`; the release state remains **PARTIAL**.
+Final full local Chromium suite: 64 passed, four Auth-dependent skipped.
+Production dependency audit: zero vulnerabilities. Local six-page/viewport lab
+sample: LCP 56–856 ms, CLS 0, no horizontal overflow; no field or populated
+catalog performance result is claimed.

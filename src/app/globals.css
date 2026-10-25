@@ -1216,6 +1216,9 @@ fieldset.showcase-layout {
 .marketing-header .language-link:hover:not([aria-current]) {
   background: var(--surface-blue);
 }
+.marketing-nav-wrap {
+  min-width: 0;
+}
 .marketing-nav {
   display: flex;
   justify-content: center;
@@ -1638,9 +1641,11 @@ fieldset.showcase-layout {
   .marketing-header-inner {
     grid-template-columns: 1fr auto;
   }
-  .marketing-nav {
+  .marketing-nav-wrap {
     grid-column: 1 / -1;
     grid-row: 2;
+  }
+  .marketing-nav {
     justify-content: flex-start;
   }
 }
@@ -1650,13 +1655,33 @@ fieldset.showcase-layout {
     gap: var(--space-3);
     padding-block: var(--space-2);
   }
-  .marketing-nav {
+  .marketing-nav-wrap {
     grid-column: 1;
     grid-row: 3;
+    position: relative;
+  }
+  .marketing-nav-wrap::after {
+    content: '→';
+    position: absolute;
+    inset: 0 0 auto auto;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 44px;
+    background: linear-gradient(90deg, transparent, var(--brand) 30%);
+    color: var(--on-brand);
+    font-size: 1.25rem;
+    font-weight: 700;
+    pointer-events: none;
+  }
+  .marketing-nav {
     flex-wrap: nowrap;
     justify-content: flex-start;
     overflow-x: auto;
     white-space: nowrap;
+    scrollbar-color: var(--on-brand) transparent;
+    scrollbar-width: thin;
+    padding-inline-end: var(--space-10);
   }
   .marketing-nav a {
     flex-shrink: 0;
@@ -2274,6 +2299,23 @@ fieldset.showcase-layout {
 }
 .catalog-card p {
   margin-block: var(--space-3);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .catalog-card,
+  .search-card,
+  .matching-result {
+    transition:
+      border-color var(--duration-panel) var(--ease-out),
+      box-shadow var(--duration-panel) var(--ease-out),
+      transform var(--duration-panel) var(--ease-out);
+  }
+  .catalog-card:hover,
+  .search-card:hover,
+  .matching-result:hover {
+    border-color: var(--control-border);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+  }
 }
 .catalog-more,
 .catalog-pages a {

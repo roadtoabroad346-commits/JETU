@@ -1,0 +1,24 @@
+# Phase 16.5 QA report — 2026-10-25
+
+Status: **PARTIAL**. The code checks and public browser tests exercise the implemented UI, but no authenticated two-user journey or populated reviewed catalog is available in this execution environment.
+
+## Current evidence
+
+| Area                     | Result                                                                                                                                                           | Limit                                                                             |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `npm run check`          | Format, ESLint, strict TypeScript, 81 unit/integration tests and production build passed after code changes.                                                     | Local checkout only.                                                              |
+| Chromium full regression | 64 passed, 4 Auth-dependent skipped after origin/mobile corrections.                                                                                             | No live signed-in session or populated recommendation.                            |
+| Public accessibility     | Existing desktop/mobile axe and keyboard checks passed in the focused run; 320 px catalog navigation focus reached the final link.                               | No authenticated or populated-card axe pass.                                      |
+| Matching correctness     | Existing edge cases plus malformed deadline display test passed; cross-scheme Origin rejected with 403 in a real HTTP test.                                      | Eligibility with live student and published program data unverified.              |
+| Supabase development     | Project `edpuovkgoisyzpguksdi` ACTIVE_HEALTHY; 23 migration versions through `20261025083044`; 77/77 public tables have RLS enabled.                             | RLS presence does not prove owner isolation. No schema changes in this pass.      |
+| Supabase advisors        | Security: four INFO no-policy notices on intentionally private editorial/audit tables; no WARN/ERROR. Performance: unused-index INFO on sparse development data. | No meaningful real-corpus latency measurement.                                    |
+| Data coverage            | One draft/needs_review institution, one program and one scholarship; zero published of these types.                                                              | No editor has completed review.                                                   |
+| Dependency audit         | `npm audit --omit=dev --audit-level=high`: zero vulnerabilities.                                                                                                 | Production dependencies only.                                                     |
+| Performance              | Local production Chromium sample at 375/1440 px on `/en`, `/en/search`, `/en/universities`: LCP 56–856 ms, CLS 0, body overflow 0 px; TTFB 11–478 ms.            | One lab navigation per route/width; no field data, INP or populated-query timing. |
+
+## Release blockers
+
+1. A human editor must review official evidence and resolve the conflicting Pearson timeline before approving any deadline or publication. The staged `scholarship_program_links` relation also needs program-specific review.
+2. Use two isolated non-production accounts against reachable hosted Auth/REST. Exercise profile update, matching, save/revisit, cross-user denial, invalid session, logout and anonymous redirect. Existing SQL owner checks are narrower evidence.
+3. Run migration replay and pgTAP on a clean disposable stack or CI, then inspect populated desktop/mobile result and detail pages with axe and screenshots.
+4. Confirm the Vercel preview built from the final PR commit and smoke test its health, public routes, anonymous Auth boundary and database-backed catalog. Keep production promotion gated.

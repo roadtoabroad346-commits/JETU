@@ -10,6 +10,7 @@ import {
   type MatchingPreferences,
 } from '@/features/matching/engine';
 import { mergeProfileDocument } from '@/features/matching/profile';
+import { formatMatchingDate } from '@/features/matching/localized';
 
 const now = '2026-10-25T10:00:00.000Z';
 const profile: MatchingProfile = {
@@ -53,6 +54,14 @@ const candidate: Candidate = {
   sourceVerification: 'verified',
   requirements: [],
 };
+
+describe('matching date display', () => {
+  it('does not crash or display an invalid deadline', () => {
+    expect(formatMatchingDate('invalid-date', 'en')).toBeNull();
+    expect(formatMatchingDate(null, 'en')).toBeNull();
+    expect(formatMatchingDate('2026-10-25T00:00:00Z', 'en')).toContain('2026');
+  });
+});
 const requirement = {
   id: 7,
   title: 'Nationality',

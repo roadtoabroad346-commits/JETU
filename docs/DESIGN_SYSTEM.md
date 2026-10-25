@@ -1,5 +1,11 @@
 # JETU design system — Phase 05
 
+Phase 16.5 continuation: public catalog, unified-search and matching cards now
+use the same restrained 220 ms border/shadow/2 px hover feedback on hover-capable
+devices. The global reduced-motion contract suppresses these transforms. Mobile
+public navigation retains its compact horizontal layout, exposes an arrow cue,
+and scrolls keyboard-focused links into view. See `DESIGN_AUDIT.md`.
+
 Canonical contract: design-system/jetu-admissions/MASTER.md; page rules in
 pages/availability.md and pages/showcase.md. Tokens: src/styles/tokens.css;
 shared components: src/components/ui.

@@ -1,5 +1,33 @@
 # Phase 04 implementation log — 2026-10-17
 
+## Phase 16.5 product continuation — 2026-10-25
+
+- Recovered draft PR #2 on `codex/phase16-5-hardening`; preserved the clean
+  branch, staged source data and existing commits. Supabase project
+  `edpuovkgoisyzpguksdi` was ACTIVE_HEALTHY with 23 matching migration versions.
+  One institution, program and scholarship remained draft/needs_review, with
+  zero published. All 77 public tables had RLS enabled. Security advisor had
+  four INFO no-policy notices on private editorial/audit tables, no WARN/ERROR.
+- Baseline `npm run check` passed 80 tests and production build. Inspected
+  rendered public pages at 375/1440 px and identified clipped mobile navigation.
+  The first revised full browser run was 60 passed, four skipped, four failed:
+  two matching-Origin tests and two compact-hero tests (desktop/mobile). Both
+  causes were repaired. Affected desktop/mobile suite then passed 20 cases with
+  two configured-Auth skips.
+- Matching now rejects same-host cross-scheme Origins and displays malformed
+  deadlines as unknown. Mobile nav is keyboard reachable with a visible scroll
+  treatment; catalog/search/matching cards have restrained hover feedback and
+  reduced-motion suppression. `npm run check` passed 81 tests and build after
+  implementation. No schema, published data or production target was changed.
+- See `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
+  `PHASE_16_RELEASE_AUDIT.md` for the audit, evidence and remaining gates.
+- Final full Chromium suite after fixes: 64 passed, four Auth-dependent skipped.
+  Production dependency audit found zero vulnerabilities. Final screenshot review
+  covered public landing/search/university pages at 375/1440 px; a local
+  production Chromium sample measured LCP 56–856 ms, CLS 0 and no page overflow
+  over six route/width combinations. This is lab-only, mostly empty/error-state
+  data and cannot establish production Core Web Vitals or real catalog latency.
+
 ## Phase 16.5 production hardening checkpoint — 2026-10-25
 
 - Confirmed GitHub `main` and checkout at `6b0657c`, Jetuu development project
