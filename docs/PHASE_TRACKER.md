@@ -5,8 +5,9 @@ Current request state: **Phase 15 PARTIAL; Phase 12 remains PARTIAL; Phases
 and program comparison are implemented and locally tested; cloud SQL/RLS and the
 10k rollback benchmark pass. The reviewed public corpus contains one opportunity
 and no programs/scholarships, direct hosted
-REST/Auth browser exercise is blocked, and no Vercel project credentials/link are
-available. Phase 05 remains VERIFIED for its local scope. Do not start Phase 16.
+REST/Auth browser exercise is blocked, and the authenticated Vercel team has no
+GitHub integration for this repository. Phase 05 remains VERIFIED for its local
+scope. Do not start Phase 16.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |
 | ----- | ---------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -180,7 +181,8 @@ No new phase work is implied by the addendum and no phase was upgraded.
 - [ ] Hosted REST/Auth browser proof and real save/reload: workspace network
       cannot reach Supabase data plane.
 - [ ] Clean local DB replay: Docker image extraction exhausted workspace disk.
-- [ ] Vercel production deploy: project is unlinked and credentials unavailable.
+- [ ] Vercel deploy: the connector authenticated to `Impact hub`, but creating a
+      linked `jetu` project was rejected because its GitHub integration is not installed.
 
 Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 **PARTIAL**, not VERIFIED. Stop before Phase 16.

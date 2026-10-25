@@ -23,8 +23,9 @@ hosted-Supabase-configured auth cases skipped.
 
 Keep status PARTIAL until a reviewed corpus exists and hosted REST/Auth browser
 flows can prove real search/detail/save/reload behavior. Local database replay
-was blocked by Docker disk exhaustion. Vercel is unlinked/unauthenticated, so no
-deployment is claimed. Read `docs/PHASE_15_REVIEW.md`; do not start Phase 16
+was blocked by Docker disk exhaustion. Vercel connector authentication works for
+team `Impact hub`, but this repository lacks the required GitHub integration;
+no deployment is claimed. Read `docs/PHASE_15_REVIEW.md`; do not start Phase 16
 without a new explicit request.
 
 ## Shipped-but-not-phase-verified work

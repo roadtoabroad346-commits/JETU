@@ -156,7 +156,7 @@ an actual run is recorded. Phase 04 remote checkpoints are recorded in the log;
 Phase 05 checkpoint 5a4f26a and the Phase 06 preservation checkpoint were saved
 to GitHub at the user's explicit request on 2026-10-18. The preservation inventory
 is in docs/PHASE_00_06_PRESERVATION.md. No application deployment is claimed;
-the current workspace has no Vercel link or credentials.
+the authenticated Vercel team lacks a GitHub integration for this repository.
 
 ## Product pitch reference
 

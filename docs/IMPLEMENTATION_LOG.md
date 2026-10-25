@@ -475,6 +475,8 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Final cloud type generation structurally matched the committed formatted
   `database.types.ts`; migration history through `20261025052618` matches Git.
 - Local PostgreSQL replay was attempted after the required Docker runtime check,
-  but image-layer registration exhausted workspace disk. Vercel inspection was
-  attempted with pinned CLI 65.2.0; no project link or credentials exist and
-  platform access failed, so no deployment is claimed. Phase 15 remains PARTIAL.
+  but image-layer registration exhausted workspace disk. Pinned Vercel CLI 65.2.0
+  had no local credentials. The connector then authenticated to `Impact hub`, but
+  the existing JETU preview is unlinked and creating a Git-linked `jetu` project
+  failed because the team has not installed the GitHub integration. No deployment
+  is claimed. Phase 15 remains PARTIAL.

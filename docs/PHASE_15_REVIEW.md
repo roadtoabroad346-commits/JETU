@@ -86,9 +86,11 @@ opportunity and no programs or scholarships; the real corpus is therefore too
 sparse to validate mixed results, filters and comparison.
 The environment cannot reach hosted Supabase REST/Auth, so a real authenticated
 save → reload → second-device flow and live public record navigation were not
-observable in a browser. Vercel CLI 65.2.0 found neither a project link nor
-credentials and platform access failed; no deployment is claimed. These are
-mandatory end-to-end evidence gaps, so VERIFIED would be inaccurate.
+observable in a browser. The Vercel connector authenticated to team `Impact hub`;
+the only JETU-named project is an unlinked preview, and creating the intended
+Git-linked `jetu` project was rejected because the team's GitHub integration is
+not installed. No deployment is claimed. These are mandatory end-to-end evidence
+gaps, so VERIFIED would be inaccurate.
 
 ## Phase 16 contract (do not implement yet)
 
