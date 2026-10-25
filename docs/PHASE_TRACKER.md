@@ -188,6 +188,7 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 - [x] Additive development migrations `20261025081728`, `20261025082123`, `20261025083044`; generated DB types synchronized. Owner RLS, grants, limits, FK/entity guards and configuration stored.
 - [x] Authenticated bounded API, 30s/20-per-day limits, timeout, validation, origin check; RU/KK/EN profile/match UI with profile readiness, preferences, explanations, source links, save, compare and retry.
 - [x] Cloud transactional SQL: 18 matching RLS/grant/ownership assertions passed; rollback left no fixtures. Local 78 unit/integration, lint, typecheck and production build passed; full Chromium regression passed 64 with four Auth-dependent skips, recorded in `docs/AI_MATCHING_ARCHITECTURE.md` and implementation log.
+- [x] Commit `afa3f11` pushed to GitHub `main`; Vercel linked `jetu-phase13-preview` and its commit-matched preview reached READY. Preview `/api/health` returned 200, `/{locale}/match` reached sign-in for an anonymous visitor, and `/en/search` rendered the one real opportunity. Supabase Git-linked `main` branch reported `ACTIVE_HEALTHY` after migrations.
 - [ ] Reviewed live programs and scholarships: development project has zero of each. Phase 11/13 editorial coverage is incomplete.
 - [ ] Hosted Auth/REST student journey and cross-device result reload: workspace proxy CONNECT 403. Local PostgreSQL image pull from registry: 403.
 - [ ] Visual authenticated browser/accessibility proof and full Supabase end-to-end regression.
