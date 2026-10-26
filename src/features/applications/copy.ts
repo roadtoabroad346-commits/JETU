@@ -8,6 +8,14 @@ type Copy = {
   portfolio: string;
   board: string;
   list: string;
+  filter: string;
+  allStatuses: string;
+  sort: string;
+  sortDeadline: string;
+  sortUpdated: string;
+  sortTitle: string;
+  sortPriority: string;
+  noFilteredApplications: string;
   create: string;
   chooseProgram: string;
   cycle: string;
@@ -74,6 +82,14 @@ const en: Copy = {
   portfolio: 'Portfolio',
   board: 'Board',
   list: 'List',
+  filter: 'Filter by stage',
+  allStatuses: 'All stages',
+  sort: 'Sort applications',
+  sortDeadline: 'Deadline first',
+  sortUpdated: 'Recently updated',
+  sortTitle: 'Program name',
+  sortPriority: 'Priority first',
+  noFilteredApplications: 'No applications match this filter.',
   create: 'Create workspace',
   chooseProgram: 'Published program',
   cycle: 'Enrollment year',
@@ -169,6 +185,14 @@ const ru: Copy = {
   portfolio: 'Портфель',
   board: 'Доска',
   list: 'Список',
+  filter: 'Фильтр по этапу',
+  allStatuses: 'Все этапы',
+  sort: 'Сортировка заявок',
+  sortDeadline: 'Сначала дедлайн',
+  sortUpdated: 'Недавно обновлённые',
+  sortTitle: 'Название программы',
+  sortPriority: 'Сначала приоритетные',
+  noFilteredApplications: 'По этому фильтру заявок нет.',
   create: 'Создать рабочую область',
   chooseProgram: 'Опубликованная программа',
   cycle: 'Год поступления',
@@ -264,6 +288,14 @@ const kk: Copy = {
   portfolio: 'Портфель',
   board: 'Тақта',
   list: 'Тізім',
+  filter: 'Кезең бойынша сүзу',
+  allStatuses: 'Барлық кезең',
+  sort: 'Өтінімдерді сұрыптау',
+  sortDeadline: 'Алдымен мерзімі жақын',
+  sortUpdated: 'Жуырда жаңартылған',
+  sortTitle: 'Бағдарлама атауы',
+  sortPriority: 'Алдымен басымдығы жоғары',
+  noFilteredApplications: 'Бұл сүзгіге сай өтінім жоқ.',
   create: 'Жұмыс кеңістігін құру',
   chooseProgram: 'Жарияланған бағдарлама',
   cycle: 'Оқуға түсу жылы',

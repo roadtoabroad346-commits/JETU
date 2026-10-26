@@ -1803,6 +1803,16 @@ fieldset.showcase-layout {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
   gap: var(--space-4);
 }
+.application-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-bottom: var(--space-5);
+}
+.application-controls .ui-field {
+  min-width: min(100%, 220px);
+}
 .applications-board {
   display: grid;
   grid-auto-flow: column;
@@ -2127,8 +2137,12 @@ fieldset.showcase-layout {
   }
   .application-metrics,
   .application-create form,
-  .application-inline-form {
+  .application-inline-form,
+  .application-controls {
     grid-template-columns: 1fr;
+  }
+  .application-controls {
+    display: grid;
   }
   .application-create,
   .application-transition,

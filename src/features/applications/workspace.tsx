@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { Locale } from '@/lib/i18n/messages';
 import {
+  APPLICATION_STATUSES,
   applicationTransitions,
   scholarshipTransitions,
   type ApplicationStatus,
@@ -123,6 +124,12 @@ export function ApplicationsPortfolio({ locale }: { locale: Locale }) {
   const t = applicationsCopy[locale];
   const [state, setState] = useState<ApplicationPortfolio | null>(null);
   const [view, setView] = useState<'list' | 'board'>('board');
+  const [statusFilter, setStatusFilter] = useState<ApplicationStatus | 'all'>(
+    'all',
+  );
+  const [sort, setSort] = useState<
+    'deadline' | 'updated' | 'title' | 'priority'
+  >('deadline');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -184,6 +191,25 @@ export function ApplicationsPortfolio({ locale }: { locale: Locale }) {
         [t.offersMetric, metrics.offers],
       ]
     : [];
+  const visibleApplications = useMemo(() => {
+    const priority = { critical: 0, high: 1, medium: 2, low: 3 } as const;
+    const deadline = (application: ApplicationSummary) =>
+      application.deadlineAt ?? application.deadlineDate ?? '9999-12-31';
+    return [...(state?.applications ?? [])]
+      .filter(
+        (application) =>
+          statusFilter === 'all' || application.status === statusFilter,
+      )
+      .sort((left, right) => {
+        if (sort === 'deadline')
+          return deadline(left).localeCompare(deadline(right));
+        if (sort === 'updated')
+          return right.updatedAt.localeCompare(left.updatedAt);
+        if (sort === 'priority')
+          return priority[left.priority] - priority[right.priority];
+        return left.programTitle.localeCompare(right.programTitle, locale);
+      });
+  }, [locale, sort, state, statusFilter]);
 
   return (
     <main id="main" tabIndex={-1} className="page-shell applications-page">
@@ -289,14 +315,58 @@ export function ApplicationsPortfolio({ locale }: { locale: Locale }) {
             </form>
           </section>
 
+          {!!state.applications.length && (
+            <section className="application-controls" aria-label={t.portfolio}>
+              <label className="ui-field">
+                <span>{t.filter}</span>
+                <select
+                  value={statusFilter}
+                  onChange={(event) =>
+                    setStatusFilter(
+                      event.target.value as ApplicationStatus | 'all',
+                    )
+                  }
+                >
+                  <option value="all">{t.allStatuses}</option>
+                  {APPLICATION_STATUSES.map((status) => (
+                    <option key={status} value={status}>
+                      {t.status[status]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="ui-field">
+                <span>{t.sort}</span>
+                <select
+                  value={sort}
+                  onChange={(event) =>
+                    setSort(
+                      event.target.value as
+                        'deadline' | 'updated' | 'title' | 'priority',
+                    )
+                  }
+                >
+                  <option value="deadline">{t.sortDeadline}</option>
+                  <option value="updated">{t.sortUpdated}</option>
+                  <option value="priority">{t.sortPriority}</option>
+                  <option value="title">{t.sortTitle}</option>
+                </select>
+              </label>
+            </section>
+          )}
+
           {!state.applications.length ? (
             <section className="ui-card application-empty">
               <h2>{t.noApplications}</h2>
               <p>{t.externalNotice}</p>
             </section>
+          ) : !visibleApplications.length ? (
+            <section className="ui-card application-empty" role="status">
+              <h2>{t.noFilteredApplications}</h2>
+            </section>
           ) : view === 'list' ? (
             <section className="applications-list" aria-label={t.list}>
-              {state.applications.map((application) => (
+              {visibleApplications.map((application) => (
                 <ApplicationCard
                   key={application.id}
                   application={application}
@@ -307,7 +377,7 @@ export function ApplicationsPortfolio({ locale }: { locale: Locale }) {
           ) : (
             <section className="applications-board" aria-label={t.board}>
               {boardGroups.map((group) => {
-                const applications = state.applications.filter((application) =>
+                const applications = visibleApplications.filter((application) =>
                   group.statuses.includes(application.status),
                 );
                 return (
