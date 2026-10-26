@@ -218,8 +218,8 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 - [x] Five owner-RLS tables with read-only client grants, six bounded authenticated command RPCs, optimistic versions, idempotent state changes, append-only events and generated database types.
 - [x] Canonical program and independent scholarship state machines; mandatory checklist readiness; user-reported submission/outcome provenance; Roadmap submission-task completion remains subject to its dependency trigger.
 - [x] Jetuu development migrations `20261026164251`, `20261026164434`, `20261026164713`; rollback-only SQL reached 28 assertions and left no fixtures. `npm run check` passed 116 tests/build; desktop API-boundary Chromium passed.
-- [ ] Clean local/CI replay: this runner's Docker daemon exhausted its internal image-layer store before PostgreSQL started.
+- [x] Remote CI run `40391982239`: two clean resets/replays and all pgTAP passed; advisors, generated-type drift and typecheck passed. This runner's local Docker daemon remained unavailable.
 - [ ] Real populated workspace, hosted two-user browser/cross-device persistence, authenticated responsive screenshots and axe: development has zero published/verified programs and scholarships.
-- [ ] Commit-matched draft PR preview and CI evidence.
+- [x] Draft PR #4 and commit-matched `cdc5a7e` Vercel preview: READY; health/home/login/search returned 200 and anonymous plan/applications rendered sign-in.
 
 **Status: PARTIAL.** Exact evidence and residual gates: `PHASE_18_QA.md`, `APPLICATION_STATE_MACHINE.md`, `APPLICATION_AUDIT_TRAIL.md` and `RELEASE_REPORT_PHASE_17_18.md`.
