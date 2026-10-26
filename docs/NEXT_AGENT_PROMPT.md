@@ -1,5 +1,9 @@
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
+## Phase 17 continuation, 2026-10-26
+
+Phase 17 is PARTIAL on `codex/phase17-roadmap`. Read `ROADMAP_ARCHITECTURE.md`, `ROADMAP_DEPENDENCY_RULES.md`, `PHASE_17_QA.md` and `PREVIOUS_PHASE_CLOSURE.md`. Jetuu development migrations are applied. Finish generation authorization, clean CI replay, hosted two-user Auth, reviewed catalog targets, populated responsive/a11y checks and preview verification before marking VERIFIED. Do not begin Phase 18.
+
 Remote CI run `40204392572` exposed a test discovery issue: four pgTAP files
 passed 66 assertions, but the manual Phase 15 benchmark had no TAP plan. That
 benchmark now lives in `supabase/benchmarks/`.

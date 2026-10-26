@@ -1,5 +1,9 @@
 # Phase 04 decisions — 2026-10-17
 
+## Phase 17 — 2026-10-26
+
+Use explicit selected targets, stable generation keys and separate official, internal and student dates. Preserve completed/manual work on regeneration. Keep Phase 17 PARTIAL until hosted Auth, reviewed targets and generation authority are verified.
+
 ## Phase 16.5 continuation decision
 
 Keep the approved brand system and the compact mobile header. Wrapping every

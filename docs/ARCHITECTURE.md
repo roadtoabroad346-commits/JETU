@@ -1,5 +1,7 @@
 # Architecture — current JETU application and Phase 16 matching
 
+Phase 17 adds owner-scoped roadmap tables, an atomic generation RPC, a deterministic engine and a localized private workspace. See `ROADMAP_ARCHITECTURE.md` for details and open release gates.
+
 Phase 16.5 continuation: matching POST checks the Origin host and scheme against
 the forwarded request host and request URL protocol before Auth/database access.
 The client uses a safe deadline formatter for recommendation cards. This pass
