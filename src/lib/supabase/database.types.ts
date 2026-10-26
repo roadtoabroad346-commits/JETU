@@ -139,6 +139,141 @@ export type Database = {
           },
         ];
       };
+      application_checklist_items: {
+        Row: {
+          application_id: string;
+          checklist_key: string | null;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          is_mandatory: boolean;
+          origin: string;
+          roadmap_task_id: string | null;
+          sort_order: number;
+          source_claim_id: number | null;
+          status: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          verification_state: string;
+          version: number;
+        };
+        Insert: {
+          application_id: string;
+          checklist_key?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          is_mandatory?: boolean;
+          origin: string;
+          roadmap_task_id?: string | null;
+          sort_order?: number;
+          source_claim_id?: number | null;
+          status?: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          verification_state?: string;
+          version?: number;
+        };
+        Update: {
+          application_id?: string;
+          checklist_key?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          is_mandatory?: boolean;
+          origin?: string;
+          roadmap_task_id?: string | null;
+          sort_order?: number;
+          source_claim_id?: number | null;
+          status?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          verification_state?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'application_checklist_items_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'application_checklist_items_roadmap_task_id_user_id_fkey';
+            columns: ['roadmap_task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'application_checklist_items_source_claim_id_fkey';
+            columns: ['source_claim_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      application_events: {
+        Row: {
+          actor_id: string;
+          application_id: string;
+          details: Json;
+          event_type: string;
+          evidence: string | null;
+          from_status: string | null;
+          id: number;
+          idempotency_key: string | null;
+          occurred_at: string;
+          reason: string | null;
+          source_type: string;
+          to_status: string | null;
+          user_id: string;
+        };
+        Insert: {
+          actor_id: string;
+          application_id: string;
+          details?: Json;
+          event_type: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string | null;
+          occurred_at?: string;
+          reason?: string | null;
+          source_type: string;
+          to_status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          actor_id?: string;
+          application_id?: string;
+          details?: Json;
+          event_type?: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string | null;
+          occurred_at?: string;
+          reason?: string | null;
+          source_type?: string;
+          to_status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'application_events_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       application_round_deadlines: {
         Row: {
           application_round_id: number;
@@ -221,6 +356,158 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'published_degree_programs';
             referencedColumns: ['intake_id'];
+          },
+        ];
+      };
+      applications: {
+        Row: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        Insert: {
+          application_fee_amount?: number | null;
+          application_fee_currency?: string | null;
+          archived_at?: string | null;
+          country_code_snapshot?: string | null;
+          created_at?: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state?: string;
+          id?: string;
+          institution_name_snapshot: string;
+          intake_id?: number | null;
+          notes?: string;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_portal_url?: string | null;
+          priority?: string;
+          program_id: number;
+          program_source_checked_at?: string | null;
+          program_source_url?: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Update: {
+          application_fee_amount?: number | null;
+          application_fee_currency?: string | null;
+          archived_at?: string | null;
+          country_code_snapshot?: string | null;
+          created_at?: string;
+          cycle_year?: number;
+          degree_level_snapshot?: string;
+          fee_waiver_state?: string;
+          id?: string;
+          institution_name_snapshot?: string;
+          intake_id?: number | null;
+          notes?: string;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_portal_url?: string | null;
+          priority?: string;
+          program_id?: number;
+          program_source_checked_at?: string | null;
+          program_source_url?: string | null;
+          program_title_snapshot?: string;
+          roadmap_submission_task_id?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'applications_application_fee_currency_fkey';
+            columns: ['application_fee_currency'];
+            isOneToOne: false;
+            referencedRelation: 'fee_currency';
+            referencedColumns: ['code'];
+          },
+          {
+            foreignKeyName: 'applications_intake_id_fkey';
+            columns: ['intake_id'];
+            isOneToOne: false;
+            referencedRelation: 'admission_intakes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'applications_intake_id_fkey';
+            columns: ['intake_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['intake_id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'degree_programs';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'applications_roadmap_submission_task_id_user_id_fkey';
+            columns: ['roadmap_submission_task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
           },
         ];
       };
@@ -2720,6 +3007,167 @@ export type Database = {
           },
         ];
       };
+      scholarship_application_events: {
+        Row: {
+          actor_id: string;
+          evidence: string | null;
+          from_status: string | null;
+          id: number;
+          idempotency_key: string;
+          occurred_at: string;
+          reason: string | null;
+          scholarship_application_id: string;
+          source_type: string;
+          to_status: string;
+          user_id: string;
+        };
+        Insert: {
+          actor_id: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key: string;
+          occurred_at?: string;
+          reason?: string | null;
+          scholarship_application_id: string;
+          source_type: string;
+          to_status: string;
+          user_id: string;
+        };
+        Update: {
+          actor_id?: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string;
+          occurred_at?: string;
+          reason?: string | null;
+          scholarship_application_id?: string;
+          source_type?: string;
+          to_status?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_application_event_scholarship_application_id_u_fkey';
+            columns: ['scholarship_application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      scholarship_applications: {
+        Row: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        Insert: {
+          application_id?: string | null;
+          created_at?: string;
+          cycle_year: number;
+          deadline_at?: string | null;
+          deadline_date?: string | null;
+          deadline_precision?: string;
+          deadline_timezone?: string | null;
+          id?: string;
+          notes?: string;
+          official_portal_url?: string | null;
+          scholarship_cycle_id?: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Update: {
+          application_id?: string | null;
+          created_at?: string;
+          cycle_year?: number;
+          deadline_at?: string | null;
+          deadline_date?: string | null;
+          deadline_precision?: string;
+          deadline_timezone?: string | null;
+          id?: string;
+          notes?: string;
+          official_portal_url?: string | null;
+          scholarship_cycle_id?: number | null;
+          scholarship_id?: number;
+          scholarship_title_snapshot?: string;
+          source_url?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_applications_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_cycle_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       scholarship_benefits: {
         Row: {
           coverage_item_code: string;
@@ -3812,6 +4260,224 @@ export type Database = {
       };
     };
     Functions: {
+      application_add_scholarship: {
+        Args: {
+          p_application_id: string;
+          p_cycle_year: number;
+          p_idempotency_key: string;
+          p_scholarship_cycle_id: number;
+          p_scholarship_id: number;
+        };
+        Returns: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'scholarship_applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_checklist_change: {
+        Args: {
+          p_application_id: string;
+          p_expected_version: number;
+          p_is_mandatory: boolean;
+          p_item_id: string;
+          p_status: string;
+          p_title: string;
+        };
+        Returns: {
+          application_id: string;
+          checklist_key: string | null;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          is_mandatory: boolean;
+          origin: string;
+          roadmap_task_id: string | null;
+          sort_order: number;
+          source_claim_id: number | null;
+          status: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          verification_state: string;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'application_checklist_items';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_create: {
+        Args: {
+          p_cycle_year: number;
+          p_idempotency_key: string;
+          p_intake_id: number;
+          p_program_id: number;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_transition: {
+        Args: {
+          p_application_id: string;
+          p_evidence: string;
+          p_expected_version: number;
+          p_idempotency_key: string;
+          p_reason: string;
+          p_to_status: string;
+          p_user_confirmed: boolean;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_update_metadata: {
+        Args: {
+          p_application_id: string;
+          p_expected_version: number;
+          p_notes: string;
+          p_priority: string;
+          p_user_reference_id: string;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       assert_catalog_entity_evidence: {
         Args: { target_entity_id: number };
         Returns: undefined;
@@ -3896,6 +4562,47 @@ export type Database = {
           p_timezone_name: string;
         };
         Returns: Json;
+      };
+      scholarship_application_transition: {
+        Args: {
+          p_evidence: string;
+          p_expected_version: number;
+          p_idempotency_key: string;
+          p_reason: string;
+          p_scholarship_application_id: string;
+          p_to_status: string;
+          p_user_confirmed: boolean;
+        };
+        Returns: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'scholarship_applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
       scholarship_create_draft: {
         Args: { p_actor: string; p_bundle: Json };

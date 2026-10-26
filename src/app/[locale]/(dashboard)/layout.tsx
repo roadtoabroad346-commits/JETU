@@ -7,6 +7,7 @@ import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
 import { roadmapCopy } from '@/features/roadmap/copy';
+import { applicationsCopy } from '@/features/applications/copy';
 
 export default async function DashboardLayout({
   children,
@@ -44,6 +45,9 @@ export default async function DashboardLayout({
             </a>
             <a href={`/${locale}/match`}>{matchingCopy[locale].title}</a>
             <a href={`/${locale}/plan`}>{roadmapCopy[locale].nav}</a>
+            <a href={`/${locale}/applications`}>
+              {applicationsCopy[locale].nav}
+            </a>
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

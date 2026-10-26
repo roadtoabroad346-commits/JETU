@@ -26,3 +26,7 @@ manual page inspection and stored short factual claims with links only.
 The staging script uses natural keys and `ON CONFLICT DO NOTHING` for repeatability.
 It never updates an existing human-edited row. Editors should use a controlled
 change review for refreshed source data rather than overwriting prior claims.
+
+## Phase 17–18 verification note — 2026-10-26
+
+The development database still reports zero published/verified programs and scholarships. No editor identity or approval was simulated. Application SQL tests created a synthetic published program and scholarship only inside a transaction that rolled back; all five application tables returned to zero rows. Those fixtures prove isolation/state behavior and are not product data or editorial evidence.

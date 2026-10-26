@@ -1714,6 +1714,440 @@ fieldset.showcase-layout {
   }
 }
 
+/* Phase 18 application CRM */
+.applications-page {
+  padding-block: var(--space-10) var(--space-16);
+}
+.applications-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.applications-hero > div:first-child {
+  max-width: 760px;
+}
+.applications-hero h1 {
+  margin-block: var(--space-2) var(--space-3);
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  line-height: 1;
+  text-wrap: balance;
+}
+.applications-view-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid var(--control-border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+.applications-view-toggle button {
+  min-height: 44px;
+  padding-inline: var(--space-4);
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.applications-view-toggle button[aria-pressed='true'] {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+.application-loading,
+.application-empty {
+  min-height: 180px;
+  padding: var(--space-8);
+}
+.application-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+.application-metric {
+  display: grid;
+  align-content: space-between;
+  min-height: 128px;
+  padding: var(--space-5);
+}
+.application-metric strong {
+  color: var(--primary);
+  font-size: 2.25rem;
+  font-variant-numeric: tabular-nums;
+}
+.application-metric span {
+  color: var(--muted);
+  font-weight: 700;
+}
+.application-create {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.5fr);
+  gap: var(--space-8);
+  align-items: end;
+  margin-bottom: var(--space-8);
+  padding: var(--space-6);
+  border-left: 5px solid var(--accent);
+}
+.application-create form,
+.application-inline-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(130px, 0.4fr) auto;
+  gap: var(--space-3);
+  align-items: end;
+}
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr));
+  gap: var(--space-4);
+}
+.applications-board {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(300px, 1fr);
+  gap: var(--space-4);
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: 2px 2px var(--space-5);
+  scroll-snap-type: inline proximity;
+}
+.application-column {
+  position: relative;
+  min-height: 320px;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--surface-blue) 72%, var(--surface));
+  scroll-snap-align: start;
+}
+.application-column > h2 {
+  margin: 0 48px var(--space-4) 0;
+  font-size: 1rem;
+}
+.application-column__count {
+  position: absolute;
+  inset-block-start: var(--space-4);
+  inset-inline-end: var(--space-4);
+  min-width: 28px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--surface);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.application-column .application-card + .application-card {
+  margin-top: var(--space-3);
+}
+.application-card {
+  padding: var(--space-5);
+  overflow-wrap: anywhere;
+}
+.application-card__topline,
+.application-transition__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.application-card h3 {
+  margin-block: var(--space-4) var(--space-2);
+  font-size: 1.25rem;
+}
+.application-card > p {
+  color: var(--muted);
+}
+.application-card__facts {
+  display: grid;
+  gap: var(--space-3);
+  margin-block: var(--space-5);
+}
+.application-card__facts div {
+  display: grid;
+  grid-template-columns: minmax(90px, 0.6fr) 1fr;
+  gap: var(--space-3);
+}
+.application-card__facts dt {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.application-card__facts dd {
+  margin: 0;
+  font-size: 0.875rem;
+}
+.application-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 4px 10px;
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  background: var(--surface-blue);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+.application-status--ready_for_review,
+.application-status--ready_to_submit,
+.application-status--offer,
+.application-status--accepted,
+.application-status--enrollment {
+  border-color: #17633e;
+  background: #eaf6ee;
+  color: #17633e;
+}
+.application-status--submitted_external_confirmed,
+.application-status--under_review,
+.application-status--interview,
+.application-status--waitlist {
+  border-color: #785200;
+  background: #fff5d6;
+  color: #785200;
+}
+.application-status--rejected,
+.application-status--declined,
+.application-status--withdrawn {
+  border-color: #ad2430;
+  background: #fff0f1;
+  color: #ad2430;
+}
+.application-back {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  margin-bottom: var(--space-5);
+  font-weight: 800;
+}
+.application-workspace__hero {
+  padding: var(--space-8);
+  border-radius: 28px;
+  background: var(--brand);
+  color: var(--on-brand);
+}
+.application-workspace__hero .application-status {
+  max-width: 300px;
+}
+.application-live {
+  min-height: 24px;
+  color: #17633e;
+  font-weight: 700;
+}
+.application-workspace-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-block: var(--space-6);
+}
+.application-fact-panel {
+  min-height: 180px;
+  padding: var(--space-5);
+}
+.application-fact-panel strong {
+  display: block;
+  color: var(--primary);
+  font-size: 2.25rem;
+}
+.application-fact-panel progress {
+  width: 100%;
+  height: 12px;
+  margin-block: var(--space-4);
+  accent-color: var(--primary);
+}
+.application-fact-panel a {
+  overflow-wrap: anywhere;
+}
+.application-transition,
+.application-checklist,
+.application-metadata,
+.application-scholarships,
+.application-history {
+  margin-top: var(--space-5);
+  padding: var(--space-6);
+}
+.application-transition {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.application-transition > div:first-child,
+.application-transition__actions,
+.application-truth-note {
+  grid-column: 1 / -1;
+}
+.application-transition textarea {
+  min-height: 104px;
+}
+.application-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  min-height: 48px;
+  padding-block: var(--space-3);
+  font-weight: 700;
+}
+.application-confirm input {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.application-truth-note {
+  padding: var(--space-4);
+  border-left: 4px solid var(--accent);
+  background: var(--surface-blue);
+}
+.application-truth-note p {
+  margin-block: var(--space-2) 0;
+}
+.application-checklist ul {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+.application-checklist li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.application-checklist li > div {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+.application-checklist li span {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.application-metadata {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.application-metadata > .eyebrow,
+.application-metadata > h2,
+.application-notes-field,
+.application-metadata > button {
+  grid-column: 1 / -1;
+}
+.application-notes-field textarea {
+  min-height: 160px;
+}
+.application-scholarship {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.65fr) minmax(0, 1.35fr);
+  gap: var(--space-5);
+  align-items: center;
+  padding-block: var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+.application-history ol {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  padding: 0 0 0 var(--space-6);
+  list-style: none;
+}
+.application-history ol::before {
+  position: absolute;
+  inset-block: 8px;
+  inset-inline-start: 7px;
+  width: 2px;
+  background: var(--border);
+  content: '';
+}
+.application-history li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+}
+.application-history li::before {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: calc(-1 * var(--space-6) + 2px);
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  background: var(--primary);
+  content: '';
+}
+.application-history time,
+.application-history span {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .application-card {
+    transition:
+      border-color var(--duration-panel) var(--ease-out),
+      box-shadow var(--duration-panel) var(--ease-out),
+      transform var(--duration-panel) var(--ease-out);
+  }
+  .application-card:hover {
+    border-color: var(--control-border);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-2px);
+  }
+}
+@media (max-width: 960px) {
+  .application-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .application-create,
+  .application-workspace-grid,
+  .application-transition,
+  .application-metadata,
+  .application-scholarship {
+    grid-template-columns: 1fr;
+  }
+  .application-transition > *,
+  .application-metadata > * {
+    grid-column: 1;
+  }
+}
+@media (max-width: 640px) {
+  .applications-page {
+    padding-block: var(--space-6) var(--space-12);
+  }
+  .applications-hero {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .applications-view-toggle {
+    align-self: flex-start;
+  }
+  .application-metrics,
+  .application-create form,
+  .application-inline-form {
+    grid-template-columns: 1fr;
+  }
+  .application-create,
+  .application-transition,
+  .application-checklist,
+  .application-metadata,
+  .application-scholarships,
+  .application-history,
+  .application-workspace__hero {
+    padding: var(--space-4);
+  }
+  .application-checklist li {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .application-checklist li button {
+    align-self: flex-start;
+  }
+}
+
 /* Phase 17 roadmap workspace */
 .roadmap-main {
   max-width: 1320px;

@@ -169,3 +169,13 @@ The cloud SQL call worked; a direct REST tunnel from this workspace returned HTT
 ## Phase 16 matching addition — 2026-10-25
 
 The private `/{locale}/match` route calls `GET/POST /api/matching/run`. A request-scoped authenticated Supabase client reads owner-RLS profile/preferences and bounded published catalog rows. `src/features/matching/service.ts` batches normalized requirement, deadline, scholarship-benefit and official-source reads; `engine.ts` evaluates source-gated mandatory rules separately from fixed-weight preference ranking. `matching_preferences`, `matching_runs`, `matching_results` and versioned `matching_configuration` are additive development tables. No browser privileged key or external AI service is used. See `AI_MATCHING_ARCHITECTURE.md` for trust, rule, cache, freshness and transaction limits. The opening diagram includes the current private flow.
+
+## Phase 17–18 planning and application boundary — 2026-10-26
+
+Roadmap and application tracking are separate owner aggregates. A Roadmap target can generate a submission task; an application stores at most one reference to that task. Confirming external submission updates both aggregates in one database transaction, and the Roadmap dependency trigger can reject the completion. No generic bidirectional sync or status inference exists.
+
+`src/features/applications` owns canonical state/readiness logic, Supabase mapping, localized copy and the leaf client workspace. `src/app/api/applications` is the bounded same-origin/authenticated HTTP boundary. Database tables expose owner-filtered `SELECT` only. Reviewed command RPCs run with definer rights because direct table DML is revoked; each derives identity from `auth.uid()`, locks the owner row where needed, validates expected versions and writes history atomically.
+
+Program applications, their checklist and program events form one aggregate. Scholarship applications and scholarship events form a separate lifecycle linked optionally to a program application. Submission and result facts are always `USER_REPORTED`; official catalog provenance stays separate. See `APPLICATION_STATE_MACHINE.md` and `APPLICATION_AUDIT_TRAIL.md`.
+
+The ingestion core in `src/features/ingestion/official-source.ts` is a pure validation/diff boundary, not a crawler. Concrete fetch workers must enforce adapter host/rate/legal policy and persist only staged claims through the existing editorial model. No scheduled worker was deployed in this phase.

@@ -1,45 +1,11 @@
-# Next agent handoff — Phase 16 PARTIAL, 2026-10-25
+# Next agent handoff — Phases 17 and 18 PARTIAL, 2026-10-26
 
-## Phase 17 continuation, 2026-10-26
+Start from the latest head of the Phase 17–18 draft PR. Read `PHASE_17_QA.md`, `PHASE_18_QA.md`, `ROADMAP_ARCHITECTURE.md`, `APPLICATION_STATE_MACHINE.md`, `APPLICATION_AUDIT_TRAIL.md`, `OFFICIAL_SOURCE_PIPELINE.md` and `RELEASE_REPORT_PHASE_17_18.md`. Do not begin Phase 19.
 
-Phase 17 is PARTIAL on `codex/phase17-roadmap`. Read `ROADMAP_ARCHITECTURE.md`, `ROADMAP_DEPENDENCY_RULES.md`, `PHASE_17_QA.md` and `PREVIOUS_PHASE_CLOSURE.md`. Jetuu development migrations are applied. Finish generation authorization, clean CI replay, hosted two-user Auth, reviewed catalog targets, populated responsive/a11y checks and preview verification before marking VERIFIED. Do not begin Phase 18.
+Jetuu development is synchronized through `20261026164713_phase_17_18_fk_indexes`. Phase 18 has five empty owner-RLS tables, six authenticated command RPCs, immutable event history and refreshed generated types. Rollback-only application SQL reached 28 assertions; local `npm run check` passed 116 tests and production build. Desktop API boundary Chromium passed. Local database replay did not start because Docker’s internal image store failed to register the pinned PostgreSQL layer.
 
-Remote CI run `40204392572` exposed a test discovery issue: four pgTAP files
-passed 66 assertions, but the manual Phase 15 benchmark had no TAP plan. That
-benchmark now lives in `supabase/benchmarks/`.
-Run `40204849253` completed two replays and 66 pgTAP assertions per pass but
-found generated-type drift. The exact CI artifact `12603092932` was recovered
-as `src/lib/supabase/database.types.ts`; local `npm run check` passed. Final
-remote run `40205477945` passed both the database and frontend jobs, including
-two clean migration replays, 66 pgTAP assertions per replay, advisors, generated
-type drift, typecheck and Chromium E2E. Draft PR #2 and its final-commit Vercel
-preview are ready for review; the editorial and two-user Auth gates remain open.
+The blocking product fact is unchanged: development has zero published/verified programs and scholarships. Do not promote the draft University of Toronto/Pearson sample or simulate editor approval. Phase 17 and 18 remain PARTIAL until a real authorized editor curates a small current corpus and hosted tests exercise two actual accounts through target/save → Roadmap generation/edit/regeneration → application creation/checklist/submission/outcome/scholarship → reload on another session. Verify owner isolation, responsive desktop/tablet/mobile layouts, keyboard flow and axe on populated states.
 
-Phase 16.5 continuation on draft PR #2 fixed matching Origin scheme checks and
-malformed deadline rendering, and refined mobile navigation/card feedback.
-Development data remains one draft/needs_review institution, program and
-scholarship; zero published. Authenticated two-user E2E and human editorial
-review remain unperformed. Read `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md` and
-`PHASE_16_RELEASE_AUDIT.md` before release work. The final local full Chromium
-run passed 64 cases with four Auth skips. Read the latest PR head from Git
-history before continuing. Do not start Phase 17.
+Review the six Supabase SECURITY DEFINER warnings against `APPLICATION_AUDIT_TRAIL.md`; they are intentional read-only-table command boundaries, but any new RPC must derive `auth.uid()`, bind every row by owner, keep an empty search path and receive rollback A/B tests. Four older RLS-without-policy INFO notices are deny-by-default internal/editorial tables. Phase 17/18 foreign-key index advice was resolved.
 
-Phase 16.5 staged one University of Toronto program and one Pearson scholarship
-cycle in Jetuu development using `scripts/phase16-stage-official-sample.sql`.
-They remain unpublished and `needs_review`; no reviewer approval was simulated.
-The script is idempotent and ran twice. Matching now fails closed on malformed
-deadlines and duplicate test scores and deduplicates candidate IDs. `npm run
-check` passed (80 tests); Chromium passed 64 with four Auth-dependent skips.
-Read `docs/PHASE_16_RELEASE_AUDIT.md` and `docs/DATA_VERIFICATION.md` before
-any editorial publication or release. The 2026/2027 Pearson page contains an
-older contradictory FAQ, so deadline review is mandatory. Phase 17 remains gated.
-
-Phase 16 is implemented locally and in the authorized Jetuu development database, but **not verified end to end**. Do not start Phase 17 under this checkpoint. Read `docs/AI_MATCHING_ARCHITECTURE.md` and the Phase 16 gate in `docs/PHASE_TRACKER.md` before work.
-
-GitHub `main` contains implementation commit `afa3f11`. The existing Vercel `jetu-phase13-preview` project is now Git-linked; its matching preview reached READY with a 200 health check, anonymous match-to-login path and real public search. Git `main` auto-deploys to that project's production target at its default `.vercel.app` domain, with no custom JETU production domain. Supabase Git-linked `main` reported `ACTIVE_HEALTHY`. No signed-in matching journey or acceptance-ready product release was verified.
-
-The private `/{locale}/match` page and `/api/matching/run` use the existing profile and published unified search. The deterministic engine in `src/features/matching/engine.ts` returns source-aware rule statuses and separate weighted preference points; `service.ts` batches catalog evidence and stores owner-scoped runs. Three additive migrations and generated types are committed with the code. The profile action now preserves unrelated JSON fields. RU/KK/EN UI has readiness, preferences, run, explanations, source links, details/save/compare and retry. No AI provider is configured; deterministic explanations are intentional.
-
-The development catalog has **zero published programs and scholarships**. Direct hosted Auth/REST from this workspace fails CONNECT 403; local database image pull fails registry 403. Cloud transactional matching SQL passed 18 assertions with rollback, but real login → profile → matching → save/compare/recalculate and visual Auth page checks are not proven. Keep Phase 16 PARTIAL and do not fabricate rows, criteria, awards, deadlines or probabilities. Existing Phase 12/15 and other phase statuses are unchanged.
-
-**Release gate before marking VERIFIED:** curate a small official-source-backed program/scholarship corpus with current requirement/deadline/funding claims in an authorized environment; run clean migration replay and pgTAP; exercise two real test accounts through hosted Auth/REST, owner isolation, profile changes, recommendations, save/compare and recalculation; inspect mobile/tablet/desktop and axe; resolve any defects; check deployment. Atomic run/result persistence and broader eligibility coverage are known follow-ups. Phase 17 may consume rule gaps only after Phase 16 evidence is closed and separately authorized.
+Before any release claim: run two clean migration replays and all pgTAP tests in CI, confirm generated type drift is zero, run full Chromium desktop/mobile, inspect Supabase advisors, deploy the exact commit to a Vercel preview and smoke health, anonymous redirect and authenticated populated flows. Keep the PR draft and do not promote production. Record exact URLs, commit SHA and skipped gates; never label either phase VERIFIED from synthetic or empty-state evidence.

@@ -23,6 +23,7 @@ const APP_ROUTES = new Set([
   'saved',
   'match',
   'plan',
+  'applications',
 ]);
 
 function notFoundResponse(locale: Locale) {
@@ -68,8 +69,13 @@ export async function proxy(request: NextRequest) {
           /^[1-9][0-9]*$/.test(segments[2] ?? '')) ||
         ((segments[1] === 'scholarships' || segments[1] === 'opportunities') &&
           /^[a-z0-9]+(-[a-z0-9]+)*$/.test(segments[2] ?? '')));
+    const isApplicationDetail =
+      segments.length === 3 &&
+      segments[1] === 'applications' &&
+      /^[0-9a-f]{8}-[0-9a-f-]{27}$/i.test(segments[2] ?? '');
     if (
       !isCatalogDetail &&
+      !isApplicationDetail &&
       (segments.length > 2 ||
         (segments.length === 2 &&
           !APP_ROUTES.has(segments[1] ?? '') &&
