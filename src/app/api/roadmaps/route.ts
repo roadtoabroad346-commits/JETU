@@ -4,6 +4,7 @@ import {
   generateAndPersistRoadmap,
   loadRoadmapState,
   RoadmapUnavailable,
+  RoadmapConflict,
   RoadmapValidationError,
 } from '@/features/roadmap/service';
 import {
@@ -43,6 +44,7 @@ export async function POST(request: Request) {
       await generateAndPersistRoadmap(client, data.user.id, parsed.data),
     );
   } catch (error) {
+    if (error instanceof RoadmapConflict) return errorResponse('CONFLICT');
     if (error instanceof RoadmapValidationError)
       return errorResponse('VALIDATION_FAILED');
     if (error instanceof RoadmapUnavailable)

@@ -35,24 +35,24 @@ values
 ('17170000-0000-0000-0000-000000000101','17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','manual','document','Prepare transcript','todo','high',true,'unknown',null),
 ('17170000-0000-0000-0000-000000000102','17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','manual','application','Review application','todo','high',true,'unknown',null),
 ('17170000-0000-0000-0000-000000000103','17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','manual','application','Submit application','todo','critical',true,'unknown',null);
-insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id)
+insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id,origin)
 values
-('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000102','17170000-0000-0000-0000-000000000101'),
-('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000103','17170000-0000-0000-0000-000000000102');
+('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000102','17170000-0000-0000-0000-000000000101','manual'),
+('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000103','17170000-0000-0000-0000-000000000102','manual');
 
 insert into phase17_results values ('owner_roadmaps',(select count(*)::text from public.roadmaps));
 insert into phase17_results values ('owner_tasks',(select count(*)::text from public.roadmap_tasks));
 insert into phase17_results values ('events_after_create',(select count(*)::text from public.roadmap_task_events));
 
 do $$ begin
-  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id)
-  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000102','17170000-0000-0000-0000-000000000101');
+  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id,origin)
+  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000102','17170000-0000-0000-0000-000000000101','manual');
   insert into phase17_denials values ('duplicate',false);
 exception when unique_violation then insert into phase17_denials values ('duplicate',true); end $$;
 
 do $$ begin
-  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id)
-  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000101','17170000-0000-0000-0000-000000000103');
+  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id,origin)
+  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000101','17170000-0000-0000-0000-000000000103','manual');
   insert into phase17_denials values ('cycle',false);
 exception when check_violation then insert into phase17_denials values ('cycle',true); end $$;
 
@@ -86,8 +86,8 @@ do $$ begin
   insert into phase17_denials values ('owner_insert',false);
 exception when insufficient_privilege then insert into phase17_denials values ('owner_insert',true); end $$;
 do $$ begin
-  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id)
-  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000103','17170000-0000-0000-0000-000000000101');
+  insert into public.roadmap_task_dependencies(roadmap_id,user_id,task_id,depends_on_task_id,origin)
+  values ('17170000-0000-0000-0000-000000000010','17170000-0000-0000-0000-000000000001','17170000-0000-0000-0000-000000000103','17170000-0000-0000-0000-000000000101','manual');
   insert into phase17_denials values ('dependency_tamper',false);
 exception when insufficient_privilege then insert into phase17_denials values ('dependency_tamper',true); end $$;
 
