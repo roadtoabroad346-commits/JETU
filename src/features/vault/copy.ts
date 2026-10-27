@@ -1,6 +1,12 @@
 import type { Locale } from '@/lib/i18n/messages';
 // Parallel, typed UI vocabulary; authored document text is never translated.
 const vocabulary = {
+  unavailableDocument: [
+    'Removed document',
+    'Удалённый документ',
+    'Жойылған құжат',
+  ],
+  unavailable: ['Unavailable', 'Недоступно', 'Қолжетімсіз'],
   vault: ['Document vault', 'Хранилище документов', 'Құжаттар қоймасы'],
   writing: ['Writing workspace', 'Работа с текстом', 'Мәтін шеберханасы'],
   lead: [

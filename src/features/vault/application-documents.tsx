@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import type { Locale } from '@/lib/i18n/messages';
 import { vaultCopy } from './copy';
-import { requestData } from './client';
+import { jsonCommand, requestData } from './client';
 import type { VaultData } from './workspace';
 /** Real owner-scoped attachments, pinned to their reviewed version. Never changes application status. */
 export function ApplicationDocuments({
@@ -13,6 +13,7 @@ export function ApplicationDocuments({
   locale: Locale;
 }) {
   const [at, setAt] = useState(0);
+  const [busy, setBusy] = useState(false);
   const t = vaultCopy(locale),
     [data, setData] = useState<VaultData | null>(null),
     [error, setError] = useState(false);
@@ -44,14 +45,58 @@ export function ApplicationDocuments({
               v = data?.versions.find((v) => v.id === l.version_id);
             return (
               <li key={l.id}>
-                {doc?.display_name ?? t.remove} · {t.version} {v?.sequence} ·{' '}
-                {doc && Date.parse(doc.expires_at) <= at
-                  ? t.expired
-                  : doc?.deleted_at || doc?.archived_at
-                    ? t.archived
-                    : v?.state === 'available'
-                      ? t.available
-                      : t.quarantined}
+                {doc?.display_name ?? t.unavailableDocument}
+                {v && (
+                  <>
+                    {' '}
+                    · {t.version} {v.sequence}
+                  </>
+                )}{' '}
+                ·{' '}
+                {!doc || !v
+                  ? t.unavailable
+                  : Date.parse(doc.expires_at) <= at
+                    ? t.expired
+                    : doc?.deleted_at || doc?.archived_at
+                      ? t.archived
+                      : v?.state === 'available'
+                        ? t.available
+                        : t.quarantined}
+                <button
+                  type="button"
+                  className="ui-button ui-button--secondary"
+                  disabled={busy}
+                  aria-label={`${t.unlink}: ${doc?.display_name ?? t.unavailableDocument}`}
+                  onClick={async () => {
+                    setBusy(true);
+                    setError(false);
+                    try {
+                      await jsonCommand('/api/vault', {
+                        action: 'unlink',
+                        documentId: l.document_id,
+                        versionId: l.version_id,
+                        applicationId,
+                        taskId: null,
+                      });
+                      setData((previous) =>
+                        previous
+                          ? {
+                              ...previous,
+                              links: previous.links.filter(
+                                (item) => item.id !== l.id,
+                              ),
+                            }
+                          : previous,
+                      );
+                    } catch {
+                      setError(true);
+                    } finally {
+                      setBusy(false);
+                    }
+                  }}
+                >
+                  {t.unlink}
+                </button>
               </li>
             );
           })}

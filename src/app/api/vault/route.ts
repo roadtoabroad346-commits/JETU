@@ -40,7 +40,6 @@ export async function GET() {
             .from('vault_links')
             .select('*')
             .eq('user_id', user.id)
-            .in('document_id', ids)
             .order('id')
             .range(first, last),
         ),

@@ -181,3 +181,49 @@ test('failed upload replay preserves the file and offers a real version retry', 
   await expect(page.getByRole('status')).toHaveText(t.quarantinedNotice);
   expect(attempts).toBe(2);
 });
+
+test('removed attachment stays visible and can be detached without deleting the application', async ({
+  page,
+}) => {
+  const t = vaultCopy('en');
+  let detached = false;
+  const link = {
+    id: '19190000-0000-4000-8000-000000000004',
+    document_id: docId,
+    version_id: versionId,
+    application_id: appId,
+    user_id: 'fixture-owner',
+    task_id: null,
+  };
+  await page.route('**/api/vault', async (r) => {
+    if (r.request().method() === 'POST') {
+      const body = r.request().postDataJSON();
+      expect(body).toMatchObject({
+        action: 'unlink',
+        documentId: docId,
+        versionId,
+        applicationId: appId,
+      });
+      detached = true;
+      return r.fulfill({ json: { data: { saved: true } } });
+    }
+    return r.fulfill({
+      json: {
+        data: { ...fixture, documents: [], versions: [], links: [link] },
+      },
+    });
+  });
+  await page.goto('/?screen=attachments');
+  await expect(page.getByRole('listitem')).toContainText(t.unavailableDocument);
+  await page
+    .getByRole('button', {
+      name: `${t.unlink}: ${t.unavailableDocument}`,
+      exact: true,
+    })
+    .click();
+  await expect(page.getByRole('listitem')).toHaveCount(0);
+  expect(detached).toBe(true);
+  await expect(
+    page.getByRole('heading', { name: 'Application fixture' }),
+  ).toBeVisible();
+});

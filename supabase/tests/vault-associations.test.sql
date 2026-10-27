@@ -79,6 +79,13 @@ select set_config('request.jwt.claim.sub','19194444-0000-0000-0000-000000000003'
 select throws_ok($$select public.recommendation_respond(repeat('e',64),true)$$,'42501',null,'expired invitation denied');
 reset role;
 select is((select count(*)::integer from public.recommendation_events),4,'recommendation transitions audited without letter contents');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','19194444-0000-0000-0000-000000000001',true);
+select public.vault_manage((select value::uuid from phase19assoc_fixture where kind='docA'),'delete');
+select lives_ok($$select public.vault_link((select value::uuid from phase19assoc_fixture where kind='docA'),'19195555-0000-0000-0000-000000000001',(select value::uuid from phase19assoc_fixture where kind='appA'),null,true)$$,'deleted attachment remains detachable');
+select is((select count(*)::integer from public.vault_links),0,'detaching deleted attachment removes the stale reference');
+select is((select status from public.applications),'researching','detaching preserves application state');
+reset role;
 select lives_ok($$delete from auth.users where id in ('19194444-0000-0000-0000-000000000001','19194444-0000-0000-0000-000000000002','19194444-0000-0000-0000-000000000003')$$,'account erasure cascades metadata after separate storage cleanup');
 select * from finish();
 rollback;
