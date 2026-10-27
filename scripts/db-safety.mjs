@@ -1,5 +1,10 @@
 const commands = Object.freeze({
   start: ['start'],
+  'start-vault-tests': [
+    'start',
+    '--exclude',
+    'realtime,imgproxy,mailpit,postgres-meta,studio,edge-runtime,logflare,vector,supavisor',
+  ],
   'start-database': [
     'start',
     '--exclude',

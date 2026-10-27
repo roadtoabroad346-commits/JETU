@@ -57,11 +57,6 @@ test('application APIs reject unsafe origins and invalid state input', async ({
 });
 
 test.describe('configured application auth route', () => {
-  test.skip(
-    !process.env.NEXT_PUBLIC_SUPABASE_URL,
-    'requires a configured Supabase Auth endpoint',
-  );
-
   test('private applications route redirects anonymous users', async ({
     page,
   }) => {

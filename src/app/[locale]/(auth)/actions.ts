@@ -22,12 +22,17 @@ function authUrl(locale: Locale, path: string, state?: string) {
 
 export async function signIn(formData: FormData) {
   const locale = localeOf(formData);
+  const rawInvite = String(formData.get('inviteToken') ?? '');
+  const invite = /^[a-f0-9]{64}$/.test(rawInvite) ? `#invite=${rawInvite}` : '';
   const parsed = credentials.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) redirect(authUrl(locale, 'login', 'error=invalid'));
+  if (!parsed.success)
+    redirect(authUrl(locale, 'login', 'error=invalid') + invite);
   const supabase = await createRequestSupabaseClient();
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
-  if (error) redirect(authUrl(locale, 'login', 'error=invalid'));
-  redirect(authUrl(locale, 'dashboard'));
+  if (error) redirect(authUrl(locale, 'login', 'error=invalid') + invite);
+  redirect(
+    invite ? authUrl(locale, 'vault') + invite : authUrl(locale, 'dashboard'),
+  );
 }
 
 export async function signUp(formData: FormData) {

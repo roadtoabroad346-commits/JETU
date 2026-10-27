@@ -3,14 +3,7 @@ import { expect, test } from '@playwright/test';
 test('anonymous users are redirected from the private dashboard', async ({
   page,
 }) => {
-  // The redirect needs real claims: unauthenticated -> login. Without a
-  // configured Supabase environment the app fails closed with the documented
-  // EnvironmentError instead, so the configured-path assertion must be gated
-  // explicitly rather than red in degraded CI runs.
-  test.skip(
-    !process.env.NEXT_PUBLIC_SUPABASE_URL,
-    'requires a configured Supabase environment; degraded fail-close behavior is covered by env unit tests',
-  );
+  // Missing backend configuration still routes anonymous visitors to sign-in.
   await page.goto('/en/dashboard');
   await expect(page).toHaveURL(/\/en\/login$/);
   await expect(

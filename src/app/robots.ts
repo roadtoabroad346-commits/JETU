@@ -9,7 +9,17 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       ...(publicSite
-        ? { allow: '/', disallow: ['/*/design-system'] }
+        ? {
+            allow: '/',
+            disallow: [
+              '/*/design-system',
+              '/*/vault',
+              '/*/writing',
+              '/api/vault',
+              '/api/writing',
+              '/api/recommendations',
+            ],
+          }
         : { disallow: '/' }),
     },
     sitemap: new URL('/sitemap.xml', origin).toString(),

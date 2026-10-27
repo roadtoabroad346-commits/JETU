@@ -71,3 +71,21 @@ jobs:
       - run: npm run typecheck
       - run: npm run db:stop
         if: always()
+
+  vault-auth-storage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      JETU_ENV: test
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: node scripts/db.mjs start-vault-tests
+      - run: npx --no-install playwright install --with-deps chromium
+      - run: node scripts/vault-auth-test.mjs
+      - run: npm run db:stop
+        if: always()

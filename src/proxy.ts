@@ -24,6 +24,8 @@ const APP_ROUTES = new Set([
   'match',
   'plan',
   'applications',
+  'vault',
+  'writing',
 ]);
 
 function notFoundResponse(locale: Locale) {
@@ -87,6 +89,18 @@ export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   // Overwrite client-supplied header; never trust it as identity or locale.
   requestHeaders.set('x-jetu-locale', isLocale(candidate) ? candidate : 'ru');
+  const privateRoute =
+    isLocale(candidate) &&
+    new Set([
+      'dashboard',
+      'onboarding',
+      'saved',
+      'match',
+      'plan',
+      'applications',
+      'vault',
+      'writing',
+    ]).has(segments[1] ?? '');
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   const env = getPublicEnv();
   if (
@@ -94,8 +108,22 @@ export async function proxy(request: NextRequest) {
     env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
   ) {
     const supabase = createRouteSupabaseClient(request, response);
-    await supabase.auth.getClaims();
+    const { data, error } = await supabase.auth.getClaims();
+    if (privateRoute && (error || !data?.claims?.sub)) {
+      const denied = NextResponse.redirect(
+        new URL(`/${candidate}/login`, request.url),
+      );
+      for (const cookie of response.cookies.getAll())
+        denied.cookies.set(cookie);
+      denied.headers.set('Cache-Control', 'private, no-store');
+      return denied;
+    }
   }
+  if (
+    privateRoute &&
+    (!env.NEXT_PUBLIC_SUPABASE_URL || !env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY)
+  )
+    return NextResponse.redirect(new URL(`/${candidate}/login`, request.url));
   return response;
 }
 export const config = {

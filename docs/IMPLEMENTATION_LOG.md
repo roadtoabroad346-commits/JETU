@@ -583,3 +583,26 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Recovery CI run `40363524397` proved a clean migration replay and the new 28-assertion application suite, then exposed an older catalog fixture that omitted Phase 17's required `instant` deadline precision. The fixture was corrected and its 11 assertions passed in a development rollback transaction. The portfolio also gained localized exact-stage filtering and deadline/update/priority/title sorting.
 - The successor CI run `40391982239` passed frontend checks, audit, Chromium, two clean database resets/replays with all pgTAP suites, advisors, generated-type drift and final typecheck. The first successor run revealed a local/cloud Supabase generator-shape mismatch; the saved types now match the pinned CI generator (`cdc5a7e`).
 - Exact commit `cdc5a7e` deployed READY as `dpl_BFMsrKnD9qSz9oZkhZJkmbg1vwjL` at `https://jetu-phase13-preview-clab89quc-impact-hub.vercel.app`. Protected preview smoke returned 200 for health/home/login/search; anonymous Roadmap and Applications rendered sign-in. No authenticated or production deployment was claimed.
+
+## 2026-10-27 — Phase 19 Vault/Writing and prior gate repair
+
+- Recovered latest Phase 18 draft head `00b0be6`, verified PR stack and Jetuu
+  development history, then created `codex/phase19-document-vault` from that head.
+- Implemented private immutable document/quarantine metadata, constrained Storage
+  policies, bounded upload/signature/checksum validation, trusted scan/purge worker,
+  version metadata/history, safe text download/preview, application/task links and
+  owner-scoped ZIP. Implemented plain-text Writing, Unicode count, rubric, CAS,
+  revisions/restore/compare, text export and checksum-bound Vault draft origin.
+- Added confidential manual recommendation invitations, confirmed-email redemption,
+  one-time/expiry/replay checks, recommender-owned letters and student status events.
+  Mentor sharing is intentionally unavailable without a verified assignment model.
+- Applied five additive development migrations through `20261027055906`, each
+  rehearsed transactionally. Seventy-six rollback SQL assertions passed. No
+  fixtures persisted. Fixed Phase 18 append-only triggers that blocked Auth owner
+  erasure, keeping Storage deletion a separate required step.
+- Focused 46 domain/service tests passed. Nine synthetic three-locale browser cases
+  passed axe/responsive/quarantine/writing checks. Initial full check passed 162
+  tests/build; subsequent no-env login repair and actual local GoTrue/Storage CI
+  gate are recorded in the final release checkpoint. No whole prior phase upgraded.
+- Used actual Caveman/lean-build, UI/UX Pro Max, Supabase/Postgres, cloud runtime and
+  Vercel release/React guidance; no unavailable skill command or live test is claimed.

@@ -60,10 +60,6 @@ test('roadmap APIs reject cross-origin and invalid payloads before database acce
 test('private roadmap route redirects unauthenticated users when Supabase is configured', async ({
   page,
 }) => {
-  test.skip(
-    !process.env.NEXT_PUBLIC_SUPABASE_URL,
-    'requires a configured Supabase Auth endpoint',
-  );
   await page.goto('/en/plan');
   await expect(page).toHaveURL(/\/en\/login$/);
 });

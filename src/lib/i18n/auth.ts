@@ -3,6 +3,7 @@ import type { Locale } from './messages';
 export const authCopy = {
   ru: {
     signIn: 'Войти',
+    notConfigured: 'Вход недоступен в этой среде: подключение не настроено.',
     signUp: 'Создать аккаунт',
     email: 'Электронная почта',
     password: 'Пароль',
@@ -54,6 +55,7 @@ export const authCopy = {
   },
   kk: {
     signIn: 'Кіру',
+    notConfigured: 'Бұл ортада кіру қолжетімсіз: байланыс бапталмаған.',
     signUp: 'Аккаунт ашу',
     email: 'Электрондық пошта',
     password: 'Құпиясөз',
@@ -102,6 +104,8 @@ export const authCopy = {
   },
   en: {
     signIn: 'Sign in',
+    notConfigured:
+      'Sign-in is unavailable in this environment: the connection is not configured.',
     signUp: 'Create account',
     email: 'Email address',
     password: 'Password',

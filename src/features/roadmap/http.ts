@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { boundedBytes } from '@/lib/http/body';
 import { isIanaTimezone } from './engine';
 
 export function hasSameOrigin(request: Request) {
@@ -22,9 +23,9 @@ export async function readBoundedJson(request: Request, maxBytes = 16384) {
   if (Number(request.headers.get('content-length') ?? 0) > maxBytes)
     return { ok: false as const };
   try {
-    const raw = await request.text();
-    if (new TextEncoder().encode(raw).length > maxBytes)
-      return { ok: false as const };
+    const raw = new TextDecoder('utf-8', { fatal: true }).decode(
+      await boundedBytes(request, maxBytes),
+    );
     return { ok: true as const, value: JSON.parse(raw) as unknown };
   } catch {
     return { ok: false as const };

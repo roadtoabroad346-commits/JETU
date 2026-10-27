@@ -19,7 +19,6 @@ export type Database = {
           title: string;
           unit_type: string;
         };
-        ComputedFields: never;
         Insert: {
           campus_id?: number | null;
           id: number;
@@ -86,7 +85,6 @@ export type Database = {
           starts_on: string | null;
           term_code: string;
         };
-        ComputedFields: never;
         Insert: {
           academic_year_start: number;
           ends_on?: string | null;
@@ -155,7 +153,6 @@ export type Database = {
           verification_state: string;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
           application_id: string;
           checklist_key?: string | null;
@@ -220,7 +217,7 @@ export type Database = {
         Row: {
           actor_id: string;
           application_id: string;
-          details: NonNullable<Json>;
+          details: Json;
           event_type: string;
           evidence: string | null;
           from_status: string | null;
@@ -232,11 +229,10 @@ export type Database = {
           to_status: string | null;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           actor_id: string;
           application_id: string;
-          details?: NonNullable<Json>;
+          details?: Json;
           event_type: string;
           evidence?: string | null;
           from_status?: string | null;
@@ -251,7 +247,7 @@ export type Database = {
         Update: {
           actor_id?: string;
           application_id?: string;
-          details?: NonNullable<Json>;
+          details?: Json;
           event_type?: string;
           evidence?: string | null;
           from_status?: string | null;
@@ -278,7 +274,6 @@ export type Database = {
           application_round_id: number;
           deadline_id: number;
         };
-        ComputedFields: never;
         Insert: {
           application_round_id: number;
           deadline_id: number;
@@ -315,7 +310,6 @@ export type Database = {
           round_code: string;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           closes_at?: string | null;
           decision_by?: string | null;
@@ -394,7 +388,6 @@ export type Database = {
           user_reference_id: string | null;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
           application_fee_amount?: number | null;
           application_fee_currency?: string | null;
@@ -523,7 +516,6 @@ export type Database = {
           institution_id: number;
           name: string;
         };
-        ComputedFields: never;
         Insert: {
           address_line?: string | null;
           campus_code: string;
@@ -594,7 +586,6 @@ export type Database = {
           updated_at: string;
           verification_state_code: string;
         };
-        ComputedFields: never;
         Insert: {
           archived_at?: string | null;
           created_at?: string;
@@ -643,7 +634,6 @@ export type Database = {
           catalog_entity_id: number;
           tag_code: string;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           tag_code: string;
@@ -680,7 +670,6 @@ export type Database = {
           region_id: number | null;
           slug: string;
         };
-        ComputedFields: never;
         Insert: {
           country_id: number;
           id?: never;
@@ -724,7 +713,6 @@ export type Database = {
           eligibility_kind: string;
           eligibility_requirement_id: number;
         };
-        ComputedFields: never;
         Insert: {
           country_id: number;
           eligibility_kind: string;
@@ -763,7 +751,6 @@ export type Database = {
           id: number;
           includes_housing: boolean;
         };
-        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min: number;
@@ -831,7 +818,6 @@ export type Database = {
           iso3: string;
           name: string;
         };
-        ComputedFields: never;
         Insert: {
           default_currency_code?: string | null;
           id?: never;
@@ -864,7 +850,6 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -885,10 +870,9 @@ export type Database = {
           created_at: string;
           id: number;
           revision: number;
-          snapshot: NonNullable<Json>;
+          snapshot: Json;
           source_claim_id: number | null;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           change_reason: string;
@@ -896,7 +880,7 @@ export type Database = {
           created_at?: string;
           id?: never;
           revision: number;
-          snapshot: NonNullable<Json>;
+          snapshot: Json;
           source_claim_id?: number | null;
         };
         Update: {
@@ -906,7 +890,7 @@ export type Database = {
           created_at?: string;
           id?: never;
           revision?: number;
-          snapshot?: NonNullable<Json>;
+          snapshot?: Json;
           source_claim_id?: number | null;
         };
         Relationships: [
@@ -937,7 +921,6 @@ export type Database = {
           timezone_name: string | null;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           date_precision?: string;
           deadline_type: string;
@@ -975,7 +958,6 @@ export type Database = {
           label: string;
           rank: number;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -995,7 +977,6 @@ export type Database = {
           delivery_mode_code: string;
           program_id: number;
         };
-        ComputedFields: never;
         Insert: {
           delivery_mode_code: string;
           program_id: number;
@@ -1041,7 +1022,6 @@ export type Database = {
           minimum_share_percent: number | null;
           program_id: number;
         };
-        ComputedFields: never;
         Insert: {
           language_code: string;
           minimum_share_percent?: number | null;
@@ -1095,7 +1075,6 @@ export type Database = {
           slug: string;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           academic_unit_id: number;
           credit_system?: string | null;
@@ -1171,7 +1150,6 @@ export type Database = {
           requirement_type: string;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           description: string;
           id: number;
@@ -1209,7 +1187,6 @@ export type Database = {
           intake_id: number | null;
           program_id: number;
         };
-        ComputedFields: never;
         Insert: {
           academic_year_start?: number | null;
           amount_max?: number | null;
@@ -1298,7 +1275,6 @@ export type Database = {
           is_refundable: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min: number;
@@ -1338,7 +1314,6 @@ export type Database = {
           minor_unit: number;
           name: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1361,7 +1336,6 @@ export type Database = {
           name: string;
           parent_id: number | null;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           id?: never;
@@ -1394,7 +1368,6 @@ export type Database = {
           scheme_code: string;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           aid_type: string;
           id: number;
@@ -1443,7 +1416,6 @@ export type Database = {
           renewal_conditions: string | null;
           scholarship_benefit_id: number;
         };
-        ComputedFields: never;
         Insert: {
           amount_max?: number | null;
           amount_min?: number | null;
@@ -1489,7 +1461,6 @@ export type Database = {
           id: number;
           institution_id: number;
         };
-        ComputedFields: never;
         Insert: {
           accreditation_code?: string | null;
           accreditation_status: string;
@@ -1541,7 +1512,6 @@ export type Database = {
           source_claim_id: number;
           translated_name: string;
         };
-        ComputedFields: never;
         Insert: {
           id?: never;
           institution_id: number;
@@ -1589,7 +1559,6 @@ export type Database = {
           school_kind: string;
           source_claim_id: number;
         };
-        ComputedFields: never;
         Insert: {
           institution_id: number;
           partnership_state?: string;
@@ -1637,7 +1606,6 @@ export type Database = {
           slug: string;
           website_url: string | null;
         };
-        ComputedFields: never;
         Insert: {
           city_id?: number | null;
           country_id: number;
@@ -1687,7 +1655,6 @@ export type Database = {
           eligibility_requirement_id: number;
           intake_id: number;
         };
-        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           intake_id: number;
@@ -1726,7 +1693,6 @@ export type Database = {
           is_active: boolean;
           name: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -1743,35 +1709,33 @@ export type Database = {
         Row: {
           is_active: boolean;
           version: string;
-          weights: NonNullable<Json>;
+          weights: Json;
         };
-        ComputedFields: never;
         Insert: {
           is_active?: boolean;
           version: string;
-          weights: NonNullable<Json>;
+          weights: Json;
         };
         Update: {
           is_active?: boolean;
           version?: string;
-          weights?: NonNullable<Json>;
+          weights?: Json;
         };
         Relationships: [];
       };
       matching_preferences: {
         Row: {
-          preferences: NonNullable<Json>;
+          preferences: Json;
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
-          preferences?: NonNullable<Json>;
+          preferences?: Json;
           updated_at?: string;
           user_id: string;
         };
         Update: {
-          preferences?: NonNullable<Json>;
+          preferences?: Json;
           updated_at?: string;
           user_id?: string;
         };
@@ -1780,7 +1744,7 @@ export type Database = {
       matching_results: {
         Row: {
           created_at: string;
-          eligibility: NonNullable<Json>;
+          eligibility: Json;
           entity_id: number;
           entity_type: string;
           preference_score: number | null;
@@ -1788,10 +1752,9 @@ export type Database = {
           run_id: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
-          eligibility: NonNullable<Json>;
+          eligibility: Json;
           entity_id: number;
           entity_type: string;
           preference_score?: number | null;
@@ -1801,7 +1764,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          eligibility?: NonNullable<Json>;
+          eligibility?: Json;
           entity_id?: number;
           entity_type?: string;
           preference_score?: number | null;
@@ -1831,18 +1794,17 @@ export type Database = {
           candidate_count: number;
           created_at: string;
           id: string;
-          preferences_snapshot: NonNullable<Json>;
+          preferences_snapshot: Json;
           profile_version: number;
           rate_slot: number;
           rules_version: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           candidate_count: number;
           created_at?: string;
           id?: string;
-          preferences_snapshot: NonNullable<Json>;
+          preferences_snapshot: Json;
           profile_version: number;
           rate_slot: number;
           rules_version: string;
@@ -1852,7 +1814,7 @@ export type Database = {
           candidate_count?: number;
           created_at?: string;
           id?: string;
-          preferences_snapshot?: NonNullable<Json>;
+          preferences_snapshot?: Json;
           profile_version?: number;
           rate_slot?: number;
           rules_version?: string;
@@ -1877,7 +1839,6 @@ export type Database = {
           scholarship_cycle_id: number;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           description: string;
           id: number;
@@ -1934,7 +1895,6 @@ export type Database = {
           source_type: string;
           updated_at: string;
         };
-        ComputedFields: never;
         Insert: {
           canonical_url: string;
           created_at?: string;
@@ -1996,7 +1956,6 @@ export type Database = {
           summary: string | null;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           cost_amount_max?: number | null;
           cost_amount_min?: number | null;
@@ -2103,7 +2062,6 @@ export type Database = {
           deadline_id: number;
           opportunity_id: number;
         };
-        ComputedFields: never;
         Insert: {
           deadline_id: number;
           opportunity_id: number;
@@ -2138,7 +2096,6 @@ export type Database = {
           rule_kind: string;
           source_claim_id: number;
         };
-        ComputedFields: never;
         Insert: {
           description: string;
           id?: never;
@@ -2181,7 +2138,6 @@ export type Database = {
           severity: string;
           source_claim_id: number;
         };
-        ComputedFields: never;
         Insert: {
           description: string;
           id?: never;
@@ -2221,7 +2177,6 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -2244,7 +2199,6 @@ export type Database = {
           subject: string | null;
           value_unit: string | null;
         };
-        ComputedFields: never;
         Insert: {
           description: string;
           eligibility_requirement_id: number;
@@ -2279,7 +2233,6 @@ export type Database = {
           is_primary: boolean;
           program_id: number;
         };
-        ComputedFields: never;
         Insert: {
           campus_id: number;
           is_primary?: boolean;
@@ -2334,7 +2287,6 @@ export type Database = {
           is_active: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -2352,7 +2304,6 @@ export type Database = {
           eligibility_requirement_id: number;
           program_id: number;
         };
-        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           program_id: number;
@@ -2398,7 +2349,6 @@ export type Database = {
           is_public: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_public?: boolean;
@@ -2411,6 +2361,98 @@ export type Database = {
         };
         Relationships: [];
       };
+      recommendation_events: {
+        Row: {
+          event_type: string;
+          id: number;
+          occurred_at: string;
+          request_id: string;
+          user_id: string;
+        };
+        Insert: {
+          event_type: string;
+          id?: never;
+          occurred_at?: string;
+          request_id: string;
+          user_id: string;
+        };
+        Update: {
+          event_type?: string;
+          id?: never;
+          occurred_at?: string;
+          request_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_events_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'recommendation_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      recommendation_requests: {
+        Row: {
+          application_id: string;
+          context: string;
+          created_at: string;
+          due_date: string | null;
+          expires_at: string;
+          id: string;
+          invited_email: string;
+          letter_document_id: string | null;
+          recommender_id: string | null;
+          status: string;
+          token_hash: string | null;
+          user_id: string;
+        };
+        Insert: {
+          application_id: string;
+          context: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id: string;
+        };
+        Update: {
+          application_id?: string;
+          context?: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email?: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_requests_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'recommendation_requests_letter_document_id_fkey';
+            columns: ['letter_document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       regions: {
         Row: {
           code: string;
@@ -2419,7 +2461,6 @@ export type Database = {
           is_active: boolean;
           name: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           country_id: number;
@@ -2452,7 +2493,6 @@ export type Database = {
           test_code: string;
           waivers_allowed: boolean;
         };
-        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           id?: never;
@@ -2486,7 +2526,7 @@ export type Database = {
       };
       roadmap_generation_runs: {
         Row: {
-          change_summary: NonNullable<Json>;
+          change_summary: Json;
           created_at: string;
           generation_version: string;
           id: string;
@@ -2495,9 +2535,8 @@ export type Database = {
           roadmap_id: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
-          change_summary?: NonNullable<Json>;
+          change_summary?: Json;
           created_at?: string;
           generation_version: string;
           id?: string;
@@ -2507,7 +2546,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
-          change_summary?: NonNullable<Json>;
+          change_summary?: Json;
           created_at?: string;
           generation_version?: string;
           id?: string;
@@ -2541,7 +2580,6 @@ export type Database = {
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           description?: string;
@@ -2600,7 +2638,6 @@ export type Database = {
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           created_at?: string;
@@ -2653,7 +2690,6 @@ export type Database = {
           task_id: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           dependency_type?: string;
@@ -2710,7 +2746,6 @@ export type Database = {
           to_status: string | null;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           event_type: string;
@@ -2785,7 +2820,6 @@ export type Database = {
           version: number;
           why_it_matters: string;
         };
-        ComputedFields: never;
         Insert: {
           completed_at?: string | null;
           created_at?: string;
@@ -2908,7 +2942,6 @@ export type Database = {
           user_id: string;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
           availability_minutes_per_week?: number;
           created_at?: string;
@@ -2951,7 +2984,6 @@ export type Database = {
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           created_at?: string;
@@ -2983,18 +3015,17 @@ export type Database = {
       saved_searches: {
         Row: {
           created_at: string;
-          filters: NonNullable<Json>;
+          filters: Json;
           fingerprint: string | null;
           id: string;
           name: string;
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
-          filters: NonNullable<Json>;
-          fingerprint?: never;
+          filters: Json;
+          fingerprint?: string | null;
           id?: string;
           name: string;
           updated_at?: string;
@@ -3002,8 +3033,8 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          filters?: NonNullable<Json>;
-          fingerprint?: never;
+          filters?: Json;
+          fingerprint?: string | null;
           id?: string;
           name?: string;
           updated_at?: string;
@@ -3021,7 +3052,6 @@ export type Database = {
           source_claim_id: number | null;
           updated_at: string;
         };
-        ComputedFields: never;
         Insert: {
           admissions_linkage?: string;
           application_method?: string;
@@ -3078,7 +3108,6 @@ export type Database = {
           to_status: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           actor_id: string;
           evidence?: string | null;
@@ -3140,7 +3169,6 @@ export type Database = {
           user_reference_id: string | null;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
           application_id?: string | null;
           created_at?: string;
@@ -3236,7 +3264,6 @@ export type Database = {
           is_in_kind: boolean;
           scholarship_cycle_id: number;
         };
-        ComputedFields: never;
         Insert: {
           coverage_item_code: string;
           coverage_percent?: number | null;
@@ -3289,7 +3316,6 @@ export type Database = {
           deadline_id: number;
           scholarship_cycle_id: number;
         };
-        ComputedFields: never;
         Insert: {
           deadline_id: number;
           scholarship_cycle_id: number;
@@ -3333,7 +3359,6 @@ export type Database = {
           opens_at: string | null;
           scholarship_id: number;
         };
-        ComputedFields: never;
         Insert: {
           academic_year_start: number;
           award_end_on?: string | null;
@@ -3386,7 +3411,6 @@ export type Database = {
           scholarship_cycle_id: number;
           source_claim_id: number | null;
         };
-        ComputedFields: never;
         Insert: {
           document_name: string;
           id?: never;
@@ -3432,7 +3456,6 @@ export type Database = {
           role: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           granted_at?: string;
           granted_by?: string | null;
@@ -3454,7 +3477,6 @@ export type Database = {
           updated_at: string;
           updated_by: string | null;
         };
-        ComputedFields: never;
         Insert: {
           note: string;
           scholarship_id: number;
@@ -3493,7 +3515,6 @@ export type Database = {
           note: string | null;
           scholarship_id: number;
         };
-        ComputedFields: never;
         Insert: {
           action: string;
           actor_id?: string | null;
@@ -3532,7 +3553,6 @@ export type Database = {
           eligibility_requirement_id: number;
           scholarship_cycle_id: number;
         };
-        ComputedFields: never;
         Insert: {
           eligibility_requirement_id: number;
           scholarship_cycle_id: number;
@@ -3575,7 +3595,6 @@ export type Database = {
           source_claim_id: number | null;
           uncovered_costs_note: string | null;
         };
-        ComputedFields: never;
         Insert: {
           annual_change_note?: string | null;
           duration_note?: string | null;
@@ -3624,7 +3643,6 @@ export type Database = {
           relationship_type: string;
           scholarship_cycle_id: number;
         };
-        ComputedFields: never;
         Insert: {
           program_id: number;
           relationship_type?: string;
@@ -3685,7 +3703,6 @@ export type Database = {
           slug: string;
           title: string;
         };
-        ComputedFields: never;
         Insert: {
           award_type: string;
           financial_aid_scheme_id?: number | null;
@@ -3753,7 +3770,6 @@ export type Database = {
           source_id: number;
           verification_state_code: string;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           claim_key: string;
@@ -3813,7 +3829,6 @@ export type Database = {
           name: string;
           score_unit: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_active?: boolean;
@@ -3837,7 +3852,6 @@ export type Database = {
           started_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           started_at?: string;
           user_id: string;
@@ -3860,7 +3874,6 @@ export type Database = {
           user_id: string;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           id?: string;
@@ -3905,7 +3918,6 @@ export type Database = {
           updated_at: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           channel?: string;
           created_at?: string;
@@ -3944,7 +3956,6 @@ export type Database = {
           opportunity_id: number;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           opportunity_id: number;
@@ -3976,7 +3987,6 @@ export type Database = {
           object_path: string;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           byte_size: number;
           category: string;
@@ -4001,20 +4011,19 @@ export type Database = {
       };
       student_profile_versions: {
         Row: {
-          document: NonNullable<Json>;
+          document: Json;
           saved_at: string;
           user_id: string;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
-          document: NonNullable<Json>;
+          document: Json;
           saved_at?: string;
           user_id: string;
           version: number;
         };
         Update: {
-          document?: NonNullable<Json>;
+          document?: Json;
           saved_at?: string;
           user_id?: string;
           version?: number;
@@ -4031,20 +4040,19 @@ export type Database = {
       };
       student_profiles: {
         Row: {
-          document: NonNullable<Json>;
+          document: Json;
           updated_at: string;
           user_id: string;
           version: number;
         };
-        ComputedFields: never;
         Insert: {
-          document?: NonNullable<Json>;
+          document?: Json;
           updated_at?: string;
           user_id: string;
           version?: number;
         };
         Update: {
-          document?: NonNullable<Json>;
+          document?: Json;
           updated_at?: string;
           user_id?: string;
           version?: number;
@@ -4057,7 +4065,6 @@ export type Database = {
           scholarship_id: number;
           user_id: string;
         };
-        ComputedFields: never;
         Insert: {
           created_at?: string;
           scholarship_id: number;
@@ -4094,7 +4101,6 @@ export type Database = {
           required_test_id: number;
           score_unit: string;
         };
-        ComputedFields: never;
         Insert: {
           component?: string;
           id?: never;
@@ -4132,7 +4138,6 @@ export type Database = {
           translated_text: string;
           updated_at: string;
         };
-        ComputedFields: never;
         Insert: {
           catalog_entity_id: number;
           created_at?: string;
@@ -4170,6 +4175,241 @@ export type Database = {
           },
         ];
       };
+      vault_documents: {
+        Row: {
+          archived_at: string | null;
+          category: string;
+          created_at: string;
+          current_version_id: string | null;
+          deleted_at: string | null;
+          display_name: string;
+          expires_at: string;
+          id: string;
+          portfolio_url: string | null;
+          purged_at: string | null;
+          purpose: string;
+          purpose_application_id: string | null;
+          sensitivity: string;
+          source_draft_id: string | null;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          archived_at?: string | null;
+          category: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name: string;
+          expires_at: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          category?: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name?: string;
+          expires_at?: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity?: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_current_version_fk';
+            columns: ['current_version_id', 'id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_purpose_application_id_user_id_fkey';
+            columns: ['purpose_application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_source_draft_id_user_id_fkey';
+            columns: ['source_draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      vault_events: {
+        Row: {
+          created_at: string;
+          document_id: string;
+          event_type: string;
+          id: number;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          document_id: string;
+          event_type: string;
+          id?: never;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          document_id?: string;
+          event_type?: string;
+          id?: never;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_events_document_id_fkey';
+            columns: ['document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      vault_links: {
+        Row: {
+          application_id: string;
+          created_at: string;
+          document_id: string;
+          id: string;
+          task_id: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        Insert: {
+          application_id: string;
+          created_at?: string;
+          document_id: string;
+          id?: string;
+          task_id?: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        Update: {
+          application_id?: string;
+          created_at?: string;
+          document_id?: string;
+          id?: string;
+          task_id?: string | null;
+          user_id?: string;
+          version_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_links_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_task_id_user_id_fkey';
+            columns: ['task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_version_id_document_id_user_id_fkey';
+            columns: ['version_id', 'document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+        ];
+      };
+      vault_versions: {
+        Row: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        Insert: {
+          byte_size: number;
+          created_at?: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at?: string;
+          object_path: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence: number;
+          sha256: string;
+          state?: string;
+          user_id: string;
+        };
+        Update: {
+          byte_size?: number;
+          created_at?: string;
+          document_id?: string;
+          extension?: string;
+          id?: string;
+          mime?: string;
+          next_scan_at?: string;
+          object_path?: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence?: number;
+          sha256?: string;
+          state?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_versions_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       verification_runs: {
         Row: {
           completed_at: string | null;
@@ -4181,7 +4421,6 @@ export type Database = {
           source_id: number;
           started_at: string;
         };
-        ComputedFields: never;
         Insert: {
           completed_at?: string | null;
           created_at?: string;
@@ -4218,7 +4457,6 @@ export type Database = {
           is_verified: boolean;
           label: string;
         };
-        ComputedFields: never;
         Insert: {
           code: string;
           is_verified?: boolean;
@@ -4230,6 +4468,97 @@ export type Database = {
           label?: string;
         };
         Relationships: [];
+      };
+      writing_drafts: {
+        Row: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: Json;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        Insert: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind: string;
+          prompt?: string;
+          rubric?: Json;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Update: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind?: string;
+          prompt?: string;
+          rubric?: Json;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_drafts_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      writing_versions: {
+        Row: {
+          created_at: string;
+          draft_id: string;
+          id: string;
+          request_id: string;
+          snapshot: Json;
+          user_id: string;
+          version: number;
+        };
+        Insert: {
+          created_at?: string;
+          draft_id: string;
+          id?: string;
+          request_id: string;
+          snapshot: Json;
+          user_id: string;
+          version: number;
+        };
+        Update: {
+          created_at?: string;
+          draft_id?: string;
+          id?: string;
+          request_id?: string;
+          snapshot?: Json;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_versions_draft_id_user_id_fkey';
+            columns: ['draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
       };
     };
     Views: {
@@ -4261,7 +4590,6 @@ export type Database = {
           starts_on: string | null;
           term_code: string | null;
         };
-        ComputedFields: never;
         Relationships: [
           {
             foreignKeyName: 'academic_units_id_fkey';
@@ -4319,7 +4647,6 @@ export type Database = {
           scholarship_source_url: string | null;
           scholarship_title: string | null;
         };
-        ComputedFields: never;
         Relationships: [
           {
             foreignKeyName: 'degree_programs_id_fkey';
@@ -4630,6 +4957,31 @@ export type Database = {
         Args: { p_catalog_entity_id: number; p_checked_at: string };
         Returns: number;
       };
+      recommendation_cancel: { Args: { p_id: string }; Returns: undefined };
+      recommendation_create: {
+        Args: {
+          p_application_id: string;
+          p_context: string;
+          p_due_date: string;
+          p_email: string;
+          p_token_hash: string;
+        };
+        Returns: string;
+      };
+      recommendation_received: {
+        Args: never;
+        Returns: {
+          context: string;
+          due_date: string;
+          expires_at: string;
+          id: string;
+          status: string;
+        }[];
+      };
+      recommendation_respond: {
+        Args: { p_accept: boolean; p_token_hash: string };
+        Returns: string;
+      };
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
         Returns: number;
@@ -4699,7 +5051,7 @@ export type Database = {
         Returns: number;
       };
       scholarship_editor_list: {
-        Args: Record<PropertyKey, never>;
+        Args: never;
         Returns: {
           id: number;
           publication_status_code: string;
@@ -4780,6 +5132,118 @@ export type Database = {
           total_count: number;
           type_counts: Json;
         }[];
+      };
+      vault_draft_origin: {
+        Args: { p_document_id: string; p_draft_id: string };
+        Returns: undefined;
+      };
+      vault_finish: {
+        Args: { p_failed?: boolean; p_version_id: string };
+        Returns: undefined;
+      };
+      vault_link: {
+        Args: {
+          p_application_id: string;
+          p_document_id: string;
+          p_remove?: boolean;
+          p_task_id: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      vault_manage: {
+        Args: { p_action: string; p_document_id: string };
+        Returns: undefined;
+      };
+      vault_portfolio: {
+        Args: { p_name: string; p_url: string };
+        Returns: string;
+      };
+      vault_reserve: {
+        Args: {
+          p_application_id: string;
+          p_category: string;
+          p_document_id: string;
+          p_extension: string;
+          p_mime: string;
+          p_name: string;
+          p_purpose: string;
+          p_recommendation_id?: string;
+          p_request_id: string;
+          p_sha256: string;
+          p_size: number;
+        };
+        Returns: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'vault_versions';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      vault_scan_result: {
+        Args: {
+          p_clean: boolean;
+          p_scanner: string;
+          p_sha256: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      writing_delete: {
+        Args: { p_expected_version: number; p_id: string };
+        Returns: undefined;
+      };
+      writing_save: {
+        Args: {
+          p_application_id: string;
+          p_content: string;
+          p_expected_version: number;
+          p_id: string;
+          p_kind: string;
+          p_prompt: string;
+          p_request_id: string;
+          p_rubric: Json;
+          p_title: string;
+          p_word_limit: number;
+        };
+        Returns: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: Json;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'writing_drafts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
     };
     Enums: {
