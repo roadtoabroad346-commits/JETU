@@ -18,9 +18,9 @@ bucket exists. No production change or Phase 20 work is authorized.
       reads/exports, immutable revisions and owner-scoped application/task links.
 - [x] Implement localized Vault and Writing vertical slices, status-only
       recommendation requests, retention controls and truthful unavailable states.
-- [ ] Attack ownership, state, invitation, MIME, revision and export boundaries;
+- [x] Attack ownership, state, invitation, MIME, revision and export boundaries;
       replay migrations, generate actual types and run release checks.
-- [ ] Update evidence/checkpoint; commit, push draft PR and verify CI/preview.
+- [x] Update evidence/checkpoint; commit, push draft PR and verify CI/preview.
 
 ## Bounded contracts and risks
 
@@ -50,3 +50,5 @@ secret/diff review, clean migration replay/type drift via existing CI.
 
 Changed-file and exact-result inventories will be recorded in
 `PHASE_19_QA_AND_RELEASE.md`; statuses remain PARTIAL until every required gate passes.
+
+Final implementation anchor `a916e70`: PR #5, green CI 40461693194 (three jobs), 163 unit/integration, 86 browser, 197 SQL assertions per replay and 29 real local Auth/Storage/browser checks. External mandatory gates remain listed in the release report.

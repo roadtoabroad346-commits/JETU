@@ -243,3 +243,10 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 
 **Status: PARTIAL.** No prior whole phase is newly VERIFIED. Do not begin Phase 20
 or promote to production while mandatory privacy gates remain open.
+
+Phase 19 final source gate: `a916e70`, draft PR #5, green CI `40461693194`.
+163 unit/integration; 86 browser cases (zero skipped); two clean DB replays,
+197 pgTAP assertions each; type drift/advisors; 29 real disposable Auth/Storage/Next
+browser checks. Ten synthetic localized/axe/retry cases also pass. This closes
+specific runtime/isolation/replay gates; real scanning, hosted/mentor/recommender,
+backups and editorial acceptance remain open. Full phase status stays **PARTIAL**.

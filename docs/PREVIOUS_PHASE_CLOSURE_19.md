@@ -36,3 +36,8 @@ Jetuu still has zero reviewed/published programs. Human review and real hosted
 application/Roadmap journeys remain mandatory. Local synthetic fixtures are never
 published admissions data. Local Docker replay hit the existing internal image-layer
 space failure; the attempt was stopped and CI is the clean-room alternative.
+
+CI 40461693194 now proves local real Auth/Storage/Next and two-browser behavior,
+plus clean replay/type parity. Former anonymous-route skips now run (86 browser
+cases, zero skipped); the 29 actual runtime checks and 197 SQL assertions per replay
+close specific historical gates without proving hosted/editorial or entire phases.

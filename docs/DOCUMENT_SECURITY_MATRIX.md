@@ -3,7 +3,7 @@
 SQL: `supabase/tests/vault.test.sql` (55 assertions) and
 `vault-associations.test.sql` (21), rollback-only on Jetuu development. These use
 synthetic SQL identities; they do not constitute GoTrue/Storage HTTP evidence.
-Unit/integration: `tests/{unit,integration}/vault.test.ts` (46 focused tests).
+Unit/integration: `tests/{unit,integration}/vault.test.ts` (47 focused tests).
 `tests/ui` is explicitly synthetic component QA. `scripts/vault-auth-test.mjs`
 uses actual disposable local GoTrue sessions, Storage HTTP and a configured Next
 browser; remote CI evidence is recorded separately in the release report.
@@ -39,3 +39,14 @@ browser; remote CI evidence is recorded separately in the release report.
 A synthetic trusted scan verdict tests state authorization only. It is never
 presented as malware-scanner evidence. No real files were uploaded to the hosted
 project during SQL probes. Mandatory unexecuted gates keep Phase 19 PARTIAL.
+
+## Actual runtime evidence
+
+CI 40461693194 on `a916e70` passed 29 real GoTrue/Storage/Next/browser checks.
+This closes local HTTP execution for anonymous listing/public access, exact-owner
+retrieval, B/mentor-role path/version and signing denial, owner signing denial,
+quarantine, real upload, MIME/signature/size validation, B draft writes/reads,
+concurrent saves, browser persistence, no-store and archive revocation. The test's
+clean verdict is synthetic authorization setup only. Hosted configuration,
+recommender/browser delivery, actual mentor grant revocation, populated application
+ZIP and real malware/backup evidence remain open as identified above.

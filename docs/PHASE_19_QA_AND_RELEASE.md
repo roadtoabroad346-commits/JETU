@@ -1,137 +1,108 @@
 # Phase 19 QA and release — 2026-10-27
 
-**PARTIAL. No production promotion.** Base `00b0be6` / draft PR #4;
-branch `codex/phase19-document-vault`. Phase 20 is untouched.
+**PARTIAL. No production promotion; Phase 20 untouched.**
 
-## Development schema
+Branch `codex/phase19-document-vault`, based on `00b0be6` / draft PR #4.
+Implementation and corrective commits: `33042da`, `f935617`, **`a916e70`**.
+Draft PR [#5](https://github.com/roadtoabroad346-commits/JETU/pull/5) remains stacked
+on #4, which remains stacked on #3/#2. Remote source SHA was verified after push.
+No unrelated branch was merged or force-pushed.
 
-Jetuu `edpuovkgoisyzpguksdi`, matching historical development authorization and
-current migration history. Additive reviewed migrations:
-`20261027053050_document_vault`, `20261027054005_vault_hardening`,
-`20261027054407_vault_integrity`, `20261027054806_vault_recovery`, `20261027055906_vault_quota_boundary`
-(all with `phase_19_` names in Git/history). Every migration rehearsed in a rollback
-transaction before application. Bucket `student-vault` remains private. Actual
-MCP types generated; pinned CI generator parity must be confirmed by the CI artifact.
+## Verified release checks
 
-SQL probes pass 55 + 21 assertions with rollback. A follow-up query confirmed zero
-Phase 19 hosted documents, drafts, recommendations or fixture users, zero public
-buckets and zero published/verified programs. Advisors: no unindexed foreign keys;
-unused indexes reflect an empty product corpus. Authenticated command-definer
-warnings are explicit bounded command boundaries; no anonymous definer grant or
-service-role browser key was added.
+[CI 40461693194](https://github.com/roadtoabroad346-commits/JETU/actions/runs/40461693194)
+on exact `a916e70989048dc12d050313fd9d126ab2fd5524`: **all three jobs passed**.
 
-## Local verification
+| Gate                      | Observed result                                                                                                  |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `npm run check`           | Format, ESLint, strict TypeScript, 163 unit/integration tests, production build pass                             |
+| Production Playwright     | 86/86 desktop/mobile Chromium cases pass; zero skips                                                             |
+| Clean database replay     | Two resets/replays; eight pgTAP suites, 197 assertions each pass                                                 |
+| Database release controls | Advisors, generated-type drift and typecheck pass                                                                |
+| Actual local Auth/Storage | 29 checks pass using real GoTrue sessions, Storage HTTP, Next API and two independent signed-in browser contexts |
+| Synthetic component QA    | 10/10; RU/KK/EN at 375/768/1440px, axe, reduced motion, overflow, quarantine and failed-upload retry             |
+| Dependencies              | Full and production-only high-severity audits: zero vulnerabilities                                              |
+| ZIP compatibility         | Standard Python ZipFile reader validates entries, CRC and Unicode payload                                        |
+| Secret/diff review        | No new credential values; existing unit secret canaries only; `git diff --check` passes                          |
 
-- `npm run check`: initial full gate passed formatting, lint, types, 162
-  unit/integration tests and production build. The final complete local gate also passed after the login/HTTP fixes.
-- Focused Vault unit/integration: 46 tests passed (file validation, resource limits,
-  XSS input, ownership/state-before-provider access, integrity, Unicode/diff, ZIP).
-- Synthetic component browser: nine RU/KK/EN cases at 375/768/1440px passed axe,
-  overflow, quarantine-disabled controls, word limit/save feedback and reduced motion.
-  Twelve actual screenshots are in `docs/evidence/phase19/*-synthetic.png`.
-  Vault desktop and Kazakh Writing mobile were visually inspected. These are
-  synthetic UI evidence, not live Auth or persistence proof.
-- Production dependency audit: zero vulnerabilities.
-- Local clean migration replay attempt failed while Docker registered the pinned
-  PostgreSQL image (`no space left on device` inside its layer store). No remote
-  reset or network restriction bypass was attempted.
-- Full browser run initially reached 82/84: the two newly unskipped dashboard checks
-  exposed the inherited unconfigured login crash. Proxy and login now fail closed
-  with an explicit unavailable sign-in state; the final rerun passed 84/84, including every formerly skipped anonymous route.
+The actual Auth/Storage job used Chrome **155.0.8059.39**. It proved owner retrieval,
+anonymous/direct-public denial, quarantine denial, B/mentor-role isolation, signing
+denial even for the owner, cross-user draft rejection, one-winner concurrent writes,
+real browser upload, MIME/signature/size rejection, private no-store downloads,
+draft save/reload and archive revocation. It printed 15 SDK/RPC assertions passed,
+then 29 total checks passed. All three temporary Auth users and their blob objects
+were removed. Its service-role clean verdict was **synthetic state-authorization
+evidence only**, never a real malware scan.
 
-## Independent runtime gate
+Ten component-only cases and twelve screenshots under `docs/evidence/phase19`
+are explicitly synthetic. Desktop Vault and Kazakh mobile Writing were visually
+inspected. These are useful UI evidence, not proof of hosted Auth or editorial data.
 
-Added `vault-auth-storage` CI job. It starts a disposable local Supabase gateway,
-GoTrue, PostgREST and Storage, obtains only local ephemeral keys in memory, creates
-confirmed test identities, signs in through actual Auth, attacks cross-user/direct
-Storage/signing/quarantine boundaries, tests concurrent writing saves, builds the
-configured app and uses two independent signed-in browser contexts. It exercises
-save/reload and authenticated download/archive. Fixtures and blobs are cleaned.
-Synthetic admin scan promotion in this test is explicitly not a malware verdict.
+## Supabase development target
 
-## Release blockers
+Jetuu **`edpuovkgoisyzpguksdi`**, matching current history and prior explicit
+development authorization. Five additive migrations, each rehearsed transactionally:
 
-- No configured/freshness-monitored real ClamAV worker, retention schedule or proven
-  object-backup restore. Hosted uploads stay quarantined until real scanning passes.
-- Hosted Auth/REST/Storage remain outside runner network policy. Full local CI can
-  prove the local runtime; it cannot prove hosted configuration or cross-device UX.
-- Mentor assignment and guardian-consent domain absent: sharing stays unavailable.
-- Recommender request/letter authorization is SQL-tested; hosted recommender browser,
-  real delivered invitations and institutional integrations remain unverified.
-- Reviewed catalog/human editorial approval and Phase 17 generation authority remain
-  open. Phase 18 populated attachment/submission regression cannot be claimed hosted.
-- Final Git/PR, CI/type parity and commit-matched preview results are recorded below
-  when observed; health or a sign-in redirect alone is not privacy acceptance.
+- `20261027053050_phase_19_document_vault`
+- `20261027054005_phase_19_vault_hardening`
+- `20261027054407_phase_19_vault_integrity`
+- `20261027054806_phase_19_vault_recovery`
+- `20261027055906_phase_19_vault_quota_boundary`
 
-## Final checkpoint
+Bucket `student-vault` is private. Hosted rollback SQL passes **55 + 21 assertions**.
+Follow-up counts: zero Phase 19 hosted documents, versions, drafts, requests or
+fixture identities; zero public buckets and zero exposed tables without RLS.
+No unindexed foreign-key advice remains. Security advice retains four older
+intentional deny-by-default INFO findings and 18 reviewed authenticated command
+SECURITY DEFINER WARNs. No anonymous definer grant or browser service key was added.
 
-Pending final local checks, remote CI and preview. Keep draft/PARTIAL until concrete
-results replace this checkpoint. See `DOCUMENT_SECURITY_MATRIX.md` for each of the
-25 adversarial requirements and bounded evidence.
+Pinned CLI types came from the exact clean CI-generated artifact, SHA-256
+`2b553b96dfd0b6ae33a4fe090d6577fb7a9beded41fdebc6459d37a13bcfb7e9`.
+The first CI correctly caught MCP/CLI ComputedFields/JSON-nullability shape drift;
+the actual artifact replaced that output, and successor drift gates pass unchanged.
+Local replay could not start because Docker's internal image-layer store ran out
+of space; the two successful clean CI replays provide the independent alternative.
 
-Final local `npm run check` passed formatting/lint/types/162 tests/build after fixes. The final synthetic UI rerun passed all nine cases. The final production-browser run passed 84/84 with zero skips.
+## Preview
 
-Final invitation redirect/hash-change regression: 2/2 desktop/mobile cases passed
-after preserving a validated invitation through sign-in and clearing stale/invalid
-fragment values. The suite now contains 86 cases; the full 84-case run plus the
-new two-case production-build regression passed locally.
+Exact source commit `a916e70` reached READY as
+`dpl_FaamwgZyYFdYmXoaJh6mXudULAeL`:
+<https://jetu-phase13-preview-omt50cqyx-impact-hub.vercel.app>.
+Team `Impact hub`, project `jetu-phase13-preview`, Git source branch matches,
+`target: null` (preview). Commit-matched protected smoke returned health 200; `/en/vault` and `/kk/writing` returned localized sign-in HTML with private/no-store caching. A Vercel-protected API fetch
+remained 401 at the sharing redirect; this is not claimed as application Auth proof.
+No protection setting was disabled and no production domain was promoted.
 
-### Remote checkpoint — implementation `33042da`
+## Prior closure and review fixes
 
-Draft PR [#5](https://github.com/roadtoabroad346-commits/JETU/pull/5), stacked on #4.
-CI [40458999685](https://github.com/roadtoabroad346-commits/JETU/actions/runs/40458999685):
-frontend passed; both clean migration replays and all eight pgTAP suites passed
-197 assertions each. The database job then correctly failed type drift because
-MCP and the pinned CLI generator differ in ComputedFields/JSON nullability.
-The exact CI-generated artifact (SHA-256
-`2b553b96dfd0b6ae33a4fe090d6577fb7a9beded41fdebc6459d37a13bcfb7e9`)
-was downloaded, checked and adopted unchanged; no drift gate was weakened.
+- Fixed the inherited unconfigured sign-in crash and removed obsolete anonymous
+  route skips; anonymous protected routes and login recovery now have real tests.
+- Fixed Phase 18 audit triggers blocking legitimate Auth-owner metadata cascades,
+  retaining append-only enforcement while the owner exists. Storage cleanup remains
+  a separate required prior step; account/backups erasure is not claimed.
+- Bound idempotency to every upload argument, fixed null-version CAS bypass and
+  included the pending file in the hard byte budget. Scanner definitions must be
+  present and no more than seven days old before promotion.
+- Failed-upload replays preserve input and prepare a new version; they cannot show
+  quarantine success. Browser failures in early CI were diagnosed as strict label
+  selectors and corrected to accessible roles without relaxing the content assertions.
+- Corrected stale Phase 13/14/18 tracker BACKLOG labels to evidenced PARTIAL.
+  **No previous whole phase was newly marked VERIFIED.**
 
-Vercel `dpl_BmpWFBYTDjxrvUtsXRJR5JcXo2sK` for exact `33042da` is READY at
-<https://jetu-phase13-preview-i43lvebym-impact-hub.vercel.app>. Connected protected
-fetch: health 200; `/en/vault` and `/ru/writing` returned localized sign-in HTML
-with private/no-store caching. `/api/vault` remained blocked by Vercel protection
-(401 at share-link redirect), so no hosted authenticated API evidence is claimed.
+## Mandatory open gates
 
-Additional worker hardening rejects absent, invalid or more than seven-day-old
-ClamAV definitions. A focused freshness regression passed. Final local complete
-check now passes **163** unit/integration tests plus formatting, lint, types and
-production build. The real local Auth/Storage CI job is still pending at this
-checkpoint; observe its actual outcome before advancing evidence.
+1. Configure a trusted real ClamAV worker with freshclam/alerts, scan processing and
+   retention/purge scheduling. Hosted files must remain quarantined until it passes.
+2. Configure and exercise separate blob backup/restore and documented recovery
+   windows; database backups do not establish object recovery or full erasure.
+3. Execute hosted two-user/recommender Auth/Storage and cross-device journeys. The
+   runner's hosted network restriction remains; real local CI is clearly distinguished.
+4. Establish verified mentor assignments and exact consent/expiry/revocation before
+   sharing. Current mentor sharing is unavailable, with no reusable URLs issued.
+5. Obtain actual human-reviewed catalog data and verify populated application/Roadmap
+   attachments/readiness/submission regressions. Phase 17 generation-text authority
+   remains an independent blocker. Never self-publish the staged Pearson records.
 
-### Runtime diagnosis before corrective push
-
-The first actual local GoTrue/Storage job reached browser login, proving that all
-15 preceding real-session Storage/metadata/signing/quarantine/draft/concurrent-save
-assertions had passed. Browser automation then timed out on an exact label query:
-the shared Field includes a required asterisk. Reproduced locally with configured
-SSR: exact `getByLabel('Email address')` found zero, the exact accessible textbox
-role found one. Corrected that selector and the password-label matcher without
-changing application authorization or weakening a security assertion. The complete
-browser journey still requires the successor CI verdict.
-
-The ZIP export was also opened by Python's standard ZipFile reader: both entries,
-CRC validation and a Unicode text payload passed. No student data was used.
-
-### Corrective validation
-
-CI [40460380110](https://github.com/roadtoabroad346-commits/JETU/actions/runs/40460380110)
-on `f935617` passed frontend and the complete database gate, including both 197-assertion
-replays, advisors, exact generated-type drift and typecheck. Its runtime browser
-job is being observed separately.
-
-Additional review fixed a client feedback defect: an idempotent replay with a stored
-`failed` upload must preserve the selected file and prepare a new version, rather
-than display a quarantine success. The dedicated synthetic retry regression passes;
-the full localized component suite now passes **10/10**. The runtime test additionally
-exercises actual browser upload, authenticated MIME/size rejection and quarantine
-API denial. Its CI browser setup selects an installed system Chrome when available,
-with the standard Playwright installation as a fallback.
-
-The second runtime run reached real browser sign-in, private Vault download, draft
-save and the persisted draft list after refresh. Its final text read hit another
-exact-label locator issue: a textarea's initial value participates in Playwright's
-label-text matching. A minimal Chromium reproduction returned zero exact label
-matches and one exact accessible textbox-role match. Corrected the read/fill
-locator to the semantic textbox role. The successor gate retains the same strict
-content assertion and adds the real upload validation checks above.
+Contracts and all 25 attack requirements: `DOCUMENT_SECURITY_MATRIX.md`,
+`DOCUMENT_VAULT_ARCHITECTURE.md`, `DOCUMENT_RETENTION_AND_SHARING.md`,
+`WRITING_WORKSPACE_CONTRACTS.md` and `PREVIOUS_PHASE_CLOSURE_19.md`.

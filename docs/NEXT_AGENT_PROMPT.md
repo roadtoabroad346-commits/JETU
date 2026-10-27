@@ -1,46 +1,51 @@
 # Resume Phase 19 — PARTIAL, 2026-10-27
 
-Branch `codex/phase19-document-vault`, based on `00b0be6` / draft PR #4. Read
-`PHASE_19_QA_AND_RELEASE.md`, `DOCUMENT_VAULT_ARCHITECTURE.md`,
-`DOCUMENT_SECURITY_MATRIX.md`, `PREVIOUS_PHASE_CLOSURE_19.md` and exact Master
-Phase 19. Preserve draft status and do not begin Phase 20.
+Start at the latest head of `codex/phase19-document-vault`, draft PR #5 stacked on
+#4/#3/#2. The implementation source anchor is **`a916e70`**. Read exact Master
+Phase 19, `PHASE_19_QA_AND_RELEASE.md`, `DOCUMENT_VAULT_ARCHITECTURE.md`,
+`DOCUMENT_SECURITY_MATRIX.md` and `PREVIOUS_PHASE_CLOSURE_19.md`. Do not begin
+Phase 20, merge the draft stack or promote production while mandatory gates remain.
 
-Jetuu development `edpuovkgoisyzpguksdi` has five additive Phase 19 migrations
-through `20261027055906`; bucket `student-vault` is private. Actual types generated;
-CI generator parity is an explicit gate. Seventy-six rollback SQL assertions passed,
-with no hosted documents/drafts/requests/test identities left. Authenticated command
-RPC advisor warnings are bounded, reviewed operations; no anonymous promotion.
+## Proven checkpoint
 
-Vault/Writing/app attachments/recommendation status are implemented. No scanner,
-retention schedule or object backup is configured: files remain quarantined until
-an actual trusted scanner passes. Mentor sharing is disabled without assignments
-and consent. Recommendation invitations are manual/unsent, email-bound, single-use
-and seven-day. Letters belong to recommenders and never enter student attachments.
+CI **40461693194** on `a916e70989048dc12d050313fd9d126ab2fd5524`: all three jobs pass.
+163 unit/integration tests + format/lint/types/build; 86 production-browser cases,
+zero skips; two clean DB replays with 197 pgTAP assertions each; advisors/type drift;
+29 actual disposable GoTrue/Storage/Next/two-browser checks, including real upload,
+MIME/size failure, quarantine and owner isolation, draft save/reload and archive
+revocation. Ten separate synthetic UI cases pass three locales/widths/axe/reduced
+motion and failed-upload retry. See the release report for exact job and preview IDs.
 
-`node scripts/vault-worker.mjs` needs a trusted private secret and ClamAV;
-`--purge-only` separates cleanup from scanning. Do not run it against existing
-student data without verifying target/recovery and policy. Local DB commands remain
-strictly local. New `start-vault-tests` starts an ephemeral Auth/Storage subset for
-`scripts/vault-auth-test.mjs`; no hosted credentials are used by CI. Read final
-remote job results in the release report before asserting runtime verification.
+Jetuu development **`edpuovkgoisyzpguksdi`** is synchronized through
+`20261027055906_phase_19_vault_quota_boundary`; five new migrations and private
+`student-vault` bucket. Hosted rollback SQL: 76 assertions, zero fixtures remain.
+Types are the actual pinned CI output; never hand-write them or weaken drift checks.
+The local Docker image-layer store failed; CI provides the clean replay evidence.
 
-Local `npm run check` initially passed 162 tests/build. Nine component-only browser
-cases passed three locales at phone/tablet/desktop, axe and reduced motion; screenshots
-are explicitly synthetic. Later review repaired inherited no-env sign-in and account
-cascade defects; final gate results supersede initial counts. The dedicated local
-Auth CI job is intended to prove actual GoTrue/Storage/browser flows; it does not
-replace hosted evidence or actual malware scanning. Local image-layer replay failed.
+No earlier whole phase was upgraded to VERIFIED. No-env sign-in, Phase 18 erasure
+trigger, idempotency/null-CAS/quota and upload feedback defects were repaired.
+The Phase 13/14/18 stale BACKLOG entries are now honest PARTIAL labels.
 
-Remaining mandatory gates: real scanner freshness/processing, scheduled purging,
-separate blob backup/restore, hosted two-user/recommender tests, verified mentor
-assignment/consent before sharing, real reviewed catalog and populated Roadmap/app
-journeys. Phase 17 generation text authority remains independently unresolved.
-Never self-approve/publish the draft Pearson data to unlock screenshots.
+## Remaining work, narrowly bounded
 
-Remote implementation checkpoint: `33042da`, draft PR #5. CI 40458999685 passed
-frontend and 197 pgTAP assertions per each of two clean replays, then exposed
-MCP/CLI type-shape drift. The exact generated CI artifact has now replaced local
-types; do not hand-write them. A later corrective commit must pass the same gate.
-Preview for `33042da` is READY and anonymous Vault/Writing show sign-in with no-store.
-The actual local Auth/Storage job outcome is not yet known in this checkpoint.
-Final local checks include 163 tests after scanner-definition freshness hardening.
+- No real scanner or purge schedule is configured. Uploaded hosted files remain
+  quarantined. `scripts/vault-worker.mjs` requires a private worker credential and
+  ClamAV definitions under seven days old; `--purge-only` separates deletion from
+  scanner availability. Configure freshclam/monitoring and prove scan outcomes.
+- Establish and exercise independent object backup/restore and recovery windows.
+- Run actual hosted two-user/recommender/cross-device journeys. Local CI used real
+  Auth/Storage but a synthetic administrative scan verdict; it is not malware or
+  hosted environment evidence. Do not fabricate credentials or bypass network policy.
+- No mentor assignment/guardian-consent model exists: sharing stays unavailable.
+  Require real assignment, exact consent, purpose, expiry and revoke proof first.
+- Recommendation tokens are 256-bit, email-confirmed, single-use and seven-day.
+  Invitations are manual/unsent; letters belong only to recommenders. Students see
+  statuses, never sealed blobs. Do not auto-email or submit to universities.
+- Human editorial review and the populated application/Roadmap flow remain open:
+  development still has zero reviewed/published programs. Never self-approve the
+  Pearson/Toronto sample. Phase 17 generation-text authority remains unresolved.
+
+Keep `scripts/db.mjs` local-only. `start-vault-tests` and
+`scripts/vault-auth-test.mjs` use an ephemeral local gateway and temporary identities;
+no hosted secrets enter CI. A Storage cleanup must precede Auth deletion with the
+account-deletion marker held. No live worker or destructive purge was run here.
