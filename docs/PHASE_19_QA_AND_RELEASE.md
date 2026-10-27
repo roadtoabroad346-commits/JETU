@@ -75,3 +75,40 @@ Final invitation redirect/hash-change regression: 2/2 desktop/mobile cases passe
 after preserving a validated invitation through sign-in and clearing stale/invalid
 fragment values. The suite now contains 86 cases; the full 84-case run plus the
 new two-case production-build regression passed locally.
+
+### Remote checkpoint — implementation `33042da`
+
+Draft PR [#5](https://github.com/roadtoabroad346-commits/JETU/pull/5), stacked on #4.
+CI [40458999685](https://github.com/roadtoabroad346-commits/JETU/actions/runs/40458999685):
+frontend passed; both clean migration replays and all eight pgTAP suites passed
+197 assertions each. The database job then correctly failed type drift because
+MCP and the pinned CLI generator differ in ComputedFields/JSON nullability.
+The exact CI-generated artifact (SHA-256
+`2b553b96dfd0b6ae33a4fe090d6577fb7a9beded41fdebc6459d37a13bcfb7e9`)
+was downloaded, checked and adopted unchanged; no drift gate was weakened.
+
+Vercel `dpl_BmpWFBYTDjxrvUtsXRJR5JcXo2sK` for exact `33042da` is READY at
+<https://jetu-phase13-preview-i43lvebym-impact-hub.vercel.app>. Connected protected
+fetch: health 200; `/en/vault` and `/ru/writing` returned localized sign-in HTML
+with private/no-store caching. `/api/vault` remained blocked by Vercel protection
+(401 at share-link redirect), so no hosted authenticated API evidence is claimed.
+
+Additional worker hardening rejects absent, invalid or more than seven-day-old
+ClamAV definitions. A focused freshness regression passed. Final local complete
+check now passes **163** unit/integration tests plus formatting, lint, types and
+production build. The real local Auth/Storage CI job is still pending at this
+checkpoint; observe its actual outcome before advancing evidence.
+
+### Runtime diagnosis before corrective push
+
+The first actual local GoTrue/Storage job reached browser login, proving that all
+15 preceding real-session Storage/metadata/signing/quarantine/draft/concurrent-save
+assertions had passed. Browser automation then timed out on an exact label query:
+the shared Field includes a required asterisk. Reproduced locally with configured
+SSR: exact `getByLabel('Email address')` found zero, the exact accessible textbox
+role found one. Corrected that selector and the password-label matcher without
+changing application authorization or weakening a security assertion. The complete
+browser journey still requires the successor CI verdict.
+
+The ZIP export was also opened by Python's standard ZipFile reader: both entries,
+CRC validation and a Unicode text payload passed. No student data was used.

@@ -69,3 +69,8 @@ prevents later promotion. No recommender letter is exported through student ZIPs
 
 No verified mentor assignment/guardian-consent domain exists at this baseline.
 Mentor sharing is explicitly unavailable; role labels alone grant nothing.
+
+The worker additionally refuses absent/invalid ClamAV database dates and definitions
+older than seven days (or more than five minutes in the future). Keep freshclam and
+operational alerts configured before enabling the worker; unit freshness fixtures
+are not an executed malware scan.

@@ -250,6 +250,14 @@ try {
     concurrent.filter((r) => !r.error).length === 1,
     'parallel authenticated writes preserve one revision',
   );
+  console.log(
+    JSON.stringify({
+      stage: 'real-auth-storage-rpc',
+      checks,
+      status: 'passed',
+      environment: 'disposable local',
+    }),
+  );
   // Actual browser -> Next -> GoTrue/REST -> persisted writing, with no fixture API routes.
   const env = {
     ...process.env,
@@ -291,9 +299,9 @@ try {
     const page = await context.newPage();
     await page.goto('http://127.0.0.1:3300/en/login');
     await page
-      .getByLabel('Email address', { exact: true })
+      .getByRole('textbox', { name: 'Email address', exact: true })
       .fill(identity.email);
-    await page.getByLabel('Password', { exact: true }).fill(identity.password);
+    await page.getByLabel(/^Password/).fill(identity.password);
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
     await page.waitForURL('**/en/dashboard');
     return page;

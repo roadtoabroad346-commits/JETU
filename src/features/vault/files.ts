@@ -112,3 +112,11 @@ export function validateFile(
     displayName: safeName(name),
   };
 }
+
+/** Fail closed when a ClamAV database is absent, stale or implausibly future-dated. */
+export function scannerDatabaseFresh(version: string, now: number) {
+  if (!version.startsWith('ClamAV ')) return false;
+  const date = Date.parse(version.split('/').slice(2).join('/'));
+  const age = now - date;
+  return Number.isFinite(date) && age >= -300000 && age <= 7 * 86400000;
+}

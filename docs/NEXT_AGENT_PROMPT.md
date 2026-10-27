@@ -36,3 +36,11 @@ separate blob backup/restore, hosted two-user/recommender tests, verified mentor
 assignment/consent before sharing, real reviewed catalog and populated Roadmap/app
 journeys. Phase 17 generation text authority remains independently unresolved.
 Never self-approve/publish the draft Pearson data to unlock screenshots.
+
+Remote implementation checkpoint: `33042da`, draft PR #5. CI 40458999685 passed
+frontend and 197 pgTAP assertions per each of two clean replays, then exposed
+MCP/CLI type-shape drift. The exact generated CI artifact has now replaced local
+types; do not hand-write them. A later corrective commit must pass the same gate.
+Preview for `33042da` is READY and anonymous Vault/Writing show sign-in with no-store.
+The actual local Auth/Storage job outcome is not yet known in this checkpoint.
+Final local checks include 163 tests after scanner-definition freshness hardening.

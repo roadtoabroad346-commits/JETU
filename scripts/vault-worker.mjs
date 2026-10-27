@@ -8,7 +8,10 @@ import { promisify } from 'node:util';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { validateFile } from '../src/features/vault/files.ts';
+import {
+  scannerDatabaseFresh,
+  validateFile,
+} from '../src/features/vault/files.ts';
 
 const run = promisify(execFile);
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -29,6 +32,10 @@ if (!process.argv.includes('--purge-only')) {
     timeout: 10000,
     maxBuffer: 1024,
   });
+  if (!scannerDatabaseFresh(version.stdout.trim(), Date.now()))
+    throw new Error(
+      'Scanner definitions absent, stale or invalid; quarantine retained',
+    );
   const scanner = version.stdout.trim().slice(0, 120);
   if (!scanner.startsWith('ClamAV ')) throw new Error('Unsupported scanner');
   const now = new Date().toISOString();

@@ -4,6 +4,7 @@ import {
   FileValidationError,
   MAX_FILE_BYTES,
   safeName,
+  scannerDatabaseFresh,
   validateFile,
 } from '@/features/vault/files';
 import { zipExport } from '@/features/vault/zip';
@@ -221,4 +222,18 @@ describe('export and writing', () => {
     };
     expect(writingSaveSchema.safeParse(d).success).toBe(false);
   });
+});
+
+it('requires a recent actual ClamAV signature database before promotion', () => {
+  const date = Date.parse('2026-10-27T00:00:00Z');
+  expect(
+    scannerDatabaseFresh('ClamAV 1.4.3/28000/Tue Oct 27 00:00:00 2026', date),
+  ).toBe(true);
+  for (const v of [
+    'ClamAV 1.4.3',
+    'ClamAV 1.4.3/28000/invalid',
+    'ClamAV 1.4.3/28000/Tue Oct 01 00:00:00 2024',
+    'FakeScanner/28000/Tue Oct 27 00:00:00 2026',
+  ])
+    expect(scannerDatabaseFresh(v, date)).toBe(false);
 });
