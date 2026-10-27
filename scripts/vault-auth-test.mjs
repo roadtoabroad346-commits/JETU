@@ -264,6 +264,7 @@ try {
     NEXT_PUBLIC_SUPABASE_URL: config.API_URL,
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: publicKey,
     NEXT_PUBLIC_APP_URL: 'http://127.0.0.1:3300',
+    SUPABASE_SECRET_KEY: config.SECRET_KEY,
   };
   const build = spawnSync('npm', ['run', 'build'], {
     cwd: root,
@@ -308,6 +309,119 @@ try {
   }
   const pa = await login(ca, identities[0]),
     pb = await login(cb, identities[1]);
+  // Phase 17: actual local Auth -> Next -> trusted generation, no published catalog fixtures.
+  const roadmapHeaders = { origin: 'http://127.0.0.1:3300' };
+  const generatedResponse = await ca.request.post(
+    'http://127.0.0.1:3300/api/roadmaps',
+    {
+      headers: roadmapHeaders,
+      data: {
+        locale: 'en',
+        cycleYear: 2027,
+        timezone: 'Asia/Almaty',
+        availabilityMinutesPerWeek: 300,
+        targetIds: [],
+      },
+    },
+  );
+  ok(
+    generatedResponse.ok(),
+    'trusted Next generation succeeds with real local Auth',
+  );
+  const roadmapState = (
+    await (await ca.request.get('http://127.0.0.1:3300/api/roadmaps')).json()
+  ).data;
+  const generatedTask = roadmapState.tasks.find(
+    (t) => t.origin === 'generated',
+  );
+  assert.ok(generatedTask, 'missing-profile roadmap creates actual tasks');
+  ok(
+    Boolean(
+      (
+        await a.rpc('roadmap_apply_generation', {
+          p_user_id: identities[0].id,
+          p_cycle_year: 2027,
+          p_timezone_name: 'Asia/Almaty',
+          p_availability_minutes_per_week: 300,
+          p_generation_version: 'roadmap-v1',
+          p_input_hash: 'a'.repeat(64),
+          p_profile_version: null,
+          p_targets: [],
+          p_milestones: [],
+          p_tasks: [],
+          p_dependencies: [],
+        })
+      ).error,
+    ),
+    'real authenticated transport cannot invoke trusted generation directly',
+  );
+  ok(
+    Boolean(
+      (
+        await a
+          .from('roadmap_tasks')
+          .update({
+            title: 'Forged generation',
+            version: generatedTask.version + 1,
+          })
+          .eq('id', generatedTask.id)
+      ).error,
+    ),
+    'real owner cannot forge generated text through REST',
+  );
+  const patched = await ca.request.patch(
+    `http://127.0.0.1:3300/api/roadmaps/tasks/${generatedTask.id}`,
+    {
+      headers: roadmapHeaders,
+      data: {
+        version: generatedTask.version,
+        note: 'Actual local persistence check',
+        targetDate: '2027-01-02',
+      },
+    },
+  );
+  ok(patched.ok(), 'owner edits remain available through actual Next API');
+  const otherRoadmap = (
+    await (await cb.request.get('http://127.0.0.1:3300/api/roadmaps')).json()
+  ).data;
+  ok(
+    otherRoadmap.roadmap === null && otherRoadmap.tasks.length === 0,
+    'second actual Auth owner cannot read first roadmap',
+  );
+  ok(
+    (
+      await cb.request.patch(
+        `http://127.0.0.1:3300/api/roadmaps/tasks/${generatedTask.id}`,
+        {
+          headers: roadmapHeaders,
+          data: {
+            version: generatedTask.version + 1,
+            note: 'Cross-user tamper',
+          },
+        },
+      )
+    ).status() === 404,
+    'second actual Auth owner cannot modify first roadmap',
+  );
+  const secondDevice = await browser.newContext();
+  const secondPage = await login(secondDevice, identities[0]);
+  await secondPage.goto('http://127.0.0.1:3300/en/plan');
+  await secondPage.reload();
+  const persistedRoadmap = (
+    await (
+      await secondDevice.request.get('http://127.0.0.1:3300/api/roadmaps')
+    ).json()
+  ).data;
+  ok(
+    persistedRoadmap.tasks.some(
+      (t) =>
+        t.id === generatedTask.id &&
+        t.note === 'Actual local persistence check' &&
+        t.targetDate === '2027-01-02',
+    ),
+    'independent browser session and refresh preserve roadmap edits',
+  );
+  await secondDevice.close();
   await pa.goto('http://127.0.0.1:3300/en/vault');
   await pa.getByRole('button', { name: /Synthetic essay.txt/ }).waitFor();
   checks++;

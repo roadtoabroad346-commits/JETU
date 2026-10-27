@@ -1,3 +1,14 @@
+# Current request — Phase 17 repair, local only, 2026-10-27
+
+Continue `codex/phase17-completion`, based on PR #5 head `3118aea`. Read
+`PHASE_17_COMPLETION_REVIEW.md` and `PHASE_17_DEPLOYMENT_PLAN.md` first.
+Authority/direct-write/regeneration fixes are local. The new additive migration is
+not on Jetuu development; no push/PR/deploy was authorized or executed. Do not
+restore insecure authenticated generation or mark the whole phase VERIFIED.
+Preserve Phases 18/19 and the draft #2→#3→#4→#5 stack. Exact-head CI, generated-type
+drift, real local Auth/browser tests and remaining master/editorial/hosted gates
+must be closed explicitly. The continuation below is historical Phase 19 context.
+
 # Resume Phase 19 — PARTIAL, 2026-10-27
 
 Start at the latest head of `codex/phase19-document-vault`, draft PR #5 stacked on

@@ -9,7 +9,12 @@ scholarship remain `draft`/`needs_review`; zero are published. Phase 16 remains
 **PARTIAL**. Details: `DESIGN_AUDIT.md`, `PRODUCT_QA_REPORT.md`, and
 `PHASE_16_RELEASE_AUDIT.md`.
 
-Current request state: **Phase 17 PARTIAL**. The roadmap engine, private schema, dependency rules, localized views and APIs are implemented. Development migrations are applied. Hosted Auth/REST, reviewed targets, cross-device persistence and generation authority remain release blockers. Earlier phase labels are preserved.
+Current request state: **Phase 17 PARTIAL — local repair prepared on 2026-10-27**.
+Server-only generation authority, direct-write guards and completed-graph regeneration
+are repaired locally and SQL-tested; the cloud still has the old RPC. No whole earlier
+phase is upgraded. Master feature/hosted/editorial/UI/type-drift gates remain explicit
+in `PHASE_17_COMPLETION_REVIEW.md`; external synchronization requires approval under
+`PHASE_17_DEPLOYMENT_PLAN.md`. Phase 19 work and its independent blockers are preserved.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |
 | ----- | ---------------------------------------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -29,7 +34,7 @@ Current request state: **Phase 17 PARTIAL**. The roadmap engine, private schema,
 | 14    | Global Opportunities Hub, школы и extracurriculars               | PARTIAL                    | Recovered opportunities schema/routes/tests; full source and real-user acceptance unverified                                                                                                   |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | PARTIAL                    | Programs/scholarships/opportunities search, private saves and 2–4 program compare implemented; cloud SQL/RLS/10k benchmark and local UI checks pass; live corpus/REST/deploy gates remain open |
 | 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking and development RLS tests; one unpublished program/scholarship staged, zero reviewed/published, no hosted Auth/REST E2E                                            |
-| 17    | Personalized Roadmap & Gap-to-Action Planner                     | PARTIAL                    | Engine, private schema, localized views and development migrations; live/Auth/security gates open. See PHASE_17_QA.md                                                                          |
+| 17    | Personalized Roadmap & Gap-to-Action Planner                     | PARTIAL                    | Local authority/regeneration repair with SQL regression proof; master feature, hosted/editorial/UI and exact-CI gates remain. See PHASE_17_COMPLETION_REVIEW.md                                |
 | 18    | Admissions Application CRM: от draft до enrollment               | PARTIAL                    | Application CRM recovered from PR #4; audit erasure fix SQL-tested; hosted/editorial gates open                                                                                                |
 | 19    | Secure Supabase Document Vault & Writing Workspace               | PARTIAL                    | Private Vault/Writing; 79 rollback SQL assertions; scanning/hosted/mentor gates open                                                                                                           |
 | 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |

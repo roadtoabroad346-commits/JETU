@@ -1,5 +1,7 @@
 import 'server-only';
 import { createHash } from 'node:crypto';
+// eslint-disable-next-line no-restricted-imports -- Reviewed server-only generation boundary; identity is revalidated before use.
+import { createAdminSupabaseClient } from '@/lib/supabase/admin';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@/lib/supabase/database.types';
 import {
@@ -510,6 +512,10 @@ export async function generateAndPersistRoadmap(
     targetIds: number[];
   },
 ) {
+  // Revalidate identity at the privileged boundary; never trust a caller-supplied owner.
+  const { data: identity, error: authError } = await client.auth.getUser();
+  if (authError || !identity.user || identity.user.id !== userId)
+    throw new RoadmapValidationError('Authenticated owner required.');
   const { state, recommendations } = await selectedRecommendations(
     client,
     userId,
@@ -567,23 +573,29 @@ export async function generateAndPersistRoadmap(
   const inputHash = createHash('sha256')
     .update(JSON.stringify(stableInput))
     .digest('hex');
-  const result = await loose(client).rpc('roadmap_apply_generation', {
-    p_cycle_year: input.cycleYear,
-    p_timezone_name: input.timezone,
-    p_availability_minutes_per_week: input.availabilityMinutesPerWeek,
-    p_generation_version: ROADMAP_GENERATION_VERSION,
-    p_input_hash: inputHash,
-    p_profile_version: state.profileVersion,
-    p_targets: targets.map((target) => ({
-      catalogEntityId: target.catalogEntityId,
-      targetType: target.targetType,
-      title: target.title,
-      detailPath: target.detailPath,
-    })),
-    p_milestones: generated.milestones,
-    p_tasks: generated.tasks,
-    p_dependencies: generated.dependencies,
-  });
+  const result = await loose(createAdminSupabaseClient()).rpc(
+    'roadmap_apply_generation',
+    {
+      p_user_id: identity.user.id,
+      p_cycle_year: input.cycleYear,
+      p_timezone_name: input.timezone,
+      p_availability_minutes_per_week: input.availabilityMinutesPerWeek,
+      p_generation_version: ROADMAP_GENERATION_VERSION,
+      p_input_hash: inputHash,
+      p_profile_version: state.profileVersion,
+      p_targets: targets.map((target) => ({
+        catalogEntityId: target.catalogEntityId,
+        targetType: target.targetType,
+        title: target.title,
+        detailPath: target.detailPath,
+      })),
+      p_milestones: generated.milestones,
+      p_tasks: generated.tasks,
+      p_dependencies: generated.dependencies,
+    },
+  );
+  if (result.error?.code === '23514' || result.error?.code === '40001')
+    throw new RoadmapConflict();
   throwOn(result.error);
   return result.data;
 }

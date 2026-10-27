@@ -226,3 +226,17 @@ No production promotion or Phase 17 work follows from the staging step.
 48. **Account erasure must pass audit triggers.** Phase 18's unconditional mutation
     rejection was corrected for an already-removed Auth owner only. Storage cleanup
     remains an independent prior step; backups need a separately tested policy.
+
+## Phase 17 repair — 2026-10-27
+
+49. **Generated facts belong to the trusted server.** Revalidate Auth identity before
+    the isolated admin writer; restrict the generation RPC to service_role. Keep
+    owner edits under RLS. No private-schema grant or user-metadata authorization.
+50. **Regeneration is a graph transaction.** Replace generated edges before task
+    reconciliation, preserve retained completion/overrides/manual work, and roll
+    back graphs that invalidate completed prerequisites. Do not report success on
+    an incomplete generation.
+51. **Current local proof is distinct from hosted proof.** Embedded PostgreSQL can
+    verify SQL with synthetic provider schemas; it cannot establish GoTrue/Storage,
+    hosted two-user acceptance, human editorial decisions or exact-head CI parity.
+    Keep the complete phase PARTIAL and require approval for external changes.
