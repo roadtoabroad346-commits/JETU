@@ -2411,6 +2411,100 @@ export type Database = {
         };
         Relationships: [];
       };
+      recommendation_events: {
+        Row: {
+          event_type: string;
+          id: number;
+          occurred_at: string;
+          request_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          event_type: string;
+          id?: never;
+          occurred_at?: string;
+          request_id: string;
+          user_id: string;
+        };
+        Update: {
+          event_type?: string;
+          id?: never;
+          occurred_at?: string;
+          request_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_events_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'recommendation_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      recommendation_requests: {
+        Row: {
+          application_id: string;
+          context: string;
+          created_at: string;
+          due_date: string | null;
+          expires_at: string;
+          id: string;
+          invited_email: string;
+          letter_document_id: string | null;
+          recommender_id: string | null;
+          status: string;
+          token_hash: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id: string;
+          context: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id: string;
+        };
+        Update: {
+          application_id?: string;
+          context?: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email?: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_requests_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'recommendation_requests_letter_document_id_fkey';
+            columns: ['letter_document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       regions: {
         Row: {
           code: string;
@@ -4170,6 +4264,245 @@ export type Database = {
           },
         ];
       };
+      vault_documents: {
+        Row: {
+          archived_at: string | null;
+          category: string;
+          created_at: string;
+          current_version_id: string | null;
+          deleted_at: string | null;
+          display_name: string;
+          expires_at: string;
+          id: string;
+          portfolio_url: string | null;
+          purged_at: string | null;
+          purpose: string;
+          purpose_application_id: string | null;
+          sensitivity: string;
+          source_draft_id: string | null;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          category: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name: string;
+          expires_at: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          category?: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name?: string;
+          expires_at?: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity?: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_current_version_fk';
+            columns: ['current_version_id', 'id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_purpose_application_id_user_id_fkey';
+            columns: ['purpose_application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_source_draft_id_user_id_fkey';
+            columns: ['source_draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      vault_events: {
+        Row: {
+          created_at: string;
+          document_id: string;
+          event_type: string;
+          id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          document_id: string;
+          event_type: string;
+          id?: never;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          document_id?: string;
+          event_type?: string;
+          id?: never;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_events_document_id_fkey';
+            columns: ['document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      vault_links: {
+        Row: {
+          application_id: string;
+          created_at: string;
+          document_id: string;
+          id: string;
+          task_id: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id: string;
+          created_at?: string;
+          document_id: string;
+          id?: string;
+          task_id?: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        Update: {
+          application_id?: string;
+          created_at?: string;
+          document_id?: string;
+          id?: string;
+          task_id?: string | null;
+          user_id?: string;
+          version_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_links_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_task_id_user_id_fkey';
+            columns: ['task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_version_id_document_id_user_id_fkey';
+            columns: ['version_id', 'document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+        ];
+      };
+      vault_versions: {
+        Row: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          byte_size: number;
+          created_at?: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at?: string;
+          object_path: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence: number;
+          sha256: string;
+          state?: string;
+          user_id: string;
+        };
+        Update: {
+          byte_size?: number;
+          created_at?: string;
+          document_id?: string;
+          extension?: string;
+          id?: string;
+          mime?: string;
+          next_scan_at?: string;
+          object_path?: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence?: number;
+          sha256?: string;
+          state?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_versions_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       verification_runs: {
         Row: {
           completed_at: string | null;
@@ -4230,6 +4563,99 @@ export type Database = {
           label?: string;
         };
         Relationships: [];
+      };
+      writing_drafts: {
+        Row: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: NonNullable<Json>;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind: string;
+          prompt?: string;
+          rubric?: NonNullable<Json>;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Update: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind?: string;
+          prompt?: string;
+          rubric?: NonNullable<Json>;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_drafts_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      writing_versions: {
+        Row: {
+          created_at: string;
+          draft_id: string;
+          id: string;
+          request_id: string;
+          snapshot: NonNullable<Json>;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          draft_id: string;
+          id?: string;
+          request_id: string;
+          snapshot: NonNullable<Json>;
+          user_id: string;
+          version: number;
+        };
+        Update: {
+          created_at?: string;
+          draft_id?: string;
+          id?: string;
+          request_id?: string;
+          snapshot?: NonNullable<Json>;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_versions_draft_id_user_id_fkey';
+            columns: ['draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
       };
     };
     Views: {
@@ -4630,6 +5056,31 @@ export type Database = {
         Args: { p_catalog_entity_id: number; p_checked_at: string };
         Returns: number;
       };
+      recommendation_cancel: { Args: { p_id: string }; Returns: undefined };
+      recommendation_create: {
+        Args: {
+          p_application_id: string;
+          p_context: string;
+          p_due_date: string;
+          p_email: string;
+          p_token_hash: string;
+        };
+        Returns: string;
+      };
+      recommendation_received: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          context: string;
+          due_date: string;
+          expires_at: string;
+          id: string;
+          status: string;
+        }[];
+      };
+      recommendation_respond: {
+        Args: { p_accept: boolean; p_token_hash: string };
+        Returns: string;
+      };
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
         Returns: number;
@@ -4780,6 +5231,118 @@ export type Database = {
           total_count: number;
           type_counts: Json;
         }[];
+      };
+      vault_draft_origin: {
+        Args: { p_document_id: string; p_draft_id: string };
+        Returns: undefined;
+      };
+      vault_finish: {
+        Args: { p_failed?: boolean; p_version_id: string };
+        Returns: undefined;
+      };
+      vault_link: {
+        Args: {
+          p_application_id: string;
+          p_document_id: string;
+          p_remove?: boolean;
+          p_task_id: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      vault_manage: {
+        Args: { p_action: string; p_document_id: string };
+        Returns: undefined;
+      };
+      vault_portfolio: {
+        Args: { p_name: string; p_url: string };
+        Returns: string;
+      };
+      vault_reserve: {
+        Args: {
+          p_application_id: string;
+          p_category: string;
+          p_document_id: string;
+          p_extension: string;
+          p_mime: string;
+          p_name: string;
+          p_purpose: string;
+          p_recommendation_id?: string;
+          p_request_id: string;
+          p_sha256: string;
+          p_size: number;
+        };
+        Returns: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'vault_versions';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      vault_scan_result: {
+        Args: {
+          p_clean: boolean;
+          p_scanner: string;
+          p_sha256: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      writing_delete: {
+        Args: { p_expected_version: number; p_id: string };
+        Returns: undefined;
+      };
+      writing_save: {
+        Args: {
+          p_application_id: string;
+          p_content: string;
+          p_expected_version: number;
+          p_id: string;
+          p_kind: string;
+          p_prompt: string;
+          p_request_id: string;
+          p_rubric: Json;
+          p_title: string;
+          p_word_limit: number;
+        };
+        Returns: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: NonNullable<Json>;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'writing_drafts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
     };
     Enums: {

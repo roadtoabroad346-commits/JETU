@@ -48,10 +48,6 @@ test('matching API rejects cross-origin and malformed input before database acce
 test('private matching route redirects unauthenticated users when Supabase is configured', async ({
   page,
 }) => {
-  test.skip(
-    !process.env.NEXT_PUBLIC_SUPABASE_URL,
-    'requires a configured Supabase Auth endpoint',
-  );
   await page.goto('/en/match');
   await expect(page).toHaveURL(/\/en\/login$/);
 });

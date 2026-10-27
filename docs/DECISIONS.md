@@ -209,3 +209,20 @@ No production promotion or Phase 17 work follows from the staging step.
 40. **Append history; do not rewrite it.** Event mutation triggers reject update/delete. Account deletion still cascades private data; longer legal retention requires a future explicit policy.
 41. **No fake corpus to unlock the UI.** Keep both phases PARTIAL while the development project has no published/verified programs or scholarships. Synthetic SQL fixtures always roll back.
 42. **Ingestion automation is policy-gated.** Adapters declare exact hosts, jurisdiction/system coverage, rate/concurrency and dated access review. Changed claims return to editorial review; ingestion never self-publishes.
+
+## Phase 19 — 2026-10-27
+
+43. **Quarantine is a security state.** MIME/signature validation is not a malware scan.
+    Unconfigured scanner infrastructure never promotes bytes to available.
+44. **Private authenticated proxy, no reusable links.** Storage read policies allow
+    authenticated object GET only, denying listing/signing. The app rechecks ownership,
+    live state and integrity after provider I/O. Received bytes cannot be recalled.
+45. **Immutable file versions and explicit writing saves.** New keys preserve revision
+    identity. Writing uses CAS/idempotency and plain text; no unnecessary rich editor/AI.
+46. **Confidential letters belong to recommenders.** Student requests expose status and
+    a manually delivered one-time email-bound invitation, never the letter identifier.
+47. **No assignment means no mentor access.** Future sharing needs a verified assignment,
+    exact scope and consent. Role labels cannot unlock student or recommender files.
+48. **Account erasure must pass audit triggers.** Phase 18's unconditional mutation
+    rejection was corrected for an already-removed Auth owner only. Storage cleanup
+    remains an independent prior step; backups need a separately tested policy.

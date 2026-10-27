@@ -1,3 +1,4 @@
+import { getPublicEnv } from '@/lib/env/public';
 import { redirect } from 'next/navigation';
 import { BrandLogo } from '@/components/ui/brand';
 import { authCopy } from '@/lib/i18n/auth';
@@ -7,6 +8,7 @@ import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
 import { roadmapCopy } from '@/features/roadmap/copy';
+import { vaultCopy } from '@/features/vault/copy';
 import { applicationsCopy } from '@/features/applications/copy';
 
 export default async function DashboardLayout({
@@ -18,6 +20,12 @@ export default async function DashboardLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) return null;
+  const env = getPublicEnv();
+  if (
+    !env.NEXT_PUBLIC_SUPABASE_URL ||
+    !env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  )
+    redirect(`/${locale}/login`);
   const supabase = await createRequestSupabaseClient();
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect(`/${locale}/login`);
@@ -48,6 +56,8 @@ export default async function DashboardLayout({
             <a href={`/${locale}/applications`}>
               {applicationsCopy[locale].nav}
             </a>
+            <a href={`/${locale}/vault`}>{vaultCopy(locale).vault}</a>
+            <a href={`/${locale}/writing`}>{vaultCopy(locale).writing}</a>
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

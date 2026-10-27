@@ -71,3 +71,28 @@ jobs:
       - run: npm run typecheck
       - run: npm run db:stop
         if: always()
+
+  vault-auth-storage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      JETU_ENV: test
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: node scripts/db.mjs start-vault-tests
+      - name: Select installed browser or install Chromium
+        run: |
+          jetu_browser_path="$(command -v google-chrome || command -v chromium || true)"
+          if [ -n "$jetu_browser_path" ]; then
+            printf 'PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=%s\n' "$jetu_browser_path" >> "$GITHUB_ENV"
+          else
+            npx --no-install playwright install --with-deps chromium
+          fi
+      - run: node scripts/vault-auth-test.mjs
+      - run: npm run db:stop
+        if: always()

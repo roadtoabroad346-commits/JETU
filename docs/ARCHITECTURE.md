@@ -179,3 +179,13 @@ Roadmap and application tracking are separate owner aggregates. A Roadmap target
 Program applications, their checklist and program events form one aggregate. Scholarship applications and scholarship events form a separate lifecycle linked optionally to a program application. Submission and result facts are always `USER_REPORTED`; official catalog provenance stays separate. See `APPLICATION_STATE_MACHINE.md` and `APPLICATION_AUDIT_TRAIL.md`.
 
 The ingestion core in `src/features/ingestion/official-source.ts` is a pure validation/diff boundary, not a crawler. Concrete fetch workers must enforce adapter host/rate/legal policy and persist only staged claims through the existing editorial model. No scheduled worker was deployed in this phase.
+
+## Phase 19 — private documents and writing
+
+Vault metadata/versions/links, writing drafts/revisions and status-only confidential
+recommendation requests now integrate with the existing owner/session and
+application/task boundaries. See `DOCUMENT_VAULT_ARCHITECTURE.md`. Every ordinary
+operation uses a request-scoped authenticated client; the separate trusted scan/purge
+worker alone uses a service credential. No real worker or mentor sharing is enabled.
+The old statements above that Roadmap and applications are absent describe historical
+snapshots, not this branch's current capabilities. Their release statuses stay PARTIAL.

@@ -1,3 +1,5 @@
+import { InvitationField } from '@/features/auth/invitation-field';
+import { getPublicEnv } from '@/lib/env/public';
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { Field } from '@/components/ui/primitives';
@@ -28,9 +30,15 @@ export default async function LoginPage({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) return null;
-  const supabase = await createRequestSupabaseClient();
-  const { data } = await supabase.auth.getClaims();
-  if (data?.claims?.sub) redirect(`/${locale}/dashboard`);
+  const env = getPublicEnv();
+  const configured = Boolean(
+    env.NEXT_PUBLIC_SUPABASE_URL && env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
+  );
+  if (configured) {
+    const supabase = await createRequestSupabaseClient();
+    const { data } = await supabase.auth.getClaims();
+    if (data?.claims?.sub) redirect(`/${locale}/dashboard`);
+  }
   const errorParam = (await searchParams).error;
   const error = Boolean(errorParam);
   const t = authCopy[locale];
@@ -40,12 +48,14 @@ export default async function LoginPage({
         <p className="eyebrow">JETU / {t.signIn}</p>
         <h1 id="login-title">{t.loginTitle}</h1>
         <p className="auth-lead">{t.loginBody}</p>
+        {!configured && <p role="status">{t.notConfigured}</p>}
         {error && (
           <p className="feedback-box feedback-box--error" role="alert">
             {errorParam === 'recovery' ? t.authError : t.invalid}
           </p>
         )}
         <form action={signIn}>
+          <InvitationField />
           <input type="hidden" name="locale" value={locale} />
           <Field
             id="email"
@@ -67,6 +77,7 @@ export default async function LoginPage({
           <button
             className="ui-button ui-button--primary auth-submit"
             type="submit"
+            disabled={!configured}
           >
             {t.signIn}
           </button>

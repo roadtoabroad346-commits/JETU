@@ -1,4 +1,5 @@
 'use client';
+import { ApplicationDocuments } from '@/features/vault/application-documents';
 
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import type { Locale } from '@/lib/i18n/messages';
@@ -910,6 +911,7 @@ export function ApplicationWorkspace({
           </ol>
         )}
       </section>
+      <ApplicationDocuments applicationId={applicationId} locale={locale} />
     </main>
   );
 }

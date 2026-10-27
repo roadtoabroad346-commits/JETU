@@ -19,3 +19,13 @@ this library itself remains a noindex static specimen.
 
 Original July 2026 pitch inspected. Source reconciliation and actual skill-command
 evidence: docs/design/PHASE_05_EVIDENCE.md.
+
+Phase 19 reuses existing blue/yellow, semantic status colors, 20px panels, 48px
+controls and the global reduced-motion contract. Vault/Writing share visible labels,
+textual quarantine states, metadata-only binary history, escaped plain-text preview,
+inline conflict recovery and reversible revision loading. Native file input is the
+keyboard alternative to dropping a file. Word counts and self-review avoid admissions
+scoring claims. Actual synthetic component/axe evidence: `docs/evidence/phase19`.
+UI/UX Pro Max SKILL and web quick-reference were read; native pro-rules were scoped
+appropriately. Its local search package was not installed; existing verified JETU
+research and source guidance were reused without claiming a new search ran.

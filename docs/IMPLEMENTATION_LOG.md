@@ -583,3 +583,45 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Recovery CI run `40363524397` proved a clean migration replay and the new 28-assertion application suite, then exposed an older catalog fixture that omitted Phase 17's required `instant` deadline precision. The fixture was corrected and its 11 assertions passed in a development rollback transaction. The portfolio also gained localized exact-stage filtering and deadline/update/priority/title sorting.
 - The successor CI run `40391982239` passed frontend checks, audit, Chromium, two clean database resets/replays with all pgTAP suites, advisors, generated-type drift and final typecheck. The first successor run revealed a local/cloud Supabase generator-shape mismatch; the saved types now match the pinned CI generator (`cdc5a7e`).
 - Exact commit `cdc5a7e` deployed READY as `dpl_BFMsrKnD9qSz9oZkhZJkmbg1vwjL` at `https://jetu-phase13-preview-clab89quc-impact-hub.vercel.app`. Protected preview smoke returned 200 for health/home/login/search; anonymous Roadmap and Applications rendered sign-in. No authenticated or production deployment was claimed.
+
+## 2026-10-27 — Phase 19 Vault/Writing and prior gate repair
+
+- Recovered latest Phase 18 draft head `00b0be6`, verified PR stack and Jetuu
+  development history, then created `codex/phase19-document-vault` from that head.
+- Implemented private immutable document/quarantine metadata, constrained Storage
+  policies, bounded upload/signature/checksum validation, trusted scan/purge worker,
+  version metadata/history, safe text download/preview, application/task links and
+  owner-scoped ZIP. Implemented plain-text Writing, Unicode count, rubric, CAS,
+  revisions/restore/compare, text export and checksum-bound Vault draft origin.
+- Added confidential manual recommendation invitations, confirmed-email redemption,
+  one-time/expiry/replay checks, recommender-owned letters and student status events.
+  Mentor sharing is intentionally unavailable without a verified assignment model.
+- Applied five additive development migrations through `20261027055906`, each
+  rehearsed transactionally. Seventy-six rollback SQL assertions passed. No
+  fixtures persisted. Fixed Phase 18 append-only triggers that blocked Auth owner
+  erasure, keeping Storage deletion a separate required step.
+- Focused 46 domain/service tests passed. Nine synthetic three-locale browser cases
+  passed axe/responsive/quarantine/writing checks. Initial full check passed 162
+  tests/build; subsequent no-env login repair and actual local GoTrue/Storage CI
+  gate are recorded in the final release checkpoint. No whole prior phase upgraded.
+- Used actual Caveman/lean-build, UI/UX Pro Max, Supabase/Postgres, cloud runtime and
+  Vercel release/React guidance; no unavailable skill command or live test is claimed.
+
+- Final source checkpoint `a916e70`: draft PR #5; CI `40461693194` passed frontend,
+  86 browser cases with no skips, two clean replays/197 pgTAP assertions each,
+  advisors, exact generated-type drift and 29 real local Auth/Storage/browser checks.
+  Real upload, quarantine denial, MIME/size failure, two-user access, save/reload and
+  archive revocation were exercised. The scan verdict in the test is synthetic only.
+- Final local checks pass 163 unit/integration cases, format/lint/types/build;
+  the full synthetic component suite passes 10/10. Actual worker definitions must
+  be fresh; failed upload replay no longer reports success. Exact CI-generated types
+  replaced the MCP shape after the drift gate exposed their difference.
+- Commit-matched preview `dpl_FaamwgZyYFdYmXoaJh6mXudULAeL` is READY. Phase 19 remains
+  PARTIAL for real scanning/purge/backup, hosted/recommender/mentor and editorial
+  gates, with no production promotion or Phase 20 work.
+
+- Final recovery source `472fe5e` keeps erased-document links visible and provides
+  an owner-checked detach action. This prevents a hidden stale reference from
+  indefinitely blocking application submission. Three new SQL assertions prove
+  detach and unchanged application state; rollback total 79, complete replay 200.
+  Full local check passes 163 tests/build, synthetic UI 11/11. No schema/type drift.

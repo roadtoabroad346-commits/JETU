@@ -1,6 +1,8 @@
-# Phase tracker — updated 2026-10-25
+# Phase tracker — updated 2026-10-27
 
-Phase 16.5 continuation: same-host/different-scheme matching requests are now
+**Current: Phase 19 PARTIAL.** Private Vault/Writing and development migrations implemented; scanner/hosted Auth/mentor/editorial gates remain open. See `PHASE_19_QA_AND_RELEASE.md` and `PREVIOUS_PHASE_CLOSURE_19.md`.
+
+Historical Phase 16.5 continuation: same-host/different-scheme matching requests are now
 rejected, malformed dates cannot crash recommendation cards, and mobile public
 navigation and card feedback were refined. One institution, program and
 scholarship remain `draft`/`needs_review`; zero are published. Phase 16 remains
@@ -23,13 +25,13 @@ Current request state: **Phase 17 PARTIAL**. The roadmap engine, private schema,
 | 10    | Canonical PostgreSQL Global Admissions Database                  | UNVERIFIED                 | Cloud normalized schema exists; migration SQL recovered, phase acceptance not rechecked                                                                                                        |
 | 11    | Data ingestion, верификация, обновления и provenance             | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 12    | University & Program Explorer                                    | PARTIAL                    | Read-only cloud SQL search, pages, filter fixtures; no real reviewed rows; REST proxy 403; see Phase 12 review                                                                                 |
-| 13    | Scholarship Intelligence & Financial Aid Explorer                | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
+| 13    | Scholarship Intelligence & Financial Aid Explorer                | PARTIAL                    | Recovered scholarship schema/routes/tests; editorial and hosted journey unverified                                                                                                             |
+| 14    | Global Opportunities Hub, школы и extracurriculars               | PARTIAL                    | Recovered opportunities schema/routes/tests; full source and real-user acceptance unverified                                                                                                   |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | PARTIAL                    | Programs/scholarships/opportunities search, private saves and 2–4 program compare implemented; cloud SQL/RLS/10k benchmark and local UI checks pass; live corpus/REST/deploy gates remain open |
 | 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking and development RLS tests; one unpublished program/scholarship staged, zero reviewed/published, no hosted Auth/REST E2E                                            |
 | 17    | Personalized Roadmap & Gap-to-Action Planner                     | PARTIAL                    | Engine, private schema, localized views and development migrations; live/Auth/security gates open. See PHASE_17_QA.md                                                                          |
-| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
+| 18    | Admissions Application CRM: от draft до enrollment               | PARTIAL                    | Application CRM recovered from PR #4; audit erasure fix SQL-tested; hosted/editorial gates open                                                                                                |
+| 19    | Secure Supabase Document Vault & Writing Workspace               | PARTIAL                    | Private Vault/Writing; 79 rollback SQL assertions; scanning/hosted/mentor gates open                                                                                                           |
 | 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 22    | Verified Mentor Network and Review Workflow                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
@@ -223,3 +225,34 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 - [x] Draft PR #4 and commit-matched `cdc5a7e` Vercel preview: READY; health/home/login/search returned 200 and anonymous plan/applications rendered sign-in.
 
 **Status: PARTIAL.** Exact evidence and residual gates: `PHASE_18_QA.md`, `APPLICATION_STATE_MACHINE.md`, `APPLICATION_AUDIT_TRAIL.md` and `RELEASE_REPORT_PHASE_17_18.md`.
+
+## Phase 19 gate — 2026-10-27
+
+- [x] Latest Phase 17/18 draft branch recovered without merging unrelated PRs.
+- [x] Private immutable Vault, quarantine/scan authority, checksums, associations,
+      retention/archive/delete, bounded ZIP and safe text preview contracts implemented.
+- [x] Confidential email-bound recommendation request/status and recommender-owned
+      storage; no mentor entitlement without a verified assignment/consent model.
+- [x] RU/KK/EN plain-text Writing with explicit saves, Unicode counts, revisions,
+      conflict protection, self-review and text/Vault export.
+- [x] 79 development rollback SQL assertions, focused domain/service tests and
+      synthetic mobile/tablet/desktop axe/visual checks. See release report.
+- [ ] Real scanner/purge scheduling, object-backup restore and hosted two-user,
+      mentor/recommender, application/Roadmap and cross-device acceptance.
+- [ ] Final remote CI/preview results: tracked in `PHASE_19_QA_AND_RELEASE.md`.
+
+**Status: PARTIAL.** No prior whole phase is newly VERIFIED. Do not begin Phase 20
+or promote to production while mandatory privacy gates remain open.
+
+Phase 19 first fully observed source gate: `a916e70`, draft PR #5, green CI `40461693194`.
+163 unit/integration; 86 browser cases (zero skipped); two clean DB replays,
+197 pgTAP assertions each; type drift/advisors; 29 real disposable Auth/Storage/Next
+browser checks. Ten synthetic localized/axe/retry cases also pass. This closes
+specific runtime/isolation/replay gates; real scanning, hosted/mentor/recommender,
+backups and editorial acceptance remain open. Full phase status stays **PARTIAL**.
+
+Final application recovery source `472fe5e`: removed attachments stay visible and
+can be detached without changing application status. Local full checks (163),
+11 synthetic UI cases and 79 hosted rollback assertions pass; complete replay is
+now 200 assertions. Current-head CI lives in PR #5 checks. External gates and
+PARTIAL status are unchanged.
