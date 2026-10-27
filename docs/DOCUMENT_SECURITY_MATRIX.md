@@ -1,7 +1,7 @@
 # Phase 19 security matrix
 
 SQL: `supabase/tests/vault.test.sql` (55 assertions) and
-`vault-associations.test.sql` (21), rollback-only on Jetuu development. These use
+`vault-associations.test.sql` (24), rollback-only on Jetuu development. These use
 synthetic SQL identities; they do not constitute GoTrue/Storage HTTP evidence.
 Unit/integration: `tests/{unit,integration}/vault.test.ts` (47 focused tests).
 `tests/ui` is explicitly synthetic component QA. `scripts/vault-auth-test.mjs`
@@ -50,3 +50,5 @@ concurrent saves, browser persistence, no-store and archive revocation. The test
 clean verdict is synthetic authorization setup only. Hosted configuration,
 recommender/browser delivery, actual mentor grant revocation, populated application
 ZIP and real malware/backup evidence remain open as identified above.
+
+Deleted attachment recovery is explicitly covered by the latest three SQL assertions and the eleventh synthetic browser case. It preserves the application and exposes no deleted file bytes.

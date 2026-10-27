@@ -1,7 +1,7 @@
 # Resume Phase 19 — PARTIAL, 2026-10-27
 
 Start at the latest head of `codex/phase19-document-vault`, draft PR #5 stacked on
-#4/#3/#2. The implementation source anchor is **`a916e70`**. Read exact Master
+#4/#3/#2. The latest implementation source anchor is **`472fe5e`** (application recovery); the first full verified gate is `a916e70`. Read exact Master
 Phase 19, `PHASE_19_QA_AND_RELEASE.md`, `DOCUMENT_VAULT_ARCHITECTURE.md`,
 `DOCUMENT_SECURITY_MATRIX.md` and `PREVIOUS_PHASE_CLOSURE_19.md`. Do not begin
 Phase 20, merge the draft stack or promote production while mandatory gates remain.
@@ -18,7 +18,7 @@ motion and failed-upload retry. See the release report for exact job and preview
 
 Jetuu development **`edpuovkgoisyzpguksdi`** is synchronized through
 `20261027055906_phase_19_vault_quota_boundary`; five new migrations and private
-`student-vault` bucket. Hosted rollback SQL: 76 assertions, zero fixtures remain.
+`student-vault` bucket. Hosted rollback SQL: 79 assertions, zero fixtures remain.
 Types are the actual pinned CI output; never hand-write them or weaken drift checks.
 The local Docker image-layer store failed; CI provides the clean replay evidence.
 
@@ -49,3 +49,11 @@ Keep `scripts/db.mjs` local-only. `start-vault-tests` and
 `scripts/vault-auth-test.mjs` use an ephemeral local gateway and temporary identities;
 no hosted secrets enter CI. A Storage cleanup must precede Auth deletion with the
 account-deletion marker held. No live worker or destructive purge was run here.
+
+Latest continuation `472fe5e` makes deleted attachments visible and detachable,
+keeping application status unchanged. Local full check still passes 163 tests;
+all 11 synthetic component cases and 79 rollback SQL assertions pass. The complete
+replay now contains 200 assertions. Inspect current-head CI in PR #5 checks for
+the latest remote result; the exact earlier 197-assertion run is preserved above.
+No new migration/types were needed. No further product scope is pending beyond
+the explicit external acceptance gates listed above.

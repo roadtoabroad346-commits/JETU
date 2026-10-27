@@ -619,3 +619,9 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Commit-matched preview `dpl_FaamwgZyYFdYmXoaJh6mXudULAeL` is READY. Phase 19 remains
   PARTIAL for real scanning/purge/backup, hosted/recommender/mentor and editorial
   gates, with no production promotion or Phase 20 work.
+
+- Final recovery source `472fe5e` keeps erased-document links visible and provides
+  an owner-checked detach action. This prevents a hidden stale reference from
+  indefinitely blocking application submission. Three new SQL assertions prove
+  detach and unchanged application state; rollback total 79, complete replay 200.
+  Full local check passes 163 tests/build, synthetic UI 11/11. No schema/type drift.

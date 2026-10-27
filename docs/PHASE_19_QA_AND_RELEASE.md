@@ -3,7 +3,7 @@
 **PARTIAL. No production promotion; Phase 20 untouched.**
 
 Branch `codex/phase19-document-vault`, based on `00b0be6` / draft PR #4.
-Implementation and corrective commits: `33042da`, `f935617`, **`a916e70`**.
+Implementation and corrective commits: `33042da`, `f935617`, `a916e70`, **`472fe5e`**.
 Draft PR [#5](https://github.com/roadtoabroad346-commits/JETU/pull/5) remains stacked
 on #4, which remains stacked on #3/#2. Remote source SHA was verified after push.
 No unrelated branch was merged or force-pushed.
@@ -34,7 +34,7 @@ then 29 total checks passed. All three temporary Auth users and their blob objec
 were removed. Its service-role clean verdict was **synthetic state-authorization
 evidence only**, never a real malware scan.
 
-Ten component-only cases and twelve screenshots under `docs/evidence/phase19`
+Eleven component-only cases and twelve screenshots under `docs/evidence/phase19`
 are explicitly synthetic. Desktop Vault and Kazakh mobile Writing were visually
 inspected. These are useful UI evidence, not proof of hosted Auth or editorial data.
 
@@ -49,7 +49,7 @@ development authorization. Five additive migrations, each rehearsed transactiona
 - `20261027054806_phase_19_vault_recovery`
 - `20261027055906_phase_19_vault_quota_boundary`
 
-Bucket `student-vault` is private. Hosted rollback SQL passes **55 + 21 assertions**.
+Bucket `student-vault` is private. Hosted rollback SQL passes **55 + 24 assertions**.
 Follow-up counts: zero Phase 19 hosted documents, versions, drafts, requests or
 fixture identities; zero public buckets and zero exposed tables without RLS.
 No unindexed foreign-key advice remains. Security advice retains four older
@@ -106,3 +106,18 @@ No protection setting was disabled and no production domain was promoted.
 Contracts and all 25 attack requirements: `DOCUMENT_SECURITY_MATRIX.md`,
 `DOCUMENT_VAULT_ARCHITECTURE.md`, `DOCUMENT_RETENTION_AND_SHARING.md`,
 `WRITING_WORKSPACE_CONTRACTS.md` and `PREVIOUS_PHASE_CLOSURE_19.md`.
+
+## Latest application recovery continuation
+
+Source **`472fe5e192b5f26bc51d4d36eb7a4b7022f48f5a`** fixes a stale-attachment
+recovery issue: owner links remain visible after their document is deleted, show
+an unavailable state and expose a real detach action. Detaching does not delete
+or advance the application, restore the erased file or change Roadmap tasks.
+
+`npm run check` passes 163 tests/build; the complete synthetic component suite
+passes **11/11**. Three new rollback assertions prove deleted-reference detach,
+zero remaining links and unchanged application status. Hosted rollback totals are
+now **55 + 24 = 79**; the complete clean replay contains **200 assertions**.
+Current-head CI is authoritative in [PR #5 checks](https://github.com/roadtoabroad346-commits/JETU/pull/5/checks);
+the fully observed pre-continuation gate above remains recorded without relabeling
+that earlier 197-assertion run. No migration or generated type changed in this fix.

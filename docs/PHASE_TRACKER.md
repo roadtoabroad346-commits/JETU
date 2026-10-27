@@ -31,7 +31,7 @@ Current request state: **Phase 17 PARTIAL**. The roadmap engine, private schema,
 | 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking and development RLS tests; one unpublished program/scholarship staged, zero reviewed/published, no hosted Auth/REST E2E                                            |
 | 17    | Personalized Roadmap & Gap-to-Action Planner                     | PARTIAL                    | Engine, private schema, localized views and development migrations; live/Auth/security gates open. See PHASE_17_QA.md                                                                          |
 | 18    | Admissions Application CRM: от draft до enrollment               | PARTIAL                    | Application CRM recovered from PR #4; audit erasure fix SQL-tested; hosted/editorial gates open                                                                                                |
-| 19    | Secure Supabase Document Vault & Writing Workspace               | PARTIAL                    | Private Vault/Writing; 76 rollback SQL assertions; scanning/hosted/mentor gates open                                                                                                           |
+| 19    | Secure Supabase Document Vault & Writing Workspace               | PARTIAL                    | Private Vault/Writing; 79 rollback SQL assertions; scanning/hosted/mentor gates open                                                                                                           |
 | 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 22    | Verified Mentor Network and Review Workflow                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
@@ -235,7 +235,7 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
       storage; no mentor entitlement without a verified assignment/consent model.
 - [x] RU/KK/EN plain-text Writing with explicit saves, Unicode counts, revisions,
       conflict protection, self-review and text/Vault export.
-- [x] 76 development rollback SQL assertions, focused domain/service tests and
+- [x] 79 development rollback SQL assertions, focused domain/service tests and
       synthetic mobile/tablet/desktop axe/visual checks. See release report.
 - [ ] Real scanner/purge scheduling, object-backup restore and hosted two-user,
       mentor/recommender, application/Roadmap and cross-device acceptance.
@@ -244,9 +244,15 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 **Status: PARTIAL.** No prior whole phase is newly VERIFIED. Do not begin Phase 20
 or promote to production while mandatory privacy gates remain open.
 
-Phase 19 final source gate: `a916e70`, draft PR #5, green CI `40461693194`.
+Phase 19 first fully observed source gate: `a916e70`, draft PR #5, green CI `40461693194`.
 163 unit/integration; 86 browser cases (zero skipped); two clean DB replays,
 197 pgTAP assertions each; type drift/advisors; 29 real disposable Auth/Storage/Next
 browser checks. Ten synthetic localized/axe/retry cases also pass. This closes
 specific runtime/isolation/replay gates; real scanning, hosted/mentor/recommender,
 backups and editorial acceptance remain open. Full phase status stays **PARTIAL**.
+
+Final application recovery source `472fe5e`: removed attachments stay visible and
+can be detached without changing application status. Local full checks (163),
+11 synthetic UI cases and 79 hosted rollback assertions pass; complete replay is
+now 200 assertions. Current-head CI lives in PR #5 checks. External gates and
+PARTIAL status are unchanged.

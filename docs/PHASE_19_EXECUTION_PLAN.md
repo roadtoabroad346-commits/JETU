@@ -52,3 +52,5 @@ Changed-file and exact-result inventories will be recorded in
 `PHASE_19_QA_AND_RELEASE.md`; statuses remain PARTIAL until every required gate passes.
 
 Final implementation anchor `a916e70`: PR #5, green CI 40461693194 (three jobs), 163 unit/integration, 86 browser, 197 SQL assertions per replay and 29 real local Auth/Storage/browser checks. External mandatory gates remain listed in the release report.
+
+Final scoped recovery source `472fe5e`: deleted references stay visible/detachable; local full check, 79 rollback SQL assertions and 11 UI cases pass. Complete replay count is 200; see current PR #5 checks for the remote head gate.
