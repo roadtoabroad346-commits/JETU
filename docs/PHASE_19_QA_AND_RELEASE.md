@@ -112,3 +112,26 @@ browser journey still requires the successor CI verdict.
 
 The ZIP export was also opened by Python's standard ZipFile reader: both entries,
 CRC validation and a Unicode text payload passed. No student data was used.
+
+### Corrective validation
+
+CI [40460380110](https://github.com/roadtoabroad346-commits/JETU/actions/runs/40460380110)
+on `f935617` passed frontend and the complete database gate, including both 197-assertion
+replays, advisors, exact generated-type drift and typecheck. Its runtime browser
+job is being observed separately.
+
+Additional review fixed a client feedback defect: an idempotent replay with a stored
+`failed` upload must preserve the selected file and prepare a new version, rather
+than display a quarantine success. The dedicated synthetic retry regression passes;
+the full localized component suite now passes **10/10**. The runtime test additionally
+exercises actual browser upload, authenticated MIME/size rejection and quarantine
+API denial. Its CI browser setup selects an installed system Chrome when available,
+with the standard Playwright installation as a fallback.
+
+The second runtime run reached real browser sign-in, private Vault download, draft
+save and the persisted draft list after refresh. Its final text read hit another
+exact-label locator issue: a textarea's initial value participates in Playwright's
+label-text matching. A minimal Chromium reproduction returned zero exact label
+matches and one exact accessible textbox-role match. Corrected the read/fill
+locator to the semantic textbox role. The successor gate retains the same strict
+content assertion and adds the real upload validation checks above.

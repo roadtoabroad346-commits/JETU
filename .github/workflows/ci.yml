@@ -85,7 +85,14 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/db.mjs start-vault-tests
-      - run: npx --no-install playwright install --with-deps chromium
+      - name: Select installed browser or install Chromium
+        run: |
+          jetu_browser_path="$(command -v google-chrome || command -v chromium || true)"
+          if [ -n "$jetu_browser_path" ]; then
+            printf 'PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=%s\n' "$jetu_browser_path" >> "$GITHUB_ENV"
+          else
+            npx --no-install playwright install --with-deps chromium
+          fi
       - run: node scripts/vault-auth-test.mjs
       - run: npm run db:stop
         if: always()

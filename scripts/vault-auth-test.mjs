@@ -311,6 +311,96 @@ try {
   await pa.goto('http://127.0.0.1:3300/en/vault');
   await pa.getByRole('button', { name: /Synthetic essay.txt/ }).waitFor();
   checks++;
+  const uploadForm = pa
+    .locator('form')
+    .filter({ has: pa.locator('input[type="file"]') });
+  await uploadForm
+    .locator('select:has(option[value="essay"])')
+    .selectOption('essay');
+  await uploadForm.locator('input[type="file"]').setInputFiles({
+    name: 'Browser upload.txt',
+    mimeType: 'text/plain',
+    buffer: Buffer.from('Browser created essay. Әлем.'),
+  });
+  const uploaded = pa.waitForResponse(
+    (r) =>
+      r.url().endsWith('/api/vault/upload') && r.request().method() === 'POST',
+  );
+  await uploadForm
+    .getByRole('button', { name: 'Upload document', exact: true })
+    .click();
+  const uploadResponse = await uploaded;
+  ok(
+    uploadResponse.status() === 200 &&
+      (await uploadResponse.json()).data.state === 'quarantined',
+    'browser upload reaches actual quarantine pipeline',
+  );
+  const vaultState = (
+    await (await ca.request.get('http://127.0.0.1:3300/api/vault')).json()
+  ).data;
+  const browserDoc = vaultState.documents.find(
+    (d) => d.display_name === 'Browser upload.txt',
+  );
+  assert.ok(browserDoc, 'Browser upload metadata persists');
+  const browserVersion = vaultState.versions.find(
+    (v) => v.id === browserDoc.current_version_id,
+  );
+  paths.push(browserVersion.object_path);
+  ok(
+    (
+      await ca.request.get(
+        `http://127.0.0.1:3300/api/vault/file?version=${browserVersion.id}`,
+      )
+    ).status() === 403,
+    'quarantine denied through actual Next API',
+  );
+  ok(
+    (
+      await cb.request.get(
+        `http://127.0.0.1:3300/api/vault/file?version=${browserVersion.id}`,
+      )
+    ).status() === 404,
+    'B cannot retrieve browser upload',
+  );
+  const requestHeaders = {
+    origin: 'http://127.0.0.1:3300',
+    'content-type': 'application/pdf',
+    'x-vault-metadata': encodeURIComponent(
+      JSON.stringify({
+        category: 'essay',
+        name: 'Mismatch.pdf',
+        requestId: crypto.randomUUID(),
+      }),
+    ),
+  };
+  ok(
+    (
+      await ca.request.post('http://127.0.0.1:3300/api/vault/upload', {
+        headers: requestHeaders,
+        data: Buffer.from('not a PDF'),
+      })
+    ).status() === 422,
+    'authenticated MIME/signature mismatch fails',
+  );
+  ok(
+    (
+      await ca.request.post('http://127.0.0.1:3300/api/vault/upload', {
+        headers: {
+          ...requestHeaders,
+          'content-type': 'text/plain',
+          'x-vault-metadata': encodeURIComponent(
+            JSON.stringify({
+              category: 'essay',
+              name: 'Oversized.txt',
+              requestId: crypto.randomUUID(),
+            }),
+          ),
+        },
+        data: Buffer.alloc(3145729, 65),
+      })
+    ).status() === 422,
+    'authenticated oversized request fails',
+  );
   await pb.goto('http://127.0.0.1:3300/en/vault');
   await pb
     .getByText('No documents yet. Add only what your next application needs.')
@@ -335,7 +425,7 @@ try {
   await pa.getByRole('button', { name: 'New draft', exact: true }).click();
   await pa.getByLabel('Title', { exact: true }).fill('Browser persisted essay');
   await pa
-    .getByLabel('Your draft', { exact: true })
+    .getByRole('textbox', { name: 'Your draft', exact: true })
     .fill('Browser authorship. Әлем hello.');
   await pa.getByRole('button', { name: 'Save revision', exact: true }).click();
   await pa.getByRole('status').filter({ hasText: 'Saved' }).waitFor();
@@ -343,8 +433,9 @@ try {
   await pa.reload();
   await pa.getByRole('button', { name: /Browser persisted essay/ }).click();
   ok(
-    (await pa.getByLabel('Your draft', { exact: true }).inputValue()) ===
-      'Browser authorship. Әлем hello.',
+    (await pa
+      .getByRole('textbox', { name: 'Your draft', exact: true })
+      .inputValue()) === 'Browser authorship. Әлем hello.',
     'writing survives browser refresh',
   );
   value(
@@ -376,6 +467,7 @@ try {
       checks,
       status: 'passed',
       environment: 'disposable local GoTrue/Storage/browser',
+      browserVersion: browser.version(),
       malwareScan: 'synthetic verdict only',
     }),
   );
@@ -388,8 +480,22 @@ try {
       /* Local server is still starting or has already stopped. */
     }
   }
+  if (identities.length) {
+    const rows = value(
+      await admin
+        .from('vault_versions')
+        .select('object_path')
+        .in(
+          'user_id',
+          identities.map((i) => i.id),
+        ),
+    );
+    paths.push(...rows.map((r) => r.object_path));
+  }
   if (paths.length)
-    value(await admin.storage.from('student-vault').remove(paths));
+    value(
+      await admin.storage.from('student-vault').remove([...new Set(paths)]),
+    );
   for (const identity of identities)
     value(await admin.auth.admin.deleteUser(identity.id));
 }

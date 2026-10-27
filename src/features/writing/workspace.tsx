@@ -401,26 +401,40 @@ export function WritingWorkspace({ locale }: { locale: Locale }) {
                       setError('');
                       try {
                         fileRequestId.current ??= crypto.randomUUID();
-                        await requestData('/api/vault/upload', {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'text/plain',
-                            'X-Vault-Metadata': encodeURIComponent(
-                              JSON.stringify({
-                                name: `${input.kind}.txt`,
-                                category: input.kind === 'cv' ? 'cv' : 'essay',
-                                purpose: '',
-                                documentId: null,
-                                applicationId: input.applicationId,
-                                recommendationId: null,
-                                draftId: input.id,
-                                requestId: fileRequestId.current,
-                              }),
-                            ),
+                        const result = await requestData<{ state: string }>(
+                          '/api/vault/upload',
+                          {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'text/plain',
+                              'X-Vault-Metadata': encodeURIComponent(
+                                JSON.stringify({
+                                  name: `${input.kind}.txt`,
+                                  category:
+                                    input.kind === 'cv' ? 'cv' : 'essay',
+                                  purpose: '',
+                                  documentId: null,
+                                  applicationId: input.applicationId,
+                                  recommendationId: null,
+                                  draftId: input.id,
+                                  requestId: fileRequestId.current,
+                                }),
+                              ),
+                            },
+                            body: input.content,
                           },
-                          body: input.content,
-                        });
-                        setNotice(t.quarantinedNotice);
+                        );
+                        if (
+                          !['quarantined', 'available'].includes(result.state)
+                        ) {
+                          fileRequestId.current = null;
+                          throw new Error('Upload unavailable');
+                        }
+                        setNotice(
+                          result.state === 'available'
+                            ? t.saved
+                            : t.quarantinedNotice,
+                        );
                       } catch {
                         setError(t.error);
                       } finally {

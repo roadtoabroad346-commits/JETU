@@ -138,3 +138,46 @@ for (const locale of ['en', 'ru', 'kk'] as Locale[])
           fullPage: true,
         });
     });
+
+test('failed upload replay preserves the file and offers a real version retry', async ({
+  page,
+}) => {
+  const t = vaultCopy('en');
+  let attempts = 0;
+  await page.route('**/api/vault', (r) =>
+    r.fulfill({
+      json: {
+        data: {
+          ...fixture,
+          documents: [{ ...fixture.documents[0], category: 'essay' }],
+          versions: [{ ...fixture.versions[0], state: 'failed' }],
+        },
+      },
+    }),
+  );
+  await page.route('**/api/vault/upload', (r) => {
+    attempts++;
+    return r.fulfill({
+      json: {
+        data: { id: docId, state: attempts === 1 ? 'failed' : 'quarantined' },
+      },
+    });
+  });
+  await page.goto('/');
+  const form = page
+    .locator('form')
+    .filter({ has: page.locator('input[type="file"]') });
+  await form.locator('select:has(option[value="essay"])').selectOption('essay');
+  await form.locator('input[type="file"]').setInputFiles({
+    name: 'Retry.txt',
+    mimeType: 'text/plain',
+    buffer: Buffer.from('My own words.'),
+  });
+  await form.getByRole('button', { name: t.upload, exact: true }).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await expect(page.getByRole('status')).not.toContainText(t.quarantinedNotice);
+  await expect(form.getByText(/Retry.txt/)).toBeVisible();
+  await form.getByRole('button', { name: t.upload, exact: true }).click();
+  await expect(page.getByRole('status')).toHaveText(t.quarantinedNotice);
+  expect(attempts).toBe(2);
+});

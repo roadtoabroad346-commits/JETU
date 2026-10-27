@@ -146,26 +146,35 @@ export function VaultWorkspace({ locale }: { locale: Locale }) {
       }
       uploadId.current ??= crypto.randomUUID();
       controller.current = new AbortController();
-      await requestData('/api/vault/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': file.type,
-          'X-Vault-Metadata': encodeURIComponent(
-            JSON.stringify({
-              name: file.name,
-              category,
-              purpose,
-              documentId: uploadDoc || null,
-              applicationId: application || null,
-              recommendationId: recommendationId || null,
-              requestId: uploadId.current,
-            }),
-          ),
+      const result = await requestData<{ id: string; state: string }>(
+        '/api/vault/upload',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': file.type,
+            'X-Vault-Metadata': encodeURIComponent(
+              JSON.stringify({
+                name: file.name,
+                category,
+                purpose,
+                documentId: uploadDoc || null,
+                applicationId: application || null,
+                recommendationId: recommendationId || null,
+                requestId: uploadId.current,
+              }),
+            ),
+          },
+          body: file,
+          signal: controller.current.signal,
         },
-        body: file,
-        signal: controller.current.signal,
-      });
-      setNotice(t.quarantinedNotice);
+      );
+      if (!['quarantined', 'available'].includes(result.state)) {
+        setUploadDoc(result.id);
+        uploadId.current = null;
+        await load();
+        throw new RequestFailure('CONFLICT');
+      }
+      setNotice(result.state === 'available' ? t.saved : t.quarantinedNotice);
       setFile(null);
       uploadId.current = null;
     });
