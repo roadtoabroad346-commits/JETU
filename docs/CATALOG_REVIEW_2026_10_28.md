@@ -21,6 +21,16 @@ open opportunity for a new unnominated applicant. Resolve this before publishing
 reviewed cutoffs. The source also prohibits generative AI award-application
 content; future writing features must respect that rule.
 
-Reviewer action: inspect sources, decide publishable fields and cycle
-interpretation, and record the actual reviewer and verification run through an
-authorized workflow. Current staged rows remain drafts.
+The human operator subsequently confirmed only the facts listed in the review
+question: program name, required school nomination and four-year coverage of
+tuition/books/incidental fees/residence. Six exact field claims were recorded as
+verified in development using `scripts/record-approved-catalog-facts.sql`.
+Two source-level verification runs record the limited approval and its work-thread
+provenance. `reviewer_id` is deliberately null: no authenticated editorial
+session was performed, and neither QA identity was impersonated.
+
+This does not approve campus/unit/degree metadata, eligibility, funding labels,
+cycle or deadlines. Whole catalog entities remain drafts until their displayed
+fields and dependencies are reviewed. The source of truth now distinguishes
+confirmed field facts from whole-record publication instead of assigning an
+overbroad verified badge.
