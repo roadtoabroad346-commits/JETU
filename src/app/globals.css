@@ -2374,6 +2374,28 @@ fieldset.showcase-layout {
 .roadmap-task-origin {
   color: var(--muted);
 }
+.roadmap-workload {
+  overflow-wrap: anywhere;
+}
+.roadmap-week-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 24px;
+  padding-inline-start: 24px;
+}
+.roadmap-workload summary {
+  cursor: pointer;
+  padding-block: 12px;
+}
+.roadmap-workload .feedback-box ul {
+  display: grid;
+  gap: 8px;
+  padding-inline-start: 20px;
+}
+.roadmap-workload .ui-button {
+  white-space: normal;
+  text-align: start;
+}
 .roadmap-upcoming {
   grid-column: 1 / -1;
   margin-top: var(--space-4);

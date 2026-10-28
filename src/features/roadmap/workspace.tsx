@@ -11,6 +11,7 @@ import {
   type TaskStatus,
 } from './engine';
 import { roadmapCopy } from './copy';
+import { WeeklyWorkload } from './weekly-workload';
 
 export type RoadmapView =
   'overview' | 'kanban' | 'timeline' | 'calendar' | 'checklist';
@@ -319,6 +320,7 @@ function Overview({
           {!upcoming.length && <p>{t.noTasks}</p>}
         </div>
       </section>
+      <WeeklyWorkload state={state} locale={locale} onOpen={onOpen} />
     </div>
   );
 }

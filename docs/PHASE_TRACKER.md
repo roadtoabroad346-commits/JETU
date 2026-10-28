@@ -1,4 +1,25 @@
-# Phase tracker — updated 2026-10-27
+# Phase tracker — updated 2026-10-28
+
+## Current recovery checkpoint
+
+This checkpoint supersedes stale deployment statements below. Authority migration
+`20261028123545` is applied to Jetuu development; the server secret is configured
+for Preview. Commit `5cde7ba` passed all three CI jobs (`40689442104`): 169 unit
+tests, 86 production-browser cases, two clean replays with 220 SQL assertions,
+types/advisors and 36 disposable real Auth/Storage/browser checks. These are not
+hosted user journey evidence. Both QA identities are email-confirmed.
+
+Weekly workload planning now uses saved availability, prerequisite urgency,
+completed work and personal dates, with separate official-deadline risk. This is
+a derived two-year work estimate; it does not rewrite deadlines or invent grade
+rules. Populated synthetic UI checks cover three locales/widths, accessibility,
+capacity change/reload and all five views. No whole phase is relabeled VERIFIED.
+
+External gates: enforced package-manager-only networking denies hosted Supabase
+and Vercel from this executor; a real editor must review catalog claims and date
+conflicts (CATALOG_REVIEW_2026_10_28.md). Country/grade pacing, structured program
+document extraction, scanner/purge/backup/consent and later product phases remain
+independent work. Existing dated reports below are historical evidence.
 
 **Current: Phase 19 PARTIAL.** Private Vault/Writing and development migrations implemented; scanner/hosted Auth/mentor/editorial gates remain open. See `PHASE_19_QA_AND_RELEASE.md` and `PREVIOUS_PHASE_CLOSURE_19.md`.
 

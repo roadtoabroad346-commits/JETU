@@ -9,7 +9,21 @@ Preserve Phases 18/19 and the draft #2→#3→#4→#5 stack. Exact-head CI, gene
 drift, real local Auth/browser tests and remaining master/editorial/hosted gates
 must be closed explicitly. The continuation below is historical Phase 19 context.
 
-# Resume Phase 19 — PARTIAL, 2026-10-27
+# Resume MVP recovery — PARTIAL, 2026-10-28
+
+User authorized closing remaining MVP gaps. Continue on `codex/mvp-verification`,
+draft PR #7, preserving Phases 17–19. The current PHASE_TRACKER checkpoint
+supersedes claims that the authority repair is local/unapproved. Hosted migration
+`20261028123545` is applied; Preview secret configured; CI `40689442104` is green.
+Temporary QA credential files were removed. Never commit or disclose credentials.
+
+Current work adds weekly workload estimates and populated synthetic Roadmap UI
+coverage to CI. Human catalog review and enforced HTTP allowlists remain external
+gates. User was asked to permit the exact development Supabase and stable Preview
+branch alias hosts. Do not bypass the proxy. Do not mark all 30 phases complete:
+later features and independent scanner/backup/consent gates remain unbuilt.
+
+## Historical Phase 19 checkpoint
 
 Start at the latest head of `codex/phase19-document-vault`, draft PR #5 stacked on
 #4/#3/#2. The latest implementation source anchor is **`472fe5e`** (application recovery); the first full verified gate is `a916e70`. Read exact Master
