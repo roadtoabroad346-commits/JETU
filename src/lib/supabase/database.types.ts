@@ -580,6 +580,77 @@ export type Database = {
           },
         ];
       };
+      catalog_editor_events: {
+        Row: {
+          action: string;
+          actor_id: string | null;
+          after_snapshot: NonNullable<Json>;
+          before_snapshot: NonNullable<Json>;
+          claim_id: number | null;
+          created_at: string;
+          entity_id: number;
+          id: number;
+          note: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          action: string;
+          actor_id?: string | null;
+          after_snapshot: NonNullable<Json>;
+          before_snapshot: NonNullable<Json>;
+          claim_id?: number | null;
+          created_at?: string;
+          entity_id: number;
+          id?: never;
+          note: string;
+        };
+        Update: {
+          action?: string;
+          actor_id?: string | null;
+          after_snapshot?: NonNullable<Json>;
+          before_snapshot?: NonNullable<Json>;
+          claim_id?: number | null;
+          created_at?: string;
+          entity_id?: number;
+          id?: never;
+          note?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'catalog_editor_events_claim_id_fkey';
+            columns: ['claim_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'catalog_editor_events_entity_id_fkey';
+            columns: ['entity_id'];
+            isOneToOne: false;
+            referencedRelation: 'catalog_entities';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      catalog_editor_memberships: {
+        Row: {
+          granted_at: string;
+          role: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          granted_at?: string;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          granted_at?: string;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       catalog_entities: {
         Row: {
           archived_at: string | null;
@@ -4994,6 +5065,8 @@ export type Database = {
         Args: { target_entity_id: number };
         Returns: undefined;
       };
+      catalog_editor_command: { Args: { p_command: Json }; Returns: Json };
+      catalog_editor_queue: { Args: { p_before_id?: number }; Returns: Json };
       catalog_search: {
         Args: { p_filters?: Json };
         Returns: {

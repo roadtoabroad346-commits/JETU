@@ -100,7 +100,10 @@ if (!process.argv.includes('--purge-only')) {
           );
         } catch (error) {
           if (error.code === 1) clean = false;
-          else throw new Error('Scanner unavailable; quarantine retained');
+          else
+            throw new Error('Scanner unavailable; quarantine retained', {
+              cause: error,
+            });
         }
       }
       check(
