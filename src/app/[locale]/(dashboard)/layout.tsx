@@ -10,6 +10,7 @@ import { matchingCopy } from '@/features/matching/copy';
 import { roadmapCopy } from '@/features/roadmap/copy';
 import { vaultCopy } from '@/features/vault/copy';
 import { applicationsCopy } from '@/features/applications/copy';
+import { editorCopy } from '@/features/catalog-editor/copy';
 
 export default async function DashboardLayout({
   children,
@@ -29,6 +30,11 @@ export default async function DashboardLayout({
   const supabase = await createRequestSupabaseClient();
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect(`/${locale}/login`);
+  const editorialMembership = await supabase
+    .from('catalog_editor_memberships')
+    .select('role')
+    .eq('user_id', data.claims.sub)
+    .maybeSingle();
   const t = authCopy[locale];
   return (
     <div className="dashboard-page">
@@ -58,6 +64,9 @@ export default async function DashboardLayout({
             </a>
             <a href={`/${locale}/vault`}>{vaultCopy(locale).vault}</a>
             <a href={`/${locale}/writing`}>{vaultCopy(locale).writing}</a>
+            {editorialMembership.data && (
+              <a href={`/${locale}/admin`}>{editorCopy[locale].title}</a>
+            )}
           </nav>
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />

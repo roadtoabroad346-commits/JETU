@@ -2,6 +2,7 @@ import { ApplicationDocuments } from '../../src/features/vault/application-docum
 import { createRoot } from 'react-dom/client';
 import { VaultWorkspace } from '../../src/features/vault/workspace';
 import { WritingWorkspace } from '../../src/features/writing/workspace';
+import { CatalogEditor } from '../../src/features/catalog-editor/workspace';
 import {
   RoadmapWorkspace,
   type RoadmapView,
@@ -12,7 +13,9 @@ const params = new URLSearchParams(window.location.search),
   locale = (params.get('locale') ?? 'en') as Locale;
 document.documentElement.lang = locale;
 createRoot(document.getElementById('root')!).render(
-  params.get('screen') === 'roadmap' ? (
+  params.get('screen') === 'editor' ? (
+    <CatalogEditor locale={locale} />
+  ) : params.get('screen') === 'roadmap' ? (
     <RoadmapWorkspace
       locale={locale}
       initialView={(params.get('view') ?? 'overview') as RoadmapView}

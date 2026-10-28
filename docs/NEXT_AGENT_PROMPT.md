@@ -1,15 +1,12 @@
-# Current request — Phase 17 repair, local only, 2026-10-27
-
-Continue `codex/phase17-completion`, based on PR #5 head `3118aea`. Read
-`PHASE_17_COMPLETION_REVIEW.md` and `PHASE_17_DEPLOYMENT_PLAN.md` first.
-Authority/direct-write/regeneration fixes are local. The new additive migration is
-not on Jetuu development; no push/PR/deploy was authorized or executed. Do not
-restore insecure authenticated generation or mark the whole phase VERIFIED.
-Preserve Phases 18/19 and the draft #2→#3→#4→#5 stack. Exact-head CI, generated-type
-drift, real local Auth/browser tests and remaining master/editorial/hosted gates
-must be closed explicitly. The continuation below is historical Phase 19 context.
-
 # Resume MVP recovery — PARTIAL, 2026-10-28
+
+The new catalog review console is at `/{locale}/admin`. Development migrations
+`20261028132915` and `20261028133923` install database-enforced editorial roles,
+review/publication actions, optimistic concurrency, shared transaction lock and
+before/after audit events. The owner selected and received the limited development
+reviewer role; see CATALOG_EDITOR_QA.md. The current managed executor still
+reports revision 17 with empty allowed hosts and CONNECT 403 despite the user's
+separate successful network checks; do not bypass its policy.
 
 User authorized closing remaining MVP gaps. Continue on `codex/mvp-verification`,
 draft PR #7, preserving Phases 17–19. The current PHASE_TRACKER checkpoint

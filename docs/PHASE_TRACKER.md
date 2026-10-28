@@ -2,6 +2,14 @@
 
 ## Current recovery checkpoint
 
+Catalog editorial continuation: a source-first review/publication console is
+implemented with database reviewer roles, explicit attestations, version checks,
+serialized commands and before/after audit. The two development migrations are
+applied, and the user-selected confirmed account has reviewer membership. A
+rollback probe returned 12 queue records. Local UI tests use synthetic data; live
+authenticated review and catalog publication remain open. This advances Phases 11
+and 28 without implying either complete. See CATALOG_EDITOR_QA.md.
+
 This checkpoint supersedes stale deployment statements below. Authority migration
 `20261028123545` is applied to Jetuu development; the server secret is configured
 for Preview. Commit `5cde7ba` passed all three CI jobs (`40689442104`): 169 unit

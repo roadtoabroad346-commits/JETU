@@ -26,6 +26,7 @@ const APP_ROUTES = new Set([
   'applications',
   'vault',
   'writing',
+  'admin',
 ]);
 
 function notFoundResponse(locale: Locale) {
