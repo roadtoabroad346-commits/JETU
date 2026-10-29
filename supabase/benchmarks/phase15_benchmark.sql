@@ -1,4 +1,5 @@
--- Rollback-only 10k-row search benchmark. Never publish these synthetic records.
+-- Manual rollback-only 10k-row search benchmark, outside the pgTAP test directory.
+-- Never publish these synthetic records. Run only on an authorized disposable database.
 begin;
 set local statement_timeout = '55s';
 
