@@ -1,5 +1,9 @@
 # Phase 04 implementation log — 2026-10-17
 
+## 2026-10-26 — Phase 17 partial checkpoint
+
+Created the roadmap engine, owner-scoped schema, regeneration history, task APIs and RU/KK/EN views. Applied two additive migrations to Jetuu development. Local lint, TypeScript, 98 unit/integration tests, build and two negative API browser cases passed. Transactional SQL reached 27 assertions. See `PHASE_17_QA.md` for remaining gates.
+
 ## Phase 16.5 product continuation — 2026-10-25
 
 - Remote GitHub Actions run `40204392572`: frontend succeeded; the database job

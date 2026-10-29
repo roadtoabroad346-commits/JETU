@@ -638,8 +638,10 @@ export type Database = {
       };
       deadlines: {
         Row: {
+          date_precision: string;
           deadline_type: string;
           due_at: string | null;
+          due_date: string | null;
           id: number;
           is_rolling: boolean;
           timezone_name: string | null;
@@ -647,16 +649,20 @@ export type Database = {
         };
         ComputedFields: never;
         Insert: {
+          date_precision?: string;
           deadline_type: string;
           due_at?: string | null;
+          due_date?: string | null;
           id: number;
           is_rolling?: boolean;
           timezone_name?: string | null;
           title: string;
         };
         Update: {
+          date_precision?: string;
           deadline_type?: string;
           due_at?: string | null;
+          due_date?: string | null;
           id?: number;
           is_rolling?: boolean;
           timezone_name?: string | null;
@@ -2188,6 +2194,463 @@ export type Database = {
           },
         ];
       };
+      roadmap_generation_runs: {
+        Row: {
+          change_summary: NonNullable<Json>;
+          created_at: string;
+          generation_version: string;
+          id: string;
+          input_hash: string;
+          profile_version: number | null;
+          roadmap_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          change_summary?: NonNullable<Json>;
+          created_at?: string;
+          generation_version: string;
+          id?: string;
+          input_hash: string;
+          profile_version?: number | null;
+          roadmap_id: string;
+          user_id: string;
+        };
+        Update: {
+          change_summary?: NonNullable<Json>;
+          created_at?: string;
+          generation_version?: string;
+          id?: string;
+          input_hash?: string;
+          profile_version?: number | null;
+          roadmap_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_generation_runs_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_milestones: {
+        Row: {
+          created_at: string;
+          description: string;
+          generation_key: string;
+          id: string;
+          is_active: boolean;
+          recommended_date: string | null;
+          roadmap_id: string;
+          sequence: number;
+          target_id: string | null;
+          title: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          description?: string;
+          generation_key: string;
+          id?: string;
+          is_active?: boolean;
+          recommended_date?: string | null;
+          roadmap_id: string;
+          sequence: number;
+          target_id?: string | null;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          generation_key?: string;
+          id?: string;
+          is_active?: boolean;
+          recommended_date?: string | null;
+          roadmap_id?: string;
+          sequence?: number;
+          target_id?: string | null;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_milestones_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_milestones_target_id_roadmap_id_user_id_fkey';
+            columns: ['target_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_targets';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_targets: {
+        Row: {
+          catalog_entity_id: number;
+          created_at: string;
+          detail_path: string;
+          id: string;
+          is_active: boolean;
+          roadmap_id: string;
+          target_type: string;
+          title_snapshot: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          catalog_entity_id: number;
+          created_at?: string;
+          detail_path: string;
+          id?: string;
+          is_active?: boolean;
+          roadmap_id: string;
+          target_type: string;
+          title_snapshot: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          catalog_entity_id?: number;
+          created_at?: string;
+          detail_path?: string;
+          id?: string;
+          is_active?: boolean;
+          roadmap_id?: string;
+          target_type?: string;
+          title_snapshot?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_targets_catalog_entity_id_fkey';
+            columns: ['catalog_entity_id'];
+            isOneToOne: false;
+            referencedRelation: 'catalog_entities';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_targets_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_task_dependencies: {
+        Row: {
+          created_at: string;
+          dependency_type: string;
+          depends_on_task_id: string;
+          id: string;
+          origin: string;
+          roadmap_id: string;
+          task_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          dependency_type?: string;
+          depends_on_task_id: string;
+          id?: string;
+          origin?: string;
+          roadmap_id: string;
+          task_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          dependency_type?: string;
+          depends_on_task_id?: string;
+          id?: string;
+          origin?: string;
+          roadmap_id?: string;
+          task_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_task_dependencies_depends_on_task_id_roadmap_id_us_fkey';
+            columns: ['depends_on_task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_dependencies_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_dependencies_task_id_roadmap_id_user_id_fkey';
+            columns: ['task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_task_events: {
+        Row: {
+          created_at: string;
+          event_type: string;
+          from_status: string | null;
+          id: number;
+          roadmap_id: string;
+          task_id: string;
+          task_version: number;
+          to_status: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          event_type: string;
+          from_status?: string | null;
+          id?: never;
+          roadmap_id: string;
+          task_id: string;
+          task_version: number;
+          to_status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          event_type?: string;
+          from_status?: string | null;
+          id?: never;
+          roadmap_id?: string;
+          task_id?: string;
+          task_version?: number;
+          to_status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_task_events_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_events_task_id_roadmap_id_user_id_fkey';
+            columns: ['task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_tasks: {
+        Row: {
+          completed_at: string | null;
+          created_at: string;
+          description: string;
+          estimated_minutes: number;
+          generated_priority: string;
+          generation_key: string | null;
+          id: string;
+          is_mandatory: boolean;
+          milestone_id: string | null;
+          note: string | null;
+          obsolete_at: string | null;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_source_checked_at: string | null;
+          official_source_url: string | null;
+          origin: string;
+          priority_override: string | null;
+          recommended_due_date: string | null;
+          roadmap_id: string;
+          source_deadline_id: number | null;
+          source_requirement_id: number | null;
+          status: string;
+          target_date: string | null;
+          target_id: string | null;
+          task_kind: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          why_it_matters: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          completed_at?: string | null;
+          created_at?: string;
+          description?: string;
+          estimated_minutes?: number;
+          generated_priority?: string;
+          generation_key?: string | null;
+          id?: string;
+          is_mandatory?: boolean;
+          milestone_id?: string | null;
+          note?: string | null;
+          obsolete_at?: string | null;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_source_checked_at?: string | null;
+          official_source_url?: string | null;
+          origin: string;
+          priority_override?: string | null;
+          recommended_due_date?: string | null;
+          roadmap_id: string;
+          source_deadline_id?: number | null;
+          source_requirement_id?: number | null;
+          status?: string;
+          target_date?: string | null;
+          target_id?: string | null;
+          task_kind: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+          why_it_matters?: string;
+        };
+        Update: {
+          completed_at?: string | null;
+          created_at?: string;
+          description?: string;
+          estimated_minutes?: number;
+          generated_priority?: string;
+          generation_key?: string | null;
+          id?: string;
+          is_mandatory?: boolean;
+          milestone_id?: string | null;
+          note?: string | null;
+          obsolete_at?: string | null;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_source_checked_at?: string | null;
+          official_source_url?: string | null;
+          origin?: string;
+          priority_override?: string | null;
+          recommended_due_date?: string | null;
+          roadmap_id?: string;
+          source_deadline_id?: number | null;
+          source_requirement_id?: number | null;
+          status?: string;
+          target_date?: string | null;
+          target_id?: string | null;
+          task_kind?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+          why_it_matters?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_tasks_milestone_id_roadmap_id_user_id_fkey';
+            columns: ['milestone_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_milestones';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_source_deadline_id_fkey';
+            columns: ['source_deadline_id'];
+            isOneToOne: false;
+            referencedRelation: 'deadlines';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_source_requirement_id_fkey';
+            columns: ['source_requirement_id'];
+            isOneToOne: false;
+            referencedRelation: 'eligibility_requirements';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_target_id_roadmap_id_user_id_fkey';
+            columns: ['target_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_targets';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmaps: {
+        Row: {
+          availability_minutes_per_week: number;
+          created_at: string;
+          cycle_year: number;
+          generation_version: string;
+          id: string;
+          last_generated_at: string | null;
+          last_input_hash: string | null;
+          status: string;
+          timezone_name: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          availability_minutes_per_week?: number;
+          created_at?: string;
+          cycle_year: number;
+          generation_version?: string;
+          id?: string;
+          last_generated_at?: string | null;
+          last_input_hash?: string | null;
+          status?: string;
+          timezone_name: string;
+          title?: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+        };
+        Update: {
+          availability_minutes_per_week?: number;
+          created_at?: string;
+          cycle_year?: number;
+          generation_version?: string;
+          id?: string;
+          last_generated_at?: string | null;
+          last_input_hash?: string | null;
+          status?: string;
+          timezone_name?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [];
+      };
       saved_catalog_items: {
         Row: {
           catalog_entity_id: number;
@@ -3499,6 +3962,21 @@ export type Database = {
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
         Returns: number;
+      };
+      roadmap_apply_generation: {
+        Args: {
+          p_availability_minutes_per_week: number;
+          p_cycle_year: number;
+          p_dependencies: Json;
+          p_generation_version: string;
+          p_input_hash: string;
+          p_milestones: Json;
+          p_profile_version: number;
+          p_targets: Json;
+          p_tasks: Json;
+          p_timezone_name: string;
+        };
+        Returns: Json;
       };
       scholarship_create_draft: {
         Args: { p_actor: string; p_bundle: Json };

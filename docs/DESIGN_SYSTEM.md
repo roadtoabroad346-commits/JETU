@@ -1,5 +1,7 @@
 # JETU design system — Phase 05
 
+Phase 17 applies the established tokens to the private roadmap workspace. Its view hierarchy, state and mobile rules are in `design-system/jetu-admissions/pages/roadmap.md`.
+
 Phase 16.5 continuation: public catalog, unified-search and matching cards now
 use the same restrained 220 ms border/shadow/2 px hover feedback on hover-capable
 devices. The global reduced-motion contract suppresses these transforms. Mobile

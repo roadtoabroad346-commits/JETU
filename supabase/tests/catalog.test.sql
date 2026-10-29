@@ -68,8 +68,8 @@ select public.publish_catalog_entity(id,now()) from catalog_round_fixture;
 create temporary table catalog_deadline_fixture (id bigint);
 with entity as (insert into public.catalog_entities(entity_type) values ('deadline') returning id)
 insert into catalog_deadline_fixture select id from entity;
-insert into public.deadlines(id,deadline_type,title,due_at,timezone_name)
-select id,'application','Application deadline','2027-03-01T12:00:00Z','UTC'
+insert into public.deadlines(id,deadline_type,title,due_at,timezone_name,date_precision)
+select id,'application','Application deadline','2027-03-01T12:00:00Z','UTC','instant'
 from catalog_deadline_fixture;
 insert into public.application_round_deadlines(application_round_id,deadline_id)
 select r.id,d.id from catalog_round_fixture r cross join catalog_deadline_fixture d;
