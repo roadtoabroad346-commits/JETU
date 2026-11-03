@@ -1,6 +1,13 @@
 'use client';
 
-import { useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
+import {
+  createElement,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type FormEvent,
+  type ReactNode,
+} from 'react';
 import { z } from 'zod';
 import { BrandLogo } from '@/components/ui/brand';
 import { Icon } from '@/components/ui/icon';
@@ -47,24 +54,24 @@ function Section({
   body: string;
   children: ReactNode;
 }) {
-  return (
-    <section
-      className="showcase-section"
-      id={id}
-      tabIndex={-1}
-      aria-labelledby={`${id}-title`}
-    >
-      <div className="section-heading">
-        <span className="section-number" aria-hidden="true">
-          {String(number).padStart(2, '0')}
-        </span>
-        <div>
-          <h2 id={`${id}-title`}>{title}</h2>
-          <p>{body}</p>
-        </div>
+  return createElement(
+    'section',
+    {
+      className: 'showcase-section',
+      id,
+      tabIndex: -1,
+      'aria-labelledby': `${id}-title`,
+    },
+    <div className="section-heading">
+      <span className="section-number" aria-hidden="true">
+        {String(number).padStart(2, '0')}
+      </span>
+      <div>
+        {createElement('h2', { id: `${id}-title` }, title)}
+        <p>{body}</p>
       </div>
-      {children}
-    </section>
+    </div>,
+    children,
   );
 }
 
@@ -79,7 +86,7 @@ function PreviewForm({ t }: { t: DesignMessages }) {
     <Card>
       <form
         noValidate
-        onSubmit={(event) => {
+        onSubmit={(event: FormEvent<HTMLFormElement>) => {
           event.preventDefault();
           const data = new FormData(event.currentTarget);
           const result = previewSchema.safeParse(data.get('previewText'));
