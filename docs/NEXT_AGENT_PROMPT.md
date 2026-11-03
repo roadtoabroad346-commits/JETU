@@ -1,3 +1,17 @@
+# Latest handoff — 2026-11-03 MVP quality pass
+
+Read `docs/MVP_COMPLETION.md` first for current acceptance, fixes and verification.
+The existing scope remains **PARTIAL**. Autocomplete now discards stale responses
+and closes on Escape/blur; matching validates inputs, retains drafts on POST failure,
+retries the correct method and handles session expiry; profile updates compare the
+rendered version atomically and reject stale tabs. No schema migration was needed.
+Six hosted rollback SQL assertions proved profile CAS/history/owner isolation;
+this does not verify Auth/REST. The user meant old **Codex environments**, not the
+nested `jetu/` upload. No available environment-list/delete capability exists.
+Preserve the original upload and unrelated projects. Do not claim environment cleanup.
+
+Previous checkpoint context follows; its dated counts are historical.
+
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
 Phase 16 is implemented locally and in the authorized Jetuu development database, but **not verified end to end**. Do not start Phase 17 under this checkpoint. Read `docs/AI_MATCHING_ARCHITECTURE.md` and the Phase 16 gate in `docs/PHASE_TRACKER.md` before work.

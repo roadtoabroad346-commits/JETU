@@ -1,0 +1,1 @@
+PASS: actual MatchingWorkspace with mocked API: validation/focus, POST failure, retained draft, POST retry, success, initial GET recovery, session expiry, 320/768/1440 layout and axe. Not hosted Auth/REST evidence.

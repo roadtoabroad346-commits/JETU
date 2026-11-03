@@ -33,20 +33,23 @@ export function SearchAutocomplete({
 }) {
   const listId = useId();
   const request = useRef<AbortController | null>(null);
+  const dismissed = useRef(false);
   const [value, setValue] = useState(defaultValue);
   const [items, setItems] = useState<Suggestion[]>([]);
   const [active, setActive] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     request.current?.abort();
-    if (value.trim().length < 2) {
+    if (!focused || value.trim().length < 2) {
       return;
     }
     const controller = new AbortController();
     request.current = controller;
     const timer = window.setTimeout(async () => {
+      if (controller.signal.aborted || dismissed.current) return;
       setLoading(true);
       try {
         const params = new URLSearchParams({ q: value.trim(), type, locale });
@@ -58,11 +61,12 @@ export function SearchAutocomplete({
           data?: { items?: Suggestion[] };
         };
         if (!response.ok) throw new Error('suggestion request failed');
+        if (controller.signal.aborted || dismissed.current) return;
         setItems(body.data?.items ?? []);
         setActive(-1);
         setOpen(true);
-      } catch (error) {
-        if (!(error instanceof DOMException && error.name === 'AbortError')) {
+      } catch {
+        if (!controller.signal.aborted) {
           setItems([]);
           setOpen(false);
         }
@@ -74,27 +78,55 @@ export function SearchAutocomplete({
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [locale, type, value]);
+  }, [focused, locale, type, value]);
+
+  useEffect(() => {
+    if (open && active >= 0) {
+      document
+        .getElementById(`${listId}-${active}`)
+        ?.scrollIntoView({ block: 'nearest' });
+    }
+  }, [active, listId, open]);
+
+  function dismiss() {
+    dismissed.current = true;
+    request.current?.abort();
+    setOpen(false);
+    setActive(-1);
+    setLoading(false);
+  }
 
   function onKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (!open || items.length === 0) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      dismiss();
+      return;
+    }
+    if (items.length === 0 || event.nativeEvent.isComposing) return;
     if (event.key === 'ArrowDown') {
       event.preventDefault();
+      setOpen(true);
       setActive((current) => (current + 1) % items.length);
     } else if (event.key === 'ArrowUp') {
       event.preventDefault();
+      setOpen(true);
       setActive((current) => (current <= 0 ? items.length - 1 : current - 1));
-    } else if (event.key === 'Escape') {
-      setOpen(false);
-      setActive(-1);
-    } else if (event.key === 'Enter' && active >= 0) {
+    } else if (event.key === 'Enter' && open && active >= 0) {
       event.preventDefault();
       window.location.assign(items[active]!.href);
     }
   }
 
   return (
-    <div className="search-combobox">
+    <div
+      className="search-combobox"
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          dismiss();
+          setFocused(false);
+        }
+      }}
+    >
       <label htmlFor={`${listId}-input`}>{label}</label>
       <input
         id={`${listId}-input`}
@@ -106,19 +138,26 @@ export function SearchAutocomplete({
         placeholder={hint}
         role="combobox"
         aria-autocomplete="list"
-        aria-expanded={open}
-        aria-controls={listId}
-        aria-activedescendant={active >= 0 ? `${listId}-${active}` : undefined}
+        aria-expanded={open && items.length > 0}
+        aria-controls={open && items.length > 0 ? listId : undefined}
+        aria-activedescendant={
+          open && active >= 0 ? `${listId}-${active}` : undefined
+        }
         onChange={(event) => {
           const nextValue = event.currentTarget.value;
+          request.current?.abort();
+          dismissed.current = false;
           setValue(nextValue);
-          if (nextValue.trim().length < 2) {
-            setItems([]);
-            setOpen(false);
-            setLoading(false);
-          }
+          setItems([]);
+          setActive(-1);
+          setOpen(false);
+          setLoading(false);
         }}
-        onFocus={() => items.length > 0 && setOpen(true)}
+        onFocus={() => {
+          dismissed.current = false;
+          setFocused(true);
+          if (items.length > 0) setOpen(true);
+        }}
         onKeyDown={onKeyDown}
       />
       <span className="sr-only" role="status" aria-live="polite">
@@ -132,13 +171,16 @@ export function SearchAutocomplete({
           className="search-suggestions"
         >
           {items.map((item, index) => (
-            <li
-              id={`${listId}-${index}`}
-              role="option"
-              aria-selected={index === active}
-              key={`${item.type}:${item.id}`}
-            >
-              <a href={item.href} onMouseEnter={() => setActive(index)}>
+            <li role="none" key={`${item.type}:${item.id}`}>
+              <a
+                id={`${listId}-${index}`}
+                role="option"
+                aria-selected={index === active}
+                href={item.href}
+                tabIndex={-1}
+                onMouseDown={(event) => event.preventDefault()}
+                onMouseEnter={() => setActive(index)}
+              >
                 <strong>{item.title}</strong>
                 <span>{item.subtitle}</span>
               </a>

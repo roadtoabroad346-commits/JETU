@@ -75,6 +75,12 @@ const profileSchema = z
 
 export async function saveProfile(formData: FormData) {
   const locale = localeOf(formData);
+  const expectedVersion = z.coerce
+    .number()
+    .int()
+    .nonnegative()
+    .safeParse(formData.get('version'));
+  if (!expectedVersion.success) redirect(`/${locale}/onboarding?error=invalid`);
   const parsed = profileSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) redirect(`/${locale}/onboarding?error=invalid`);
   const supabase = await createRequestSupabaseClient();
@@ -86,12 +92,26 @@ export async function saveProfile(formData: FormData) {
     .eq('user_id', userData.user.id)
     .maybeSingle();
   if (readError) redirect(`/${locale}/onboarding?error=invalid`);
-  const { error } = await supabase.from('student_profiles').upsert({
+  if ((current?.version ?? 0) !== expectedVersion.data)
+    redirect(`/${locale}/onboarding?error=conflict`);
+  const values = {
     user_id: userData.user.id,
     document: mergeProfileDocument(current?.document, parsed.data, locale),
-    version: current ? current.version + 1 : 1,
+    version: expectedVersion.data + 1,
     updated_at: new Date().toISOString(),
-  });
+  };
+  // Compare at write time too: another request may have saved since our read.
+  // A first insert must never overwrite a profile created concurrently.
+  const mutation = current
+    ? supabase
+        .from('student_profiles')
+        .update(values)
+        .eq('user_id', userData.user.id)
+        .eq('version', expectedVersion.data)
+    : supabase.from('student_profiles').insert(values);
+  const { data: saved, error } = await mutation.select('version').maybeSingle();
+  if (error?.code === '23505' || (!error && !saved))
+    redirect(`/${locale}/onboarding?error=conflict`);
   if (error) redirect(`/${locale}/onboarding?error=invalid`);
   redirect(`/${locale}/onboarding?success=saved`);
 }

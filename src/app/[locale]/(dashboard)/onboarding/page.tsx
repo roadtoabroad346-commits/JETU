@@ -46,7 +46,7 @@ export default async function OnboardingPage({
   const { data, error } = userData.user
     ? await supabase
         .from('student_profiles')
-        .select('document')
+        .select('document,version')
         .eq('user_id', userData.user.id)
         .maybeSingle()
     : { data: null, error: null };
@@ -70,7 +70,7 @@ export default async function OnboardingPage({
         )}
         {state.error && (
           <p className="feedback-box feedback-box--error" role="alert">
-            {t.invalid}
+            {state.error === 'conflict' ? t.profileConflict : t.invalid}
           </p>
         )}
         {state.success && (
@@ -80,6 +80,7 @@ export default async function OnboardingPage({
         )}
         <form action={saveProfile} className="profile-form">
           <input type="hidden" name="locale" value={locale} />
+          <input type="hidden" name="version" value={data?.version ?? 0} />
           <Field
             id="country"
             name="country"
@@ -224,7 +225,11 @@ export default async function OnboardingPage({
             )}
           </div>
           <div className="row">
-            <button className="ui-button ui-button--primary" type="submit">
+            <button
+              className="ui-button ui-button--primary"
+              type="submit"
+              disabled={loadFailed}
+            >
               {t.save}
             </button>
             <a

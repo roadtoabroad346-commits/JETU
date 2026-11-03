@@ -1,15 +1,15 @@
 # JETU Admissions — current shipped state
 
 Next.js App Router, strict TypeScript, Tailwind CSS, Motion, and Supabase.
-Shipped: engineering foundation, a verified local design-system slice, the
-localized Phase 06 public site, a read-only university & program catalog
-explorer (Phase 12 scope), Phase 15 unified search/saves/program comparison,
-and account flows — registration, sign-in, password
-reset, dashboard and a private student profile (Phase 08–09 scope). Phase 08/09
-work is implemented but **not** phase-verified. Phase 15 is PARTIAL because the
-reviewed corpus has only one opportunity and hosted REST/Auth/deployment proof is unavailable.
-Matching, paid plans, mentor booking, AI coaching and document vault are not
-implemented; the site does not simulate them.
+Shipped: engineering foundation, localized public site and design system,
+university/program discovery, unified search/saves/program comparison, account
+registration/sign-in/password reset, private student profiles, and deterministic
+explainable matching. **Overall status: PARTIAL**: no published program/scholarship
+corpus, and the real hosted account → profile → matching journey remains unverified.
+The 2026-11-03 quality pass adds stale-save protection, resilient autocomplete,
+matching validation/retry/session feedback and reduced-motion-aware transitions.
+See [MVP_COMPLETION.md](docs/MVP_COMPLETION.md) for current scope and actual evidence.
+Paid plans, mentor booking, external AI coaching and document vault are not shipped.
 
 ## Run locally
 
@@ -183,6 +183,6 @@ claim a remote CI run with that bundled browser.
 The landing, all 39 localized URLs, SEO assets and local mobile performance evidence
 are documented in docs/PHASE_06_REVIEW.md. The Phase 06 gate remains open because
 its original acceptance required the real onboarding flow that shipped later under
-Phase 08–09 commits — that work has its own pending verification. Matching,
-save/compare plans, verified scholarship records, paid plans, mentor booking and
-contact submission are not implemented; the site does not simulate them.
+Phase 08–09 commits — that work has its own pending verification. Matching and save/compare are implemented with the verification limits above.
+Verified scholarship records, paid plans, mentor booking and contact submission
+remain unavailable; the site does not simulate them.

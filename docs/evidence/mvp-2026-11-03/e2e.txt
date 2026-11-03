@@ -1,0 +1,102 @@
+
+> jetu-admissions@0.15.0 test:e2e
+> playwright test
+
+[WebServer] (node:13290) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13317) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13387) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13386) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:13429) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 74 tests using 2 workers
+
+(node:13443) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13444) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -   1 [desktop-chromium] › tests/e2e/auth.spec.ts:3:1 › anonymous users are redirected from the private dashboard
+  ✓   2 [desktop-chromium] › tests/e2e/auth.spec.ts:21:1 › signup exposes consent and accessible account fields @a11y (2.2s)
+  ✓   3 [desktop-chromium] › tests/e2e/auth.spec.ts:42:1 › password reset does not reveal whether an email exists (2.2s)
+  ✓   4 [desktop-chromium] › tests/e2e/catalog.spec.ts:4:3 › ru catalog search retains URL state and gives actionable failure @a11y (3.8s)
+  ✓   5 [desktop-chromium] › tests/e2e/catalog.spec.ts:4:3 › kk catalog search retains URL state and gives actionable failure @a11y (3.3s)
+  ✓   7 [desktop-chromium] › tests/e2e/catalog.spec.ts:46:1 › catalog fits a 320px viewport and reduced motion (1.6s)
+  ✓   8 [desktop-chromium] › tests/e2e/design-system.spec.ts:6:1 › no-JS content has inert previews and usable navigation; vector assets resolve (1.6s)
+  ✓   6 [desktop-chromium] › tests/e2e/catalog.spec.ts:4:3 › en catalog search retains URL state and gives actionable failure @a11y (4.5s)
+  ✓   9 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › ru: design system responsive, axe and visual baseline @a11y (4.9s)
+  ✓  10 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › kk: design system responsive, axe and visual baseline @a11y (5.6s)
+  ✓  12 [desktop-chromium] › tests/e2e/design-system.spec.ts:99:1 › semantic text, control, chart and hover pairs meet measured contrast (1.7s)
+  ✓  11 [desktop-chromium] › tests/e2e/design-system.spec.ts:39:3 › en: design system responsive, axe and visual baseline @a11y (5.5s)
+  ✓  14 [desktop-chromium] › tests/e2e/design-system.spec.ts:235:1 › local form errors, long text, state feedback, offline behavior and reload (2.9s)
+  ✓  13 [desktop-chromium] › tests/e2e/design-system.spec.ts:172:1 › keyboard tabs, native dialog containment, Escape and tooltip @a11y (6.4s)
+  ✓  15 [desktop-chromium] › tests/e2e/design-system.spec.ts:290:1 › real registry filters, sort, empty recovery and spotlight destination (3.1s)
+  ✓  16 [desktop-chromium] › tests/e2e/foundation.spec.ts:7:3 › ru: localized page, responsive reflow and screenshot @a11y (5.0s)
+  ✓  17 [desktop-chromium] › tests/e2e/foundation.spec.ts:7:3 › kk: localized page, responsive reflow and screenshot @a11y (6.0s)
+  ✓  19 [desktop-chromium] › tests/e2e/foundation.spec.ts:52:1 › language links, reload and browser history preserve locale (2.7s)
+  ✓  18 [desktop-chromium] › tests/e2e/foundation.spec.ts:7:3 › en: localized page, responsive reflow and screenshot @a11y (5.6s)
+  ✓  20 [desktop-chromium] › tests/e2e/foundation.spec.ts:68:1 › root redirects, unknown locales and missing pages return real 404 (3.1s)
+  ✓  22 [desktop-chromium] › tests/e2e/foundation.spec.ts:111:1 › liveness and security headers are real HTTP contracts (82ms)
+  ✓  21 [desktop-chromium] › tests/e2e/foundation.spec.ts:83:1 › keyboard skip, target sizes, no-JS content and reduced motion (3.4s)
+  ✓  23 [desktop-chromium] › tests/e2e/marketing.spec.ts:10:1 › every requested public path resolves with localized metadata and content (1.4s)
+  ✓  25 [desktop-chromium] › tests/e2e/marketing.spec.ts:68:1 › sitemap, robots and social image are real routes (42ms)
+  ✓  24 [desktop-chromium] › tests/e2e/marketing.spec.ts:36:1 › compact hero keeps the guide action visible and deep links work without JavaScript (3.2s)
+  ✓  27 [desktop-chromium] › tests/e2e/marketing.spec.ts:121:1 › language changes retain the information path and reduced motion keeps content visible (1.6s)
+  ✓  28 [desktop-chromium] › tests/e2e/matching.spec.ts:3:1 › matching API rejects cross-origin and malformed input before database access (124ms)
+  ✓  26 [desktop-chromium] › tests/e2e/marketing.spec.ts:83:1 › landing CTAs resolve and the demo is labeled, interactive and keyboard usable @a11y (4.4s)
+  -  29 [desktop-chromium] › tests/e2e/matching.spec.ts:39:1 › private matching route redirects unauthenticated users when Supabase is configured
+  ✓  30 [desktop-chromium] › tests/e2e/search.spec.ts:5:3 › ru unified search keeps URL state and has an accessible recovery state @a11y (3.0s)
+  ✓  31 [desktop-chromium] › tests/e2e/search.spec.ts:5:3 › kk unified search keeps URL state and has an accessible recovery state @a11y (3.6s)
+  ✓  33 [desktop-chromium] › tests/e2e/search.spec.ts:22:1 › search and comparison stay within a 320px page viewport (1.7s)
+  ✓  32 [desktop-chromium] › tests/e2e/search.spec.ts:5:3 › en unified search keeps URL state and has an accessible recovery state @a11y (3.4s)
+  ✓  34 [desktop-chromium] › tests/e2e/search.spec.ts:42:1 › autocomplete supports keyboard selection without exposing hidden data (2.2s)
+  ✓  36 [desktop-chromium] › tests/e2e/search.spec.ts:128:1 › late suggestions cannot reopen after Escape; a new query recovers after failure (2.3s)
+  ✓  35 [desktop-chromium] › tests/e2e/search.spec.ts:78:1 › suggestions discard old query choices and dismiss with Escape and focus exit @a11y (4.5s)
+(node:15191) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  -  38 [mobile-chromium] › tests/e2e/auth.spec.ts:3:1 › anonymous users are redirected from the private dashboard
+  ✓  37 [desktop-chromium] › tests/e2e/search.spec.ts:181:1 › suggestion motion respects reduced motion and long content fits tablet and phone (3.9s)
+  ✓  39 [mobile-chromium] › tests/e2e/auth.spec.ts:21:1 › signup exposes consent and accessible account fields @a11y (1.3s)
+(node:15360) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  41 [mobile-chromium] › tests/e2e/auth.spec.ts:42:1 › password reset does not reveal whether an email exists (1.8s)
+  ✓  40 [mobile-chromium] › tests/e2e/catalog.spec.ts:4:3 › ru catalog search retains URL state and gives actionable failure @a11y (4.2s)
+  ✓  42 [mobile-chromium] › tests/e2e/catalog.spec.ts:4:3 › kk catalog search retains URL state and gives actionable failure @a11y (3.5s)
+  ✓  43 [mobile-chromium] › tests/e2e/catalog.spec.ts:4:3 › en catalog search retains URL state and gives actionable failure @a11y (3.6s)
+  ✓  44 [mobile-chromium] › tests/e2e/catalog.spec.ts:46:1 › catalog fits a 320px viewport and reduced motion (1.2s)
+  ✓  45 [mobile-chromium] › tests/e2e/design-system.spec.ts:6:1 › no-JS content has inert previews and usable navigation; vector assets resolve (2.0s)
+  ✓  46 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › ru: design system responsive, axe and visual baseline @a11y (5.3s)
+  ✓  47 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › kk: design system responsive, axe and visual baseline @a11y (4.6s)
+  ✓  49 [mobile-chromium] › tests/e2e/design-system.spec.ts:99:1 › semantic text, control, chart and hover pairs meet measured contrast (1.8s)
+  ✓  48 [mobile-chromium] › tests/e2e/design-system.spec.ts:39:3 › en: design system responsive, axe and visual baseline @a11y (4.9s)
+  ✓  51 [mobile-chromium] › tests/e2e/design-system.spec.ts:235:1 › local form errors, long text, state feedback, offline behavior and reload (2.8s)
+  ✓  50 [mobile-chromium] › tests/e2e/design-system.spec.ts:172:1 › keyboard tabs, native dialog containment, Escape and tooltip @a11y (5.7s)
+  ✓  52 [mobile-chromium] › tests/e2e/design-system.spec.ts:290:1 › real registry filters, sort, empty recovery and spotlight destination (2.8s)
+  ✓  53 [mobile-chromium] › tests/e2e/foundation.spec.ts:7:3 › ru: localized page, responsive reflow and screenshot @a11y (6.5s)
+  ✓  54 [mobile-chromium] › tests/e2e/foundation.spec.ts:7:3 › kk: localized page, responsive reflow and screenshot @a11y (6.4s)
+  ✓  56 [mobile-chromium] › tests/e2e/foundation.spec.ts:52:1 › language links, reload and browser history preserve locale (2.3s)
+  ✓  57 [mobile-chromium] › tests/e2e/foundation.spec.ts:68:1 › root redirects, unknown locales and missing pages return real 404 (2.2s)
+  ✓  55 [mobile-chromium] › tests/e2e/foundation.spec.ts:7:3 › en: localized page, responsive reflow and screenshot @a11y (7.8s)
+  ✓  59 [mobile-chromium] › tests/e2e/foundation.spec.ts:111:1 › liveness and security headers are real HTTP contracts (155ms)
+  ✓  58 [mobile-chromium] › tests/e2e/foundation.spec.ts:83:1 › keyboard skip, target sizes, no-JS content and reduced motion (2.4s)
+  ✓  60 [mobile-chromium] › tests/e2e/marketing.spec.ts:10:1 › every requested public path resolves with localized metadata and content (1.4s)
+  ✓  62 [mobile-chromium] › tests/e2e/marketing.spec.ts:68:1 › sitemap, robots and social image are real routes (26ms)
+  ✓  61 [mobile-chromium] › tests/e2e/marketing.spec.ts:36:1 › compact hero keeps the guide action visible and deep links work without JavaScript (3.2s)
+  ✓  64 [mobile-chromium] › tests/e2e/marketing.spec.ts:121:1 › language changes retain the information path and reduced motion keeps content visible (1.7s)
+  ✓  65 [mobile-chromium] › tests/e2e/matching.spec.ts:3:1 › matching API rejects cross-origin and malformed input before database access (51ms)
+  ✓  63 [mobile-chromium] › tests/e2e/marketing.spec.ts:83:1 › landing CTAs resolve and the demo is labeled, interactive and keyboard usable @a11y (4.4s)
+  -  66 [mobile-chromium] › tests/e2e/matching.spec.ts:39:1 › private matching route redirects unauthenticated users when Supabase is configured
+  ✓  67 [mobile-chromium] › tests/e2e/search.spec.ts:5:3 › ru unified search keeps URL state and has an accessible recovery state @a11y (3.1s)
+  ✓  68 [mobile-chromium] › tests/e2e/search.spec.ts:5:3 › kk unified search keeps URL state and has an accessible recovery state @a11y (3.2s)
+  ✓  70 [mobile-chromium] › tests/e2e/search.spec.ts:22:1 › search and comparison stay within a 320px page viewport (1.5s)
+  ✓  69 [mobile-chromium] › tests/e2e/search.spec.ts:5:3 › en unified search keeps URL state and has an accessible recovery state @a11y (3.5s)
+  ✓  71 [mobile-chromium] › tests/e2e/search.spec.ts:42:1 › autocomplete supports keyboard selection without exposing hidden data (2.2s)
+  ✓  73 [mobile-chromium] › tests/e2e/search.spec.ts:128:1 › late suggestions cannot reopen after Escape; a new query recovers after failure (2.4s)
+  ✓  72 [mobile-chromium] › tests/e2e/search.spec.ts:78:1 › suggestions discard old query choices and dismiss with Escape and focus exit @a11y (4.3s)
+  ✓  74 [mobile-chromium] › tests/e2e/search.spec.ts:181:1 › suggestion motion respects reduced motion and long content fits tablet and phone (2.9s)
+
+  4 skipped
+  70 passed (2.1m)

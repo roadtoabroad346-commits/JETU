@@ -1915,7 +1915,7 @@ fieldset.showcase-layout {
   color: var(--muted);
   font-size: var(--text-caption);
 }
-.search-suggestions [aria-selected='true'] a,
+.search-suggestions a[aria-selected='true'],
 .search-suggestions a:hover {
   background: var(--surface-blue);
 }
@@ -2299,5 +2299,53 @@ fieldset.showcase-layout {
   .catalog-filters,
   .catalog-card {
     padding: var(--space-4);
+  }
+}
+
+/* Feedback is finite and never gates focus, input or navigation. */
+.matching-preference-fields {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.matching-status {
+  min-height: 1.6em;
+  color: var(--success);
+}
+.matching-form-grid [aria-invalid='true'] {
+  border: 2px solid var(--danger);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .search-suggestions {
+    animation: discovery-arrive var(--duration-panel) var(--ease-out);
+  }
+  .matching-status:not(:empty),
+  .matching-page .feedback-box,
+  .matching-empty {
+    animation: discovery-arrive var(--duration-feedback) var(--ease-out);
+  }
+  .matching-skeleton span {
+    animation: discovery-loading 1200ms ease-in-out 3;
+  }
+  .matching-page .ui-button:active,
+  .search-filter-actions .ui-button:active {
+    transform: scale(0.97);
+    transition: transform var(--duration-press) var(--ease-out);
+  }
+}
+@keyframes discovery-arrive {
+  from {
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes discovery-loading {
+  50% {
+    opacity: 0.45;
   }
 }

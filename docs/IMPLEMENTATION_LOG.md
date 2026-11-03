@@ -493,3 +493,21 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Reconciled RU/KK/EN public and auth copy that still said matching and saves were unavailable or invited users to an unlaunched personal plan. The revised copy states that matching is available with an empty reviewed catalog and that the plan remains future work.
 - `npm audit --omit=dev --audit-level=high` found zero vulnerabilities. The final post-copy `npm run check` passed formatting, ESLint, strict TypeScript, 78 unit/integration tests and production build.
 - Git checkpoint `afa3f11` was pushed to GitHub `main`. Vercel linked the existing `jetu-phase13-preview` project to the repository and built that exact commit to READY at `https://jetu-phase13-preview-8im4ojtmm-impact-hub.vercel.app`. Protected preview smoke: `/api/health` 200, anonymous `/en/match` rendered sign-in, `/en/search` 200 with the one real opportunity. The API GET fetch through the Vercel share-link tool returned a 401 authentication/protection error, so no authenticated matching request was verified. Git `main` also auto-deploys to the Vercel project's production target, whose only domain is `jetu-phase13-preview.vercel.app`; no JETU custom production domain or acceptance-ready product release is claimed. Supabase Git-linked `main` branch advanced through migrations to `ACTIVE_HEALTHY`; GitHub connector showed Vercel success but did not expose push-triggered Actions runs.
+
+## 2026-11-03 — MVP quality and resilience
+
+Current evidence and bounded release matrix: `docs/MVP_COMPLETION.md`.
+Implemented autocomplete cancellation/dismissal/focus fixes, matching shared-schema
+validation and retry without draft loss, session-expiry recovery, finite token-based
+motion, profile optimistic concurrency and actual browser executable fallback.
+Profile mutation tests cover stale tabs, write-time races, first-insert conflict,
+owner filters and unavailable identity/read. Hosted rollback SQL verified six
+CAS/history/RLS assertions, with zero leftover test users. No migration or hosted
+catalog publication occurred. Root application is current; nested upload preserved
+because the user clarified that cleanup means separate Codex environments.
+
+Final gates: `npm run check` PASS (83 unit/integration tests); production Chromium
+E2E PASS (70 passed, four Auth-dependent skips). Matching component mock-API
+browser/axe and six hosted rollback SQL assertions PASS. Production npm audit has
+zero vulnerabilities; development audit reports 13 moderate minimatch-derived
+findings. Complete MVP remains PARTIAL, not FULL AND VERIFIED.
