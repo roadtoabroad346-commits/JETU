@@ -1,4 +1,10 @@
 -- Rollback-only 10k-row search benchmark. Never publish these synthetic records.
+--
+-- Kept outside supabase/tests/ on purpose: `supabase test db --local` executes
+-- every .sql under that directory through pg_prove, and a file without pgTAP
+-- plan/ok output counts as a failed test. This file reports a plain result row
+-- for a manual budget comparison, so it must not participate in the CI pgTAP
+-- gate (see DECISIONS 42: development budgets, not an SLA).
 begin;
 set local statement_timeout = '55s';
 
