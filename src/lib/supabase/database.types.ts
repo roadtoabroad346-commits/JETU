@@ -136,6 +136,143 @@ export type Database = {
           },
         ];
       };
+      application_checklist_items: {
+        Row: {
+          application_id: string;
+          checklist_key: string | null;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          is_mandatory: boolean;
+          origin: string;
+          roadmap_task_id: string | null;
+          sort_order: number;
+          source_claim_id: number | null;
+          status: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          verification_state: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id: string;
+          checklist_key?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          is_mandatory?: boolean;
+          origin: string;
+          roadmap_task_id?: string | null;
+          sort_order?: number;
+          source_claim_id?: number | null;
+          status?: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          verification_state?: string;
+          version?: number;
+        };
+        Update: {
+          application_id?: string;
+          checklist_key?: string | null;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          is_mandatory?: boolean;
+          origin?: string;
+          roadmap_task_id?: string | null;
+          sort_order?: number;
+          source_claim_id?: number | null;
+          status?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          verification_state?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'application_checklist_items_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'application_checklist_items_roadmap_task_id_user_id_fkey';
+            columns: ['roadmap_task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'application_checklist_items_source_claim_id_fkey';
+            columns: ['source_claim_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      application_events: {
+        Row: {
+          actor_id: string;
+          application_id: string;
+          details: NonNullable<Json>;
+          event_type: string;
+          evidence: string | null;
+          from_status: string | null;
+          id: number;
+          idempotency_key: string | null;
+          occurred_at: string;
+          reason: string | null;
+          source_type: string;
+          to_status: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          actor_id: string;
+          application_id: string;
+          details?: NonNullable<Json>;
+          event_type: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string | null;
+          occurred_at?: string;
+          reason?: string | null;
+          source_type: string;
+          to_status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          actor_id?: string;
+          application_id?: string;
+          details?: NonNullable<Json>;
+          event_type?: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string | null;
+          occurred_at?: string;
+          reason?: string | null;
+          source_type?: string;
+          to_status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'application_events_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       application_round_deadlines: {
         Row: {
           application_round_id: number;
@@ -223,6 +360,159 @@ export type Database = {
           },
         ];
       };
+      applications: {
+        Row: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_fee_amount?: number | null;
+          application_fee_currency?: string | null;
+          archived_at?: string | null;
+          country_code_snapshot?: string | null;
+          created_at?: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state?: string;
+          id?: string;
+          institution_name_snapshot: string;
+          intake_id?: number | null;
+          notes?: string;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_portal_url?: string | null;
+          priority?: string;
+          program_id: number;
+          program_source_checked_at?: string | null;
+          program_source_url?: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Update: {
+          application_fee_amount?: number | null;
+          application_fee_currency?: string | null;
+          archived_at?: string | null;
+          country_code_snapshot?: string | null;
+          created_at?: string;
+          cycle_year?: number;
+          degree_level_snapshot?: string;
+          fee_waiver_state?: string;
+          id?: string;
+          institution_name_snapshot?: string;
+          intake_id?: number | null;
+          notes?: string;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_portal_url?: string | null;
+          priority?: string;
+          program_id?: number;
+          program_source_checked_at?: string | null;
+          program_source_url?: string | null;
+          program_title_snapshot?: string;
+          roadmap_submission_task_id?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'applications_application_fee_currency_fkey';
+            columns: ['application_fee_currency'];
+            isOneToOne: false;
+            referencedRelation: 'fee_currency';
+            referencedColumns: ['code'];
+          },
+          {
+            foreignKeyName: 'applications_intake_id_fkey';
+            columns: ['intake_id'];
+            isOneToOne: false;
+            referencedRelation: 'admission_intakes';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'applications_intake_id_fkey';
+            columns: ['intake_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['intake_id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'degree_programs';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'applications_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'applications_roadmap_submission_task_id_user_id_fkey';
+            columns: ['roadmap_submission_task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       campuses: {
         Row: {
           address_line: string | null;
@@ -289,6 +579,77 @@ export type Database = {
             referencedColumns: ['institution_id'];
           },
         ];
+      };
+      catalog_editor_events: {
+        Row: {
+          action: string;
+          actor_id: string | null;
+          after_snapshot: NonNullable<Json>;
+          before_snapshot: NonNullable<Json>;
+          claim_id: number | null;
+          created_at: string;
+          entity_id: number;
+          id: number;
+          note: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          action: string;
+          actor_id?: string | null;
+          after_snapshot: NonNullable<Json>;
+          before_snapshot: NonNullable<Json>;
+          claim_id?: number | null;
+          created_at?: string;
+          entity_id: number;
+          id?: never;
+          note: string;
+        };
+        Update: {
+          action?: string;
+          actor_id?: string | null;
+          after_snapshot?: NonNullable<Json>;
+          before_snapshot?: NonNullable<Json>;
+          claim_id?: number | null;
+          created_at?: string;
+          entity_id?: number;
+          id?: never;
+          note?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'catalog_editor_events_claim_id_fkey';
+            columns: ['claim_id'];
+            isOneToOne: false;
+            referencedRelation: 'source_claims';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'catalog_editor_events_entity_id_fkey';
+            columns: ['entity_id'];
+            isOneToOne: false;
+            referencedRelation: 'catalog_entities';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      catalog_editor_memberships: {
+        Row: {
+          granted_at: string;
+          role: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          granted_at?: string;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          granted_at?: string;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [];
       };
       catalog_entities: {
         Row: {
@@ -458,6 +819,163 @@ export type Database = {
             columns: ['eligibility_requirement_id'];
             isOneToOne: false;
             referencedRelation: 'eligibility_requirements';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      coach_conversations: {
+        Row: {
+          created_at: string;
+          expires_at: string;
+          id: string;
+          locale: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          expires_at?: string;
+          id?: string;
+          locale: string;
+          title?: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          expires_at?: string;
+          id?: string;
+          locale?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      coach_feedback: {
+        Row: {
+          helpful: boolean;
+          message_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          helpful: boolean;
+          message_id: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          helpful?: boolean;
+          message_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'coach_feedback_message_id_user_id_fkey';
+            columns: ['message_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'coach_messages';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      coach_messages: {
+        Row: {
+          content: NonNullable<Json>;
+          conversation_id: string;
+          created_at: string;
+          id: string;
+          role: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          content: NonNullable<Json>;
+          conversation_id: string;
+          created_at?: string;
+          id?: string;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          content?: NonNullable<Json>;
+          conversation_id?: string;
+          created_at?: string;
+          id?: string;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'coach_messages_conversation_id_user_id_fkey';
+            columns: ['conversation_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'coach_conversations';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      coach_requests: {
+        Row: {
+          actual_tokens: number | null;
+          completed_at: string | null;
+          conversation_id: string | null;
+          created_at: string;
+          external_ai: boolean;
+          id: string;
+          input_hash: string;
+          remember: boolean;
+          reserved_tokens: number;
+          reserved_usd_micros: number;
+          response: Json | null;
+          status: string;
+          tool_names: string[];
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          actual_tokens?: number | null;
+          completed_at?: string | null;
+          conversation_id?: string | null;
+          created_at?: string;
+          external_ai: boolean;
+          id: string;
+          input_hash: string;
+          remember: boolean;
+          reserved_tokens: number;
+          reserved_usd_micros: number;
+          response?: Json | null;
+          status?: string;
+          tool_names?: string[];
+          user_id: string;
+        };
+        Update: {
+          actual_tokens?: number | null;
+          completed_at?: string | null;
+          conversation_id?: string | null;
+          created_at?: string;
+          external_ai?: boolean;
+          id?: string;
+          input_hash?: string;
+          remember?: boolean;
+          reserved_tokens?: number;
+          reserved_usd_micros?: number;
+          response?: Json | null;
+          status?: string;
+          tool_names?: string[];
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'coach_requests_conversation_id_fkey';
+            columns: ['conversation_id'];
+            isOneToOne: false;
+            referencedRelation: 'coach_conversations';
             referencedColumns: ['id'];
           },
         ];
@@ -638,8 +1156,10 @@ export type Database = {
       };
       deadlines: {
         Row: {
+          date_precision: string;
           deadline_type: string;
           due_at: string | null;
+          due_date: string | null;
           id: number;
           is_rolling: boolean;
           timezone_name: string | null;
@@ -647,16 +1167,20 @@ export type Database = {
         };
         ComputedFields: never;
         Insert: {
+          date_precision?: string;
           deadline_type: string;
           due_at?: string | null;
+          due_date?: string | null;
           id: number;
           is_rolling?: boolean;
           timezone_name?: string | null;
           title: string;
         };
         Update: {
+          date_precision?: string;
           deadline_type?: string;
           due_at?: string | null;
+          due_date?: string | null;
           id?: number;
           is_rolling?: boolean;
           timezone_name?: string | null;
@@ -2115,6 +2639,100 @@ export type Database = {
         };
         Relationships: [];
       };
+      recommendation_events: {
+        Row: {
+          event_type: string;
+          id: number;
+          occurred_at: string;
+          request_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          event_type: string;
+          id?: never;
+          occurred_at?: string;
+          request_id: string;
+          user_id: string;
+        };
+        Update: {
+          event_type?: string;
+          id?: never;
+          occurred_at?: string;
+          request_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_events_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'recommendation_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      recommendation_requests: {
+        Row: {
+          application_id: string;
+          context: string;
+          created_at: string;
+          due_date: string | null;
+          expires_at: string;
+          id: string;
+          invited_email: string;
+          letter_document_id: string | null;
+          recommender_id: string | null;
+          status: string;
+          token_hash: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id: string;
+          context: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id: string;
+        };
+        Update: {
+          application_id?: string;
+          context?: string;
+          created_at?: string;
+          due_date?: string | null;
+          expires_at?: string;
+          id?: string;
+          invited_email?: string;
+          letter_document_id?: string | null;
+          recommender_id?: string | null;
+          status?: string;
+          token_hash?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'recommendation_requests_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'recommendation_requests_letter_document_id_fkey';
+            columns: ['letter_document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       regions: {
         Row: {
           code: string;
@@ -2187,6 +2805,463 @@ export type Database = {
             referencedColumns: ['code'];
           },
         ];
+      };
+      roadmap_generation_runs: {
+        Row: {
+          change_summary: NonNullable<Json>;
+          created_at: string;
+          generation_version: string;
+          id: string;
+          input_hash: string;
+          profile_version: number | null;
+          roadmap_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          change_summary?: NonNullable<Json>;
+          created_at?: string;
+          generation_version: string;
+          id?: string;
+          input_hash: string;
+          profile_version?: number | null;
+          roadmap_id: string;
+          user_id: string;
+        };
+        Update: {
+          change_summary?: NonNullable<Json>;
+          created_at?: string;
+          generation_version?: string;
+          id?: string;
+          input_hash?: string;
+          profile_version?: number | null;
+          roadmap_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_generation_runs_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_milestones: {
+        Row: {
+          created_at: string;
+          description: string;
+          generation_key: string;
+          id: string;
+          is_active: boolean;
+          recommended_date: string | null;
+          roadmap_id: string;
+          sequence: number;
+          target_id: string | null;
+          title: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          description?: string;
+          generation_key: string;
+          id?: string;
+          is_active?: boolean;
+          recommended_date?: string | null;
+          roadmap_id: string;
+          sequence: number;
+          target_id?: string | null;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          generation_key?: string;
+          id?: string;
+          is_active?: boolean;
+          recommended_date?: string | null;
+          roadmap_id?: string;
+          sequence?: number;
+          target_id?: string | null;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_milestones_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_milestones_target_id_roadmap_id_user_id_fkey';
+            columns: ['target_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_targets';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_targets: {
+        Row: {
+          catalog_entity_id: number;
+          created_at: string;
+          detail_path: string;
+          id: string;
+          is_active: boolean;
+          roadmap_id: string;
+          target_type: string;
+          title_snapshot: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          catalog_entity_id: number;
+          created_at?: string;
+          detail_path: string;
+          id?: string;
+          is_active?: boolean;
+          roadmap_id: string;
+          target_type: string;
+          title_snapshot: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          catalog_entity_id?: number;
+          created_at?: string;
+          detail_path?: string;
+          id?: string;
+          is_active?: boolean;
+          roadmap_id?: string;
+          target_type?: string;
+          title_snapshot?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_targets_catalog_entity_id_fkey';
+            columns: ['catalog_entity_id'];
+            isOneToOne: false;
+            referencedRelation: 'catalog_entities';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_targets_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_task_dependencies: {
+        Row: {
+          created_at: string;
+          dependency_type: string;
+          depends_on_task_id: string;
+          id: string;
+          origin: string;
+          roadmap_id: string;
+          task_id: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          dependency_type?: string;
+          depends_on_task_id: string;
+          id?: string;
+          origin?: string;
+          roadmap_id: string;
+          task_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          dependency_type?: string;
+          depends_on_task_id?: string;
+          id?: string;
+          origin?: string;
+          roadmap_id?: string;
+          task_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_task_dependencies_depends_on_task_id_roadmap_id_us_fkey';
+            columns: ['depends_on_task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_dependencies_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_dependencies_task_id_roadmap_id_user_id_fkey';
+            columns: ['task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_task_events: {
+        Row: {
+          created_at: string;
+          event_type: string;
+          from_status: string | null;
+          id: number;
+          roadmap_id: string;
+          task_id: string;
+          task_version: number;
+          to_status: string | null;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          event_type: string;
+          from_status?: string | null;
+          id?: never;
+          roadmap_id: string;
+          task_id: string;
+          task_version: number;
+          to_status?: string | null;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          event_type?: string;
+          from_status?: string | null;
+          id?: never;
+          roadmap_id?: string;
+          task_id?: string;
+          task_version?: number;
+          to_status?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_task_events_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_task_events_task_id_roadmap_id_user_id_fkey';
+            columns: ['task_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmap_tasks: {
+        Row: {
+          completed_at: string | null;
+          created_at: string;
+          description: string;
+          estimated_minutes: number;
+          generated_priority: string;
+          generation_key: string | null;
+          id: string;
+          is_mandatory: boolean;
+          milestone_id: string | null;
+          note: string | null;
+          obsolete_at: string | null;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_source_checked_at: string | null;
+          official_source_url: string | null;
+          origin: string;
+          priority_override: string | null;
+          recommended_due_date: string | null;
+          roadmap_id: string;
+          source_deadline_id: number | null;
+          source_requirement_id: number | null;
+          status: string;
+          target_date: string | null;
+          target_id: string | null;
+          task_kind: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          why_it_matters: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          completed_at?: string | null;
+          created_at?: string;
+          description?: string;
+          estimated_minutes?: number;
+          generated_priority?: string;
+          generation_key?: string | null;
+          id?: string;
+          is_mandatory?: boolean;
+          milestone_id?: string | null;
+          note?: string | null;
+          obsolete_at?: string | null;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_source_checked_at?: string | null;
+          official_source_url?: string | null;
+          origin: string;
+          priority_override?: string | null;
+          recommended_due_date?: string | null;
+          roadmap_id: string;
+          source_deadline_id?: number | null;
+          source_requirement_id?: number | null;
+          status?: string;
+          target_date?: string | null;
+          target_id?: string | null;
+          task_kind: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+          why_it_matters?: string;
+        };
+        Update: {
+          completed_at?: string | null;
+          created_at?: string;
+          description?: string;
+          estimated_minutes?: number;
+          generated_priority?: string;
+          generation_key?: string | null;
+          id?: string;
+          is_mandatory?: boolean;
+          milestone_id?: string | null;
+          note?: string | null;
+          obsolete_at?: string | null;
+          official_deadline_at?: string | null;
+          official_deadline_date?: string | null;
+          official_deadline_precision?: string;
+          official_deadline_timezone?: string | null;
+          official_source_checked_at?: string | null;
+          official_source_url?: string | null;
+          origin?: string;
+          priority_override?: string | null;
+          recommended_due_date?: string | null;
+          roadmap_id?: string;
+          source_deadline_id?: number | null;
+          source_requirement_id?: number | null;
+          status?: string;
+          target_date?: string | null;
+          target_id?: string | null;
+          task_kind?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+          why_it_matters?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'roadmap_tasks_milestone_id_roadmap_id_user_id_fkey';
+            columns: ['milestone_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_milestones';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_roadmap_id_user_id_fkey';
+            columns: ['roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmaps';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_source_deadline_id_fkey';
+            columns: ['source_deadline_id'];
+            isOneToOne: false;
+            referencedRelation: 'deadlines';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_source_requirement_id_fkey';
+            columns: ['source_requirement_id'];
+            isOneToOne: false;
+            referencedRelation: 'eligibility_requirements';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'roadmap_tasks_target_id_roadmap_id_user_id_fkey';
+            columns: ['target_id', 'roadmap_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_targets';
+            referencedColumns: ['id', 'roadmap_id', 'user_id'];
+          },
+        ];
+      };
+      roadmaps: {
+        Row: {
+          availability_minutes_per_week: number;
+          created_at: string;
+          cycle_year: number;
+          generation_version: string;
+          id: string;
+          last_generated_at: string | null;
+          last_input_hash: string | null;
+          status: string;
+          timezone_name: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          availability_minutes_per_week?: number;
+          created_at?: string;
+          cycle_year: number;
+          generation_version?: string;
+          id?: string;
+          last_generated_at?: string | null;
+          last_input_hash?: string | null;
+          status?: string;
+          timezone_name: string;
+          title?: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+        };
+        Update: {
+          availability_minutes_per_week?: number;
+          created_at?: string;
+          cycle_year?: number;
+          generation_version?: string;
+          id?: string;
+          last_generated_at?: string | null;
+          last_input_hash?: string | null;
+          status?: string;
+          timezone_name?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [];
       };
       saved_catalog_items: {
         Row: {
@@ -2306,6 +3381,169 @@ export type Database = {
             foreignKeyName: 'scholarship_application_details_scholarship_id_fkey';
             columns: ['scholarship_id'];
             isOneToOne: true;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      scholarship_application_events: {
+        Row: {
+          actor_id: string;
+          evidence: string | null;
+          from_status: string | null;
+          id: number;
+          idempotency_key: string;
+          occurred_at: string;
+          reason: string | null;
+          scholarship_application_id: string;
+          source_type: string;
+          to_status: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          actor_id: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key: string;
+          occurred_at?: string;
+          reason?: string | null;
+          scholarship_application_id: string;
+          source_type: string;
+          to_status: string;
+          user_id: string;
+        };
+        Update: {
+          actor_id?: string;
+          evidence?: string | null;
+          from_status?: string | null;
+          id?: never;
+          idempotency_key?: string;
+          occurred_at?: string;
+          reason?: string | null;
+          scholarship_application_id?: string;
+          source_type?: string;
+          to_status?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_application_event_scholarship_application_id_u_fkey';
+            columns: ['scholarship_application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      scholarship_applications: {
+        Row: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id?: string | null;
+          created_at?: string;
+          cycle_year: number;
+          deadline_at?: string | null;
+          deadline_date?: string | null;
+          deadline_precision?: string;
+          deadline_timezone?: string | null;
+          id?: string;
+          notes?: string;
+          official_portal_url?: string | null;
+          scholarship_cycle_id?: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Update: {
+          application_id?: string | null;
+          created_at?: string;
+          cycle_year?: number;
+          deadline_at?: string | null;
+          deadline_date?: string | null;
+          deadline_precision?: string;
+          deadline_timezone?: string | null;
+          id?: string;
+          notes?: string;
+          official_portal_url?: string | null;
+          scholarship_cycle_id?: number | null;
+          scholarship_id?: number;
+          scholarship_title_snapshot?: string;
+          source_url?: string | null;
+          status?: string;
+          submission_evidence?: string | null;
+          submission_provenance?: string | null;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id?: string;
+          user_reference_id?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'scholarship_applications_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_cycle_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_cycle_id_fkey';
+            columns: ['scholarship_cycle_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'scholarship_applications_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
             referencedRelation: 'scholarships';
             referencedColumns: ['id'];
           },
@@ -3254,6 +4492,245 @@ export type Database = {
           },
         ];
       };
+      vault_documents: {
+        Row: {
+          archived_at: string | null;
+          category: string;
+          created_at: string;
+          current_version_id: string | null;
+          deleted_at: string | null;
+          display_name: string;
+          expires_at: string;
+          id: string;
+          portfolio_url: string | null;
+          purged_at: string | null;
+          purpose: string;
+          purpose_application_id: string | null;
+          sensitivity: string;
+          source_draft_id: string | null;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          category: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name: string;
+          expires_at: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          category?: string;
+          created_at?: string;
+          current_version_id?: string | null;
+          deleted_at?: string | null;
+          display_name?: string;
+          expires_at?: string;
+          id?: string;
+          portfolio_url?: string | null;
+          purged_at?: string | null;
+          purpose?: string;
+          purpose_application_id?: string | null;
+          sensitivity?: string;
+          source_draft_id?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_current_version_fk';
+            columns: ['current_version_id', 'id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_purpose_application_id_user_id_fkey';
+            columns: ['purpose_application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_documents_source_draft_id_user_id_fkey';
+            columns: ['source_draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      vault_events: {
+        Row: {
+          created_at: string;
+          document_id: string;
+          event_type: string;
+          id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          document_id: string;
+          event_type: string;
+          id?: never;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          document_id?: string;
+          event_type?: string;
+          id?: never;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_events_document_id_fkey';
+            columns: ['document_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      vault_links: {
+        Row: {
+          application_id: string;
+          created_at: string;
+          document_id: string;
+          id: string;
+          task_id: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id: string;
+          created_at?: string;
+          document_id: string;
+          id?: string;
+          task_id?: string | null;
+          user_id: string;
+          version_id: string;
+        };
+        Update: {
+          application_id?: string;
+          created_at?: string;
+          document_id?: string;
+          id?: string;
+          task_id?: string | null;
+          user_id?: string;
+          version_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_links_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_task_id_user_id_fkey';
+            columns: ['task_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'roadmap_tasks';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'vault_links_version_id_document_id_user_id_fkey';
+            columns: ['version_id', 'document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_versions';
+            referencedColumns: ['id', 'document_id', 'user_id'];
+          },
+        ];
+      };
+      vault_versions: {
+        Row: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          byte_size: number;
+          created_at?: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at?: string;
+          object_path: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence: number;
+          sha256: string;
+          state?: string;
+          user_id: string;
+        };
+        Update: {
+          byte_size?: number;
+          created_at?: string;
+          document_id?: string;
+          extension?: string;
+          id?: string;
+          mime?: string;
+          next_scan_at?: string;
+          object_path?: string;
+          request_fingerprint?: string | null;
+          scan_attempts?: number;
+          scanned_at?: string | null;
+          scanner?: string | null;
+          sequence?: number;
+          sha256?: string;
+          state?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vault_versions_document_id_user_id_fkey';
+            columns: ['document_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'vault_documents';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
       verification_runs: {
         Row: {
           completed_at: string | null;
@@ -3315,8 +4792,275 @@ export type Database = {
         };
         Relationships: [];
       };
+      writing_drafts: {
+        Row: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: NonNullable<Json>;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind: string;
+          prompt?: string;
+          rubric?: NonNullable<Json>;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Update: {
+          application_id?: string | null;
+          content?: string;
+          created_at?: string;
+          id?: string;
+          kind?: string;
+          prompt?: string;
+          rubric?: NonNullable<Json>;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+          word_limit?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_drafts_application_id_user_id_fkey';
+            columns: ['application_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
+      writing_versions: {
+        Row: {
+          created_at: string;
+          draft_id: string;
+          id: string;
+          request_id: string;
+          snapshot: NonNullable<Json>;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          draft_id: string;
+          id?: string;
+          request_id: string;
+          snapshot: NonNullable<Json>;
+          user_id: string;
+          version: number;
+        };
+        Update: {
+          created_at?: string;
+          draft_id?: string;
+          id?: string;
+          request_id?: string;
+          snapshot?: NonNullable<Json>;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_versions_draft_id_user_id_fkey';
+            columns: ['draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
+            referencedColumns: ['id', 'user_id'];
+          },
+        ];
+      };
     };
     Views: {
+      mx_annual_facts: {
+        Row: {
+          filed_at: string | null;
+          payload: Json | null;
+          period_end: string | null;
+          ticker: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          filed_at?: string | null;
+          payload?: Json | null;
+          period_end?: string | null;
+          ticker?: string | null;
+        };
+        Update: {
+          filed_at?: string | null;
+          payload?: Json | null;
+          period_end?: string | null;
+          ticker?: string | null;
+        };
+        Relationships: [];
+      };
+      mx_instruments: {
+        Row: {
+          ebitda: number | null;
+          market_cap: number | null;
+          name: string | null;
+          payload: Json | null;
+          pe: number | null;
+          positive_pe: number | null;
+          price: number | null;
+          price_asof: string | null;
+          score: number | null;
+          score_details: Json | null;
+          sector: string | null;
+          ticker: string | null;
+          updated_at: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          ebitda?: number | null;
+          market_cap?: number | null;
+          name?: string | null;
+          payload?: Json | null;
+          pe?: number | null;
+          positive_pe?: number | null;
+          price?: number | null;
+          price_asof?: string | null;
+          score?: number | null;
+          score_details?: Json | null;
+          sector?: string | null;
+          ticker?: string | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          ebitda?: number | null;
+          market_cap?: number | null;
+          name?: string | null;
+          payload?: Json | null;
+          pe?: number | null;
+          positive_pe?: number | null;
+          price?: number | null;
+          price_asof?: string | null;
+          score?: number | null;
+          score_details?: Json | null;
+          sector?: string | null;
+          ticker?: string | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      mx_market_workspaces: {
+        Row: {
+          payload: Json | null;
+          revision: number | null;
+          updated_at: string | null;
+          user_id: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          payload?: Json | null;
+          revision?: number | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          payload?: Json | null;
+          revision?: number | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
+      mx_pilot_requests: {
+        Row: {
+          created_at: string | null;
+          id: string | null;
+          message: string | null;
+          user_id: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string | null;
+          id?: string | null;
+          message?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: string | null;
+          message?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
+      mx_research: {
+        Row: {
+          assumptions: Json | null;
+          created_at: string | null;
+          id: string | null;
+          is_watchlisted: boolean | null;
+          note: string | null;
+          revision: number | null;
+          ticker: string | null;
+          updated_at: string | null;
+          user_id: string | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          assumptions?: Json | null;
+          created_at?: string | null;
+          id?: string | null;
+          is_watchlisted?: boolean | null;
+          note?: string | null;
+          revision?: number | null;
+          ticker?: string | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Update: {
+          assumptions?: Json | null;
+          created_at?: string | null;
+          id?: string | null;
+          is_watchlisted?: boolean | null;
+          note?: string | null;
+          revision?: number | null;
+          ticker?: string | null;
+          updated_at?: string | null;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
+      mx_snapshots: {
+        Row: {
+          created_at: string | null;
+          id: string | null;
+          payload: Json | null;
+          published: boolean | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string | null;
+          id?: string | null;
+          payload?: Json | null;
+          published?: boolean | null;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: string | null;
+          payload?: Json | null;
+          published?: boolean | null;
+        };
+        Relationships: [];
+      };
       published_degree_programs: {
         Row: {
           academic_unit_id: number | null;
@@ -3430,10 +5174,230 @@ export type Database = {
       };
     };
     Functions: {
+      application_add_scholarship: {
+        Args: {
+          p_application_id: string;
+          p_cycle_year: number;
+          p_idempotency_key: string;
+          p_scholarship_cycle_id: number;
+          p_scholarship_id: number;
+        };
+        Returns: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'scholarship_applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_checklist_change: {
+        Args: {
+          p_application_id: string;
+          p_expected_version: number;
+          p_is_mandatory: boolean;
+          p_item_id: string;
+          p_status: string;
+          p_title: string;
+        };
+        Returns: {
+          application_id: string;
+          checklist_key: string | null;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          is_mandatory: boolean;
+          origin: string;
+          roadmap_task_id: string | null;
+          sort_order: number;
+          source_claim_id: number | null;
+          status: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          verification_state: string;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'application_checklist_items';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_create: {
+        Args: {
+          p_cycle_year: number;
+          p_idempotency_key: string;
+          p_intake_id: number;
+          p_program_id: number;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_transition: {
+        Args: {
+          p_application_id: string;
+          p_evidence: string;
+          p_expected_version: number;
+          p_idempotency_key: string;
+          p_reason: string;
+          p_to_status: string;
+          p_user_confirmed: boolean;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      application_update_metadata: {
+        Args: {
+          p_application_id: string;
+          p_expected_version: number;
+          p_notes: string;
+          p_priority: string;
+          p_user_reference_id: string;
+        };
+        Returns: {
+          application_fee_amount: number | null;
+          application_fee_currency: string | null;
+          archived_at: string | null;
+          country_code_snapshot: string | null;
+          created_at: string;
+          cycle_year: number;
+          degree_level_snapshot: string;
+          fee_waiver_state: string;
+          id: string;
+          institution_name_snapshot: string;
+          intake_id: number | null;
+          notes: string;
+          official_deadline_at: string | null;
+          official_deadline_date: string | null;
+          official_deadline_precision: string;
+          official_deadline_timezone: string | null;
+          official_portal_url: string | null;
+          priority: string;
+          program_id: number;
+          program_source_checked_at: string | null;
+          program_source_url: string | null;
+          program_title_snapshot: string;
+          roadmap_submission_task_id: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
       assert_catalog_entity_evidence: {
         Args: { target_entity_id: number };
         Returns: undefined;
       };
+      catalog_editor_command: { Args: { p_command: Json }; Returns: Json };
+      catalog_editor_queue: { Args: { p_before_id?: number }; Returns: Json };
       catalog_search: {
         Args: { p_filters?: Json };
         Returns: {
@@ -3455,7 +5419,78 @@ export type Database = {
           university_slug: string;
         }[];
       };
+      coach_delete_history: {
+        Args: { p_conversation: string; p_owner: string };
+        Returns: undefined;
+      };
+      coach_finish: {
+        Args: {
+          p_answer: Json;
+          p_owner: string;
+          p_question: string;
+          p_request: string;
+          p_success: boolean;
+          p_tokens: number;
+          p_tools: string[];
+        };
+        Returns: Json;
+      };
+      coach_prune: { Args: Record<PropertyKey, never>; Returns: undefined };
+      coach_reserve: {
+        Args: {
+          p_conversation: string;
+          p_external: boolean;
+          p_hash: string;
+          p_locale: string;
+          p_owner: string;
+          p_remember: boolean;
+          p_request: string;
+        };
+        Returns: Json;
+      };
       import_catalog_bundle: { Args: { p_bundle: Json }; Returns: Json };
+      mx_claim_ai_request: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+      mx_exchange_handle_recovery: {
+        Args: { p_handle: string; p_new_hash: string; p_old_hash: string };
+        Returns: string;
+      };
+      mx_handle_budget: { Args: { p_fingerprint: string }; Returns: boolean };
+      mx_initialize_handle: {
+        Args: { p_handle: string; p_hash: string; p_user_id: string };
+        Returns: undefined;
+      };
+      mx_rotate_handle_recovery: {
+        Args: { p_new_hash: string; p_user_id: string };
+        Returns: string;
+      };
+      mx_save_market_workspace: {
+        Args: { p_expected: number; p_payload: Json };
+        Returns: unknown[];
+        SetofOptions: {
+          from: '*';
+          to: 'market_workspaces';
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
+      };
+      mx_write_research: {
+        Args: {
+          p_assumptions?: Json;
+          p_note?: string;
+          p_operation: string;
+          p_ticker: string;
+        };
+        Returns: unknown[];
+        SetofOptions: {
+          from: '*';
+          to: 'research';
+          isOneToOne: false;
+          isSetofReturn: true;
+        };
+      };
       opportunity_search: {
         Args: { p_filters?: Json };
         Returns: {
@@ -3496,9 +5531,91 @@ export type Database = {
         Args: { p_catalog_entity_id: number; p_checked_at: string };
         Returns: number;
       };
+      recommendation_cancel: { Args: { p_id: string }; Returns: undefined };
+      recommendation_create: {
+        Args: {
+          p_application_id: string;
+          p_context: string;
+          p_due_date: string;
+          p_email: string;
+          p_token_hash: string;
+        };
+        Returns: string;
+      };
+      recommendation_received: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          context: string;
+          due_date: string;
+          expires_at: string;
+          id: string;
+          status: string;
+        }[];
+      };
+      recommendation_respond: {
+        Args: { p_accept: boolean; p_token_hash: string };
+        Returns: string;
+      };
       review_source_claim: {
         Args: { p_claim_id: number; p_verification_run_id: number };
         Returns: number;
+      };
+      roadmap_apply_generation: {
+        Args: {
+          p_availability_minutes_per_week: number;
+          p_cycle_year: number;
+          p_dependencies: Json;
+          p_generation_version: string;
+          p_input_hash: string;
+          p_milestones: Json;
+          p_profile_version: number;
+          p_targets: Json;
+          p_tasks: Json;
+          p_timezone_name: string;
+          p_user_id: string;
+        };
+        Returns: Json;
+      };
+      scholarship_application_transition: {
+        Args: {
+          p_evidence: string;
+          p_expected_version: number;
+          p_idempotency_key: string;
+          p_reason: string;
+          p_scholarship_application_id: string;
+          p_to_status: string;
+          p_user_confirmed: boolean;
+        };
+        Returns: {
+          application_id: string | null;
+          created_at: string;
+          cycle_year: number;
+          deadline_at: string | null;
+          deadline_date: string | null;
+          deadline_precision: string;
+          deadline_timezone: string | null;
+          id: string;
+          notes: string;
+          official_portal_url: string | null;
+          scholarship_cycle_id: number | null;
+          scholarship_id: number;
+          scholarship_title_snapshot: string;
+          source_url: string | null;
+          status: string;
+          submission_evidence: string | null;
+          submission_provenance: string | null;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+          user_reference_id: string | null;
+          version: number;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'scholarship_applications';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
       scholarship_create_draft: {
         Args: { p_actor: string; p_bundle: Json };
@@ -3590,6 +5707,118 @@ export type Database = {
           total_count: number;
           type_counts: Json;
         }[];
+      };
+      vault_draft_origin: {
+        Args: { p_document_id: string; p_draft_id: string };
+        Returns: undefined;
+      };
+      vault_finish: {
+        Args: { p_failed?: boolean; p_version_id: string };
+        Returns: undefined;
+      };
+      vault_link: {
+        Args: {
+          p_application_id: string;
+          p_document_id: string;
+          p_remove?: boolean;
+          p_task_id: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      vault_manage: {
+        Args: { p_action: string; p_document_id: string };
+        Returns: undefined;
+      };
+      vault_portfolio: {
+        Args: { p_name: string; p_url: string };
+        Returns: string;
+      };
+      vault_reserve: {
+        Args: {
+          p_application_id: string;
+          p_category: string;
+          p_document_id: string;
+          p_extension: string;
+          p_mime: string;
+          p_name: string;
+          p_purpose: string;
+          p_recommendation_id?: string;
+          p_request_id: string;
+          p_sha256: string;
+          p_size: number;
+        };
+        Returns: {
+          byte_size: number;
+          created_at: string;
+          document_id: string;
+          extension: string;
+          id: string;
+          mime: string;
+          next_scan_at: string;
+          object_path: string;
+          request_fingerprint: string | null;
+          scan_attempts: number;
+          scanned_at: string | null;
+          scanner: string | null;
+          sequence: number;
+          sha256: string;
+          state: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'vault_versions';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      vault_scan_result: {
+        Args: {
+          p_clean: boolean;
+          p_scanner: string;
+          p_sha256: string;
+          p_version_id: string;
+        };
+        Returns: undefined;
+      };
+      writing_delete: {
+        Args: { p_expected_version: number; p_id: string };
+        Returns: undefined;
+      };
+      writing_save: {
+        Args: {
+          p_application_id: string;
+          p_content: string;
+          p_expected_version: number;
+          p_id: string;
+          p_kind: string;
+          p_prompt: string;
+          p_request_id: string;
+          p_rubric: Json;
+          p_title: string;
+          p_word_limit: number;
+        };
+        Returns: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          rubric: NonNullable<Json>;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'writing_drafts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
     };
     Enums: {

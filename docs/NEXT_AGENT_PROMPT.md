@@ -1,4 +1,17 @@
-# Latest handoff — 2026-11-04 student experience
+# Publication handoff — 2026-11-04
+
+The user explicitly authorized GitHub/Supabase/Vercel publication after the UI
+work. Read `docs/DEPLOYMENT_2026-11-04.md` and PR #10 for release checks and final
+deployment records. Git now preserves all 43 already-applied Jetuu migrations;
+the missing 20 were recovered exactly, not replayed remotely. Pinned-CLI database
+types are generated from the complete migration chain. Local-only script guards
+remain active. Later phase application code was not merged or marked verified.
+Primary production origin is `https://jetu-iota.vercel.app`; previews retain
+Vercel protection. Hosted email confirmation and two-account acceptance still
+require real evidence. Older statements below about missing publication
+authorization are historical and do not override the user's latest request.
+
+# Previous handoff — 2026-11-04 student experience
 
 Read `docs/STUDENT_EXPERIENCE.md` for the new user-authorized account/profile UI,
 original JETU mascot, private five-step journey, supplied privacy contact and tests.
