@@ -5,6 +5,10 @@ import { z } from 'zod';
 import { isLocale, type Locale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { mergeProfileDocument } from '@/features/matching/profile';
+import {
+  profileFormSchema,
+  type ProfileSaveState,
+} from '@/features/onboarding/model';
 
 function localeOf(formData: FormData): Locale {
   const locale = String(formData.get('locale') ?? '');
@@ -18,82 +22,32 @@ export async function signOut(formData: FormData) {
   redirect(`/${locale}/login`);
 }
 
-const profileSchema = z
-  .object({
-    country: z.string().trim().min(2).max(80),
-    studyLevel: z.enum([
-      'foundation',
-      'associate',
-      'bachelor',
-      'master',
-      'doctorate',
-    ]),
-    field: z.string().trim().min(2).max(120),
-    budget: z.coerce.number().int().min(0).max(1_000_000),
-    nationality: z.union([
-      z.literal(''),
-      z
-        .string()
-        .trim()
-        .toUpperCase()
-        .regex(/^[A-Z]{2}$/),
-    ]),
-    residency: z.union([
-      z.literal(''),
-      z
-        .string()
-        .trim()
-        .toUpperCase()
-        .regex(/^[A-Z]{2}$/),
-    ]),
-    educationLevel: z.enum(['', 'secondary', 'bachelor', 'master', 'other']),
-    graduationYear: z.union([
-      z.literal(''),
-      z.coerce.number().int().min(1950).max(2200),
-    ]),
-    gpa: z.union([z.literal(''), z.coerce.number().min(0).max(100)]),
-    gpaScale: z.union([z.literal(''), z.coerce.number().positive().max(100)]),
-    ielts: z.union([z.literal(''), z.coerce.number().min(0).max(9)]),
-    toefl: z.union([z.literal(''), z.coerce.number().min(0).max(120)]),
-    hsk: z.union([z.literal(''), z.coerce.number().min(0).max(300)]),
-    topik: z.union([z.literal(''), z.coerce.number().min(0).max(6)]),
-    sat: z.union([z.literal(''), z.coerce.number().min(400).max(1600)]),
-    act: z.union([z.literal(''), z.coerce.number().min(1).max(36)]),
-  })
-  .refine(
-    (value) =>
-      (value.gpa === '') === (value.gpaScale === '') &&
-      (value.gpa === '' ||
-        value.gpaScale === '' ||
-        value.gpa <= value.gpaScale),
-    {
-      path: ['gpa'],
-      message:
-        'GPA and grading scale must be entered together and be consistent.',
-    },
-  );
-
-export async function saveProfile(formData: FormData) {
+async function persistProfile(formData: FormData): Promise<ProfileSaveState> {
   const locale = localeOf(formData);
   const expectedVersion = z.coerce
     .number()
     .int()
     .nonnegative()
     .safeParse(formData.get('version'));
-  if (!expectedVersion.success) redirect(`/${locale}/onboarding?error=invalid`);
-  const parsed = profileSchema.safeParse(Object.fromEntries(formData));
-  if (!parsed.success) redirect(`/${locale}/onboarding?error=invalid`);
+  if (!expectedVersion.success) return { status: 'error', error: 'invalid' };
+  const parsed = profileFormSchema.safeParse(Object.fromEntries(formData));
+  if (!parsed.success)
+    return {
+      status: 'error',
+      error: 'invalid',
+      fields: parsed.error.issues.map((issue) => String(issue.path[0])),
+    };
   const supabase = await createRequestSupabaseClient();
   const { data: userData } = await supabase.auth.getUser();
-  if (!userData.user) redirect(`/${locale}/login`);
+  if (!userData.user) return { status: 'error', error: 'session' };
   const { data: current, error: readError } = await supabase
     .from('student_profiles')
     .select('version,document')
     .eq('user_id', userData.user.id)
     .maybeSingle();
-  if (readError) redirect(`/${locale}/onboarding?error=invalid`);
+  if (readError) return { status: 'error', error: 'unavailable' };
   if ((current?.version ?? 0) !== expectedVersion.data)
-    redirect(`/${locale}/onboarding?error=conflict`);
+    return { status: 'error', error: 'conflict' };
   const values = {
     user_id: userData.user.id,
     document: mergeProfileDocument(current?.document, parsed.data, locale),
@@ -111,7 +65,30 @@ export async function saveProfile(formData: FormData) {
     : supabase.from('student_profiles').insert(values);
   const { data: saved, error } = await mutation.select('version').maybeSingle();
   if (error?.code === '23505' || (!error && !saved))
-    redirect(`/${locale}/onboarding?error=conflict`);
-  if (error) redirect(`/${locale}/onboarding?error=invalid`);
+    return { status: 'error', error: 'conflict' };
+  if (error) return { status: 'error', error: 'unavailable' };
+  return { status: 'saved', version: saved!.version };
+}
+
+export async function submitProfile(
+  _previous: ProfileSaveState,
+  formData: FormData,
+): Promise<ProfileSaveState> {
+  try {
+    return await persistProfile(formData);
+  } catch {
+    return { status: 'error', error: 'unavailable' };
+  }
+}
+
+/** Existing form contract retained for links and clients from the previous release. */
+export async function saveProfile(formData: FormData) {
+  const locale = localeOf(formData);
+  const result = await submitProfile({ status: 'idle' }, formData);
+  if (result.error === 'session') redirect(`/${locale}/login`);
+  if (result.status === 'error')
+    redirect(
+      `/${locale}/onboarding?error=${result.error === 'conflict' ? 'conflict' : 'invalid'}`,
+    );
   redirect(`/${locale}/onboarding?success=saved`);
 }

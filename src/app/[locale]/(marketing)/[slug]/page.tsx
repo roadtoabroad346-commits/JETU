@@ -12,6 +12,7 @@ import { getPublicEnv } from '@/lib/env/public';
 import { Icon } from '@/components/ui/icon';
 import { MarketingFooter } from '@/components/marketing/footer';
 import { CatalogSearch } from '@/features/catalog/views';
+import { PrivacyPolicy } from '@/features/privacy/policy';
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -33,6 +34,7 @@ export default async function MarketingInfoPage({
 }: Props) {
   const { locale, slug } = await params;
   if (!isLocale(locale) || !isMarketingSlug(slug)) notFound();
+  if (slug === 'privacy') return <PrivacyPolicy locale={locale} />;
   if (slug === 'universities')
     return <CatalogSearch locale={locale} input={await searchParams} />;
   const t = marketing[locale];

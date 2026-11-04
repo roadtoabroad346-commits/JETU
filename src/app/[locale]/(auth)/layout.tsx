@@ -1,6 +1,7 @@
 import { BrandLogo } from '@/components/ui/brand';
 import { isLocale, messages } from '@/lib/i18n/messages';
 import { notFound } from 'next/navigation';
+import { MarketingLanguageNav } from '@/components/marketing/language-nav';
 
 export default async function AuthLayout({
   children,
@@ -25,9 +26,12 @@ export default async function AuthLayout({
           <BrandLogo />
           <small>Admissions</small>
         </a>
-        <a className="auth-home-link" href={`/${locale}`}>
-          {messages[locale].home}
-        </a>
+        <div className="account-header-nav">
+          <MarketingLanguageNav locale={locale} />
+          <a className="auth-home-link" href={`/${locale}`}>
+            {messages[locale].home}
+          </a>
+        </div>
       </header>
       {children}
     </div>

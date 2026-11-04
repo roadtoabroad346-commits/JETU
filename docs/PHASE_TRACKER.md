@@ -1,5 +1,10 @@
 # Phase tracker — updated 2026-10-25
 
+**2026-11-04 student UX:** user-authorized account/profile/privacy redesign and
+original mascot implemented; see [STUDENT_EXPERIENCE.md](STUDENT_EXPERIENCE.md).
+Local UI, contracts and mocked-action browser checks have evidence. Real hosted
+Auth/REST still blocks integrated acceptance; phase labels below are unchanged.
+
 **2026-11-03 quality pass:** see [MVP_COMPLETION.md](MVP_COMPLETION.md). Existing
 MVP hardened and locally rechecked; hosted Auth/REST and verified corpus still block
 FULL AND VERIFIED. Earlier phase labels are unchanged.

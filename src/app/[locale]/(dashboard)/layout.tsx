@@ -6,6 +6,7 @@ import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
+import { WorkspaceNav } from '@/features/onboarding/workspace-nav';
 
 export default async function DashboardLayout({
   children,
@@ -35,14 +36,31 @@ export default async function DashboardLayout({
             <BrandLogo />
             <small>Admissions</small>
           </a>
-          <nav aria-label={t.dashboard} className="dashboard-nav">
-            <a href={`/${locale}/dashboard`}>{t.dashboard}</a>
-            <a href={`/${locale}/onboarding`}>{t.onboarding}</a>
-            <a href={`/${locale}/saved`}>
-              {searchCopy[locale].savedDestination}
-            </a>
-            <a href={`/${locale}/match`}>{matchingCopy[locale].title}</a>
-          </nav>
+          <WorkspaceNav
+            label={t.dashboard}
+            items={[
+              {
+                href: `/${locale}/dashboard`,
+                label: t.dashboard,
+                icon: 'book',
+              },
+              {
+                href: `/${locale}/onboarding`,
+                label: t.onboarding,
+                icon: 'check',
+              },
+              {
+                href: `/${locale}/saved`,
+                label: searchCopy[locale].savedDestination,
+                icon: 'search',
+              },
+              {
+                href: `/${locale}/match`,
+                label: matchingCopy[locale].title,
+                icon: 'arrow',
+              },
+            ]}
+          />
           <form action={signOut}>
             <input type="hidden" name="locale" value={locale} />
             <button className="ui-button ui-button--secondary" type="submit">

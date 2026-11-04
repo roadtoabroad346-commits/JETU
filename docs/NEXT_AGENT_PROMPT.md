@@ -1,4 +1,14 @@
-# Latest handoff — 2026-11-03 MVP quality pass
+# Latest handoff — 2026-11-04 student experience
+
+Read `docs/STUDENT_EXPERIENCE.md` for the new user-authorized account/profile UI,
+original JETU mascot, private five-step journey, supplied privacy contact and tests.
+`docs/MVP_COMPLETION.md` remains the previous MVP quality checkpoint. Hosted
+Auth/REST still returns CONNECT 403; no phase is promoted to FULL AND VERIFIED.
+Profile versions, owner checks and unrelated JSON fields remain protected. New
+profile saves return structured errors without discarding input. No automatic
+browser draft storage, fabricated success, migration or deployment was added.
+
+# Previous handoff — 2026-11-03 MVP quality pass
 
 Read `docs/MVP_COMPLETION.md` first for current acceptance, fixes and verification.
 The existing scope remains **PARTIAL**. Autocomplete now discards stale responses
