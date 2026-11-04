@@ -6,6 +6,8 @@ import { marketing } from '@/lib/i18n/marketing';
 import { pageMetadata } from '@/lib/marketing/seo';
 import { Icon } from '@/components/ui/icon';
 import { MarketingFooter } from '@/components/marketing/footer';
+import { StudentWelcome } from '@/features/onboarding/welcome';
+import { authCopy } from '@/lib/i18n/auth';
 
 type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -31,6 +33,13 @@ export default async function LandingPage({ params }: Props) {
               <div className="hero-actions">
                 <a
                   className="ui-button ui-button--accent"
+                  href={`/${locale}/signup`}
+                >
+                  {authCopy[locale].signUp}
+                  <Icon name="arrow" />
+                </a>
+                <a
+                  className="ui-button ui-button--secondary"
                   href={`/${locale}/opportunities`}
                 >
                   {t.heroAction} <Icon name="arrow" />
@@ -44,6 +53,9 @@ export default async function LandingPage({ params }: Props) {
           </div>
         </section>
 
+        <div className="landing-section page-shell">
+          <StudentWelcome locale={locale} />
+        </div>
         <section
           className="landing-section page-shell"
           aria-labelledby="journey-title"

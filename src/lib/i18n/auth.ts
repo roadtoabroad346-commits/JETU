@@ -2,6 +2,8 @@ import type { Locale } from './messages';
 
 export const authCopy = {
   ru: {
+    profileConflict:
+      'Анкета уже изменена в другой вкладке или на другом устройстве. Ваше сохранение отменено. Ниже загружена актуальная версия — проверьте её перед повторным редактированием.',
     signIn: 'Войти',
     signUp: 'Создать аккаунт',
     email: 'Электронная почта',
@@ -53,6 +55,8 @@ export const authCopy = {
       'Не удалось загрузить сохранённую анкету — поля показаны пустыми.',
   },
   kk: {
+    profileConflict:
+      'Сауалнама басқа қойындыда немесе құрылғыда өзгертілді. Бұл сақтау тоқтатылды. Төменде соңғы нұсқа көрсетілген; қайта өңдемес бұрын тексеріңіз.',
     signIn: 'Кіру',
     signUp: 'Аккаунт ашу',
     email: 'Электрондық пошта',
@@ -101,6 +105,8 @@ export const authCopy = {
       'Сақталған сауалнаманы жүктеу мүмкін болмады — өрістер бос көрсетілген.',
   },
   en: {
+    profileConflict:
+      'Your profile changed in another tab or device. This save was cancelled. The latest version is shown below; review it before editing again.',
     signIn: 'Sign in',
     signUp: 'Create account',
     email: 'Email address',

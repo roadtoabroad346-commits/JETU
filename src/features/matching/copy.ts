@@ -20,6 +20,9 @@ export const matchingCopy: Record<
     results: string;
     empty: string;
     error: string;
+    invalidPreferences: string;
+    sessionExpired: string;
+    completed: string;
     retry: string;
     score: string;
     assessed: string;
@@ -61,6 +64,10 @@ export const matchingCopy: Record<
   }
 > = {
   en: {
+    invalidPreferences:
+      'Check country codes (two letters), language codes (two or three letters), and term (letters, numbers or underscore, starting with a letter). Use at most 10 entries per list and 120 characters per field of study.',
+    sessionExpired: 'Your session expired. Sign in again to continue.',
+    completed: 'Matching complete. Recommendations updated.',
     title: 'Find your fit',
     intro:
       'Compare verified catalog facts with your private profile. Results are guidance, not admissions decisions.',
@@ -121,6 +128,10 @@ export const matchingCopy: Record<
     },
   },
   ru: {
+    invalidPreferences:
+      'Проверьте коды стран (две буквы), языков (две или три буквы) и семестр (латинские буквы, цифры или подчёркивание, начинается с буквы). Не более 10 значений в списке и 120 символов в названии направления.',
+    sessionExpired: 'Сессия истекла. Войдите снова, чтобы продолжить.',
+    completed: 'Подбор завершён. Рекомендации обновлены.',
     title: 'Подбор программ',
     intro:
       'Сопоставьте опубликованные факты с вашей личной анкетой. Результат не является решением университета.',
@@ -181,6 +192,10 @@ export const matchingCopy: Record<
     },
   },
   kk: {
+    invalidPreferences:
+      'Ел кодтарын (екі әріп), тіл кодтарын (екі не үш әріп) және мерзімді (латын әрпінен басталатын әріптер, сандар, астын сызу) тексеріңіз. Тізімде ең көбі 10 мән, оқу бағыты атауында 120 таңба болсын.',
+    sessionExpired: 'Сессия аяқталды. Жалғастыру үшін қайта кіріңіз.',
+    completed: 'Іріктеу аяқталды. Ұсынымдар жаңартылды.',
     title: 'Сәйкес бағдарламалар',
     intro:
       'Жарияланған деректерді жеке сауалнамаңызбен салыстырыңыз. Бұл университеттің ресми шешімі емес.',

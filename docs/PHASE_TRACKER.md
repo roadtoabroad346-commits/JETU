@@ -1,5 +1,14 @@
 # Phase tracker — updated 2026-10-25
 
+**2026-11-04 student UX:** user-authorized account/profile/privacy redesign and
+original mascot implemented; see [STUDENT_EXPERIENCE.md](STUDENT_EXPERIENCE.md).
+Local UI, contracts and mocked-action browser checks have evidence. Real hosted
+Auth/REST still blocks integrated acceptance; phase labels below are unchanged.
+
+**2026-11-03 quality pass:** see [MVP_COMPLETION.md](MVP_COMPLETION.md). Existing
+MVP hardened and locally rechecked; hosted Auth/REST and verified corpus still block
+FULL AND VERIFIED. Earlier phase labels are unchanged.
+
 Current request state: **Phase 16 PARTIAL**. The authenticated matching API, deterministic rule/ranking engine, private owner-RLS persistence, and localized workspace are implemented and cloud SQL-tested. The authorized development catalog has zero programs and scholarships; direct hosted Auth/REST is unavailable from this workspace. Live profile-to-recommendation behavior and deployment therefore remain unverified. Earlier partial/unverified phase labels are preserved. Phase 17 has not started.
 
 | Phase | Title                                                            | Status                     | Evidence / dependency                                                                                                                                                                          |

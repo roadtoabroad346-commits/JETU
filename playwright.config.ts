@@ -24,7 +24,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     launchOptions: {
-      executablePath: configuredExecutable,
+      executablePath:
+        configuredExecutable && existsSync(configuredExecutable)
+          ? configuredExecutable
+          : undefined,
     },
   },
   projects: [

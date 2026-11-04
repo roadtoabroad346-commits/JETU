@@ -1,3 +1,40 @@
+# Publication handoff — 2026-11-04
+
+The user explicitly authorized GitHub/Supabase/Vercel publication after the UI
+work. Read `docs/DEPLOYMENT_2026-11-04.md` and PR #10 for release checks and final
+deployment records. Git now preserves all 43 already-applied Jetuu migrations;
+the missing 20 were recovered exactly, not replayed remotely. Pinned-CLI database
+types are generated from the complete migration chain. Local-only script guards
+remain active. Later phase application code was not merged or marked verified.
+Primary production origin is `https://jetu-iota.vercel.app`; previews retain
+Vercel protection. Hosted email confirmation and two-account acceptance still
+require real evidence. Older statements below about missing publication
+authorization are historical and do not override the user's latest request.
+
+# Previous handoff — 2026-11-04 student experience
+
+Read `docs/STUDENT_EXPERIENCE.md` for the new user-authorized account/profile UI,
+original JETU mascot, private five-step journey, supplied privacy contact and tests.
+`docs/MVP_COMPLETION.md` remains the previous MVP quality checkpoint. Hosted
+Auth/REST still returns CONNECT 403; no phase is promoted to FULL AND VERIFIED.
+Profile versions, owner checks and unrelated JSON fields remain protected. New
+profile saves return structured errors without discarding input. No automatic
+browser draft storage, fabricated success, migration or deployment was added.
+
+# Previous handoff — 2026-11-03 MVP quality pass
+
+Read `docs/MVP_COMPLETION.md` first for current acceptance, fixes and verification.
+The existing scope remains **PARTIAL**. Autocomplete now discards stale responses
+and closes on Escape/blur; matching validates inputs, retains drafts on POST failure,
+retries the correct method and handles session expiry; profile updates compare the
+rendered version atomically and reject stale tabs. No schema migration was needed.
+Six hosted rollback SQL assertions proved profile CAS/history/owner isolation;
+this does not verify Auth/REST. The user meant old **Codex environments**, not the
+nested `jetu/` upload. No available environment-list/delete capability exists.
+Preserve the original upload and unrelated projects. Do not claim environment cleanup.
+
+Previous checkpoint context follows; its dated counts are historical.
+
 # Next agent handoff — Phase 16 PARTIAL, 2026-10-25
 
 Phase 16 is implemented locally and in the authorized Jetuu development database, but **not verified end to end**. Do not start Phase 17 under this checkpoint. Read `docs/AI_MATCHING_ARCHITECTURE.md` and the Phase 16 gate in `docs/PHASE_TRACKER.md` before work.

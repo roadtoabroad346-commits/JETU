@@ -1,9 +1,7 @@
 'use client';
 
-// Mount-gated entrance wrapper (same contract as the design-system Showcase):
-// server HTML renders a plain div, and the motion fade-in starts only after
-// hydration, so no-JS users always get fully visible markup and there is no
-// style flash. Transform/opacity only — matches the layout-CLS discipline.
+// Keep the same wrapper during hydration so form inputs are never remounted.
+// Server HTML is fully visible; the finite entrance starts after hydration.
 import { motion, useReducedMotion } from 'motion/react';
 import { useSyncExternalStore, type ReactNode } from 'react';
 
@@ -26,15 +24,16 @@ export function Reveal({
     serverReady,
   );
   const reduce = useReducedMotion();
-  if (!interactive || reduce) {
-    return <div className={className}>{children}</div>;
-  }
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.24, ease: [0.2, 0.8, 0.2, 1] }}
+      initial={false}
+      animate={
+        interactive && !reduce
+          ? { opacity: [0.7, 1], y: [y, 0] }
+          : { opacity: 1, y: 0 }
+      }
+      transition={{ duration: reduce ? 0 : 0.24, ease: [0.2, 0.8, 0.2, 1] }}
     >
       {children}
     </motion.div>

@@ -68,12 +68,14 @@ export function ProfileWizard({
   defaults,
   loadFailed,
   invalid,
+  version = 0,
 }: {
   locale: Locale;
   action: (formData: FormData) => void | Promise<void>;
   defaults: WizardDefaults;
   loadFailed: boolean;
   invalid: boolean;
+  version?: number;
 }) {
   const t = authCopy[locale];
   const m = matchingCopy[locale];
@@ -450,6 +452,8 @@ export function ProfileWizard({
       })}
 
       <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="version" value={version} />
+      <input type="hidden" name="view" value="all" />
 
       {interactive ? (
         <div className="wiz-nav">

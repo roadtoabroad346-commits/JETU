@@ -1,0 +1,91 @@
+
+> jetu-admissions@0.15.0 check
+> npm run format:check && npm run lint && npm run typecheck && npm run test:unit && npm run build
+
+
+> jetu-admissions@0.15.0 format:check
+> prettier --check .
+
+Checking formatting...
+All matched files use Prettier code style!
+
+> jetu-admissions@0.15.0 lint
+> eslint . --max-warnings=0
+
+
+> jetu-admissions@0.15.0 typecheck
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> jetu-admissions@0.15.0 test:unit
+> vitest run tests/unit tests/integration
+
+
+ RUN  v5.0.5 /workspace/JETU
+
+
+ Test Files  10 passed (10)
+      Tests  83 passed (83)
+   Start at  10:44:21
+   Duration  1.83s (import 61%, tests 26%, transform 7%, worker 6%)
+
+    Isolate  10 workers spawned · ~96ms startup each (spawn + environment, per file)
+             at least ~861ms faster with isolate: false — reuses workers across files instead of one per file
+
+
+> jetu-admissions@0.15.0 build
+> next build
+
+▲ Next.js 16.4.2 (Turbopack)
+✓ Running next.config.ts took 219ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 662ms
+  Running TypeScript ...
+  Finished TypeScript in 2.3s ...
+  Collecting page data using 2 workers ...
+  Generating static pages using 2 workers (0/83) ...
+  Generating static pages using 2 workers (20/83)
+  Generating static pages using 2 workers (41/83)
+  Generating static pages using 2 workers (62/83)
+✓ Generating static pages using 2 workers (83/83) in 544ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[locale]
+├ ƒ /[locale]/[slug]
+├ ƒ /[locale]/compare
+├ ƒ /[locale]/dashboard
+├ ƒ /[locale]/design-system
+├ ƒ /[locale]/forgot-password
+├ ƒ /[locale]/login
+├ ƒ /[locale]/match
+├ ƒ /[locale]/onboarding
+├ ƒ /[locale]/opportunities/[slug]
+├ ƒ /[locale]/programs/[id]
+├ ƒ /[locale]/reset-password
+├ ƒ /[locale]/saved
+├ ƒ /[locale]/scholarships/[slug]
+├ ƒ /[locale]/search
+├ ƒ /[locale]/signup
+├ ƒ /[locale]/universities/[slug]
+├ ƒ /api/catalog/universities
+├ ƒ /api/health
+├ ƒ /api/matching/run
+├ ƒ /api/search/suggest
+├ ƒ /auth/callback
+├ ƒ /auth/confirm
+├ ○ /icon.svg
+├ ○ /opengraph-image
+├ ○ /robots.txt
+└ ○ /sitemap.xml
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

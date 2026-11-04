@@ -1,8 +1,8 @@
 // Pure profile-wizard model shared by the client component and unit tests.
-// Field names and limits mirror the authoritative server schema in
-// src/app/[locale]/(dashboard)/actions.ts (profileSchema). They must stay in
-// sync: the server remains the validation authority, these checks only give
-// the questionnaire instant field-level feedback.
+// Compatibility field names/ranges for the original all-fields questionnaire.
+// The authoritative shared server schema is now onboarding/model.ts; the main
+// journey supports additional school-stage and unknown-budget states. These
+// helpers retain the original form's client feedback and never authorize a save.
 
 export const STUDY_LEVELS = [
   'foundation',

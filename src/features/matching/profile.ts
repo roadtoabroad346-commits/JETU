@@ -33,5 +33,6 @@ export function mergeProfileDocument(
     } else if (value === '') delete merged[key];
     else merged[key] = value;
   }
-  return { ...merged, testScores, consent: { accepted: true }, locale };
+  // Editing academic details must not manufacture or replace legal consent.
+  return { ...merged, testScores, locale };
 }

@@ -57,6 +57,9 @@ export default async function MarketingLayout({
             <a className="marketing-login" href={`/${locale}/login`}>
               {authCopy[locale].signIn}
             </a>
+            <a className="marketing-signup" href={`/${locale}/signup`}>
+              {authCopy[locale].signUp}
+            </a>
             <MarketingLanguageNav locale={locale} />
           </div>
         </div>

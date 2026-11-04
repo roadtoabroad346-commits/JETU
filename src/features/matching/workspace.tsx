@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { saveCatalogItem } from '@/features/search/actions';
 import { searchCopy } from '@/features/search/copy';
 import { authCopy } from '@/lib/i18n/auth';
@@ -9,6 +9,7 @@ import { matchingCopy } from './copy';
 import { localizedReason, localizedRule } from './localized';
 import {
   profileReadiness,
+  preferencesSchema,
   type MatchingPreferences,
   type MatchingProfile,
   type Recommendation,
@@ -62,6 +63,12 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
   const [error, setError] = useState('');
+  const [sessionExpired, setSessionExpired] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
+  const [completed, setCompleted] = useState(false);
+  const [reload, setReload] = useState(0);
+  const formRef = useRef<HTMLFormElement>(null);
+  const inFlight = useRef(false);
   const [countries, setCountries] = useState('');
   const [majors, setMajors] = useState('');
   const [languages, setLanguages] = useState('');
@@ -71,36 +78,15 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
   const [term, setTerm] = useState('');
   const [compare, setCompare] = useState<number[]>([]);
 
-  async function load() {
-    setLoading(true);
-    setError('');
-    try {
-      const response = await fetch('/api/matching/run', { cache: 'no-store' });
-      if (!response.ok) throw new Error('load');
-      const payload = (await response.json()) as { data: ApiData };
-      const next = payload.data;
-      setState(next);
-      setCountries(next.state.preferences.countries.join(', '));
-      setMajors(next.state.preferences.majors.join(', '));
-      setLanguages(next.state.preferences.languages.join(', '));
-      setSelectedLevels(next.state.preferences.levels);
-      setFundingRequired(next.state.preferences.fundingRequired);
-      setYear(next.state.preferences.enrollmentYear?.toString() ?? '');
-      setTerm(next.state.preferences.enrollmentTerm ?? '');
-    } catch {
-      setError(t.error);
-    } finally {
-      setLoading(false);
-    }
-  }
   useEffect(() => {
     const controller = new AbortController();
     void fetch('/api/matching/run', {
       cache: 'no-store',
-      signal: controller.signal,
+      signal: AbortSignal.any([controller.signal, AbortSignal.timeout(20_000)]),
     })
       .then(async (response) => {
-        if (!response.ok) throw new Error('load');
+        if (!response.ok)
+          throw new Error(response.status === 401 ? 'session' : 'load');
         return (await response.json()) as { data: ApiData };
       })
       .then(({ data: next }) => {
@@ -114,21 +100,24 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
         setYear(next.state.preferences.enrollmentYear?.toString() ?? '');
         setTerm(next.state.preferences.enrollmentTerm ?? '');
       })
-      .catch(() => {
-        if (!controller.signal.aborted) setError(t.error);
+      .catch((cause: unknown) => {
+        if (!controller.signal.aborted) {
+          const expired = cause instanceof Error && cause.message === 'session';
+          setSessionExpired(expired);
+          setError(expired ? t.sessionExpired : t.error);
+        }
       })
       .finally(() => {
         if (!controller.signal.aborted) setLoading(false);
       });
     return () => controller.abort();
-  }, [t.error]);
+  }, [reload, t.error, t.sessionExpired]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!state?.state.profileVersion || running) return;
-    setRunning(true);
+    if (!state?.state.profileVersion || inFlight.current) return;
     setError('');
-    setCompare([]);
+    setCompleted(false);
     const input = {
       countries: splitCodes(countries),
       majors: splitText(majors),
@@ -138,14 +127,35 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
       ...(year ? { enrollmentYear: Number(year) } : {}),
       ...(term.trim() ? { enrollmentTerm: term.trim().toLowerCase() } : {}),
     };
+    const parsed = preferencesSchema.safeParse(input);
+    if (!parsed.success) {
+      const fields = [
+        ...new Set(parsed.error.issues.map((issue) => String(issue.path[0]))),
+      ];
+      setFieldErrors(fields);
+      formRef.current
+        ?.querySelector<HTMLElement>(`[name="${fields[0]}"]`)
+        ?.focus();
+      return;
+    }
+    setFieldErrors([]);
+    inFlight.current = true;
+    setRunning(true);
     try {
       const response = await fetch('/api/matching/run', {
         method: 'POST',
+        signal: AbortSignal.timeout(20_000),
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input),
+        body: JSON.stringify(parsed.data),
       });
       if (!response.ok)
-        throw new Error(response.status === 429 ? 'rate' : 'run');
+        throw new Error(
+          response.status === 401
+            ? 'session'
+            : response.status === 429
+              ? 'rate'
+              : 'run',
+        );
       const payload = (await response.json()) as {
         data: { results: Recommendation[]; runId: string };
       };
@@ -153,15 +163,22 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
         ...state,
         results: payload.data.results,
         run: { id: payload.data.runId, created_at: new Date().toISOString() },
-        state: { ...state.state, preferences: input as MatchingPreferences },
+        state: { ...state.state, preferences: parsed.data },
       });
+      setCompare([]);
+      setCompleted(true);
     } catch (cause) {
+      const expired = cause instanceof Error && cause.message === 'session';
+      setSessionExpired(expired);
       setError(
-        cause instanceof Error && cause.message === 'rate'
-          ? t.rateLimited
-          : t.error,
+        expired
+          ? t.sessionExpired
+          : cause instanceof Error && cause.message === 'rate'
+            ? t.rateLimited
+            : t.error,
       );
     } finally {
+      inFlight.current = false;
       setRunning(false);
     }
   }
@@ -188,13 +205,30 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
       {error && (
         <div className="feedback-box feedback-box--error" role="alert">
           {error}{' '}
-          <button
-            type="button"
-            className="ui-button ui-button--ghost"
-            onClick={() => void load()}
-          >
-            {t.retry}
-          </button>
+          {sessionExpired ? (
+            <a
+              className="ui-button ui-button--secondary"
+              href={`/${locale}/login`}
+            >
+              {authCopy[locale].signIn}
+            </a>
+          ) : (
+            <button
+              type="button"
+              className="ui-button ui-button--ghost"
+              disabled={loading || running}
+              onClick={() => {
+                if (state) formRef.current?.requestSubmit();
+                else {
+                  setLoading(true);
+                  setError('');
+                  setReload((value) => value + 1);
+                }
+              }}
+            >
+              {t.retry}
+            </button>
+          )}
         </div>
       )}
       {state && (
@@ -230,88 +264,145 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
           >
             <p className="eyebrow">02 / {t.preferences}</p>
             <h2 id="preferences-title">{t.preferences}</h2>
-            <form onSubmit={(event) => void submit(event)}>
-              <div className="matching-form-grid">
-                <label className="ui-field">
-                  <span>{t.countries}</span>
-                  <input
-                    value={countries}
-                    onChange={(event) => setCountries(event.target.value)}
-                    maxLength={60}
-                    placeholder="KZ, DE"
-                  />
-                </label>
-                <label className="ui-field">
-                  <span>{t.majors}</span>
-                  <input
-                    value={majors}
-                    onChange={(event) => setMajors(event.target.value)}
-                    maxLength={250}
-                  />
-                </label>
-                <label className="ui-field">
-                  <span>{t.languages}</span>
-                  <input
-                    value={languages}
-                    onChange={(event) => setLanguages(event.target.value)}
-                    maxLength={60}
-                    placeholder="en, de"
-                  />
-                </label>
-                <label className="ui-field">
-                  <span>{t.year}</span>
-                  <input
-                    type="number"
-                    min={2020}
-                    max={2200}
-                    value={year}
-                    onChange={(event) => setYear(event.target.value)}
-                  />
-                </label>
-                <label className="ui-field">
-                  <span>{t.term}</span>
-                  <input
-                    value={term}
-                    onChange={(event) => setTerm(event.target.value)}
-                    maxLength={30}
-                    placeholder="fall"
-                  />
-                </label>
-              </div>
-              <fieldset className="matching-levels">
-                <legend>{t.levels}</legend>
-                <div>
-                  {levels.map((level) => (
-                    <label key={level}>
-                      <input
-                        type="checkbox"
-                        checked={selectedLevels.includes(level)}
-                        onChange={() =>
-                          setSelectedLevels((current) =>
-                            current.includes(level)
-                              ? current.filter((item) => item !== level)
-                              : [...current, level],
-                          )
-                        }
-                      />
-                      {options[level]}
-                    </label>
-                  ))}
+            <form ref={formRef} onSubmit={(event) => void submit(event)}>
+              <fieldset
+                className="matching-preference-fields"
+                disabled={running || sessionExpired}
+              >
+                <legend className="sr-only">{t.preferences}</legend>
+                <div className="matching-form-grid">
+                  <label className="ui-field">
+                    <span>{t.countries}</span>
+                    <input
+                      name="countries"
+                      aria-invalid={fieldErrors.includes('countries')}
+                      aria-describedby={
+                        fieldErrors.includes('countries')
+                          ? 'matching-validation'
+                          : undefined
+                      }
+                      value={countries}
+                      onChange={(event) => setCountries(event.target.value)}
+                      maxLength={60}
+                      placeholder="KZ, DE"
+                    />
+                  </label>
+                  <label className="ui-field">
+                    <span>{t.majors}</span>
+                    <input
+                      name="majors"
+                      aria-invalid={fieldErrors.includes('majors')}
+                      aria-describedby={
+                        fieldErrors.includes('majors')
+                          ? 'matching-validation'
+                          : undefined
+                      }
+                      value={majors}
+                      onChange={(event) => setMajors(event.target.value)}
+                      maxLength={250}
+                    />
+                  </label>
+                  <label className="ui-field">
+                    <span>{t.languages}</span>
+                    <input
+                      name="languages"
+                      aria-invalid={fieldErrors.includes('languages')}
+                      aria-describedby={
+                        fieldErrors.includes('languages')
+                          ? 'matching-validation'
+                          : undefined
+                      }
+                      value={languages}
+                      onChange={(event) => setLanguages(event.target.value)}
+                      maxLength={60}
+                      placeholder="en, de"
+                    />
+                  </label>
+                  <label className="ui-field">
+                    <span>{t.year}</span>
+                    <input
+                      type="number"
+                      min={2020}
+                      max={2200}
+                      name="enrollmentYear"
+                      aria-invalid={fieldErrors.includes('enrollmentYear')}
+                      aria-describedby={
+                        fieldErrors.includes('enrollmentYear')
+                          ? 'matching-validation'
+                          : undefined
+                      }
+                      value={year}
+                      onChange={(event) => setYear(event.target.value)}
+                    />
+                  </label>
+                  <label className="ui-field">
+                    <span>{t.term}</span>
+                    <input
+                      name="enrollmentTerm"
+                      aria-invalid={fieldErrors.includes('enrollmentTerm')}
+                      aria-describedby={
+                        fieldErrors.includes('enrollmentTerm')
+                          ? 'matching-validation'
+                          : undefined
+                      }
+                      value={term}
+                      onChange={(event) => setTerm(event.target.value)}
+                      maxLength={30}
+                      placeholder="fall"
+                    />
+                  </label>
                 </div>
+                <fieldset className="matching-levels">
+                  <legend>{t.levels}</legend>
+                  <div>
+                    {levels.map((level) => (
+                      <label key={level}>
+                        <input
+                          type="checkbox"
+                          checked={selectedLevels.includes(level)}
+                          onChange={() =>
+                            setSelectedLevels((current) =>
+                              current.includes(level)
+                                ? current.filter((item) => item !== level)
+                                : [...current, level],
+                            )
+                          }
+                        />
+                        {options[level]}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+                <label className="matching-check">
+                  <input
+                    type="checkbox"
+                    checked={fundingRequired}
+                    onChange={(event) =>
+                      setFundingRequired(event.target.checked)
+                    }
+                  />{' '}
+                  {t.funding}
+                </label>
               </fieldset>
-              <label className="matching-check">
-                <input
-                  type="checkbox"
-                  checked={fundingRequired}
-                  onChange={(event) => setFundingRequired(event.target.checked)}
-                />{' '}
-                {t.funding}
-              </label>
+              {fieldErrors.length > 0 && (
+                <p
+                  id="matching-validation"
+                  role="alert"
+                  className="feedback-box feedback-box--error"
+                >
+                  {t.invalidPreferences}
+                </p>
+              )}
               <div className="matching-actions">
                 <button
                   type="submit"
                   className="ui-button ui-button--primary"
-                  disabled={running || !state.state.profileVersion}
+                  disabled={
+                    loading ||
+                    running ||
+                    sessionExpired ||
+                    !state.state.profileVersion
+                  }
                   aria-busy={running}
                 >
                   {running ? t.running : t.run}
@@ -327,7 +418,14 @@ export function MatchingWorkspace({ locale }: { locale: Locale }) {
               </div>
             </form>
           </section>
-          <section className="matching-results" aria-labelledby="results-title">
+          <section
+            className="matching-results"
+            aria-labelledby="results-title"
+            aria-busy={running}
+          >
+            <p className="matching-status" role="status" aria-atomic="true">
+              {running ? t.running : completed ? t.completed : ''}
+            </p>
             <p className="eyebrow">03 / {t.results}</p>
             <h2 id="results-title">{t.results}</h2>
             {state.run && (

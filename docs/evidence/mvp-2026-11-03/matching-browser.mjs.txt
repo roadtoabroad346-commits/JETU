@@ -1,0 +1,57 @@
+import { createServer } from 'vite';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { chromium } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+const root = process.cwd();
+await mkdir('work/matching-harness', { recursive: true });
+await writeFile('work/matching-harness/index.html', '<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Matching component test</title></head><body><div id="root"></div><script type="module" src="/work/matching-harness/main.tsx"></script></body></html>');
+await writeFile('work/matching-harness/main.tsx', `import React from 'react';import {createRoot} from 'react-dom/client';import {MatchingWorkspace} from '/src/features/matching/workspace';import '/src/styles/tokens.css';import '/src/app/globals.css';createRoot(document.getElementById('root')!).render(<MatchingWorkspace locale="en"/>);`);
+const server = await createServer({ configFile: false, root, server: { port: 3201, host: '127.0.0.1' }, resolve: { alias: [{ find: '@/features/search/actions', replacement: 'virtual:actions' }, { find: '@', replacement: `${root}/src` }] }, plugins: [{ name: 'test-only-action-boundary', resolveId(id) { if (id === 'virtual:actions') return id; }, load(id) { if (id === 'virtual:actions') return 'export async function saveCatalogItem() { throw new Error("Server action is not exercised in component harness"); }'; } }] });
+await server.listen();
+const browser = await chromium.launch({executablePath:'/usr/bin/chromium', headless: true});
+try {
+ const context = await browser.newContext();
+ const page = await context.newPage();
+ const errors=[];page.on('pageerror', e=>errors.push(e.message));
+ let posts=0, gets=0; const bodies=[];
+ const data={state:{profile:{country:'KZ',studyLevel:'bachelor',field:'Computer Science',budget:10000,testScores:[],languages:[]},profileVersion:1,preferences:{countries:['KZ'],majors:[],levels:[],languages:[],fundingRequired:false}},run:null,results:[]};
+ await page.route('**/api/matching/run',async route=>{
+  if(route.request().method()==='GET'){gets++;await route.fulfill({json:{data}});return;}
+  posts++;bodies.push(route.request().postDataJSON());
+  await route.fulfill(posts===1?{status:503,json:{error:{code:'INTERNAL_ERROR'}}}:{json:{data:{runId:'fixture-run',results:[]}}});
+ });
+ await page.goto('http://127.0.0.1:3201/work/matching-harness/');
+ const {expect}=await import('@playwright/test');
+ const country=page.locator('[name="countries"]');await expect(country).toHaveValue('KZ');
+ await country.fill('INVALID');await page.getByRole('button',{name:'Run matching',exact:true}).click();
+ await expect(country).toBeFocused();await expect(country).toHaveAttribute('aria-invalid','true');if(posts!==0)throw Error('Invalid preferences sent');
+ await country.fill('DE');await page.getByRole('button',{name:'Run matching',exact:true}).click();
+ await expect(page.getByRole('alert')).toContainText('unavailable');await expect(country).toHaveValue('DE');
+ await page.getByRole('button',{name:'Try again',exact:true}).click();
+ await expect(page.getByRole('status')).toContainText('Matching complete');await expect(country).toHaveValue('DE');
+ if(gets!==1||posts!==2||JSON.stringify(bodies[0])!==JSON.stringify(bodies[1]))throw Error('Retry failed to preserve draft');
+ for (const width of [320,768,1440]) {
+  await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:'reduce'});
+  if(!await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth))throw Error(`overflow at ${width}`);
+  const axe=await new AxeBuilder({page}).include('main').analyze();if(axe.violations.length)throw Error(JSON.stringify(axe.violations));
+  await page.screenshot({path:`work/matching-${width}.png`,fullPage:true});
+ }
+
+ await page.unroute('**/api/matching/run');
+ let initialLoads=0;
+ await page.route('**/api/matching/run', async route=> {
+   if(route.request().method()==='GET') {initialLoads++; await route.fulfill(initialLoads===1 ? {status:503,json:{error:{code:'INTERNAL_ERROR'}}}:{json:{data}});return;}
+   await route.fulfill({status:401,json:{error:{code:'UNAUTHENTICATED'}}});
+ });
+ await page.reload();
+ await expect(page.getByRole('alert')).toContainText('unavailable');
+ await page.getByRole('button',{name:'Try again',exact:true}).click();
+ await expect(country).toHaveValue('KZ');
+ await page.getByRole('button',{name:'Run matching',exact:true}).click();
+ await expect(page.getByRole('alert')).toContainText('session expired');
+ await expect(page.getByRole('link',{name:'Sign in',exact:true})).toHaveAttribute('href','/en/login');
+ await expect(page.getByRole('button',{name:'Run matching',exact:true})).toBeDisabled();
+ if(initialLoads!==2)throw Error('Initial GET retry did not run');
+ if(errors.length)throw Error(errors.join('\n'));
+ console.log('PASS: actual MatchingWorkspace with mocked API: validation/focus, POST failure, retained draft, POST retry, success, initial GET recovery, session expiry, 320/768/1440 layout and axe. Not hosted Auth/REST evidence.');
+} finally {await browser.close();await server.close();}

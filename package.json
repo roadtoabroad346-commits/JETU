@@ -19,6 +19,7 @@
     "test:unit": "vitest run tests/unit tests/integration",
     "test:db": "node scripts/db.mjs test",
     "test:e2e": "playwright test",
+    "test:journey-ui": "playwright test --config=playwright.journey.config.ts",
     "test:a11y": "playwright test --grep @a11y",
     "db:start": "node scripts/db.mjs start",
     "db:stop": "node scripts/db.mjs stop",
@@ -66,6 +67,7 @@
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "typescript-eslint": "8.71.2",
+    "vite": "8.3.4",
     "vitest": "5.0.5"
   },
   "type": "module"

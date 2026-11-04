@@ -1,4 +1,5 @@
-# Local development only; do not link this checkout to a hosted project.
+# Defaults are local-only; scripts/db.mjs must never link this checkout.
+# The explicit main remote below is deployed only by the GitHub integration.
 project_id = "jetu-local"
 
 [api]
@@ -60,3 +61,30 @@ enabled = false
 
 [edge_runtime]
 enabled = false
+
+# Publication authorized on 2026-11-04. Keep localhost defaults above intact.
+# Main's existing Jetuu project is the only authorized hosted target.
+[remotes.main]
+project_id = "edpuovkgoisyzpguksdi"
+
+[remotes.main.db.seed]
+enabled = false
+
+[remotes.main.auth]
+site_url = "https://jetu-iota.vercel.app"
+additional_redirect_urls = [
+  "https://jetu-iota.vercel.app/auth/callback",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fru%2Fonboarding",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fkk%2Fonboarding",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fen%2Fonboarding",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fru%2Freset-password",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fkk%2Freset-password",
+  "https://jetu-iota.vercel.app/auth/callback?next=%2Fen%2Freset-password",
+  "https://jetu-phase13-preview.vercel.app/auth/callback",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fru%2Fonboarding",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fkk%2Fonboarding",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fen%2Fonboarding",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fru%2Freset-password",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fkk%2Freset-password",
+  "https://jetu-phase13-preview.vercel.app/auth/callback?next=%2Fen%2Freset-password",
+]

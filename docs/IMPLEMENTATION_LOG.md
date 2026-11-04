@@ -494,6 +494,24 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - `npm audit --omit=dev --audit-level=high` found zero vulnerabilities. The final post-copy `npm run check` passed formatting, ESLint, strict TypeScript, 78 unit/integration tests and production build.
 - Git checkpoint `afa3f11` was pushed to GitHub `main`. Vercel linked the existing `jetu-phase13-preview` project to the repository and built that exact commit to READY at `https://jetu-phase13-preview-8im4ojtmm-impact-hub.vercel.app`. Protected preview smoke: `/api/health` 200, anonymous `/en/match` rendered sign-in, `/en/search` 200 with the one real opportunity. The API GET fetch through the Vercel share-link tool returned a 401 authentication/protection error, so no authenticated matching request was verified. Git `main` also auto-deploys to the Vercel project's production target, whose only domain is `jetu-phase13-preview.vercel.app`; no JETU custom production domain or acceptance-ready product release is claimed. Supabase Git-linked `main` branch advanced through migrations to `ACTIVE_HEALTHY`; GitHub connector showed Vercel success but did not expose push-triggered Actions runs.
 
+## 2026-11-03 — MVP quality and resilience
+
+Current evidence and bounded release matrix: `docs/MVP_COMPLETION.md`.
+Implemented autocomplete cancellation/dismissal/focus fixes, matching shared-schema
+validation and retry without draft loss, session-expiry recovery, finite token-based
+motion, profile optimistic concurrency and actual browser executable fallback.
+Profile mutation tests cover stale tabs, write-time races, first-insert conflict,
+owner filters and unavailable identity/read. Hosted rollback SQL verified six
+CAS/history/RLS assertions, with zero leftover test users. No migration or hosted
+catalog publication occurred. Root application is current; nested upload preserved
+because the user clarified that cleanup means separate Codex environments.
+
+Final gates: `npm run check` PASS (83 unit/integration tests); production Chromium
+E2E PASS (70 passed, four Auth-dependent skips). Matching component mock-API
+browser/axe and six hosted rollback SQL assertions PASS. Production npm audit has
+zero vulnerabilities; development audit reports 13 moderate minimatch-derived
+findings. Complete MVP remains PARTIAL, not FULL AND VERIFIED.
+
 ## 2026-11-03 — CI repair and animated onboarding questionnaire
 
 - CI database job had been red on `main` since the phase 15 commit:
@@ -527,3 +545,28 @@ Preview` integration check stays red: the linked Jetuu project reports
   ESLint, strict tsc, 91 unit/integration tests, production build and 64
   passing e2e cases (four Auth-dependent skips unchanged). No DB, auth or RLS
   changes; no phase status change.
+
+## 2026-11-04 — student account, mascot and privacy experience
+
+User authorized a complete account/profile UX redesign, a new mascot and a
+privacy policy; supplied operator Мырзабек Нұржан / Казахстан /
+jetuu1550@gmail.com. The new primary experience uses an original travelling-bird
+vector companion, semantic emoji choices, five explicit profile steps, optional
+academic data, an exact/range budget, full review/export, structured retry and
+version-safe saves. Signup uses real Auth results, dated consent and retained input.
+The privacy policy is localized and states actual processing and retention limits.
+
+Fetched and merged the concurrent main checkpoint a2cc7ac. Preserved CI fixes,
+canonical DB types, Windows baselines and all previous wizard tests. The prior
+server-rendered questionnaire is a no-JS fallback with the same version guard.
+Public/account loading boundaries were removed to avoid permanent streamed
+skeletons without JavaScript; per-action pending and native browser loading remain.
+Stable Reveal markup avoids remounting forms during hydration. See
+docs/STUDENT_EXPERIENCE.md for exact scope, commands, screenshots and blockers.
+
+Final local gates: clean `npm ci`; format/lint/types/107 unit-integration/build
+PASS; production Chromium E2E 80 passed with four hosted-Auth skips; separate
+journey component browser regression six passed. All five profile stages were
+checked at 320/768/1440 in RU/KK/EN with axe and reduced motion. Production audit
+zero vulnerabilities; thirteen inherited moderate development findings remain.
+Live Auth/REST remains CONNECT 403, so the complete MVP is still PARTIAL.

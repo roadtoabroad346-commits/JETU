@@ -1,3 +1,11 @@
+# Current authorization — 2026-11-04
+
+The user has now explicitly authorized publication of JETU to the existing
+Supabase/Vercel targets. Read `DEPLOYMENT_2026-11-04.md` for exact scope, recovered
+history, validation and rollback. The dated development checkpoint below remains
+historical; its earlier lack of production authorization is superseded. Local
+database scripts remain local-only. `LinguaAI` remains unrelated and excluded.
+
 # Phase 04 cloud development — 2026-10-18
 
 The user explicitly authorized the existing `Jetuu` project

@@ -1,0 +1,1 @@
+create policy mx_ai_no_client_access on mirror_x.ai_usage for all to authenticated using(false) with check(false);

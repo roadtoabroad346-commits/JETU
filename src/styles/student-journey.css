@@ -1,0 +1,1057 @@
+/* JETU student experience. Scope styles so existing catalog/showcase stay stable. */
+.account-experience,
+.student-journey,
+.journey-success {
+  color: var(--ink);
+}
+.auth-page .auth-header {
+  flex-wrap: wrap;
+  padding-block: 16px;
+}
+.account-header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px 24px;
+}
+.auth-page .language-link {
+  color: var(--primary-hover);
+}
+.auth-page .language-link[aria-current] {
+  color: var(--on-primary);
+  background: var(--primary);
+}
+.auth-page .language-link:hover:not([aria-current]) {
+  background: var(--surface-blue);
+}
+.dashboard-main > .account-card {
+  margin-top: 24px;
+}
+.dashboard-page .student-workspace-nav {
+  gap: 6px;
+}
+.student-workspace-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-radius: 10px;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.student-workspace-nav a[aria-current='page'] {
+  background: var(--surface-blue);
+  color: var(--primary-hover);
+}
+.student-workspace-nav a:hover {
+  background: var(--canvas);
+}
+.marketing-account .marketing-signup {
+  background: var(--ink);
+  color: var(--surface);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.account-experience {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+  padding-block: 32px 80px;
+}
+.account-story {
+  position: sticky;
+  top: 28px;
+  padding: 24px 20px 0 0;
+}
+.account-story h2 {
+  font-weight: 800;
+  max-width: 510px;
+  margin: 20px 0;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.account-story > p:not(.eyebrow) {
+  max-width: 450px;
+  color: var(--muted);
+  font-size: 1.125rem;
+}
+.account-mascot-stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  margin-block: 12px 24px;
+}
+.mascot-halo {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: var(--surface-blue);
+  top: 18px;
+}
+.jetu-mascot {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  position: relative;
+  overflow: visible;
+}
+.mascot-label {
+  position: relative;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.account-benefits {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.account-benefits li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 0.9375rem;
+}
+.account-benefits li > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  color: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.account-form-panel,
+.journey-card-panel {
+  min-width: 0;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: clamp(24px, 3.2vw, 44px);
+  border-radius: var(--radius-panel);
+  box-shadow: var(--shadow-2);
+}
+.account-form-panel h1 {
+  font-size: clamp(1.85rem, 3vw, 2.6rem);
+  line-height: 1.13;
+  letter-spacing: -0.035em;
+  margin: 14px 0 16px;
+  text-wrap: balance;
+}
+.journey-overline {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  color: var(--primary);
+}
+.journey-note,
+.journey-memory,
+.account-privacy-note {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+.account-form-panel form {
+  margin-top: 28px;
+}
+.journey-fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+.account-form-panel .ui-field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.account-form-panel .ui-field > span,
+.student-journey .ui-field > span {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.account-form-panel input:not([type='checkbox']),
+.student-journey
+  input:not([type='radio']):not([type='hidden']):not([type='range']),
+.student-journey select {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-control);
+  font: inherit;
+}
+.password-control {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  overflow: hidden;
+}
+.account-form-panel .password-control input {
+  border: 0;
+  min-width: 0;
+  border-radius: 0;
+}
+.password-control:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+.password-control input:focus-visible {
+  outline: none;
+}
+.password-control button {
+  border: 0;
+  border-left: 1px solid var(--border);
+  background: var(--surface-blue);
+  color: var(--primary-hover);
+  padding: 8px 12px;
+  min-height: 48px;
+  max-width: 150px;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.password-feedback {
+  margin: 4px 0 16px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+.password-feedback.is-ready {
+  color: var(--success);
+}
+.account-form-panel .check-row {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  padding-block: 6px;
+}
+.account-form-panel .check-row input {
+  accent-color: var(--primary);
+  margin: 0;
+}
+.account-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 0.8125rem;
+}
+.account-legal-links a,
+.journey-card-panel a,
+.account-form-panel a {
+  color: var(--primary-hover);
+  text-underline-offset: 4px;
+}
+.account-legal-links a,
+.journey-card-panel a:not(.ui-button),
+.account-form-panel a:not(.ui-button),
+.student-welcome a:not(.ui-button) {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.account-legal-links a,
+.journey-private {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.journey-private svg {
+  flex-shrink: 0;
+}
+.account-form-panel a.ui-button--primary,
+.journey-card-panel a.ui-button--primary {
+  color: var(--on-primary);
+}
+.account-privacy-note {
+  font-size: 0.8125rem;
+  margin-top: 18px;
+}
+.account-confirmation {
+  align-items: center;
+  max-width: 1000px;
+}
+.account-confirmation .jetu-mascot {
+  width: 100%;
+  max-width: 380px;
+}
+.student-journey {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  padding-block: 40px 72px;
+}
+.journey-companion {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  padding-top: 84px;
+}
+.journey-companion > .eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+.mascot-speech {
+  position: relative;
+  margin: 12px 0 22px;
+  border: 1px solid var(--border);
+  border-radius: 20px 20px 20px 4px;
+  padding: 20px;
+  background: var(--surface);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+.journey-private {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.journey-workspace {
+  min-width: 0;
+}
+.journey-step-nav ol {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  gap: 8px;
+}
+.journey-step-nav li {
+  min-width: 0;
+  flex: 1;
+}
+.journey-step-nav button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 6px;
+  width: 100%;
+  min-height: 58px;
+  text-align: start;
+}
+.journey-step-nav button > span:first-child {
+  font-weight: 800;
+  font-size: 0.9375rem;
+}
+.journey-step-nav button[aria-current] {
+  color: var(--primary);
+}
+.journey-step-nav button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.journey-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.journey-progress {
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 6px;
+  margin-block: 10px 24px;
+  border: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--border);
+  color: var(--primary);
+}
+.journey-progress::-webkit-progress-bar {
+  background: var(--border);
+}
+.journey-progress::-webkit-progress-value {
+  background: var(--primary);
+  border-radius: 4px;
+}
+.journey-progress::-moz-progress-bar {
+  background: var(--primary);
+}
+.journey-step-heading {
+  margin-bottom: 28px;
+}
+.journey-step-heading h1 {
+  font-size: clamp(1.8rem, 3vw, 2.65rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  margin-block: 12px;
+  text-wrap: balance;
+}
+.journey-step-heading h1:focus {
+  outline: none;
+}
+.journey-step-heading > p:last-child {
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+.journey-step-content {
+  min-height: 240px;
+}
+.journey-choices {
+  border: 0;
+  padding: 0;
+  margin: 0 0 28px;
+  min-width: 0;
+}
+.journey-choices legend {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.choice-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--control-border);
+  border-radius: 16px;
+  padding: 15px;
+  min-height: 76px;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  background: var(--surface);
+  overflow-wrap: anywhere;
+}
+.choice-card input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.choice-card:has(input:focus-visible) {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+.choice-card.is-selected {
+  border: 2px solid var(--primary);
+  padding: 14px;
+  background: var(--surface-blue);
+  color: var(--primary-hover);
+  font-weight: 700;
+}
+.choice-emoji {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  font-size: 1.7rem;
+}
+.choice-check {
+  margin-left: auto;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.choice-card.is-selected .choice-check {
+  color: var(--primary);
+}
+.journey-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.student-journey .ui-field {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 22px;
+}
+.student-journey .ui-field small {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.student-journey [aria-invalid='true'],
+.account-form-panel [aria-invalid='true'] {
+  border-color: var(--danger);
+}
+.journey-exams {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-block: 8px 16px;
+}
+.journey-exams summary {
+  min-height: 32px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.journey-step-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  margin-top: 30px;
+}
+.journey-step-actions > :first-child:not(:last-child) {
+  margin-right: auto;
+}
+.journey-memory {
+  max-width: 650px;
+  margin: 16px 8px 0;
+  font-size: 0.8125rem;
+}
+.budget-experience {
+  text-align: center;
+}
+.budget-emoji {
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 14px;
+}
+.budget-output {
+  display: block;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+.budget-experience > p {
+  color: var(--muted);
+}
+.budget-presets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-block: 28px 24px;
+}
+.budget-presets button {
+  min-height: 48px;
+  border: 1px solid var(--control-border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.budget-presets button[aria-pressed='true'] {
+  border-color: var(--primary);
+  background: var(--surface-blue);
+  color: var(--primary-hover);
+  font-weight: 700;
+}
+.student-journey input[type='range'] {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+.budget-experience .ui-field {
+  text-align: start;
+}
+.budget-zero-note {
+  background: var(--warning-surface);
+  color: var(--warning) !important;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+}
+.journey-review {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.journey-review > div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  min-width: 0;
+}
+.review-icon {
+  font-size: 1.5rem;
+  flex: 0 0 auto;
+}
+.journey-review > div > div {
+  flex: 1;
+  min-width: 0;
+}
+.journey-review h2 {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  margin: 0 0 4px;
+}
+.journey-review p {
+  margin: 0;
+  font-size: 0.9375rem;
+  overflow-wrap: anywhere;
+}
+.journey-review button {
+  font-size: 0.8125rem;
+  padding-inline: 8px;
+}
+.review-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-block: 10px;
+  font-size: 0.875rem;
+}
+.review-details dt {
+  color: var(--muted);
+}
+.review-details dd {
+  margin: 0;
+  text-align: end;
+}
+.journey-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 24px;
+}
+.journey-success {
+  display: grid;
+  justify-items: center;
+  max-width: 850px;
+  padding-block: 24px 80px;
+}
+.journey-success .jetu-mascot {
+  width: 240px;
+}
+.journey-success .journey-card-panel {
+  width: 100%;
+  text-align: center;
+}
+.journey-success h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.15;
+}
+.journey-success .journey-buttons {
+  justify-content: center;
+}
+.student-welcome {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+  border-radius: 28px;
+  background: var(--surface-blue);
+  padding: 32px;
+}
+.student-welcome h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 8px 0 16px;
+}
+.student-welcome p {
+  max-width: 600px;
+  color: var(--muted);
+}
+.student-welcome .jetu-mascot {
+  max-width: 220px;
+}
+.student-welcome .field-help {
+  margin-top: 14px;
+}
+.policy-main {
+  padding-block: 48px 80px;
+}
+.policy-intro {
+  max-width: 830px;
+  margin-bottom: 40px;
+}
+.policy-intro h1 {
+  font-size: clamp(2rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-block: 16px;
+}
+.policy-intro > p {
+  color: var(--muted);
+  font-size: 1.125rem;
+}
+.policy-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-block: 32px;
+}
+.policy-summary > div {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+}
+.policy-summary h2 {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+.policy-summary p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+.policy-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+.policy-toc {
+  position: sticky;
+  top: 24px;
+  display: grid;
+  gap: 8px;
+}
+.policy-toc a {
+  color: var(--primary-hover);
+  padding: 8px 4px;
+  font-size: 0.875rem;
+  text-underline-offset: 4px;
+}
+.policy-content {
+  min-width: 0;
+}
+.policy-content section {
+  padding-block: 24px 32px;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 28px;
+}
+.policy-content h2 {
+  margin-top: 0;
+  font-size: 1.35rem;
+}
+.policy-content p {
+  color: var(--muted);
+  max-width: 75ch;
+  line-height: 1.8;
+}
+.policy-contact {
+  padding: 24px;
+  background: var(--surface-blue);
+  border-radius: 20px;
+  margin-top: 24px;
+  overflow-wrap: anywhere;
+}
+.policy-contact a {
+  color: var(--primary-hover);
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mascot-body {
+    animation: jetu-float 2200ms ease-in-out 2;
+    transform-origin: 160px 170px;
+  }
+  .mascot-wave {
+    animation: jetu-wave 600ms var(--ease-out) 3;
+    transform-origin: 220px 185px;
+  }
+  .jetu-mascot--thinking .mascot-body {
+    animation: none;
+    transform: rotate(-4deg);
+  }
+  .jetu-mascot--celebrate .mascot-body {
+    animation: jetu-celebrate 600ms var(--ease-out) 2;
+  }
+  .journey-step-content,
+  .mascot-speech,
+  .journey-success .journey-card-panel {
+    animation: jetu-arrive var(--duration-panel) var(--ease-out);
+  }
+  .choice-card,
+  .budget-presets button {
+    transition:
+      background-color var(--duration-feedback),
+      border-color var(--duration-feedback),
+      transform var(--duration-press) var(--ease-out);
+  }
+  .choice-card:active {
+    transform: scale(0.98);
+  }
+  @keyframes jetu-float {
+    50% {
+      transform: translateY(-7px);
+    }
+  }
+  @keyframes jetu-wave {
+    50% {
+      transform: rotate(-12deg);
+    }
+  }
+  @keyframes jetu-celebrate {
+    50% {
+      transform: translateY(-12px) rotate(3deg);
+    }
+  }
+  @keyframes jetu-arrive {
+    from {
+      opacity: 0.5;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+@media (max-width: 960px) {
+  .account-experience {
+    gap: 32px;
+  }
+  .account-story h2 {
+    font-size: 2.5rem;
+  }
+  .student-journey {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 24px;
+  }
+  .choice-card {
+    padding: 12px;
+    gap: 8px;
+  }
+  .choice-card.is-selected {
+    padding: 11px;
+  }
+}
+@media (max-width: 700px) {
+  .marketing-account .marketing-signup {
+    display: none;
+  }
+  .account-header-nav {
+    justify-content: flex-start;
+    gap: 8px 16px;
+  }
+  .account-experience {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 8px 48px;
+    gap: 24px;
+  }
+  .account-story {
+    position: static;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 88px;
+    column-gap: 8px;
+    padding: 0;
+  }
+  .account-story .eyebrow {
+    grid-column: 1;
+    align-self: end;
+    font-size: 0.7rem;
+    margin: 0 0 10px;
+  }
+  .account-story h2 {
+    grid-column: 1;
+    font-size: 1.75rem;
+    margin: 0;
+  }
+  .account-story > p:not(.eyebrow) {
+    grid-column: 1 / -1;
+    font-size: 1rem;
+    margin-block: 16px 0;
+  }
+  .account-mascot-stage {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    margin: 0;
+    align-self: center;
+  }
+  .mascot-halo,
+  .account-mascot-stage .mascot-label,
+  .account-benefits {
+    display: none;
+  }
+  .account-form-panel {
+    padding: 24px 20px;
+    border-radius: 22px;
+  }
+  .account-form-panel h1 {
+    font-size: 1.85rem;
+  }
+  .account-confirmation {
+    justify-items: center;
+  }
+  .account-confirmation > .jetu-mascot {
+    width: 180px;
+  }
+  .student-journey {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: 16px 40px;
+    gap: 8px;
+  }
+  .journey-companion {
+    position: static;
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    padding: 0;
+    align-items: center;
+  }
+  .journey-companion > .eyebrow,
+  .journey-companion .journey-private {
+    display: none;
+  }
+  .journey-companion .jetu-mascot {
+    grid-column: 1;
+    width: 78px;
+  }
+  .mascot-speech {
+    grid-column: 2;
+    margin: 0 0 12px;
+    padding: 12px;
+    font-size: 0.875rem;
+  }
+  .journey-card-panel {
+    padding: 24px 18px;
+    border-radius: 22px;
+  }
+  .journey-step-heading h1 {
+    font-size: 1.9rem;
+  }
+  .journey-step-nav ol {
+    gap: 2px;
+    margin-bottom: 12px;
+  }
+  .journey-step-nav button {
+    font-size: 0.75rem;
+    padding: 8px 2px;
+    min-height: 62px;
+    gap: 4px;
+  }
+  .journey-step-nav button span:last-child {
+    overflow-wrap: anywhere;
+  }
+  .choice-grid {
+    gap: 8px;
+  }
+  .choice-card {
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    min-height: 92px;
+    padding: 12px;
+  }
+  .choice-card.is-selected {
+    padding: 11px;
+  }
+  .choice-card > span:not(.choice-emoji):not(.choice-check) {
+    flex-basis: 100%;
+  }
+  .choice-check {
+    position: absolute;
+    right: 12px;
+    top: 16px;
+  }
+  .choice-emoji {
+    font-size: 1.5rem;
+    height: 30px;
+    width: 30px;
+  }
+  .journey-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+  .budget-presets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .journey-step-actions {
+    gap: 10px;
+  }
+  .journey-step-actions .ui-button {
+    padding-inline: 16px;
+  }
+  .journey-review > div {
+    flex-wrap: wrap;
+  }
+  .journey-review > div > div {
+    flex-basis: calc(100% - 48px);
+  }
+  .journey-review button {
+    margin-left: 38px;
+  }
+  .student-welcome {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
+    padding: 24px 20px;
+  }
+  .student-welcome .jetu-mascot {
+    align-self: start;
+  }
+  .student-welcome h2 {
+    font-size: 1.6rem;
+  }
+  .student-welcome .journey-buttons {
+    grid-column: 1 / -1;
+  }
+  .policy-summary,
+  .policy-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .policy-summary {
+    gap: 10px;
+  }
+  .policy-toc {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px 16px;
+  }
+}
+@media (max-width: 380px) {
+  .journey-choices--studyLevel .choice-grid,
+  .journey-choices--field .choice-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .journey-choices--studyLevel .choice-card,
+  .journey-choices--field .choice-card {
+    flex-wrap: nowrap;
+    min-height: 72px;
+  }
+  .journey-choices--studyLevel
+    .choice-card
+    > span:not(.choice-emoji):not(.choice-check),
+  .journey-choices--field
+    .choice-card
+    > span:not(.choice-emoji):not(.choice-check) {
+    flex: 1;
+  }
+  .journey-choices--studyLevel .choice-check,
+  .journey-choices--field .choice-check {
+    position: static;
+  }
+}
