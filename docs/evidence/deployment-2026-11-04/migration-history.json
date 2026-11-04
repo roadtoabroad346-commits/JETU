@@ -1,0 +1,122 @@
+[
+  {
+    "version": "20261026072804",
+    "name": "phase_17_roadmap",
+    "bytes": 30116,
+    "md5": "0256ee0a9dc8231c09bfbc377dd17673"
+  },
+  {
+    "version": "20261026073138",
+    "name": "phase_17_roadmap_hardening",
+    "bytes": 4689,
+    "md5": "114c4ad991dae45e07964a28b8df1f48"
+  },
+  {
+    "version": "20261026164251",
+    "name": "phase_18_application_crm",
+    "bytes": 40924,
+    "md5": "7293e1b9faaa769d198c615a92f4ed35"
+  },
+  {
+    "version": "20261026164434",
+    "name": "phase_18_application_crm_hardening",
+    "bytes": 10847,
+    "md5": "9c7b7892d5487d0e98c50d1f7c14dc90"
+  },
+  {
+    "version": "20261026164713",
+    "name": "phase_17_18_fk_indexes",
+    "bytes": 1826,
+    "md5": "8d542b685939ff05bd838a583d5e456a"
+  },
+  {
+    "version": "20261027053050",
+    "name": "phase_19_document_vault",
+    "bytes": 28216,
+    "md5": "68d7101f4dd23ef7c625c1128d87a2e0"
+  },
+  {
+    "version": "20261027054005",
+    "name": "phase_19_vault_hardening",
+    "bytes": 5774,
+    "md5": "453bd0bb90218ec0e2653493c8f0dc7c"
+  },
+  {
+    "version": "20261027054407",
+    "name": "phase_19_vault_integrity",
+    "bytes": 9902,
+    "md5": "b9990e2a8a1968dda52219629e40257c"
+  },
+  {
+    "version": "20261027054806",
+    "name": "phase_19_vault_recovery",
+    "bytes": 772,
+    "md5": "e677a006e63dfcd632d65abec456787b"
+  },
+  {
+    "version": "20261027055906",
+    "name": "phase_19_vault_quota_boundary",
+    "bytes": 4179,
+    "md5": "d24a469749050978a05324967f00bc73"
+  },
+  {
+    "version": "20261028123545",
+    "name": "phase_17_generation_authority",
+    "bytes": 16670,
+    "md5": "30eb00822594627141e1009571c36605"
+  },
+  {
+    "version": "20261028132915",
+    "name": "catalog_editorial_console",
+    "bytes": 13798,
+    "md5": "226b8576746714b3f740eea54bc7c1b7"
+  },
+  {
+    "version": "20261028133923",
+    "name": "catalog_editorial_atomicity",
+    "bytes": 6768,
+    "md5": "89dabc8bf82cd9dbbf2f100b4c9d46f6"
+  },
+  {
+    "version": "20261029080831",
+    "name": "mirror_x_cloud",
+    "bytes": 6373,
+    "md5": "b7e7014d25090963b582ddc510cd4474"
+  },
+  {
+    "version": "20261029082128",
+    "name": "mirror_x_atomic_import",
+    "bytes": 2901,
+    "md5": "a243d8a163a4477781ccec46dc4da551"
+  },
+  {
+    "version": "20261029092228",
+    "name": "mirror_x_visual_workspace",
+    "bytes": 3445,
+    "md5": "16ecd90020acccfb728ba0866551461c"
+  },
+  {
+    "version": "20261029092342",
+    "name": "mirror_x_ai_quota_policy",
+    "bytes": 114,
+    "md5": "091d7e907b6a678fb97d22a308eddbcd"
+  },
+  {
+    "version": "20261029141922",
+    "name": "mirror_x_handle_accounts",
+    "bytes": 3292,
+    "md5": "8a6f1b9bd33982500bd9c7d6abc231bc"
+  },
+  {
+    "version": "20261029143435",
+    "name": "phase_20_ai_coach",
+    "bytes": 11539,
+    "md5": "ab8bf69afcc8b00951b11b34a9b3068f"
+  },
+  {
+    "version": "20261029143849",
+    "name": "phase_20_coach_retention",
+    "bytes": 466,
+    "md5": "932d876a40fcf12e1597fd08490979b2"
+  }
+]
