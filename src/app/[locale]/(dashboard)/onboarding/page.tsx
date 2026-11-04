@@ -4,7 +4,11 @@ import { isLocale } from '@/lib/i18n/messages';
 import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { ProfileJourney } from '@/features/onboarding/profile-journey';
 import { profileFormValues } from '@/features/onboarding/model';
-import { submitProfile } from '../actions';
+import {
+  ProfileWizard,
+  WizardSuccess,
+} from '@/features/onboarding/profile-wizard';
+import { saveProfile, submitProfile } from '../actions';
 
 export async function generateMetadata({
   params,
@@ -21,8 +25,10 @@ export async function generateMetadata({
 }
 export default async function OnboardingPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ view?: string; success?: string; error?: string }>;
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) return null;
@@ -35,10 +41,32 @@ export default async function OnboardingPage({
         .eq('user_id', identity.user.id)
         .maybeSingle()
     : { data: null, error: new Error('Unauthenticated') };
+  const initial = profileFormValues(data?.document);
+  const query = await searchParams;
+  // Preserve main's all-fields server-rendered form as a no-JavaScript fallback.
+  if (query.view === 'all')
+    return (
+      <main id="main" tabIndex={-1} className="dashboard-main page-shell">
+        <section className="profile-panel profile-panel--wide">
+          {query.success === 'saved' && data && !error ? (
+            <WizardSuccess locale={locale} />
+          ) : (
+            <ProfileWizard
+              locale={locale}
+              action={saveProfile}
+              defaults={initial}
+              loadFailed={Boolean(error)}
+              invalid={Boolean(query.error)}
+              version={data?.version ?? 0}
+            />
+          )}
+        </section>
+      </main>
+    );
   return (
     <ProfileJourney
       locale={locale}
-      initial={profileFormValues(data?.document)}
+      initial={initial}
       version={data?.version ?? 0}
       loadFailed={Boolean(error)}
       action={submitProfile}

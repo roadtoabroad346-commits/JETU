@@ -1,0 +1,19 @@
+
+> jetu-admissions@0.15.0 test:journey-ui
+> playwright test --config=playwright.journey.config.ts
+
+[WebServer] (node:29824) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+(node:29840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/journey/profile.spec.ts:4:1 › five real UI steps retain answers, distinguish unknown budget, retry, and update the saved version @a11y (3.9s)
+  ✓  2 tests/journey/profile.spec.ts:89:3 › ru journey supports keyboard, all step layouts and reduced motion @a11y (4.4s)
+  ✓  3 tests/journey/profile.spec.ts:89:3 › kk journey supports keyboard, all step layouts and reduced motion @a11y (3.9s)
+  ✓  4 tests/journey/profile.spec.ts:89:3 › en journey supports keyboard, all step layouts and reduced motion @a11y (3.6s)
+  ✓  5 tests/journey/profile.spec.ts:129:1 › conflict keeps the current answers and offers a separate current-version link (1.0s)
+  ✓  6 tests/journey/profile.spec.ts:150:1 › account confirmation follows an action result and allows editing the email (961ms)
+
+  6 passed (19.2s)

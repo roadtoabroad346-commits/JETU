@@ -38,7 +38,16 @@ async function persistProfile(formData: FormData): Promise<ProfileSaveState> {
       fields: parsed.error.issues.map((issue) => String(issue.path[0])),
     };
   const supabase = await createRequestSupabaseClient();
-  const { data: userData } = await supabase.auth.getUser();
+  const { data: userData, error: identityError } =
+    await supabase.auth.getUser();
+  if (identityError)
+    return {
+      status: 'error',
+      error:
+        identityError.status === 401 || identityError.status === 403
+          ? 'session'
+          : 'unavailable',
+    };
   if (!userData.user) return { status: 'error', error: 'session' };
   const { data: current, error: readError } = await supabase
     .from('student_profiles')
@@ -48,9 +57,12 @@ async function persistProfile(formData: FormData): Promise<ProfileSaveState> {
   if (readError) return { status: 'error', error: 'unavailable' };
   if ((current?.version ?? 0) !== expectedVersion.data)
     return { status: 'error', error: 'conflict' };
+  const profileInput: Record<string, string | number> = { ...parsed.data };
+  // The older all-fields form does not own the new school-stage field.
+  if (!formData.has('grade')) delete profileInput.grade;
   const values = {
     user_id: userData.user.id,
-    document: mergeProfileDocument(current?.document, parsed.data, locale),
+    document: mergeProfileDocument(current?.document, profileInput, locale),
     version: expectedVersion.data + 1,
     updated_at: new Date().toISOString(),
   };
@@ -84,11 +96,12 @@ export async function submitProfile(
 /** Existing form contract retained for links and clients from the previous release. */
 export async function saveProfile(formData: FormData) {
   const locale = localeOf(formData);
+  const view = formData.get('view') === 'all' ? '&view=all' : '';
   const result = await submitProfile({ status: 'idle' }, formData);
   if (result.error === 'session') redirect(`/${locale}/login`);
   if (result.status === 'error')
     redirect(
-      `/${locale}/onboarding?error=${result.error === 'conflict' ? 'conflict' : 'invalid'}`,
+      `/${locale}/onboarding?error=${result.error === 'conflict' ? 'conflict' : 'invalid'}${view}`,
     );
-  redirect(`/${locale}/onboarding?success=saved`);
+  redirect(`/${locale}/onboarding?success=saved${view}`);
 }

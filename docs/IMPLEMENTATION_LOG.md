@@ -511,3 +511,62 @@ E2E PASS (70 passed, four Auth-dependent skips). Matching component mock-API
 browser/axe and six hosted rollback SQL assertions PASS. Production npm audit has
 zero vulnerabilities; development audit reports 13 moderate minimatch-derived
 findings. Complete MVP remains PARTIAL, not FULL AND VERIFIED.
+
+## 2026-11-03 — CI repair and animated onboarding questionnaire
+
+- CI database job had been red on `main` since the phase 15 commit:
+  `supabase/tests/phase15_benchmark.sql` (now at `supabase/benchmarks/`, content
+  unchanged) ran inside the `test db` pg_prove glob without pgTAP plans.
+  Unmasking it exposed a second latent defect: the committed
+  `database.types.ts` had been regenerated from the cloud PostgREST-connected
+  analyzer after phase 16, so the pinned-CLI replay guard could never match it.
+  The file was replaced with the exact `db:types` artifact from CI run
+  41660999748; no application code referenced the removed metadata. After
+  commits `62c2c8a` and `c7389a1` the full `frontend`+`database` CI went green
+  for the first time since the Oct 24 baseline, and Vercel auto-deployed
+  `c7389a1` to both linked projects with a 200 `/api/health`. The `Supabase
+Preview` integration check stays red: the linked Jetuu project reports
+  remote migration versions that Git does not contain. They appeared outside
+  this workspace between Oct 25 and Nov 3 and remain unresolved.
+- Rebuilt `/[locale]/onboarding` as a mount-gated client questionnaire
+  (`src/features/onboarding/profile-wizard.tsx`): five animated steps (about,
+  background, academics, scores, review), transform/opacity-set `motion`
+  transitions guarded by `useReducedMotion`, a `scaleX` progress rail with
+  `role="progressbar"`, selectable level tiles/chips on native radios, per-step
+  field errors plus a named `error-summary`, and a spring check-draw success
+  panel. Every input keeps its original `name`, all panes stay mounted so the
+  same `saveProfile` server action receives the complete FormData, and the pure
+  model in `src/features/onboarding/steps.ts` mirrors the authoritative zod
+  schema. Without JavaScript the SSR markup shows the same fields as one
+  readable page. Login/signup/forgot/reset gained a mount-gated card reveal
+  (`src/components/ui/reveal.tsx`) and a fixed decorative aura in
+  `(auth)/layout.tsx`. New unit tests: `tests/unit/onboarding-wizard.test.ts`
+  (11) and `tests/unit/profile-wizard-ssr.test.ts` (2). Local gate: prettier,
+  ESLint, strict tsc, 91 unit/integration tests, production build and 64
+  passing e2e cases (four Auth-dependent skips unchanged). No DB, auth or RLS
+  changes; no phase status change.
+
+## 2026-11-04 — student account, mascot and privacy experience
+
+User authorized a complete account/profile UX redesign, a new mascot and a
+privacy policy; supplied operator Мырзабек Нұржан / Казахстан /
+jetuu1550@gmail.com. The new primary experience uses an original travelling-bird
+vector companion, semantic emoji choices, five explicit profile steps, optional
+academic data, an exact/range budget, full review/export, structured retry and
+version-safe saves. Signup uses real Auth results, dated consent and retained input.
+The privacy policy is localized and states actual processing and retention limits.
+
+Fetched and merged the concurrent main checkpoint a2cc7ac. Preserved CI fixes,
+canonical DB types, Windows baselines and all previous wizard tests. The prior
+server-rendered questionnaire is a no-JS fallback with the same version guard.
+Public/account loading boundaries were removed to avoid permanent streamed
+skeletons without JavaScript; per-action pending and native browser loading remain.
+Stable Reveal markup avoids remounting forms during hydration. See
+docs/STUDENT_EXPERIENCE.md for exact scope, commands, screenshots and blockers.
+
+Final local gates: clean `npm ci`; format/lint/types/107 unit-integration/build
+PASS; production Chromium E2E 80 passed with four hosted-Auth skips; separate
+journey component browser regression six passed. All five profile stages were
+checked at 320/768/1440 in RU/KK/EN with axe and reduced motion. Production audit
+zero vulnerabilities; thirteen inherited moderate development findings remain.
+Live Auth/REST remains CONNECT 403, so the complete MVP is still PARTIAL.

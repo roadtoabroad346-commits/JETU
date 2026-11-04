@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
   useState,
+  useSyncExternalStore,
   type FormEvent,
 } from 'react';
 import { JetuMascot } from '@/components/ui/mascot';
@@ -31,6 +32,9 @@ type Props = {
   ) => Promise<ProfileSaveState>;
 };
 const fieldEmoji = ['💻', '💼', '⚙️', '🩺', '🎨', '🌍'];
+const subscribe = () => () => {};
+const clientReady = () => true;
+const serverReady = () => false;
 
 function Choices({
   name,
@@ -51,7 +55,7 @@ function Choices({
 }) {
   return (
     <fieldset
-      className="journey-choices"
+      className={`journey-choices journey-choices--${name}`}
       aria-describedby={invalid ? 'journey-validation' : undefined}
     >
       <legend>{label}</legend>
@@ -95,6 +99,7 @@ export function ProfileJourney({
   action,
 }: Props) {
   const t = journeyCopy[locale];
+  const interactive = useSyncExternalStore(subscribe, clientReady, serverReady);
   const [draft, setDraft] = useState(initial);
   const [customField, setCustomField] = useState(
     Boolean(initial.field) && !Object.hasOwn(t.fields, initial.field),
@@ -298,6 +303,11 @@ export function ProfileJourney({
         </span>
       </aside>
       <div className="journey-workspace">
+        <noscript>
+          <p className="feedback-box">
+            <a href={`/${locale}/onboarding?view=all`}>{t.reviewAll}</a>
+          </p>
+        </noscript>
         <nav
           aria-label={authCopy[locale].onboarding}
           className="journey-step-nav"
@@ -308,13 +318,13 @@ export function ProfileJourney({
                 <button
                   type="button"
                   aria-current={index === step ? 'step' : undefined}
-                  disabled={pending || index > step}
+                  disabled={pending || !interactive || index > step}
                   onClick={() => move(index)}
                 >
                   <span>
                     {index < step ? '✓' : String(index + 1).padStart(2, '0')}
                   </span>
-                  <span>{label}</span>
+                  <span>{t.navSteps[index]}</span>
                 </button>
               </li>
             ))}
@@ -346,7 +356,7 @@ export function ProfileJourney({
             <input key={key} type="hidden" name={key} value={value} />
           ))}
           <fieldset
-            disabled={pending || loadFailed}
+            disabled={pending || loadFailed || !interactive}
             className="journey-fieldset"
           >
             <legend className="sr-only">{t.steps[step]}</legend>

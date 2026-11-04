@@ -3,6 +3,7 @@ import { defineConfig } from '@playwright/test';
 const executable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
 export default defineConfig({
   testDir: './tests/journey',
+  outputDir: './work/journey-results',
   forbidOnly: Boolean(process.env.CI),
   workers: 2,
   reporter: 'list',

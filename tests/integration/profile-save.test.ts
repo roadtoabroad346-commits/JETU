@@ -18,7 +18,7 @@ vi.mock('next/navigation', () => ({
     throw new Error(`redirect:${url}`);
   },
 }));
-import { saveProfile } from '@/app/[locale]/(dashboard)/actions';
+import { saveProfile, submitProfile } from '@/app/[locale]/(dashboard)/actions';
 
 function form(version = '3') {
   const values = {
@@ -77,7 +77,11 @@ describe('profile concurrency (mocked adapter, not hosted persistence)', () => {
       .mockResolvedValueOnce({
         data: {
           version: 3,
-          document: { languages: ['kk'], independent: 'preserved' },
+          document: {
+            languages: ['kk'],
+            independent: 'preserved',
+            grade: '11',
+          },
         },
         error: null,
       })
@@ -93,6 +97,7 @@ describe('profile concurrency (mocked adapter, not hosted persistence)', () => {
         document: expect.objectContaining({
           languages: ['kk'],
           independent: 'preserved',
+          grade: '11',
         }),
       }),
     );
@@ -123,6 +128,14 @@ describe('profile concurrency (mocked adapter, not hosted persistence)', () => {
   it('does not write when unauthenticated or the profile cannot be read', async () => {
     db.getUser.mockResolvedValueOnce({ data: { user: null } });
     await expect(saveProfile(form())).rejects.toThrow('redirect:/en/login');
+    db.getUser.mockResolvedValueOnce({
+      data: { user: null },
+      error: { status: 503 },
+    });
+    expect(await submitProfile({ status: 'idle' }, form())).toEqual({
+      status: 'error',
+      error: 'unavailable',
+    });
     db.maybeSingle.mockResolvedValueOnce({
       data: null,
       error: { code: 'unavailable' },

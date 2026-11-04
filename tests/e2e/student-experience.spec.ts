@@ -1,6 +1,25 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
+test('account forms remain visible and validate on the server without JavaScript', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto('/en/signup');
+  await expect(
+    page.getByRole('heading', { name: 'Create your JETU account' }),
+  ).toBeVisible();
+  await expect(page.locator('input[name="email"]')).toBeVisible();
+  await page.locator('button[type="submit"]').click();
+  await expect(page.locator('main').getByRole('alert')).toContainText('Check');
+  await page.goto('/en/login');
+  await expect(
+    page.getByRole('heading', { name: 'Welcome back' }),
+  ).toBeVisible();
+  await context.close();
+});
+
 for (const locale of ['ru', 'kk', 'en']) {
   test(`${locale} account and privacy experience is accessible and responsive @a11y`, async ({
     page,
@@ -72,7 +91,9 @@ test('registration validates locally and retains entries when the real unconfigu
   await page.locator('[name="age"]').check();
   await page.locator('[name="terms"]').check();
   await submit.click();
-  await expect(page.getByRole('alert')).toContainText('unavailable');
+  await expect(page.locator('main').getByRole('alert')).toContainText(
+    'unavailable',
+  );
   await expect(page.getByLabel('Email address', { exact: true })).toHaveValue(
     'student@example.invalid',
   );

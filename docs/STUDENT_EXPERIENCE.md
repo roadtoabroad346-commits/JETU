@@ -51,23 +51,44 @@ on localhost with Vite (the existing Vitest dependency, now directly pinned at
 ## Verification
 
 - Baseline `npm run check`: PASS, 83 unit/adapter tests + production build.
-- New `npm run check`: PASS, 94 unit/adapter tests + production build.
+- New `npm run check`: PASS, 107 unit/adapter tests + production build after
+  integrating the newer main (including its thirteen wizard tests).
 - `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:journey-ui`:
   PASS, six scenarios, including GPA validation, zero/unknown budget, JSON export,
   no submission on entering review, failed save retry, edit/version handling,
   conflict recovery, confirmation and all five steps in three locales with axe.
-- Production `npm run test:e2e`: final result recorded after completion below.
-- `npm ci --ignore-scripts --no-audit --no-fund --dry-run`: PASS lockfile resolution.
+- Production `npm run test:e2e`: PASS, 80 passed, four hosted-Auth-dependent
+  skips (84 total), including registration failure/retry and no-JS server validation.
+- `npm ci --no-audit --no-fund`: PASS, clean install of 365 packages, followed by
+  the full check above. A separate earlier dry run also resolved the lockfile.
 - Direct hosted Auth health check: BLOCKED, proxy CONNECT 403 on 2026-11-04.
 - No schema migration, elevated client key, paid service, remote fixture or
-  production deployment was introduced. Previous dependency-audit limitations
-  remain; this pass does not claim a fresh full dependency security certification.
+  production deployment was introduced. Fresh full `npm audit` still reports
+  thirteen moderate development findings inherited through minimatch; no high or
+  critical findings. `npm audit --omit=dev` reports zero production vulnerabilities.
 
 The browser tests uncovered and fixed two accessibility/interaction problems:
 an inline privacy link needed an underline, and a reused Continue button could
 become a submit button during its click. Separate keyed controls and an explicit
 regression now ensure review cannot trigger an accidental save. Input labels
 exclude helper prose from their accessible names.
+
+Integration with updated GitHub `main` (`a2cc7ac`) preserves the CI type artifact,
+manual benchmark relocation, Windows visual baselines and previous all-fields
+wizard. The latter is reachable at `/onboarding?view=all` through a no-JavaScript
+link and now submits the expected profile version. The primary animated journey
+stays separate from this compatibility surface; its copy lives in journey-copy.ts.
+Server-rendered forms and public pages wait for complete content rather than
+streaming a skeleton that a script-disabled browser cannot reveal. Auth's reveal
+wrapper retains its DOM identity during hydration, preserving entered form data.
+Mobile header actions were adjusted to retain the visible first hero action.
+The compatibility form cannot erase the new grade field it does not expose;
+an adapter regression verifies this. Identity-provider outages produce retryable
+errors, while expired/absent identity gets the separate sign-in recovery.
+
+Screenshots and raw command evidence: `docs/evidence/student-2026-11-04/`.
+Signup/login/privacy captures are actual local production pages. Profile captures
+use the real component in the explicitly mocked test fixture, not a hosted account.
 
 Skills applied: UI/UX Pro Max (existing JETU contract, form/a11y/motion guidance),
 Lean Build (one coherent journey, existing persistence), Supabase (current Auth

@@ -27,6 +27,12 @@ type Props = {
   initialError?: boolean;
 };
 
+function firstInvalidControl(form: HTMLFormElement | null, fields: string[]) {
+  return Array.from(
+    form?.querySelectorAll<HTMLInputElement>('input[name]') ?? [],
+  ).find((control) => fields.includes(control.name));
+}
+
 export function AccountExperience({
   locale,
   mode,
@@ -59,12 +65,7 @@ export function AccountExperience({
   const errors = [...fields, ...(state.fields ?? [])];
   useEffect(() => {
     if (state.status === 'error') {
-      const invalidField = state.fields?.[0];
-      const control = invalidField
-        ? formRef.current?.querySelector<HTMLElement>(
-            `[name="${invalidField}"]`,
-          )
-        : null;
+      const control = firstInvalidControl(formRef.current, state.fields ?? []);
       (control ?? errorRef.current)?.focus();
     }
   }, [state]);
@@ -79,9 +80,7 @@ export function AccountExperience({
       const invalid = result.error.issues.map((issue) => String(issue.path[0]));
       setFields(invalid);
       setLocalError(true);
-      formRef.current
-        ?.querySelector<HTMLElement>(`[name="${invalid[0]}"]`)
-        ?.focus();
+      firstInvalidControl(formRef.current, invalid)?.focus();
     } else {
       setFields([]);
       setLocalError(false);

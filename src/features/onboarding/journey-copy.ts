@@ -2,6 +2,7 @@ import type { Locale } from '@/lib/i18n/messages';
 
 const ru = {
   companion: 'Джет · твой спутник JETU',
+  reviewAll: 'Без JavaScript: открыть все вопросы на одной странице',
   hello: 'Большое путешествие начинается с тебя.',
   helloBody:
     'Познакомимся, найдём интересное и разберёмся, с чего начать. В твоём темпе.',
@@ -42,6 +43,7 @@ const ru = {
     rate: 'Слишком много попыток. Немного подожди и повтори.',
   },
   steps: ['О тебе', 'Твоя цель', 'Подготовка', 'Бюджет', 'Всё готово'],
+  navSteps: ['Ты', 'Цель', 'Учёба', 'Бюджет', 'Итог'],
   titles: [
     'Привет! Где ты сейчас?',
     'А куда хочется прийти?',
@@ -159,6 +161,7 @@ const ru = {
 
 const en: typeof ru = {
   companion: 'Jet · your JETU companion',
+  reviewAll: 'Without JavaScript: open all questions on one page',
   hello: 'Your next chapter starts with you.',
   helloBody:
     'Meet your possibilities and find a place to begin. One small step at a time.',
@@ -199,6 +202,7 @@ const en: typeof ru = {
     rate: 'Too many attempts. Please wait a little and try again.',
   },
   steps: ['About you', 'Your goal', 'Preparation', 'Budget', 'Ready to go'],
+  navSteps: ['You', 'Goal', 'Study', 'Budget', 'Ready'],
   titles: [
     'Hi! Where are you now?',
     'Where would you like to go?',
@@ -313,6 +317,7 @@ const en: typeof ru = {
 
 const kk: typeof ru = {
   companion: 'Джет · JETU серігің',
+  reviewAll: 'JavaScript жоқ болса: барлық сұрақты бір бетте ашу',
   hello: 'Үлкен сапар өзіңнен басталады.',
   helloBody:
     'Танысайық, мүмкіндіктерді зерттейік және неден бастауға болатынын анықтайық. Өз қарқыныңмен.',
@@ -354,6 +359,7 @@ const kk: typeof ru = {
     rate: 'Әрекет саны тым көп. Сәл күтіп, қайталап көр.',
   },
   steps: ['Сен туралы', 'Мақсатың', 'Дайындық', 'Бюджет', 'Бәрі дайын'],
+  navSteps: ['Сен', 'Мақсат', 'Оқу', 'Бюджет', 'Дайын'],
   titles: [
     'Сәлем! Қазір қай кезеңдесің?',
     'Қайда барғың келеді?',
