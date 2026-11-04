@@ -493,3 +493,37 @@ Final Phase 12 recheck: after fixing the publishable-key REST header, `npm run c
 - Reconciled RU/KK/EN public and auth copy that still said matching and saves were unavailable or invited users to an unlaunched personal plan. The revised copy states that matching is available with an empty reviewed catalog and that the plan remains future work.
 - `npm audit --omit=dev --audit-level=high` found zero vulnerabilities. The final post-copy `npm run check` passed formatting, ESLint, strict TypeScript, 78 unit/integration tests and production build.
 - Git checkpoint `afa3f11` was pushed to GitHub `main`. Vercel linked the existing `jetu-phase13-preview` project to the repository and built that exact commit to READY at `https://jetu-phase13-preview-8im4ojtmm-impact-hub.vercel.app`. Protected preview smoke: `/api/health` 200, anonymous `/en/match` rendered sign-in, `/en/search` 200 with the one real opportunity. The API GET fetch through the Vercel share-link tool returned a 401 authentication/protection error, so no authenticated matching request was verified. Git `main` also auto-deploys to the Vercel project's production target, whose only domain is `jetu-phase13-preview.vercel.app`; no JETU custom production domain or acceptance-ready product release is claimed. Supabase Git-linked `main` branch advanced through migrations to `ACTIVE_HEALTHY`; GitHub connector showed Vercel success but did not expose push-triggered Actions runs.
+
+## 2026-11-03 — CI repair and animated onboarding questionnaire
+
+- CI database job had been red on `main` since the phase 15 commit:
+  `supabase/tests/phase15_benchmark.sql` (now at `supabase/benchmarks/`, content
+  unchanged) ran inside the `test db` pg_prove glob without pgTAP plans.
+  Unmasking it exposed a second latent defect: the committed
+  `database.types.ts` had been regenerated from the cloud PostgREST-connected
+  analyzer after phase 16, so the pinned-CLI replay guard could never match it.
+  The file was replaced with the exact `db:types` artifact from CI run
+  41660999748; no application code referenced the removed metadata. After
+  commits `62c2c8a` and `c7389a1` the full `frontend`+`database` CI went green
+  for the first time since the Oct 24 baseline, and Vercel auto-deployed
+  `c7389a1` to both linked projects with a 200 `/api/health`. The `Supabase
+Preview` integration check stays red: the linked Jetuu project reports
+  remote migration versions that Git does not contain. They appeared outside
+  this workspace between Oct 25 and Nov 3 and remain unresolved.
+- Rebuilt `/[locale]/onboarding` as a mount-gated client questionnaire
+  (`src/features/onboarding/profile-wizard.tsx`): five animated steps (about,
+  background, academics, scores, review), transform/opacity-set `motion`
+  transitions guarded by `useReducedMotion`, a `scaleX` progress rail with
+  `role="progressbar"`, selectable level tiles/chips on native radios, per-step
+  field errors plus a named `error-summary`, and a spring check-draw success
+  panel. Every input keeps its original `name`, all panes stay mounted so the
+  same `saveProfile` server action receives the complete FormData, and the pure
+  model in `src/features/onboarding/steps.ts` mirrors the authoritative zod
+  schema. Without JavaScript the SSR markup shows the same fields as one
+  readable page. Login/signup/forgot/reset gained a mount-gated card reveal
+  (`src/components/ui/reveal.tsx`) and a fixed decorative aura in
+  `(auth)/layout.tsx`. New unit tests: `tests/unit/onboarding-wizard.test.ts`
+  (11) and `tests/unit/profile-wizard-ssr.test.ts` (2). Local gate: prettier,
+  ESLint, strict tsc, 91 unit/integration tests, production build and 64
+  passing e2e cases (four Auth-dependent skips unchanged). No DB, auth or RLS
+  changes; no phase status change.
