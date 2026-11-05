@@ -45,10 +45,16 @@ export function writingFailure(error: unknown) {
 }
 export function sameOrigin(request: Request) {
   try {
+    const raw = request.headers.get('origin');
+    if (!raw) return false;
+    const origin = new URL(raw),
+      requestUrl = new URL(request.url);
+    // Next may normalize the internal URL hostname. Host is the browser-facing
+    // authority; retain an exact protocol check and never trust forwarded headers.
     return (
-      Boolean(request.headers.get('origin')) &&
-      new URL(request.headers.get('origin')!).origin ===
-        new URL(request.url).origin
+      raw === origin.origin &&
+      origin.host === request.headers.get('host') &&
+      origin.protocol === requestUrl.protocol
     );
   } catch {
     return false;

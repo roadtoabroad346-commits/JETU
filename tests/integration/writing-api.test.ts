@@ -18,7 +18,7 @@ const payload = () => ({ ...blank('en'), title: 'Private essay' });
 function req(value: unknown, origin = 'https://jetu.test') {
   return new Request('https://jetu.test/api/writing', {
     method: 'POST',
-    headers: { origin, 'content-type': 'application/json' },
+    headers: { origin, host: 'jetu.test', 'content-type': 'application/json' },
     body: JSON.stringify(value),
   });
 }
@@ -119,4 +119,21 @@ describe('writing API adapter (not real authorization proof)', () => {
   it('compares full origins, including ports', () => {
     expect(sameOrigin(req({}, 'https://jetu.test:9000'))).toBe(false);
   });
+});
+
+it('accepts Next internal-host normalization without accepting another scheme', () => {
+  expect(
+    sameOrigin(
+      new Request('http://localhost:3100/api/writing', {
+        headers: { host: '127.0.0.1:3100', origin: 'http://127.0.0.1:3100' },
+      }),
+    ),
+  ).toBe(true);
+  expect(
+    sameOrigin(
+      new Request('http://localhost:3100/api/writing', {
+        headers: { host: '127.0.0.1:3100', origin: 'https://127.0.0.1:3100' },
+      }),
+    ),
+  ).toBe(false);
 });
