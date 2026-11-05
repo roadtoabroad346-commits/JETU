@@ -4800,7 +4800,9 @@ export type Database = {
           id: string;
           kind: string;
           prompt: string;
+          prompt_id: string | null;
           rubric: NonNullable<Json>;
+          studio: NonNullable<Json>;
           title: string;
           updated_at: string;
           user_id: string;
@@ -4815,7 +4817,9 @@ export type Database = {
           id?: string;
           kind: string;
           prompt?: string;
+          prompt_id?: string | null;
           rubric?: NonNullable<Json>;
+          studio?: NonNullable<Json>;
           title: string;
           updated_at?: string;
           user_id: string;
@@ -4829,7 +4833,9 @@ export type Database = {
           id?: string;
           kind?: string;
           prompt?: string;
+          prompt_id?: string | null;
           rubric?: NonNullable<Json>;
+          studio?: NonNullable<Json>;
           title?: string;
           updated_at?: string;
           user_id?: string;
@@ -4842,6 +4848,137 @@ export type Database = {
             columns: ['application_id', 'user_id'];
             isOneToOne: false;
             referencedRelation: 'applications';
+            referencedColumns: ['id', 'user_id'];
+          },
+          {
+            foreignKeyName: 'writing_drafts_prompt_id_fkey';
+            columns: ['prompt_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_prompts';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      writing_prompts: {
+        Row: {
+          ai_policy: string;
+          character_limit: number | null;
+          count_spaces: boolean | null;
+          cycle: number;
+          id: string;
+          program_id: number | null;
+          prompt: string;
+          scholarship_id: number | null;
+          source_url: string;
+          state: string;
+          title: string;
+          valid_until: string | null;
+          verified_at: string | null;
+          word_limit: number | null;
+        };
+        ComputedFields: never;
+        Insert: {
+          ai_policy?: string;
+          character_limit?: number | null;
+          count_spaces?: boolean | null;
+          cycle: number;
+          id?: string;
+          program_id?: number | null;
+          prompt: string;
+          scholarship_id?: number | null;
+          source_url: string;
+          state?: string;
+          title: string;
+          valid_until?: string | null;
+          verified_at?: string | null;
+          word_limit?: number | null;
+        };
+        Update: {
+          ai_policy?: string;
+          character_limit?: number | null;
+          count_spaces?: boolean | null;
+          cycle?: number;
+          id?: string;
+          program_id?: number | null;
+          prompt?: string;
+          scholarship_id?: number | null;
+          source_url?: string;
+          state?: string;
+          title?: string;
+          valid_until?: string | null;
+          verified_at?: string | null;
+          word_limit?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_prompts_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'degree_programs';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'writing_prompts_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_degree_programs';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'writing_prompts_program_id_fkey';
+            columns: ['program_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['program_id'];
+          },
+          {
+            foreignKeyName: 'writing_prompts_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'published_scholarship_opportunities';
+            referencedColumns: ['scholarship_id'];
+          },
+          {
+            foreignKeyName: 'writing_prompts_scholarship_id_fkey';
+            columns: ['scholarship_id'];
+            isOneToOne: false;
+            referencedRelation: 'scholarships';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      writing_save_receipts: {
+        Row: {
+          created_at: string;
+          draft_id: string;
+          input_hash: string;
+          request_id: string;
+          saved_version: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          draft_id: string;
+          input_hash: string;
+          request_id: string;
+          saved_version: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          draft_id?: string;
+          input_hash?: string;
+          request_id?: string;
+          saved_version?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'writing_save_receipts_draft_id_user_id_fkey';
+            columns: ['draft_id', 'user_id'];
+            isOneToOne: false;
+            referencedRelation: 'writing_drafts';
             referencedColumns: ['id', 'user_id'];
           },
         ];
@@ -5806,7 +5943,34 @@ export type Database = {
           id: string;
           kind: string;
           prompt: string;
+          prompt_id: string | null;
           rubric: NonNullable<Json>;
+          studio: NonNullable<Json>;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+          word_limit: number | null;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'writing_drafts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      writing_studio_save: {
+        Args: { p_input: Json };
+        Returns: {
+          application_id: string | null;
+          content: string;
+          created_at: string;
+          id: string;
+          kind: string;
+          prompt: string;
+          prompt_id: string | null;
+          rubric: NonNullable<Json>;
+          studio: NonNullable<Json>;
           title: string;
           updated_at: string;
           user_id: string;

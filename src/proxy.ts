@@ -22,6 +22,7 @@ const APP_ROUTES = new Set([
   'compare',
   'saved',
   'match',
+  'writing',
 ]);
 
 function notFoundResponse(locale: Locale) {

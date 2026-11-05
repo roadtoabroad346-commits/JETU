@@ -1,0 +1,13 @@
+{
+  "environment": "Node 24.19 / local CPU / 12 samples / not a browser typing or hosted latency measurement",
+  "utf8Bytes": 95000,
+  "codePoints": 62000,
+  "counts": {
+    "medianMs": 17.3,
+    "maxMs": 103.41
+  },
+  "changedRange": {
+    "medianMs": 8.48,
+    "maxMs": 47.63
+  }
+}

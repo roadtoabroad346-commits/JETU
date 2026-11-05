@@ -1,3 +1,12 @@
+# Phase 21 update — 2026-11-05
+
+**Phase 21 PARTIAL:** private Writing Studio extends the existing Phase 19 tables.
+Autosave/CAS/idempotency, checkpoint compare/restore, local anchored checks,
+CV/activities, text interview and dashboard continuation are implemented. Live AI,
+reviewed prompts, isolated staging schema and real Auth-to-browser acceptance remain
+open. See [PHASE_21_TEST_EVIDENCE.md](PHASE_21_TEST_EVIDENCE.md). Earlier phase labels
+below are historical and unchanged; Phase 22/24 were not started/completed.
+
 # Phase tracker — updated 2026-10-25
 
 **2026-11-04 student UX:** user-authorized account/profile/privacy redesign and
@@ -33,7 +42,7 @@ Current request state: **Phase 16 PARTIAL**. The authenticated matching API, det
 | 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
+| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | PARTIAL                    | Local implementation and checks; see PHASE_21_TEST_EVIDENCE.md                                                                                                                                 |
 | 22    | Verified Mentor Network and Review Workflow                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |

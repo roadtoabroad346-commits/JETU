@@ -6,6 +6,8 @@ import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
+import { getPublicEnv } from '@/lib/env/public';
+import { writingCopy } from '@/features/writing/copy';
 import { WorkspaceNav } from '@/features/onboarding/workspace-nav';
 
 export default async function DashboardLayout({
@@ -17,6 +19,12 @@ export default async function DashboardLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) return null;
+  const config = getPublicEnv();
+  if (
+    !config.NEXT_PUBLIC_SUPABASE_URL ||
+    !config.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  )
+    redirect(`/${locale}/login`);
   const supabase = await createRequestSupabaseClient();
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect(`/${locale}/login`);
@@ -39,6 +47,11 @@ export default async function DashboardLayout({
           <WorkspaceNav
             label={t.dashboard}
             items={[
+              {
+                href: `/${locale}/writing`,
+                label: writingCopy[locale].title,
+                icon: 'book',
+              },
               {
                 href: `/${locale}/dashboard`,
                 label: t.dashboard,

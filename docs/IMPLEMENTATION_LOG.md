@@ -570,3 +570,15 @@ journey component browser regression six passed. All five profile stages were
 checked at 320/768/1440 in RU/KK/EN with axe and reduced motion. Production audit
 zero vulnerabilities; thirteen inherited moderate development findings remain.
 Live Auth/REST remains CONNECT 403, so the complete MVP is still PARTIAL.
+
+## 2026-11-05 — Phase 21 Writing Studio (PARTIAL)
+
+Extended existing Phase 19 writing tables instead of creating a second draft
+store. Added bounded atomic autosave/CAS/receipt command, optional checkpoints,
+source-aware prompt contract, localized editor and private dashboard continuation.
+Local deterministic passage review is explicitly distinguished from unavailable
+AI. CV/activities support structured sections, reorder, preview, Unicode TXT and
+browser-print PDF. Generic text interviews persist only after explicit history
+opt-in. No mentor grants, real AI responses, official facts, submitted applications,
+production promotion or later-phase completion are invented. Evidence and remaining
+release gates: PHASE_21_TEST_EVIDENCE.md; architecture: WRITING_STUDIO_ARCHITECTURE.md.

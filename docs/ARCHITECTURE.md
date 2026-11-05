@@ -157,3 +157,12 @@ The cloud SQL call worked; a direct REST tunnel from this workspace returned HTT
 ## Phase 16 matching addition — 2026-10-25
 
 The private `/{locale}/match` route calls `GET/POST /api/matching/run`. A request-scoped authenticated Supabase client reads owner-RLS profile/preferences and bounded published catalog rows. `src/features/matching/service.ts` batches normalized requirement, deadline, scholarship-benefit and official-source reads; `engine.ts` evaluates source-gated mandatory rules separately from fixed-weight preference ranking. `matching_preferences`, `matching_runs`, `matching_results` and versioned `matching_configuration` are additive development tables. No browser privileged key or external AI service is used. See `AI_MATCHING_ARCHITECTURE.md` for trust, rule, cache, freshness and transaction limits. The opening diagram includes the current private flow.
+
+## Phase 21 addition — 2026-11-05
+
+`src/features/writing` and `/api/writing` extend existing Phase 19 SQL authority;
+`/{locale}/writing` is private and dashboard continuation uses owner-filtered
+metadata. The new atomic command, receipts, source checks, versions, export and
+interview consent boundaries are described in `WRITING_STUDIO_ARCHITECTURE.md`.
+AI provider/gateway remains unavailable. Current phase state is PARTIAL, independent
+of the older roadmap/application feature branches and the historical text above.

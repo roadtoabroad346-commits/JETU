@@ -1,3 +1,26 @@
+# Current handoff — Phase 21, 2026-11-05
+
+Phase 21 is PARTIAL on `codex/phase21-writing-studio`, based on published main
+`5c30fe0`. Read `PHASE_21_EXECUTION_PLAN.md`, `WRITING_STUDIO_ARCHITECTURE.md` and
+`PHASE_21_TEST_EVIDENCE.md` for current scope and exact evidence. The later Phase
+17–19 code exists in draft PR #7; only its existing SQL authority is reused here.
+Do not replace current profile/account work or import the entire old branch.
+
+Current stop: implementation and local checks complete; fixed-source CI green,
+draft PR #11 and READY preview recorded in PHASE_21_TEST_EVIDENCE.md. Keep PARTIAL:
+preview has no Supabase config; hosted AI/Auth and isolated staging gates remain. New additive migration is
+`20261105145755_phase_21_writing_studio.sql`; types were generated from actual
+local PostgreSQL with the pinned Supabase CLI. No Jetuu cloud migration performed.
+Phase 20 source/provider is absent: AI is visibly unavailable, with no external
+text transmission. Do not mark Phase 21 VERIFIED or begin Phase 22.
+
+Next: (1) inspect PR/CI and type drift; (2) verify preview metadata and protected
+smoke; (3) provision an explicitly selected isolated staging database before
+applying the migration; (4) configure/verify a real provider and official prompts;
+(5) run actual two-account Auth/browser journeys and release review.
+
+Previous handoffs below are historical.
+
 # Publication handoff — 2026-11-04
 
 The user explicitly authorized GitHub/Supabase/Vercel publication after the UI
