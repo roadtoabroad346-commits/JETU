@@ -1,3 +1,4 @@
+import { WritingWorkspace } from '../../src/features/writing/workspace';
 import { createRoot } from 'react-dom/client';
 import { ProfileJourney } from '../../src/features/onboarding/profile-journey';
 import {
@@ -38,7 +39,11 @@ const initial =
       }
     : {};
 createRoot(document.getElementById('root')!).render(
-  params.get('account') === '1' ? (
+  params.get('writing') === '1' ? (
+    <main className="dashboard-main page-shell">
+      <WritingWorkspace locale={locale} />
+    </main>
+  ) : params.get('account') === '1' ? (
     <AccountExperience
       locale={locale}
       mode="signup"

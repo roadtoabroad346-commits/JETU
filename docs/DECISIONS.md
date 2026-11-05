@@ -177,3 +177,13 @@
 33. **No invented funding or cost conversions.** Only source-backed benefit components display as verified coverage; no full-funding inference. Budget points require verified annual USD tuition and are separate from living cost and eligibility.
 34. **Versioned owner-scoped runs.** Additive private RLS tables and DB rate/entity guards preserve existing schemas. GET recomputes current source-backed facts from a validated run preference snapshot; incomplete run writes are rejected by count. Atomic multirow persistence remains future work.
 35. **Deterministic explanation fallback.** No AI provider is configured, so external generation is disabled. The localized UI translates fixed rule reasons. Phase 16 is PARTIAL because zero live programs/scholarships and blocked Auth/REST prevent genuine student journey verification. Phase 17 remains untouched.
+
+## Phase 21 — 2026-11-05
+
+- Extend existing writing tables; do not merge unrelated draft-branch screens.
+- Separate autosave revisions from immutable checkpoints to bound history growth.
+- Owner-checked command authority and digest receipts guard retries and stale tabs.
+- Plain text, UTF-16+SHA-256 anchors and code-point counts preserve Unicode safely.
+- No provider source/credentials: local checks are labelled; AI remains unavailable.
+- No isolated authorized staging identity: do not migrate the production-connected
+  Jetuu database to make a preview appear functional. Keep release PARTIAL.

@@ -1,3 +1,4 @@
+import { WritingContinuation } from '@/features/writing/dashboard';
 import type { Metadata } from 'next';
 import { authCopy } from '@/lib/i18n/auth';
 import { isLocale } from '@/lib/i18n/messages';
@@ -44,6 +45,7 @@ export default async function DashboardPage({
           {t.passwordUpdated}
         </p>
       )}
+      <WritingContinuation locale={locale} />
       <StudentWelcome locale={locale} signedIn />
       <section className="ui-card account-card" aria-labelledby="account-title">
         <h2 id="account-title">{t.signedInAs}</h2>
