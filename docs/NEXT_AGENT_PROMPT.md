@@ -6,8 +6,9 @@ Phase 21 is PARTIAL on `codex/phase21-writing-studio`, based on published main
 17–19 code exists in draft PR #7; only its existing SQL authority is reused here.
 Do not replace current profile/account work or import the entire old branch.
 
-Current stop: final security/browser/CI and preview verification, then record the
-actual SHA, PR, URL and blocked hosted gates. New additive migration is
+Current stop: implementation and local checks complete; fixed-source CI green,
+draft PR #11 and READY preview recorded in PHASE_21_TEST_EVIDENCE.md. Keep PARTIAL:
+preview has no Supabase config; hosted AI/Auth and isolated staging gates remain. New additive migration is
 `20261105145755_phase_21_writing_studio.sql`; types were generated from actual
 local PostgreSQL with the pinned Supabase CLI. No Jetuu cloud migration performed.
 Phase 20 source/provider is absent: AI is visibly unavailable, with no external

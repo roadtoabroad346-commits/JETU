@@ -8,7 +8,7 @@ Owner: Codex. Scope: Phase 21 only; Phase 22/24 remain separate.
 - [x] Implement localized Studio, deterministic anchored feedback, CV/activities and private text interview.
 - [x] Integrate real draft continuation with dashboard; preserve current account/profile UI.
 - [x] Verify units, API failures, SQL isolation, browser autosave/conflict/recovery, accessibility and build.
-- [ ] Commit, feature-branch PR/CI, generated types, preview and honest handoff.
+- [x] Commit, feature-branch PR/CI, generated types, preview and honest handoff.
 
 Evidence: main is current; later application code lives in draft PR #7 (1114700).
 Import only needed writing contracts, not unrelated roadmap/admin/vault UI. Existing
@@ -21,5 +21,7 @@ UI/UX Pro Max cloud instructions and canonical JETU design contract read. Search
 script is not installed in workspace; use documented accessibility/design defaults.
 Supabase changelog HTTP CONNECT 403; current RLS/functions docs consulted via MCP.
 
-Checkpoint: 141 units/integration; eight new UI cases; 96 local PostgreSQL
-assertions. Final CI, full production-browser rerun and preview remain in progress.
+Checkpoint: 142 unit/integration; 88 production browser cases (four inherited
+Auth skips); 14 component UI cases; 96 SQL assertions in two CI Supabase replays.
+Fixed-source CI is green; draft PR #11 and READY preview exist. See the test evidence
+for exact commits/runs/URLs and the independent hosted/AI/staging release blockers.

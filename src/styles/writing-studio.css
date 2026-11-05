@@ -614,3 +614,28 @@
 .studio-editor textarea {
   font-weight: 400;
 }
+@media (max-width: 480px) {
+  .studio-editor-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .studio-editor-heading .ui-badge {
+    order: -1;
+    justify-self: start;
+    margin-right: 0;
+  }
+  .studio-editor-heading .ui-button {
+    width: 100%;
+  }
+  .studio-savebar .studio-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+  .studio-savebar .ui-button {
+    width: 100%;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+}
