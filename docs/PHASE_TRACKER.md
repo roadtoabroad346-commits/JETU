@@ -202,3 +202,24 @@ Exact evidence and residual limits: `docs/PHASE_15_REVIEW.md`. Phase 15 is
 - [ ] Optional external AI provider: no configured credentials, deterministic explanations only.
 
 **Status: PARTIAL**. Keep this label until a small verified live corpus and reachable Auth/REST runtime prove login → profile → matching → details/save/compare → preference edit/recalculation and two-user isolation. Stop before Phase 17.
+
+## Phase 17 gate — 2026-10-26
+
+- [x] Deterministic owner-scoped Roadmap schema, dependency DAG, regeneration merge and RU/KK/EN timeline/board/list views recovered from `codex/phase17-roadmap`.
+- [x] Applied development migrations `20261026072804` and `20261026073138`; prior remote CI passed two clean replays, 66 pgTAP assertions per replay, advisors, generated types, frontend and Chromium checks.
+- [x] Reusable official-source adapter contract now enforces jurisdiction/system metadata, exact host allowlists, conservative rate/concurrency limits, legal-review gating, backoff, evidence excerpts and deterministic change review.
+- [ ] Reviewed published program/scholarship targets, hosted two-user Auth persistence, populated responsive/axe proof and independent generation-authority closure.
+
+**Status: PARTIAL.** The Phase 18 continuation does not upgrade the inherited Roadmap evidence or fabricate editorial coverage.
+
+## Phase 18 gate — 2026-10-26
+
+- [x] RU/KK/EN application portfolio (board/list/metrics/create) and detail workspace (source/deadline/readiness, notes/reference/priority, checklist, guarded state controls, explicit submission confirmation, scholarship tracker and event timeline).
+- [x] Five owner-RLS tables with read-only client grants, six bounded authenticated command RPCs, optimistic versions, idempotent state changes, append-only events and generated database types.
+- [x] Canonical program and independent scholarship state machines; mandatory checklist readiness; user-reported submission/outcome provenance; Roadmap submission-task completion remains subject to its dependency trigger.
+- [x] Jetuu development migrations `20261026164251`, `20261026164434`, `20261026164713`; rollback-only SQL reached 28 assertions and left no fixtures. `npm run check` passed 116 tests/build; desktop API-boundary Chromium passed.
+- [x] Remote CI run `40391982239`: two clean resets/replays and all pgTAP passed; advisors, generated-type drift and typecheck passed. This runner's local Docker daemon remained unavailable.
+- [ ] Real populated workspace, hosted two-user browser/cross-device persistence, authenticated responsive screenshots and axe: development has zero published/verified programs and scholarships.
+- [x] Draft PR #4 and commit-matched `cdc5a7e` Vercel preview: READY; health/home/login/search returned 200 and anonymous plan/applications rendered sign-in.
+
+**Status: PARTIAL.** Exact evidence and residual gates: `PHASE_18_QA.md`, `APPLICATION_STATE_MACHINE.md`, `APPLICATION_AUDIT_TRAIL.md` and `RELEASE_REPORT_PHASE_17_18.md`.

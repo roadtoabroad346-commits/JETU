@@ -199,3 +199,13 @@ No production promotion or Phase 17 work follows from the staging step.
 33. **No invented funding or cost conversions.** Only source-backed benefit components display as verified coverage; no full-funding inference. Budget points require verified annual USD tuition and are separate from living cost and eligibility.
 34. **Versioned owner-scoped runs.** Additive private RLS tables and DB rate/entity guards preserve existing schemas. GET recomputes current source-backed facts from a validated run preference snapshot; incomplete run writes are rejected by count. Atomic multirow persistence remains future work.
 35. **Deterministic explanation fallback.** No AI provider is configured, so external generation is disabled. The localized UI translates fixed rule reasons. Phase 16 is PARTIAL because zero live programs/scholarships and blocked Auth/REST prevent genuine student journey verification. Phase 17 remains untouched.
+
+## Phase 17–18 — 2026-10-26
+
+36. **Roadmap and application are separate aggregates.** Link only the generated submission task. Application submission may complete it transactionally, but checklist or application state never rewrites the Roadmap graph.
+37. **External submission is explicit user evidence.** Store `submitted_external_confirmed`, timestamp, evidence and `USER_REPORTED`; never infer portal acceptance or institutional receipt.
+38. **Scholarships have an independent lifecycle.** A program’s preparation/submission/decision cannot imply a scholarship’s preparation, submission or award.
+39. **Command RPCs own private writes.** Client roles receive read-only table access. Small authenticated definer RPCs validate `auth.uid()`, ownership, version and state, then append events atomically. The generic advisor warning is documented and reviewed.
+40. **Append history; do not rewrite it.** Event mutation triggers reject update/delete. Account deletion still cascades private data; longer legal retention requires a future explicit policy.
+41. **No fake corpus to unlock the UI.** Keep both phases PARTIAL while the development project has no published/verified programs or scholarships. Synthetic SQL fixtures always roll back.
+42. **Ingestion automation is policy-gated.** Adapters declare exact hosts, jurisdiction/system coverage, rate/concurrency and dated access review. Changed claims return to editorial review; ingestion never self-publishes.
