@@ -574,3 +574,10 @@ Live Auth/REST remains CONNECT 403, so the complete MVP is still PARTIAL.
 ## Phase 23 — 2026-11-06
 
 2026-11-06 Phase23: canonical deadline subscriptions and view, durable owner inbox/preferences/receipts, idempotent private worker, quiet hours/DST, source rescheduling, calendar/ICS, real dashboard counts and visual search filters. Jetuu migration20261106122552 applied; hosted rollback34 passed, local pgTAP100 and component UI28 passed. Full release gates remain recorded separately in PHASE_23_QA.md; Phase24 not started.
+
+Phase23 final source30b8f82: GitHub run42219161247 frontend/database SUCCESS;
+45-migration replay and pgTAP101 twice, type drift guard passed. Hosted SQL35 and
+two additive migrations applied; cron succeeds. Exact-SHA primary Vercel preview
+READY and smoke-tested (health200, private APIs401, locale login redirects,
+search REST/RPC200). Full E2E80 pass/4 Auth skips, UI28, unit/integration150.
+Hosted signed-in two-account browser gate remains open; label PARTIAL preserved.

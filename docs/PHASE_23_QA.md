@@ -81,6 +81,41 @@ this failure is not counted as a passed gate. Final serial results follow.
   new RU/KK/EN routes now pass unit regression; unknown routes still return404.
 - Primary Vercel preview had no Supabase public config. Added only verified public
   URL/publishable key and exact branch APP_URL, scoped to `codex/phase-23-deadlines`;
-  no production/private-key setting was changed. Follow-up preview smoke pending.
+  no production/private-key setting was changed. Follow-up preview smoke passed; see exact deployment below.
 - GitHub PR: <https://github.com/roadtoabroad346-commits/JETU/pull/13> (draft while
   real hosted two-account acceptance is open). Initial implementation SHA `8e81d0c`.
+
+## Verified publication
+
+Application source SHA: `30b8f829ec7eb10ad4a6370ad2b6129e78f5c0bc`.
+GitHub [run42219161247](https://github.com/roadtoabroad346-commits/JETU/actions/runs/42219161247)
+completed **frontend SUCCESS / database SUCCESS**. This includes the complete
+Supabase migration replay twice, pgTAP, advisors, exact generated-type drift guard,
+150 unit/integration tests and production browser regression. The final standalone
+CLI regeneration is byte-identical after formatting.
+
+Primary project `jetu`, deployment `dpl_Bix43bCUUHvgppVonVcG6DkvKfZy`, READY at
+<https://jetu-8uaskzsaz-impact-hub.vercel.app>, exact source SHA above.
+Authenticated Vercel connector smoke (deployment protection preserved):
+
+| Request                                      | Observed result                     |
+| -------------------------------------------- | ----------------------------------- |
+| `/api/health`                                | 200, ok, no-store                   |
+| `/api/deadlines`                             | 401, application session required   |
+| `/api/calendar/export`                       | 401, application session required   |
+| `/en/calendar`                               | login200 after same-origin redirect |
+| `/ru/notifications`                          | login200 after same-origin redirect |
+| `/kk/notification-settings`                  | login200 after same-origin redirect |
+| `/api/search/suggest?q=university&locale=en` | 200, empty real RPC result          |
+
+The initial smoke's missing locale parameter correctly returned422; the valid
+request proves preview → Supabase REST → RPC connectivity. This does not prove a
+signed-in student flow. Existing preview branch alias:
+<https://jetu-git-codex-phase-23-deadlines-impact-hub.vercel.app>.
+Both hosted migrations are verified in history; cron continues succeeding and
+queue/failed counts are0. Rollback-only fixture users are0. Phase23 remains PARTIAL
+until authenticated two-user browser acceptance; Phase24 remains BACKLOG.
+
+Subsequent checkpoint-only commits may follow this tested application SHA. They
+change documentation only; do not misidentify their deployment as smoke-tested
+until the exact new SHA is checked.
