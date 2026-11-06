@@ -8,18 +8,18 @@ Branch `codex/phase-23-deadlines` starts from current main `5c30fe0`. New migrat
 `20261106122552_phase_23_deadlines_notifications.sql` is already applied to the
 existing Jetuu development project `edpuovkgoisyzpguksdi`; do not replay it there.
 Cron `jetu-deadlines` (job 2) is enabled every minute. Hosted rollback assertions
-34/34 pass; no test identities persist. External email/push remain unavailable.
+35/35 pass; no test identities persist. External email/push remain unavailable.
 
 Implementation: `src/features/deadlines/`, `/api/deadlines`, `/api/calendar/export`,
 private calendar/inbox/settings/dashboard routes, search chips/advanced filters,
 owner RLS views and transactional private worker. Existing snapshots are preserved.
 Standalone PostgreSQL `jetu-phase23-db` contains disposable replay databases only;
-actual generated public types come from pinned CLI. SQL suite100, component UI28,
-unit/integration140 passed at checkpoints. Final release gate/results and links
+actual generated public types come from pinned CLI. SQL suite101, component UI28,
+unit/integration150 passed at checkpoints. Final release gate/results and links
 must be read from the QA record, not inferred from these provisional counts.
 
-Next: finish serial production `check` / E2E, publish scoped commit/PR and verify
-preview SHA/health. Real hosted authenticated two-account browser acceptance is
+Final check passes; full E2E80 pass/4 Auth-dependent skips, UI28 pass.
+PR13 is open. Next: verify follow-up preview SHA/health after proxy/config repair. Real hosted authenticated two-account browser acceptance is
 still required before VERIFIED. CLI `gh` reports an invalid GH_TOKEN; connected
 GitHub tools remain available if git push fails. Never print or retrieve secrets.
 

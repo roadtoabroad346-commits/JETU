@@ -22,7 +22,7 @@ Known constraints: Supabase changelog HTTP fetch returns 403; current official M
 docs are reachable. Hosted Auth/REST connectivity must be retested. No email/push
 provider credentials observed. No new paid infrastructure or OAuth integrations.
 
-Release checkpoint: migration20261106122552 applied; hosted SQL34, local pgTAP100,
-unit/integration140 and UI28 passed. Cron job2 succeeds every minute.
-Final serial E2E/preview publication in progress. Phase23 remains PARTIAL until
+Release checkpoint: migration20261106122552 applied; hosted SQL35, local pgTAP101,
+unit/integration150 and UI28 passed. Cron job2 succeeds every minute.
+Final serial E2E80 pass/4 Auth skips; preview follow-up smoke in progress. Phase23 remains PARTIAL until
 hosted authenticated two-account acceptance. No Phase24 work.

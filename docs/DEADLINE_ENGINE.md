@@ -6,7 +6,7 @@ scholarship / opportunity relationships and active applications. `calendar_event
 is a SECURITY INVOKER projection over those dates, personal events and roadmap
 planning dates. Every underlying private relation retains owner RLS. Official
 reminders require published verified deadline evidence from an active official
-source with current effective dates. Editable roadmap dates remain labelled
+source with current effective dates. Future-effective claims cannot replace current provenance. Editable roadmap dates remain labelled
 suggested planning dates. Missing prerequisite UIs are not fabricated.
 
 `calendar_custom_events` stores date-only personal plans; edits use version CAS.

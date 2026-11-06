@@ -1,7 +1,7 @@
 begin;
 create extension if not exists pgtap with schema extensions;
 set local search_path=public,extensions;
-select plan(34);
+select plan(35);
 -- Test-only grants, rolled back with fixtures; production grants remain unchanged.
 grant usage on schema extensions to authenticated;
 grant execute on all functions in schema extensions to authenticated;
@@ -61,6 +61,13 @@ insert into public.deadlines(id,deadline_type,title,due_date,date_precision) sel
 insert into public.source_claims(source_id,catalog_entity_id,claim_key,claim_text,verification_state_code,content_hash) select s.id,d.id,'deadline','TEST ONLY verified deadline evidence','verified',md5('phase23') from phase23_source s cross join phase23_deadline d;
 select public.publish_catalog_entity(id,now()) from phase23_deadline;
 insert into public.deadline_watches(user_id,deadline_id) select '23000000-0000-4000-8000-000000000001',id from phase23_deadline;
+-- A future claim may coexist with current evidence; it must not win provenance.
+insert into public.official_sources(canonical_url,publisher_name,source_title,locale,last_checked_at)
+values('https://fixture.example/phase23-future','TEST ONLY Future','TEST ONLY Future cycle','en',now());
+insert into public.source_claims(source_id,catalog_entity_id,claim_key,claim_text,verification_state_code,content_hash,effective_from,observed_at)
+select os.id,d.id,'deadline','TEST ONLY future-cycle claim','verified',md5('phase23-future'),'2199-01-01',now()+interval '1 second'
+from public.official_sources os cross join phase23_deadline d where os.canonical_url='https://fixture.example/phase23-future';
+select ok((select source_url='https://fixture.example/phase23-deadline' from public.calendar_events where origin='official'),'future-cycle claim cannot replace current provenance');
 select ok((select verified and "precision"='date_only' and due_at is null from public.calendar_events where origin='official'),'official date-only source retains precision');
 select notification_private.run('2026-11-06T13:59Z');
 select notification_private.run('2026-11-06T14:00Z');
