@@ -12,6 +12,12 @@ remain open. Existing Phase 22 source `b1efd61` also has successful three-job CI
 and 38 actual disposable Auth/Storage/browser checks; see the current PR for the
 follow-up source's own results.
 
+Product `b442481`: actual CI passed 43 Auth/Storage/browser checks and 281 SQL
+assertions twice; local browser regression passed 96/four inherited skips and 28
+journeys. Final frontend CI browser installation stalled; reused the already-tested
+installed-browser selection with a download fallback. Exact final head/preview/CI
+outcomes are in draft PR #12. Hosted staging/human gates remain open.
+
 # Phase 21 update — 2026-11-05
 
 **Phase 21 PARTIAL:** private Writing Studio extends the existing Phase 19 tables.

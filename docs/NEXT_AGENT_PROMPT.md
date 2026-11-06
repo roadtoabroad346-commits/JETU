@@ -12,9 +12,19 @@ Changed implementation: `src/app/api/mentors/route.ts`,
 `tests/journey/mentor-feedback.spec.ts` with its test-only fixture, and five new
 actual REST checks in `scripts/mentor-auth-test.mjs`. `npm run check` passed
 164 tests/build; native PG17.11 passed 281 assertions across eight suites.
-Final browser/CI/preview outcomes: inspect draft PR #12 before continuing.
+On product source `b442481`, local production Chromium passed 96/four inherited
+skips and component/axe journeys passed 28; actual CI passed 43 Auth/Storage/browser
+checks plus 281 SQL assertions twice and type/advisor gates. Final CI browser
+dependency installation stalled; frontend now reuses Auth's installed-browser
+selection with a download fallback. No tests removed. Inspect follow-up-head CI
+and preview outcomes in draft PR #12 before continuing.
 Ignored logs/harness live under `/workspace/scratch/phase22-*` and may not survive
 another executor. Native SQL harness is not a full Auth/Storage HTTP runtime.
+
+Preview-only `NEXT_PUBLIC_APP_URL` now uses the HTTPS Phase 22 branch alias.
+`b442481` READY preview `jetu-4ftkld4mz-impact-hub.vercel.app` passed connected smoke:
+localized routes/canonicals and anonymous sign-in; unconfigured private APIs 503.
+The final follow-up receives its own Git-linked preview; inspect exact SHA in PR.
 
 Keep PARTIAL. No mentor/staff approval, production promotion, phase 23 work or
 paid provisioning. Next safe action: inspect exact-head CI and preview, then

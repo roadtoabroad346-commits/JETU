@@ -644,6 +644,11 @@ CI/preview evidence is maintained in draft PR #12; no hosted migration or promot
 
 # 2026-11-06 — Phase 22 continuation hardening
 
+- Product `b442481` CI passed 43 actual Auth/Storage/browser checks and 281 SQL
+  assertions twice; local Chromium passed 96/four skips plus 28 component journeys.
+  READY protected preview smoke passed; fixed only its branch-scoped canonical URL.
+  Frontend browser installation stalled over five minutes, so reuse Auth's runner
+  browser selection with a Playwright fallback; keep the entire regression suite.
 - Recovered existing Phase 22 branch/PR instead of rebuilding from older main;
   verified `b1efd61` three-job CI success and 38 actual Auth/Storage/browser checks.
 - Reproduced direct RPC null/CAS/rubric/anchor bypasses in native PostgreSQL;

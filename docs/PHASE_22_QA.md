@@ -34,6 +34,29 @@ tests five new direct REST rejection paths. Final-source browser/CI/deployment
 results are maintained in the PR and current handoff. Release remains PARTIAL:
 the isolated hosted staging and human/operational gates below still apply.
 
+Product source `b442481` passed actual CI database replay twice (**281 assertions
+per pass**), the advisor/type drift gates, and **43 actual Auth/REST/Storage/browser
+checks**. Local final-source Chromium passed **96 tests / four inherited skips**;
+component/axe journeys passed **28 tests**. Production dependency audit found zero
+vulnerabilities; full audit has seven moderate dev-tool advisories and passes the
+high-severity gate. No dependency/lockfile change was made.
+
+Preview `dpl_ESPRon9BxZ1XSf2Uc9CE9KsMBh6a`, source `b442481`, is READY at
+https://jetu-4ftkld4mz-impact-hub.vercel.app . Protected connected smoke passed:
+RU/KK/EN directory routes 200, anonymous student/mentor/admin/Studio routes reach
+sign-in, private/directory/evidence APIs return no-store 503 when unconfigured.
+Set only the branch-specific preview `NEXT_PUBLIC_APP_URL` to the HTTPS branch
+alias and redeployed the same source, correcting localhost metadata. Production
+configuration is unchanged; no Supabase credentials or hosted schema were copied.
+
+CI follow-up: the frontend's unconditional browser/dependency installation stayed
+running for over five minutes; the previous source completed it in 18 seconds.
+The same runner image's installed browser already passed the actual Auth job.
+Frontend now uses the existing Auth job's browser-selection pattern, falling back
+to Playwright installation when none is present. It retains all browser/a11y tests
+and validates the selected executable through the existing Playwright config.
+The follow-up head's complete CI and final preview links are maintained in PR #12.
+
 ## Earlier implementation evidence
 
 **PARTIAL — no production promotion.** Baseline and previous-phase blocker matrix:
