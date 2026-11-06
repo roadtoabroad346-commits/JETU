@@ -620,3 +620,13 @@ remains covered by the separate CI test. No guard is bypassed. Current local gat
 163 unit/integration tests/build, 265 SQL assertions over eight suites/47 migrations,
 25 component journeys, 96 production-browser passes/four inherited configuration
 skips. Final remote SHA, CI and preview evidence is attached to PR #12.
+
+## 2026-11-06 — confirmed populated-report erasure fix
+
+Actual GoTrue deletion passed for the mentor but failed for the student. An enriched
+local fixture reproduced `mentor_reports_reporter_id_fkey`: its direct Auth check
+ran before the independent request/report cascade. Added the fourth forward migration
+with the correct ownership cascade. The regression now includes a reported comment,
+Vault metadata and cleared Auth claims. All eight native suites pass **267 assertions**
+after a clean **48-migration** replay. The final CI test keeps both real Auth deletion
+assertions; no failure is skipped or masked. Current remote outcomes live in PR #12.

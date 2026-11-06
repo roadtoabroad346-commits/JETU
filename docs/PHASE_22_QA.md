@@ -18,8 +18,8 @@ Local release evidence for the follow-up implementation:
 - `npm run check`: PASS, formatting, ESLint, strict types, **163 unit/integration
   tests** and production build. `git diff --check`: PASS. Added-line secret pattern
   scan passed before publication; no passwords, privileged keys or auth state committed.
-- Native PostgreSQL 17.11 clean replay: **47 migrations**, **eight pgTAP suites /
-  265 assertions**. The 169 new mentor assertions cover two students, two verified
+- Native PostgreSQL 17.11 clean replay: **48 migrations**, **eight pgTAP suites /
+  267 assertions**. The 171 new mentor assertions cover two students, two verified
   fixture mentors, unverified applicant, RLS/Storage policy denial, version/operation
   scope, Unicode anchors, expiry/revoke/suspension, consent/clearance, status CAS,
   private drafts, moderation context/freeze, readiness privacy/provenance, scheduling,
@@ -83,7 +83,7 @@ The third forward migration `20261106071826_phase_22_account_lifecycle.sql` fixe
 account deletion without deleting another student's feedback. Historical pseudonymous
 author/reviewer IDs are separate from current Auth membership. Auth deletion revokes
 access, redacts mentor bio/claims, cancels availability/bookings and expires evidence;
-old JWTs cannot reapply or retrieve materials. Twenty-four dedicated SQL assertions
+old JWTs cannot reapply or retrieve materials. Twenty-six dedicated SQL assertions
 cover deletion of staff, mentor and student, preserved authorship and prior Writing
 cascades. A null resource operation is explicitly denied. No real identity was erased.
 
@@ -98,3 +98,10 @@ skips; all 25 component journeys passed. No hosted migration or production promo
 The selected Vercel project is `jetu` / Impact hub. Its preview environment has no
 Supabase configuration, so hosted private APIs must truthfully fail closed. Actual
 Auth/Storage acceptance is against disposable local Supabase in CI, not hosted staging.
+
+The fourth forward migration `20261106073751_phase_22_report_erasure.sql` aligns the
+reporter's Auth FK with request-owned erasure. A populated report/comment/Vault
+fixture reproduced the SDK deletion failure as `mentor_reports_reporter_id_fkey`;
+the direct FK now cascades and the regression passes. The final CI script requires
+actual mentor AND student GoTrue deletion, while preserving the other student's
+feedback. Diagnostic-only logging has been removed after identifying the mechanism.

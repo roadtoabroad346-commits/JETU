@@ -23,6 +23,8 @@ select set_config('request.jwt.claim.sub','22400000-0000-4000-8000-000000000002'
 select lives_ok($$select public.mentor_command(jsonb_build_object('op','transition','request',(select v from deletion_ids where k='request'),'revision',1,'state','accepted'))$$,'fixture assignment accepted');
 select lives_ok($$select public.mentor_command(jsonb_build_object('op','comment','request',(select v from deletion_ids where k='request'),'grant',(select v from deletion_ids where k='grant'),'parent',null,'body','SYNTHETIC useful feedback','anchor',null,'key',gen_random_uuid()))$$,'fixture human feedback persists');
 select throws_ok($$select public.mentor_resource((select v from deletion_ids where k='grant'),null)$$,'42501',null,'null operation does not bypass operation scope');
+select set_config('request.jwt.claim.sub','22400000-0000-4000-8000-000000000001',true);
+select public.mentor_command(jsonb_build_object('op','report','request',(select v from deletion_ids where k='request'),'comment',(select id from public.mentor_comments limit 1),'reason','privacy','explanation','SYNTHETIC minimal case'));
 reset role;
 select lives_ok($$delete from auth.users where id='22400000-0000-4000-8000-000000000003'$$,'historical reviewer identity does not block staff account deletion');
 select lives_ok($$delete from auth.users where id='22400000-0000-4000-8000-000000000002'$$,'mentor Auth deletion succeeds without destroying student-owned feedback');
@@ -51,5 +53,7 @@ select is((select count(*)::int from public.mentor_requests),0,'student requests
 select is((select count(*)::int from public.mentor_resource_grants),0,'student consent grants are erased');
 select is((select count(*)::int from public.mentor_comments),0,'student-owned feedback is erased with student account');
 select is((select count(*)::int from public.writing_drafts),0,'earlier Writing ownership deletion still works');
+select is((select count(*)::int from public.mentor_reports),0,'student-owned safety reports are erased without an ordering-dependent FK failure');
+select is((select count(*)::int from public.vault_documents),0,'earlier Vault owner metadata erasure still works');
 select * from finish();
 rollback;
