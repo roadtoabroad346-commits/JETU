@@ -1,0 +1,184 @@
+-- Synthetic, rollback-only SQL identities. This is real PostgreSQL/RLS proof,
+-- separate from the actual GoTrue/REST/Storage CI test.
+begin;
+create extension if not exists pgtap with schema extensions;
+grant execute on all functions in schema extensions to authenticated,anon;
+set local search_path=public,extensions;
+select no_plan();
+insert into auth.users(id,email) select ('22000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'phase22-'||n||'@example.invalid' from generate_series(1,7)n;
+-- A=1 B=2 X=3 Y=4 Z=5 verifier=6 moderator=7.
+insert into jetu_private.mentor_staff(user_id,role) values('22000000-0000-4000-8000-000000000006','verifier'),('22000000-0000-4000-8000-000000000007','moderator');
+insert into public.mentor_profiles(user_id,display_name,bio,expertise,languages,state,capacity) values
+ ('22000000-0000-4000-8000-000000000003','SYNTHETIC Mentor X','Isolated testing fixture only',array['essay'],array['en'],'submitted',20),
+ ('22000000-0000-4000-8000-000000000004','SYNTHETIC Mentor Y','Isolated testing fixture only',array['essay'],array['en'],'submitted',20),
+ ('22000000-0000-4000-8000-000000000005','SYNTHETIC Unverified Z','Isolated testing fixture only',array['essay'],array['en'],'draft',20);
+insert into public.mentor_evidence(id,mentor_id,claim,object_path,mime,byte_size,state) select
+ ('22010000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('22000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'SYNTHETIC testing evidence only',('22000000-0000-4000-8000-'||lpad(n::text,12,'0'))||'/'||('22010000-0000-4000-8000-'||lpad(n::text,12,'0')),'application/pdf',32,'submitted' from generate_series(3,4)n;
+insert into public.mentor_services(id,mentor_id,kind,summary,deliverables,turnaround_hours) values
+ ('22020000-0000-4000-8000-000000000003','22000000-0000-4000-8000-000000000003','essay','Synthetic essay service','Rubric and actionable comments',72),
+ ('22020000-0000-4000-8000-000000000004','22000000-0000-4000-8000-000000000004','essay','Synthetic essay service','Rubric and actionable comments',72),
+ ('22020000-0000-4000-8000-000000000005','22000000-0000-4000-8000-000000000005','essay','Synthetic essay service','Rubric and actionable comments',72);
+insert into public.writing_drafts(id,user_id,title,kind,content) values
+ ('22030000-0000-4000-8000-000000000001','22000000-0000-4000-8000-000000000001','A private essay','essay','My 🙂 essay version two'),
+ ('22030000-0000-4000-8000-000000000002','22000000-0000-4000-8000-000000000002','B private essay','essay','B private text');
+insert into public.writing_versions(id,draft_id,user_id,version,snapshot,request_id) values
+ ('22040000-0000-4000-8000-000000000001','22030000-0000-4000-8000-000000000001','22000000-0000-4000-8000-000000000001',1,'{"title":"A essay","content":"My 🙂 essay version one","prompt":"Personal story","word_limit":500}',gen_random_uuid()),
+ ('22040000-0000-4000-8000-000000000002','22030000-0000-4000-8000-000000000001','22000000-0000-4000-8000-000000000001',2,'{"title":"A essay","content":"My 🙂 essay version two"}',gen_random_uuid()),
+ ('22040000-0000-4000-8000-000000000003','22030000-0000-4000-8000-000000000002','22000000-0000-4000-8000-000000000002',1,'{"title":"B essay","content":"B private text"}',gen_random_uuid());
+create temp table mentor_test(value jsonb);
+insert into mentor_test values(jsonb_build_object('op','create','service','22020000-0000-4000-8000-000000000003','goal','Help me improve clarity and structure','expires',now()+interval '7 days','consent',true,'policy','mentor-consent-v1','items','[{"type":"writing","resource":"22030000-0000-4000-8000-000000000001","version":"22040000-0000-4000-8000-000000000001","download":false}]'::jsonb,'key','22050000-0000-4000-8000-000000000001'));
+create temp table mentor_ids(k text primary key,v uuid);
+grant select,update on mentor_test to authenticated;
+grant select,insert,update on mentor_ids to authenticated;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
+select throws_ok($$select public.mentor_command('{"op":"verify","mentor":"22000000-0000-4000-8000-000000000003","state":"verified","revision":1,"reason":"I approve myself","summary":"Invented credentials","attest":true}')$$,'42501',null,'mentor cannot self-approve');
+select throws_ok($$update public.mentor_profiles set state='verified'$$,'42501',null,'direct trust update denied');
+select throws_ok($$select * from jetu_private.mentor_staff$$,'42501',null,'staff membership is private');
+select is(jsonb_array_length(public.mentor_directory()),0,'unverified profiles never enter public directory');
+select is((select count(*)::int from public.mentor_evidence),1,'mentor sees only own evidence');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000006',true);
+select lives_ok($$select public.mentor_command('{"op":"verify","mentor":"22000000-0000-4000-8000-000000000003","state":"verified","revision":1,"reason":"SYNTHETIC isolated fixture review","summary":"SYNTHETIC verified test evidence","attest":true}')$$,'fixture verifier can record accountable decision');
+select lives_ok($$select public.mentor_command('{"op":"verify","mentor":"22000000-0000-4000-8000-000000000004","state":"verified","revision":1,"reason":"SYNTHETIC isolated fixture review","summary":"SYNTHETIC verified test evidence","attest":true}')$$,'second fixture mentor approved');
+select is(jsonb_array_length(public.mentor_directory()),2,'only approved mentors appear');
+select ok(not (public.mentor_directory()->0 ? 'decision_reason'),'public projection excludes private decision reasons');
+select ok(not (public.mentor_directory()->0 ? 'evidence'),'public projection excludes evidence');
+select throws_ok($$select public.mentor_command('{"op":"clearance","student":"22000000-0000-4000-8000-000000000001","until":"2027-01-01T00:00:00Z","guardianRequired":true,"reason":"Wrong staff role","attest":true}')$$,'42501',null,'identity verifier cannot act as safeguarding moderator');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+select throws_ok($$select public.mentor_command((select value from mentor_test))$$,'42501',null,'unknown age and missing safeguarding approval fail closed');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000007',true);
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','clearance','student','22000000-0000-4000-8000-000000000001','until',now()+interval '30 days','guardianRequired',true,'reason','SYNTHETIC reviewed school approval','attest',true))$$,'moderator records explicit safeguarding clearance');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+insert into mentor_ids values('request',(public.mentor_command((select value from mentor_test))->>'id')::uuid);
+insert into mentor_ids select 'grant',id from public.mentor_resource_grants where request_id=(select v from mentor_ids where k='request');
+select is((public.mentor_command((select value from mentor_test))->>'id')::uuid,(select v from mentor_ids where k='request'),'same key creates exactly one request');
+select throws_ok($$select public.mentor_command((select value||'{"goal":"Different request payload"}' from mentor_test))$$,'23514',null,'idempotency key cannot change scope');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'service','22020000-0000-4000-8000-000000000005') from mentor_test))$$,'42501',null,'unverified mentor cannot receive requests');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'items','[{"type":"writing","resource":"22030000-0000-4000-8000-000000000002","version":"22040000-0000-4000-8000-000000000003"}]'::jsonb) from mentor_test))$$,'42501',null,'student cannot consent to another student version');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'consent',false) from mentor_test))$$,'23514',null,'explicit consent is required');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'goal','Contact me on telegram') from mentor_test))$$,'23514',null,'off-platform request invitations blocked');
+select throws_ok($$insert into public.mentor_resource_grants(request_id,resource_type,resource_id,version_id,expires_at) values(gen_random_uuid(),'writing',gen_random_uuid(),gen_random_uuid(),now())$$,'42501',null,'student cannot bypass consent command');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
+select is((select count(*)::int from public.mentor_requests),0,'verified unassigned mentor Y cannot enumerate A request');
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='grant'))$$,'42501',null,'verified mentor Y cannot read X grant');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000005',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='grant'))$$,'42501',null,'unverified mentor Z cannot read grant');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000002',true);
+select is((select count(*)::int from public.mentor_requests),0,'student B cannot read A requests');
+select is((select count(*)::int from public.mentor_comments),0,'student B cannot read A comments');
+select is((select count(*)::int from public.mentor_evidence),0,'student cannot view identity evidence');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
+select is((public.mentor_resource((select v from mentor_ids where k='grant'))->>'content'),'My 🙂 essay version one','assigned mentor X reads exact consented v1');
+select is((select count(*)::int from public.writing_drafts),0,'assignment never opens direct draft table');
+select is((select count(*)::int from public.writing_versions),0,'assignment never opens unrelated immutable versions');
+select throws_ok($$select public.mentor_resource('22040000-0000-4000-8000-000000000002')$$,'42501',null,'guessed v2 cannot be used as grant');
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='grant'),'download')$$,'42501',null,'unapproved download denied');
+select is((select count(*)::int from storage.objects where bucket_id='student-vault'),0,'direct private Storage read denied');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','transition','request',(select v from mentor_ids where k='request'),'revision',1,'state','accepted'))$$,'verified assignee accepts request');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','transition','request',(select v from mentor_ids where k='request'),'revision',1,'state','in_review'))$$,'40001',null,'stale request version denied');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','transition','request',(select v from mentor_ids where k='request'),'revision',2,'state','in_review'))$$,'valid review transition succeeds');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','comment','request',(select v from mentor_ids where k='request'),'grant',(select v from mentor_ids where k='grant'),'parent',null,'body','Explain this specific experience.','anchor','{"start":3,"end":4,"quote":"🙂"}'::jsonb,'key','22060000-0000-4000-8000-000000000001'))$$,'Unicode code point anchor accepted against immutable text');
+select is((select author_id from public.mentor_comments limit 1),'22000000-0000-4000-8000-000000000003'::uuid,'comment attribution is authenticated actor');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','comment','request',(select v from mentor_ids where k='request'),'grant',(select v from mentor_ids where k='grant'),'parent',null,'body','A mismatched anchored suggestion','anchor','{"start":3,"end":5,"quote":"wrong"}'::jsonb,'key',gen_random_uuid()))$$,'23514',null,'mismatched anchor is rejected');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','comment','request',(select v from mentor_ids where k='request'),'grant',(select v from mentor_ids where k='grant'),'parent',null,'body','Call +7 777 123 4567','anchor',null,'key',gen_random_uuid()))$$,'23514',null,'off-platform personal phone blocked');
+select throws_ok($$update public.writing_drafts set content='Mentor overwrite'$$,'42501',null,'mentor cannot overwrite student text');
+select throws_ok($$select public.mentor_evidence_access('22010000-0000-4000-8000-000000000004')$$,'42501',null,'mentor cannot download another mentor evidence');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','review','request',(select v from mentor_ids where k='request'),'outcome','more_work_needed','summary','Clarify your own contribution and preserve your voice.','rubric','{"clarity":3,"structure":3,"specificity":3,"evidence":3,"voice":4,"prompt_fit":4,"grammar":4}'::jsonb,'actions','[{"text":"Explain one concrete example","source":null}]'::jsonb,'key','22070000-0000-4000-8000-000000000001'))$$,'mentor delivers rubric and review summary');
+select is((select status from public.mentor_requests limit 1),'review_delivered','delivered review has persisted status');
+select throws_ok($$update public.mentor_events set kind='forged'$$,'42501',null,'audit history is append-only for browser actors');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','resolve','request',(select v from mentor_ids where k='request'),'id',(select id from public.mentor_comments limit 1),'revision',1,'state','rejected'))$$,'student may reject advice without editing writing');
+select is((select disposition from public.mentor_comments limit 1),'rejected','student disposition persists');
+select is((select content from public.writing_drafts limit 1),'My 🙂 essay version two','human feedback leaves current student draft untouched');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','report','request',(select v from mentor_ids where k='request'),'reason','privacy','explanation','Synthetic minimal report'))$$,'student can create private safety report');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','revoke','request',(select v from mentor_ids where k='request')))$$,'student immediately revokes assignment');
+select is((select count(*)::int from public.mentor_reviews),1,'student retains delivered feedback after revocation');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='grant'))$$,'42501',null,'revocation blocks every new resource read');
+select is((select count(*)::int from public.mentor_requests),0,'revocation removes request from mentor queue');
+select is((select count(*)::int from public.mentor_comments),0,'revocation stops new mentor comment reads');
+select is((select count(*)::int from public.mentor_reports),0,'mentor cannot view private safety reports');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','comment','request',(select v from mentor_ids where k='request'),'grant',null,'parent',null,'body','Forbidden new contact','anchor',null,'key',gen_random_uuid()))$$,'42501',null,'revocation stops further service communication');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+insert into mentor_ids values('second',(public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid()) from mentor_test))->>'id')::uuid);
+insert into mentor_ids select 'secondGrant',id from public.mentor_resource_grants where request_id=(select v from mentor_ids where k='second');
+reset role;
+update public.mentor_resource_grants set expires_at=now()-interval '1 second' where id=(select v from mentor_ids where k='secondGrant');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='secondGrant'))$$,'42501',null,'expired exact grant fails closed');
+reset role;
+update public.mentor_resource_grants set expires_at=now()+interval '1 day' where id=(select v from mentor_ids where k='secondGrant');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000006',true);
+select lives_ok($$select public.mentor_command('{"op":"verify","mentor":"22000000-0000-4000-8000-000000000003","state":"suspended","revision":2,"reason":"SYNTHETIC safety suspension","summary":"SYNTHETIC verified test evidence","attest":true}')$$,'verifier suspends mentor');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='secondGrant'))$$,'42501',null,'suspension blocks access without token refresh');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid()) from mentor_test))$$,'42501',null,'suspended mentor cannot receive new request');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','block','request',(select v from mentor_ids where k='second')))$$,'block is available after suspension');
+select is((select count(*)::int from public.mentor_blocks),1,'block persists');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000007',true);
+select is((select count(*)::int from public.mentor_reports),1,'safeguarding moderator sees report');
+select is((select count(*)::int from public.mentor_evidence),0,'moderator has no identity evidence access');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','moderate','id',(select id from public.mentor_reports limit 1),'revision',1,'state','triaged','reason','SYNTHETIC case triage'))$$,'moderator advances accountable case lifecycle');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','moderate','id',(select id from public.mentor_reports limit 1),'revision',2,'state','closed','reason','SYNTHETIC invalid jump'))$$,'23514',null,'moderation cannot skip investigation');
+-- Private request drafts do not grant contact or artifact access.
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000002',true);
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','save_request_draft','service','22020000-0000-4000-8000-000000000004','goal','Unfinished request','items','[]'::jsonb,'expires',now()+interval '7 days','revision',0))$$,'student can persist a partial private request draft without consent');
+select is((select goal from public.mentor_request_drafts),'Unfinished request','request draft survives a new read');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','save_request_draft','service','22020000-0000-4000-8000-000000000004','goal','Edited private draft','items','[]'::jsonb,'expires',now()+interval '7 days','revision',1))$$,'draft updates use optimistic revision');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','save_request_draft','service','22020000-0000-4000-8000-000000000004','goal','Stale overwrite','items','[]'::jsonb,'expires',now()+interval '7 days','revision',1))$$,'40001',null,'stale tab cannot overwrite private request draft');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
+select is((select count(*)::int from public.mentor_request_drafts),0,'mentor cannot read an unsubmitted draft');
+reset role;
+insert into public.mentor_services(id,mentor_id,kind,summary,deliverables,turnaround_hours) values('22080000-0000-4000-8000-000000000004','22000000-0000-4000-8000-000000000004','documents','SYNTHETIC document review','Specific version checklist feedback',48);
+insert into public.vault_documents(id,user_id,category,sensitivity,display_name,purpose,expires_at) values
+('22090000-0000-4000-8000-000000000001','22000000-0000-4000-8000-000000000001','transcript','academic','SYNTHETIC transcript','',now()+interval '30 days'),
+('22090000-0000-4000-8000-000000000002','22000000-0000-4000-8000-000000000001','identity','restricted','SYNTHETIC ID','Test purpose only',now()+interval '30 days'),
+('22090000-0000-4000-8000-000000000003','22000000-0000-4000-8000-000000000001','essay','personal','SYNTHETIC quarantine','',now()+interval '30 days');
+insert into public.vault_versions(id,document_id,user_id,sequence,object_path,extension,mime,byte_size,sha256,state,scanner,scanned_at)
+select ('22100000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,('22090000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'22000000-0000-4000-8000-000000000001',1,
+'private/student/22000000-0000-4000-8000-000000000001/22090000-0000-4000-8000-'||lpad(n::text,12,'0')||'/22100000-0000-4000-8000-'||lpad(n::text,12,'0')||'/asset.txt','txt','text/plain',32,repeat('a',64),case when n=3 then 'quarantined' else 'available' end,case when n=3 then null else 'SYNTHETIC permission fixture only' end,case when n=3 then null else now() end from generate_series(1,3)n;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+update mentor_test set value=value||jsonb_build_object('service','22080000-0000-4000-8000-000000000004','key',gen_random_uuid(),'items','[{"type":"vault","resource":"22090000-0000-4000-8000-000000000001","version":"22100000-0000-4000-8000-000000000001","download":false}]'::jsonb);
+insert into mentor_ids values('vaultRequest',(public.mentor_command((select value from mentor_test))->>'id')::uuid);
+insert into mentor_ids select 'vaultGrant',id from public.mentor_resource_grants where request_id=(select v from mentor_ids where k='vaultRequest');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'items','[{"type":"vault","resource":"22090000-0000-4000-8000-000000000002","version":"22100000-0000-4000-8000-000000000002"}]'::jsonb) from mentor_test))$$,'42501',null,'restricted identity document cannot be consented for generic review');
+select throws_ok($$select public.mentor_command((select value||jsonb_build_object('key',gen_random_uuid(),'items','[{"type":"vault","resource":"22090000-0000-4000-8000-000000000003","version":"22100000-0000-4000-8000-000000000003"}]'::jsonb) from mentor_test))$$,'42501',null,'quarantine cannot be shared');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
+select is(public.mentor_resource((select v from mentor_ids where k='vaultGrant'))->>'type','vault','only selected clean version produces guarded proxy descriptor');
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='vaultGrant'),'download')$$,'42501',null,'view consent does not permit attachment download');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','transition','request',(select v from mentor_ids where k='vaultRequest'),'revision',1,'state','accepted'))$$,'document review request can be accepted');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','slot','start',now()+interval '2 hours','end',now()+interval '3 hours','timezone','Asia/Almaty'))$$,'mentor publishes timezone-aware explicit slot');
+insert into mentor_ids select 'slot',id from public.mentor_slots where mentor_id='22000000-0000-4000-8000-000000000004';
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','slot','start',now()+interval '150 minutes','end',now()+interval '210 minutes','timezone','Asia/Almaty'))$$,'23514',null,'overlapping availability rejected transactionally');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','book','request',(select v from mentor_ids where k='vaultRequest'),'slot',(select v from mentor_ids where k='slot'),'key',gen_random_uuid()))$$,'42501',null,'mentor cannot book on behalf of a student');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','book','request',(select v from mentor_ids where k='vaultRequest'),'slot',(select v from mentor_ids where k='slot'),'key','22110000-0000-4000-8000-000000000001'))$$,'student explicitly books within consent window');
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','book','request',(select v from mentor_ids where k='vaultRequest'),'slot',(select v from mentor_ids where k='slot'),'key','22110000-0000-4000-8000-000000000001'))$$,'uncertain booking retry is idempotent');
+select is((select count(*)::int from public.mentor_bookings),1,'booking retry does not duplicate');
+reset role;
+select throws_ok($$update public.mentor_requests set mentor_id='22000000-0000-4000-8000-000000000003' where id=(select v from mentor_ids where k='vaultRequest')$$,'23503',null,'request reassignment cannot preserve old-mentor grants');
+update public.mentor_student_clearances set approved_until=now()-interval '1 second' where student_id='22000000-0000-4000-8000-000000000001';
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='vaultGrant'))$$,'42501',null,'expired guardian/school clearance stops new mentor reads');
+reset role;
+update public.mentor_student_clearances set approved_until=now()+interval '1 day' where student_id='22000000-0000-4000-8000-000000000001';
+set local role authenticated;
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+select lives_ok($$select public.mentor_command(jsonb_build_object('op','cancel','request',(select v from mentor_ids where k='vaultRequest')))$$,'student cancels active service');
+select is((select state from public.mentor_bookings),'cancelled','cancellation also cancels internal session');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
+select throws_ok($$select public.mentor_resource((select v from mentor_ids where k='vaultGrant'))$$,'42501',null,'cancellation revokes future file descriptors');
+reset role;
+set local role anon;
+select is(jsonb_array_length(public.mentor_directory()),1,'anonymous directory excludes suspended mentor');
+select throws_ok($$select * from public.mentor_requests$$,'42501',null,'anonymous request reads denied');
+select throws_ok($$select public.mentor_command('{}')$$,'42501',null,'anonymous mutations denied');
+select throws_ok($$select public.mentor_resource('22040000-0000-4000-8000-000000000001')$$,'42501',null,'anonymous resource read denied');
+reset role;
+select * from finish();
+rollback;

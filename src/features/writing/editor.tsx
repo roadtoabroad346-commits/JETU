@@ -37,6 +37,7 @@ import {
 } from './domain';
 import { SaveQueue } from './save-queue';
 import { requestData } from './client';
+import { HumanFeedback } from '@/features/mentors/writing-feedback';
 import { CVBuilder } from './cv-builder';
 import { InterviewControls } from './interview';
 export function StudioEditor({
@@ -596,6 +597,7 @@ export function StudioEditor({
               {pane === 'feedback' && (
                 <>
                   <h2>{t.feedback}</h2>
+                  <HumanFeedback locale={locale} draftId={input.id} />
                   <p>{t.deterministic}</p>
                   <button
                     type="button"

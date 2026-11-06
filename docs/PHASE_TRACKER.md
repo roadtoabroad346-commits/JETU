@@ -1,3 +1,10 @@
+# Phase 22 checkpoint — 2026-11-06
+
+**Phase 22 PARTIAL.** Mentor implementation and local evidence are in
+[PHASE_22_QA.md](PHASE_22_QA.md). Phase 17–21 work was recovered from actual branches;
+old BACKLOG entries below are historical, not evidence of absence. No previous
+whole phase is upgraded. No Phase 23 work or production promotion.
+
 # Phase 21 update — 2026-11-05
 
 **Phase 21 PARTIAL:** private Writing Studio extends the existing Phase 19 tables.
@@ -38,12 +45,12 @@ Current request state: **Phase 16 PARTIAL**. The authenticated matching API, det
 | 14    | Global Opportunities Hub, школы и extracurriculars               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 15    | Unified Search, Saved Lists и Side-by-side Compare               | PARTIAL                    | Programs/scholarships/opportunities search, private saves and 2–4 program compare implemented; cloud SQL/RLS/10k benchmark and local UI checks pass; live corpus/REST/deploy gates remain open |
 | 16    | Explainable Matching Engine v1 + evaluation                      | PARTIAL                    | Deterministic rules/ranking, private API/UI and development RLS tests; zero live program/scholarship rows and no hosted Auth/REST E2E                                                          |
-| 17    | Personalized Roadmap & Gap-to-Action Planner                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 18    | Admissions Application CRM: от draft до enrollment               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 19    | Secure Supabase Document Vault & Writing Workspace               | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 20    | Jetu AI Coach: grounded assistant with tools                     | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
-| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | PARTIAL                    | Local implementation and checks; see PHASE_21_TEST_EVIDENCE.md                                                                                                                                 |
-| 22    | Verified Mentor Network and Review Workflow                      | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
+| 17    | Personalized Roadmap & Gap-to-Action Planner                     | PARTIAL                    | Later implementation/evidence exists in draft PR #7; schema retained, whole phase not reverified                                                                                               |
+| 18    | Admissions Application CRM                                       | PARTIAL                    | Owner-scoped schema retained; additional UI in draft PR #7, hosted gates remain                                                                                                                |
+| 19    | Secure Document Vault & Writing Workspace                        | PARTIAL                    | Private version/quarantine authority reused; scanner/restore/retention gates remain                                                                                                            |
+| 20    | Jetu AI Coach                                                    | PARTIAL                    | Hosted migrations recovered; no live provider implementation established                                                                                                                       |
+| 21    | AI Writing Studio, Essay Coach, CV & Interview Lab               | PARTIAL                    | PR #11 implementation retained; AI/staging/hosted acceptance gates remain                                                                                                                      |
+| 22    | Verified Mentor Network and Review Workflow                      | PARTIAL                    | Implemented scoped human-review domain and UI; see PHASE_22_QA.md for actual evidence and open gates                                                                                           |
 | 23    | Deadline Engine, Notifications и Calendar                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 24    | Student Dashboard & Outcomes Intelligence                        | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |
 | 25    | Post-offer Finance, Visa & Enrollment Journey                    | BACKLOG                    | Not started; requires explicit phase authorization                                                                                                                                             |

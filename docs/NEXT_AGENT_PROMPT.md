@@ -1,3 +1,29 @@
+# Current handoff — Phase 22, 2026-11-06
+
+Branch: `codex/phase22-mentor-network`, based on Phase 21 `210fedb`.
+Read `PHASE_22_QA.md`, `PHASE_22_PRECHECK.md`, `PHASE_22_EXECUTION_PLAN.md` and
+`MENTOR_SECURITY_MODEL.md`. Phase 22 remains PARTIAL. Never approve a real mentor,
+seed staff membership, infer guardian consent or promote this branch automatically.
+No Phase 23 work. No hosted migration or production change has been performed.
+
+Current additive migration: `20261106060524_phase_22_mentor_network.sql`.
+Implementation files: `src/features/mentors/`, `src/app/api/mentors/`, localized
+`mentors`/`mentoring` routes; Studio's `HumanFeedback` bridge. Tests:
+`supabase/tests/mentor-network.test.sql`, `tests/{unit,integration,e2e,journey}/mentor*`,
+`scripts/mentor-auth-test.mjs` and the new disposable CI job.
+
+Initial native replay and 69 mentor SQL assertions pass; 162 unit/integration tests
+and eight synthetic UI scenarios passed at the implementation checkpoint. Final
+source/remote results must be read from PHASE_22_QA.md and actual CI, not inferred.
+No local full-stack GoTrue/Storage pass is claimed. Native tooling and logs are under
+`/workspace/scratch/phase22-*`; no credentials or real student files are stored there.
+
+Next safe action: finish exact-source regression, inspect CI/preview and close only
+gates proved by real evidence. Then obtain/select isolated staging and human safety
+operations before enabling live mentorship. Prior handoff retained below.
+
+---
+
 # Current handoff — Phase 21, 2026-11-05
 
 Phase 21 is PARTIAL on `codex/phase21-writing-studio`, based on published main

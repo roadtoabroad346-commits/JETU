@@ -1,3 +1,5 @@
+import { MentorDirectory } from '../../src/features/mentors/directory';
+import { MentorWorkspace } from '../../src/features/mentors/workspace';
 import { WritingWorkspace } from '../../src/features/writing/workspace';
 import { createRoot } from 'react-dom/client';
 import { ProfileJourney } from '../../src/features/onboarding/profile-journey';
@@ -39,7 +41,15 @@ const initial =
       }
     : {};
 createRoot(document.getElementById('root')!).render(
-  params.get('writing') === '1' ? (
+  params.get('mentors') === '1' ? (
+    <main className="page-shell mentor-main">
+      <MentorDirectory locale={locale} query={params.get('query') ?? ''} />
+    </main>
+  ) : params.get('mentoring') === '1' ? (
+    <main className="page-shell dashboard-main">
+      <MentorWorkspace locale={locale} query={params.get('query') ?? ''} />
+    </main>
+  ) : params.get('writing') === '1' ? (
     <main className="dashboard-main page-shell">
       <WritingWorkspace locale={locale} />
     </main>

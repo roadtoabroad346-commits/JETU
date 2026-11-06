@@ -582,3 +582,13 @@ browser-print PDF. Generic text interviews persist only after explicit history
 opt-in. No mentor grants, real AI responses, official facts, submitted applications,
 production promotion or later-phase completion are invented. Evidence and remaining
 release gates: PHASE_21_TEST_EVIDENCE.md; architecture: WRITING_STUDIO_ARCHITECTURE.md.
+
+## 2026-11-06 — Phase 22 implementation checkpoint
+
+Recovered Phase 21 at 210fedb and prior draft branch evidence without replacing
+current account/profile UI. Added mentor trust/evidence, staff separation, directory,
+exact-version requests/grants, fresh-check private file proxy, human review/Studio
+feedback, readiness snapshots, slots/queue and report/block/moderation. No staff or
+verified mentor was seeded in a hosted project. Read-only Jetuu inspection confirmed
+production linkage and absence of an isolated staging branch. See PHASE_22_QA.md
+for actual test evidence, explicit omitted acceptance gates and pending CI status.

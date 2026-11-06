@@ -16,7 +16,7 @@ export async function writingSession() {
 }
 export function checked<T>(result: {
   data: T;
-  error: { code?: string } | null;
+  error: { code?: string; message?: string } | null;
 }): T {
   if (result.error) {
     const code = result.error.code;
