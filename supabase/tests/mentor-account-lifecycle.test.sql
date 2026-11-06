@@ -10,6 +10,9 @@ insert into public.mentor_student_clearances(student_id,approved_until,guardian_
 insert into public.writing_drafts(id,user_id,title,kind,content) values('22420000-0000-4000-8000-000000000001','22400000-0000-4000-8000-000000000001','SYNTHETIC essay','essay','Private essay version');
 insert into public.writing_versions(id,draft_id,user_id,version,snapshot,request_id) values('22430000-0000-4000-8000-000000000001','22420000-0000-4000-8000-000000000001','22400000-0000-4000-8000-000000000001',1,'{"title":"SYNTHETIC essay","content":"Private essay version"}',gen_random_uuid());
 insert into public.mentor_evidence(id,mentor_id,claim,object_path,mime,byte_size,state) values('22440000-0000-4000-8000-000000000001','22400000-0000-4000-8000-000000000002','SYNTHETIC sensitive proof','22400000-0000-4000-8000-000000000002/22440000-0000-4000-8000-000000000001','application/pdf',32,'reviewed');
+insert into public.vault_documents(id,user_id,category,sensitivity,display_name,expires_at) values('22450000-0000-4000-8000-000000000001','22400000-0000-4000-8000-000000000001','transcript','academic','SYNTHETIC transcript',now()+interval '30 days');
+insert into public.vault_versions(id,document_id,user_id,sequence,object_path,extension,mime,byte_size,sha256,state,scanner,scanned_at) values('22460000-0000-4000-8000-000000000001','22450000-0000-4000-8000-000000000001','22400000-0000-4000-8000-000000000001',1,'private/student/22400000-0000-4000-8000-000000000001/22450000-0000-4000-8000-000000000001/22460000-0000-4000-8000-000000000001/asset.txt','txt','text/plain',32,repeat('b',64),'available','SYNTHETIC permission fixture only',now());
+update public.vault_documents set current_version_id='22460000-0000-4000-8000-000000000001' where id='22450000-0000-4000-8000-000000000001';
 create temp table deletion_ids(k text primary key,v uuid);
 grant select,insert on deletion_ids to authenticated;
 set local role authenticated;
@@ -42,6 +45,7 @@ select set_config('request.jwt.claim.sub','22400000-0000-4000-8000-000000000001'
 select is((select body from public.mentor_comments limit 1),'SYNTHETIC useful feedback','student retains delivered feedback after mentor deletion');
 select is((select author_id from public.mentor_comments limit 1),'22400000-0000-4000-8000-000000000002'::uuid,'pseudonymous original authorship is retained');
 reset role;
+select set_config('request.jwt.claim.sub','',true);
 select lives_ok($$delete from auth.users where id='22400000-0000-4000-8000-000000000001'$$,'student account deletion still cascades through owned mentoring data');
 select is((select count(*)::int from public.mentor_requests),0,'student requests are erased');
 select is((select count(*)::int from public.mentor_resource_grants),0,'student consent grants are erased');

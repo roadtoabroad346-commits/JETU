@@ -763,7 +763,26 @@ try {
     data(await admin.storage.from('student-vault').remove(paths));
     paths.length = 0;
   }
-  data(await admin.auth.admin.deleteUser(A));
+  const deletion = await admin.auth.admin.deleteUser(A);
+  if (deletion.error) {
+    // Disposable fixture diagnostics only; do not print auth payloads or keys.
+    const logs = execFileSync(
+      'docker',
+      [
+        '--host=unix:///var/run/docker.sock',
+        'logs',
+        '--tail',
+        '120',
+        'supabase_db_jetu-local',
+      ],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+    );
+    for (const line of logs
+      .split('\n')
+      .filter((line) => /ERROR:|DETAIL:|CONTEXT:/.test(line)))
+      console.error(line.replace(/sb_secret_[A-Za-z0-9_-]+/g, '[redacted]'));
+  }
+  data(deletion);
   check(
     data(await admin.from('mentor_requests').select('id').eq('student_id', A))
       .length === 0,
