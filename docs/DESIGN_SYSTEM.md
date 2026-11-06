@@ -17,3 +17,8 @@ controls, visible focus and reduced-motion-aware feedback. Studio uses a quiet
 paper/editor and context/review/history panes; mobile stacks the editor first.
 Cloud UI/UX Pro Max rules and quick-reference were consulted; no local search script
 was available. Three-language rendered UI evidence is recorded in PHASE_21_TEST_EVIDENCE.md.
+
+Phase 22 reuses brand tokens, original icons and native controls. Directory filters
+use URL state and native progressive disclosure; consent shows who/what/why/until.
+Review originals are immutable, with human attribution, clear revoke/report controls,
+quiet opacity/transform motion and reduced-motion support. Evidence is in PHASE_22_QA.md.

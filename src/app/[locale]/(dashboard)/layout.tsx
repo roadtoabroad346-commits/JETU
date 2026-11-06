@@ -7,6 +7,7 @@ import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
 import { getPublicEnv } from '@/lib/env/public';
+import { mentorCopy } from '@/features/mentors/copy';
 import { writingCopy } from '@/features/writing/copy';
 import { WorkspaceNav } from '@/features/onboarding/workspace-nav';
 
@@ -47,6 +48,11 @@ export default async function DashboardLayout({
           <WorkspaceNav
             label={t.dashboard}
             items={[
+              {
+                href: `/${locale}/mentoring`,
+                label: mentorCopy[locale].workspace,
+                icon: 'check',
+              },
               {
                 href: `/${locale}/writing`,
                 label: writingCopy[locale].title,

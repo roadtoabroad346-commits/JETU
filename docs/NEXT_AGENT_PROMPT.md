@@ -1,3 +1,72 @@
+# Continuation handoff — Phase 22, 2026-11-06
+
+Continue on `codex/phase22-mentor-network` / draft PR #12. Recovered existing
+`b1efd61` from the remote; its CI `42186393340` passed all three jobs and 38 actual
+Auth/Storage/browser checks. This continuation fixes direct RPC validation gaps
+and Studio cross-draft/stale feedback. New sixth Phase 22 migration:
+`20261106111915_phase_22_rpc_integrity.sql` (50 total). No hosted migration applied.
+
+Changed implementation: `src/app/api/mentors/route.ts`,
+`src/features/mentors/writing-feedback.tsx`. Regressions:
+`supabase/tests/mentor-network.test.sql`, `tests/integration/mentor-api.test.ts`,
+`tests/journey/mentor-feedback.spec.ts` with its test-only fixture, and five new
+actual REST checks in `scripts/mentor-auth-test.mjs`. `npm run check` passed
+164 tests/build; native PG17.11 passed 281 assertions across eight suites.
+On product source `b442481`, local production Chromium passed 96/four inherited
+skips and component/axe journeys passed 28; actual CI passed 43 Auth/Storage/browser
+checks plus 281 SQL assertions twice and type/advisor gates. Final CI browser
+dependency installation stalled; frontend now reuses Auth's installed-browser
+selection with a download fallback. No tests removed. Inspect follow-up-head CI
+and preview outcomes in draft PR #12 before continuing.
+Ignored logs/harness live under `/workspace/scratch/phase22-*` and may not survive
+another executor. Native SQL harness is not a full Auth/Storage HTTP runtime.
+
+Preview-only `NEXT_PUBLIC_APP_URL` now uses the HTTPS Phase 22 branch alias.
+`b442481` READY preview `jetu-4ftkld4mz-impact-hub.vercel.app` passed connected smoke:
+localized routes/canonicals and anonymous sign-in; unconfigured private APIs 503.
+The final follow-up receives its own Git-linked preview; inspect exact SHA in PR.
+
+Keep PARTIAL. No mentor/staff approval, production promotion, phase 23 work or
+paid provisioning. Next safe action: inspect exact-head CI and preview, then
+select isolated authorized hosted staging and establish human safety operations
+before enabling live mentorship. Earlier checkpoints below are historical.
+
+# Previous handoff — Phase 22, 2026-11-06
+
+Branch: `codex/phase22-mentor-network`, based on Phase 21 `210fedb`.
+Read `PHASE_22_QA.md`, `PHASE_22_PRECHECK.md`, `PHASE_22_EXECUTION_PLAN.md` and
+`MENTOR_SECURITY_MODEL.md`. Phase 22 remains PARTIAL. Never approve a real mentor,
+seed staff membership, infer guardian consent or promote this branch automatically.
+No Phase 23 work. No hosted migration or production change has been performed.
+
+Current additive migration: `20261106060524_phase_22_mentor_network.sql`.
+Implementation files: `src/features/mentors/`, `src/app/api/mentors/`, localized
+`mentors`/`mentoring` routes; Studio's `HumanFeedback` bridge. Tests:
+`supabase/tests/mentor-network.test.sql`, `tests/{unit,integration,e2e,journey}/mentor*`,
+`scripts/mentor-auth-test.mjs` and the new disposable CI job.
+
+Current local checks: 163 unit/integration tests/build, 274 SQL assertions across
+eight suites / 49 migrations, and 27 synthetic component browser scenarios pass.
+Actual initial-commit CI 42176315716 passed all three jobs and 25 real Auth/Storage/
+Next/browser checks. Follow-up CI 42182652354 passed all three jobs and 35 actual Auth/Storage/browser checks. Exact current-head
+results and final preview are linked in draft PR #12; read those before continuing. Second migration: `20261106064516_phase_22_availability_retention.sql`; third:
+`20261106071826_phase_22_account_lifecycle.sql`. The third fixes actor-deletion
+references, preserves student-owned feedback and rejects stale deleted-account JWTs.
+Fourth: `20261106073751_phase_22_report_erasure.sql`, fixing the reporter FK cascade
+identified by actual GoTrue deletion with a populated report.
+Fifth: `20261106075326_phase_22_application_consent_version.sql`, pinning application
+consent to a numeric version, participant-only booking times and limited staff counts.
+Owner-only exact-version preview is available before consent. Final follow-up adds
+three real HTTP preview checks; inspect final-head CI outcomes in PR #12.
+Native tooling/logs remain under `/workspace/scratch/phase22-*`; no real student
+content or authentication secrets are stored there.
+
+Next safe action: finish exact-source regression, inspect CI/preview and close only
+gates proved by real evidence. Then obtain/select isolated staging and human safety
+operations before enabling live mentorship. Prior handoff retained below.
+
+---
+
 # Current handoff — Phase 21, 2026-11-05
 
 Phase 21 is PARTIAL on `codex/phase21-writing-studio`, based on published main

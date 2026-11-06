@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { mentorCopy } from '../../src/features/mentors/copy';
 import { locales } from '../../src/lib/i18n/messages';
 import {
   marketing,
@@ -25,7 +26,9 @@ test('every requested public path resolves with localized metadata and content',
       expect(html, path).toContain('hrefLang="en"');
       expect(html, path).toContain(
         slug
-          ? marketing[locale].pages[slug].title
+          ? slug === 'mentors'
+            ? mentorCopy[locale].title
+            : marketing[locale].pages[slug].title
           : marketing[locale].heroTitle,
       );
     }

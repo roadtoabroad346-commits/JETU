@@ -582,3 +582,79 @@ browser-print PDF. Generic text interviews persist only after explicit history
 opt-in. No mentor grants, real AI responses, official facts, submitted applications,
 production promotion or later-phase completion are invented. Evidence and remaining
 release gates: PHASE_21_TEST_EVIDENCE.md; architecture: WRITING_STUDIO_ARCHITECTURE.md.
+
+## 2026-11-06 — Phase 22 implementation checkpoint
+
+Recovered Phase 21 at 210fedb and prior draft branch evidence without replacing
+current account/profile UI. Added mentor trust/evidence, staff separation, directory,
+exact-version requests/grants, fresh-check private file proxy, human review/Studio
+feedback, readiness snapshots, slots/queue and report/block/moderation. No staff or
+verified mentor was seeded in a hosted project. Read-only Jetuu inspection confirmed
+production linkage and absence of an isolated staging branch. See PHASE_22_QA.md
+for actual test evidence, explicit omitted acceptance gates and pending CI status.
+
+## 2026-11-06 — Phase 22 follow-up and release verification
+
+Initial commit 41f3f96 / PR #12 passed all three CI jobs in run 42176315716,
+including 25 actual Auth/REST/Storage/browser checks. Added the second forward
+migration for weekly availability, blackouts, cancellation, DST ambiguity rejection,
+SLA pause/resume, bounded follow-ups, case-specific evidence/freeze and retention
+worker contracts. Private drafts recover without granting consent. Readiness shares
+only selected application snapshots; no CRM/Roadmap writes occur from a review.
+Local source check passes 163 tests/build; seven SQL suites pass 241 assertions;
+25 component browser scenarios pass. Final remote/preview evidence belongs in
+PHASE_22_QA.md. No hosted migration, staff grant, real mentor approval or Phase 23.
+
+## 2026-11-06 — account lifecycle and provider-specific SQL regression
+
+Added the third forward migration and 24 SQL regression assertions: historical
+pseudonymous mentor/author/reviewer references no longer block real Auth deletion;
+private bio/claims are redacted, grants/slots/bookings revoked, evidence expired and
+stale JWT commands denied. Student-owned feedback remains attributable; student
+account deletion cascades as before. No real Auth account or blob was deleted.
+
+Follow-up CI 42179051313 passed 32 real Auth/Storage/browser checks. Its database
+job exposed Supabase's direct Storage deletion guard in the SQL test fixture. The
+positive fixture now represents an already-absent object; real Storage-API removal
+remains covered by the separate CI test. No guard is bypassed. Current local gates:
+163 unit/integration tests/build, 265 SQL assertions over eight suites/47 migrations,
+25 component journeys, 96 production-browser passes/four inherited configuration
+skips. Final remote SHA, CI and preview evidence is attached to PR #12.
+
+## 2026-11-06 — confirmed populated-report erasure fix
+
+Actual GoTrue deletion passed for the mentor but failed for the student. An enriched
+local fixture reproduced `mentor_reports_reporter_id_fkey`: its direct Auth check
+ran before the independent request/report cascade. Added the fourth forward migration
+with the correct ownership cascade. The regression now includes a reported comment,
+Vault metadata and cleared Auth claims. All eight native suites pass **267 assertions**
+after a clean **48-migration** replay. The final CI test keeps both real Auth deletion
+assertions; no failure is skipped or masked. Current remote outcomes live in PR #12.
+
+## 2026-11-06 — final consent preview and booking context
+
+Commit aef372f / CI 42182652354 passed all three jobs, including 35 actual Auth,
+Storage and browser checks and both GoTrue erasure cases. The fifth forward migration
+pins application consent to the selected numeric version and preserves immutable
+idempotent receipts. Added owner-only pre-consent previews, participant-only booked
+slot times, correct labelled timezone rendering and role-limited operational counts.
+Final local source: 163 unit/integration tests/build, 274 SQL assertions across eight
+suites/49 clean migrations and 27 component browser journeys. Final-head remote
+CI/preview evidence is maintained in draft PR #12; no hosted migration or promotion.
+
+# 2026-11-06 — Phase 22 continuation hardening
+
+- Product `b442481` CI passed 43 actual Auth/Storage/browser checks and 281 SQL
+  assertions twice; local Chromium passed 96/four skips plus 28 component journeys.
+  READY protected preview smoke passed; fixed only its branch-scoped canonical URL.
+  Frontend browser installation stalled over five minutes, so reuse Auth's runner
+  browser selection with a Playwright fallback; keep the entire regression suite.
+- Recovered existing Phase 22 branch/PR instead of rebuilding from older main;
+  verified `b1efd61` three-job CI success and 38 actual Auth/Storage/browser checks.
+- Reproduced direct RPC null/CAS/rubric/anchor bypasses in native PostgreSQL;
+  added forward migration `20261106111915_phase_22_rpc_integrity.sql` and seven
+  SQL regressions. Fixed per-draft comment scope and cached Studio feedback identity.
+- Added API/browser regressions and five actual REST rejection checks to the
+  disposable full-stack CI script. Local check: 164 tests/build; native SQL:
+  281 assertions/eight suites and 50 migrations. Final release evidence is in
+  PHASE_22_QA.md and draft PR #12. No hosted mutation or production promotion.

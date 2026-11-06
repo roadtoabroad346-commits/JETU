@@ -2096,6 +2096,790 @@ export type Database = {
           },
         ];
       };
+      mentor_availability_rules: {
+        Row: {
+          cancelled_at: string | null;
+          created_at: string;
+          end_time: string;
+          first_date: string;
+          id: string;
+          idempotency_key: string;
+          mentor_id: string;
+          payload_hash: string;
+          start_time: string;
+          timezone: string;
+          weeks: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          cancelled_at?: string | null;
+          created_at?: string;
+          end_time: string;
+          first_date: string;
+          id?: string;
+          idempotency_key: string;
+          mentor_id: string;
+          payload_hash: string;
+          start_time: string;
+          timezone: string;
+          weeks: number;
+        };
+        Update: {
+          cancelled_at?: string | null;
+          created_at?: string;
+          end_time?: string;
+          first_date?: string;
+          id?: string;
+          idempotency_key?: string;
+          mentor_id?: string;
+          payload_hash?: string;
+          start_time?: string;
+          timezone?: string;
+          weeks?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_availability_rules_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_blackouts: {
+        Row: {
+          created_at: string;
+          ends_at: string;
+          id: string;
+          mentor_id: string;
+          starts_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          ends_at: string;
+          id?: string;
+          mentor_id: string;
+          starts_at: string;
+        };
+        Update: {
+          created_at?: string;
+          ends_at?: string;
+          id?: string;
+          mentor_id?: string;
+          starts_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_blackouts_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_blocks: {
+        Row: {
+          created_at: string;
+          mentor_id: string;
+          student_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          mentor_id: string;
+          student_id: string;
+        };
+        Update: {
+          created_at?: string;
+          mentor_id?: string;
+          student_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_blocks_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_bookings: {
+        Row: {
+          created_at: string;
+          id: string;
+          idempotency_key: string;
+          request_id: string;
+          slot_id: string;
+          state: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          id?: string;
+          idempotency_key: string;
+          request_id: string;
+          slot_id: string;
+          state?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          idempotency_key?: string;
+          request_id?: string;
+          slot_id?: string;
+          state?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_bookings_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'mentor_bookings_slot_id_fkey';
+            columns: ['slot_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_slots';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_comments: {
+        Row: {
+          anchor: Json | null;
+          author_id: string;
+          body: string;
+          created_at: string;
+          disposition: string;
+          grant_id: string | null;
+          id: string;
+          idempotency_key: string;
+          parent_id: string | null;
+          request_id: string;
+          revision: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          anchor?: Json | null;
+          author_id: string;
+          body: string;
+          created_at?: string;
+          disposition?: string;
+          grant_id?: string | null;
+          id?: string;
+          idempotency_key: string;
+          parent_id?: string | null;
+          request_id: string;
+          revision?: number;
+        };
+        Update: {
+          anchor?: Json | null;
+          author_id?: string;
+          body?: string;
+          created_at?: string;
+          disposition?: string;
+          grant_id?: string | null;
+          id?: string;
+          idempotency_key?: string;
+          parent_id?: string | null;
+          request_id?: string;
+          revision?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_comments_grant_id_fkey';
+            columns: ['grant_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_resource_grants';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'mentor_comments_parent_id_fkey';
+            columns: ['parent_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_comments';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'mentor_comments_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_events: {
+        Row: {
+          actor_id: string;
+          created_at: string;
+          details: NonNullable<Json>;
+          id: number;
+          kind: string;
+          request_id: string | null;
+          subject_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          actor_id: string;
+          created_at?: string;
+          details?: NonNullable<Json>;
+          id?: never;
+          kind: string;
+          request_id?: string | null;
+          subject_id: string;
+        };
+        Update: {
+          actor_id?: string;
+          created_at?: string;
+          details?: NonNullable<Json>;
+          id?: never;
+          kind?: string;
+          request_id?: string | null;
+          subject_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_events_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_evidence: {
+        Row: {
+          byte_size: number;
+          claim: string;
+          created_at: string;
+          id: string;
+          mentor_id: string;
+          mime: string;
+          object_path: string;
+          retain_until: string;
+          state: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          byte_size: number;
+          claim: string;
+          created_at?: string;
+          id?: string;
+          mentor_id: string;
+          mime: string;
+          object_path: string;
+          retain_until?: string;
+          state?: string;
+        };
+        Update: {
+          byte_size?: number;
+          claim?: string;
+          created_at?: string;
+          id?: string;
+          mentor_id?: string;
+          mime?: string;
+          object_path?: string;
+          retain_until?: string;
+          state?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_evidence_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_profiles: {
+        Row: {
+          accepting: boolean;
+          bio: string;
+          capacity: number;
+          countries: string[];
+          created_at: string;
+          decision_reason: string;
+          degrees: string[];
+          display_name: string;
+          expertise: string[];
+          languages: string[];
+          reviewed_at: string | null;
+          reviewed_by: string | null;
+          revision: number;
+          state: string;
+          timezone: string;
+          updated_at: string;
+          user_id: string;
+          verified_summary: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          accepting?: boolean;
+          bio: string;
+          capacity?: number;
+          countries?: string[];
+          created_at?: string;
+          decision_reason?: string;
+          degrees?: string[];
+          display_name: string;
+          expertise: string[];
+          languages: string[];
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          revision?: number;
+          state?: string;
+          timezone?: string;
+          updated_at?: string;
+          user_id: string;
+          verified_summary?: string;
+        };
+        Update: {
+          accepting?: boolean;
+          bio?: string;
+          capacity?: number;
+          countries?: string[];
+          created_at?: string;
+          decision_reason?: string;
+          degrees?: string[];
+          display_name?: string;
+          expertise?: string[];
+          languages?: string[];
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          revision?: number;
+          state?: string;
+          timezone?: string;
+          updated_at?: string;
+          user_id?: string;
+          verified_summary?: string;
+        };
+        Relationships: [];
+      };
+      mentor_reports: {
+        Row: {
+          comment_id: string | null;
+          created_at: string;
+          explanation: string;
+          id: string;
+          reason: string;
+          reporter_id: string;
+          request_id: string;
+          resolution: string;
+          revision: number;
+          status: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          comment_id?: string | null;
+          created_at?: string;
+          explanation?: string;
+          id?: string;
+          reason: string;
+          reporter_id: string;
+          request_id: string;
+          resolution?: string;
+          revision?: number;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          comment_id?: string | null;
+          created_at?: string;
+          explanation?: string;
+          id?: string;
+          reason?: string;
+          reporter_id?: string;
+          request_id?: string;
+          resolution?: string;
+          revision?: number;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_reports_comment_id_fkey';
+            columns: ['comment_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_comments';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'mentor_reports_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_request_drafts: {
+        Row: {
+          consent_until: string;
+          goal: string;
+          items: NonNullable<Json>;
+          revision: number;
+          service_id: string;
+          student_id: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          consent_until: string;
+          goal?: string;
+          items?: NonNullable<Json>;
+          revision?: number;
+          service_id: string;
+          student_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          consent_until?: string;
+          goal?: string;
+          items?: NonNullable<Json>;
+          revision?: number;
+          service_id?: string;
+          student_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_request_drafts_service_id_fkey';
+            columns: ['service_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_services';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_requests: {
+        Row: {
+          consent_version: string;
+          created_at: string;
+          due_at: string;
+          expires_at: string;
+          followup_rounds: number;
+          goal: string;
+          id: string;
+          idempotency_key: string;
+          mentor_id: string;
+          pause_started_at: string | null;
+          paused_seconds: number;
+          payload_hash: string;
+          revision: number;
+          revoked_at: string | null;
+          service_id: string;
+          status: string;
+          student_id: string;
+          terms_snapshot: NonNullable<Json>;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          consent_version?: string;
+          created_at?: string;
+          due_at: string;
+          expires_at: string;
+          followup_rounds?: number;
+          goal: string;
+          id?: string;
+          idempotency_key: string;
+          mentor_id: string;
+          pause_started_at?: string | null;
+          paused_seconds?: number;
+          payload_hash: string;
+          revision?: number;
+          revoked_at?: string | null;
+          service_id: string;
+          status?: string;
+          student_id: string;
+          terms_snapshot: NonNullable<Json>;
+          updated_at?: string;
+        };
+        Update: {
+          consent_version?: string;
+          created_at?: string;
+          due_at?: string;
+          expires_at?: string;
+          followup_rounds?: number;
+          goal?: string;
+          id?: string;
+          idempotency_key?: string;
+          mentor_id?: string;
+          pause_started_at?: string | null;
+          paused_seconds?: number;
+          payload_hash?: string;
+          revision?: number;
+          revoked_at?: string | null;
+          service_id?: string;
+          status?: string;
+          student_id?: string;
+          terms_snapshot?: NonNullable<Json>;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_requests_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+          {
+            foreignKeyName: 'mentor_requests_service_id_fkey';
+            columns: ['service_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_services';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_resource_grants: {
+        Row: {
+          expires_at: string;
+          granted_at: string;
+          id: string;
+          mentor_id: string;
+          operations: string[];
+          policy_version: string;
+          request_id: string;
+          resource_id: string;
+          resource_type: string;
+          revoked_at: string | null;
+          snapshot: Json | null;
+          student_id: string;
+          version_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          expires_at: string;
+          granted_at?: string;
+          id?: string;
+          mentor_id: string;
+          operations?: string[];
+          policy_version?: string;
+          request_id: string;
+          resource_id: string;
+          resource_type: string;
+          revoked_at?: string | null;
+          snapshot?: Json | null;
+          student_id: string;
+          version_id: string;
+        };
+        Update: {
+          expires_at?: string;
+          granted_at?: string;
+          id?: string;
+          mentor_id?: string;
+          operations?: string[];
+          policy_version?: string;
+          request_id?: string;
+          resource_id?: string;
+          resource_type?: string;
+          revoked_at?: string | null;
+          snapshot?: Json | null;
+          student_id?: string;
+          version_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_resource_grants_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+          {
+            foreignKeyName: 'mentor_resource_grants_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'mentor_resource_grants_request_id_student_id_mentor_id_fkey';
+            columns: ['request_id', 'student_id', 'mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id', 'student_id', 'mentor_id'];
+          },
+        ];
+      };
+      mentor_reviews: {
+        Row: {
+          actions: NonNullable<Json>;
+          author_id: string;
+          created_at: string;
+          id: string;
+          idempotency_key: string;
+          outcome: string;
+          request_id: string;
+          rubric: NonNullable<Json>;
+          summary: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          actions?: NonNullable<Json>;
+          author_id: string;
+          created_at?: string;
+          id?: string;
+          idempotency_key: string;
+          outcome: string;
+          request_id: string;
+          rubric: NonNullable<Json>;
+          summary: string;
+        };
+        Update: {
+          actions?: NonNullable<Json>;
+          author_id?: string;
+          created_at?: string;
+          id?: string;
+          idempotency_key?: string;
+          outcome?: string;
+          request_id?: string;
+          rubric?: NonNullable<Json>;
+          summary?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_reviews_request_id_fkey';
+            columns: ['request_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_requests';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_services: {
+        Row: {
+          active: boolean;
+          currency: string;
+          deliverables: string;
+          id: string;
+          kind: string;
+          mentor_id: string;
+          price_minor: number;
+          summary: string;
+          turnaround_hours: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          active?: boolean;
+          currency?: string;
+          deliverables: string;
+          id?: string;
+          kind: string;
+          mentor_id: string;
+          price_minor?: number;
+          summary: string;
+          turnaround_hours: number;
+        };
+        Update: {
+          active?: boolean;
+          currency?: string;
+          deliverables?: string;
+          id?: string;
+          kind?: string;
+          mentor_id?: string;
+          price_minor?: number;
+          summary?: string;
+          turnaround_hours?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_services_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_slots: {
+        Row: {
+          cancelled_at: string | null;
+          ends_at: string;
+          id: string;
+          mentor_id: string;
+          rule_id: string | null;
+          starts_at: string;
+          timezone: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          cancelled_at?: string | null;
+          ends_at: string;
+          id?: string;
+          mentor_id: string;
+          rule_id?: string | null;
+          starts_at: string;
+          timezone: string;
+        };
+        Update: {
+          cancelled_at?: string | null;
+          ends_at?: string;
+          id?: string;
+          mentor_id?: string;
+          rule_id?: string | null;
+          starts_at?: string;
+          timezone?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_slots_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+          {
+            foreignKeyName: 'mentor_slots_rule_id_fkey';
+            columns: ['rule_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_availability_rules';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      mentor_student_clearances: {
+        Row: {
+          approved_until: string;
+          guardian_required: boolean;
+          policy_version: string;
+          reason: string;
+          reviewed_by: string;
+          student_id: string;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          approved_until: string;
+          guardian_required: boolean;
+          policy_version?: string;
+          reason: string;
+          reviewed_by: string;
+          student_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          approved_until?: string;
+          guardian_required?: boolean;
+          policy_version?: string;
+          reason?: string;
+          reviewed_by?: string;
+          student_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       nomination_routes: {
         Row: {
           description: string;
@@ -5586,6 +6370,21 @@ export type Database = {
         Returns: Json;
       };
       import_catalog_bundle: { Args: { p_bundle: Json }; Returns: Json };
+      mentor_actor: { Args: Record<PropertyKey, never>; Returns: Json };
+      mentor_bookings_view: { Args: Record<PropertyKey, never>; Returns: Json };
+      mentor_case_context: { Args: { p_case: string }; Returns: Json };
+      mentor_command: { Args: { p_input: Json }; Returns: Json };
+      mentor_directory: { Args: Record<PropertyKey, never>; Returns: Json };
+      mentor_evidence_access: { Args: { p_id: string }; Returns: Json };
+      mentor_resource: {
+        Args: { p_grant: string; p_operation?: string };
+        Returns: Json;
+      };
+      mentor_retention_candidates: {
+        Args: Record<PropertyKey, never>;
+        Returns: Json;
+      };
+      mentor_retention_finish: { Args: { p_id: string }; Returns: undefined };
       mx_claim_ai_request: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
