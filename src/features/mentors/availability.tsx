@@ -117,8 +117,13 @@ export function MentorAvailability({
       {(data.blackouts ?? []).map((b) => (
         <article key={b.id} className="mentor-panel">
           <p>
-            {new Date(b.starts_at).toLocaleString(locale)} —{' '}
-            {new Date(b.ends_at).toLocaleString(locale)}
+            {new Date(b.starts_at).toLocaleString(locale, {
+              timeZone: data.profile?.timezone ?? 'UTC',
+            })}{' '}
+            —{' '}
+            {new Date(b.ends_at).toLocaleString(locale, {
+              timeZone: data.profile?.timezone ?? 'UTC',
+            })}
           </p>
           <button
             disabled={busy}
@@ -136,8 +141,14 @@ export function MentorAvailability({
           .map((s) => (
             <div className="mentor-service" key={s.id}>
               <p>
-                {new Date(s.starts_at).toLocaleString(locale)} —{' '}
-                {new Date(s.ends_at).toLocaleString(locale)} · {s.timezone}
+                {new Date(s.starts_at).toLocaleString(locale, {
+                  timeZone: s.timezone,
+                })}{' '}
+                —{' '}
+                {new Date(s.ends_at).toLocaleString(locale, {
+                  timeZone: s.timezone,
+                })}{' '}
+                · {s.timezone}
               </p>
               <button
                 disabled={busy}

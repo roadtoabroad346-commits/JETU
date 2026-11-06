@@ -2865,6 +2865,7 @@ fieldset.showcase-layout {
   resize: vertical;
 }
 .mentor-network .mentor-check {
+  min-height: 44px;
   display: flex;
   align-items: flex-start;
   gap: 12px;

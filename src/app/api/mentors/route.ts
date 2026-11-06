@@ -166,10 +166,7 @@ export async function GET(request: Request) {
         .select('id,request_id,kind,actor_id,created_at')
         .order('created_at', { ascending: false })
         .limit(200),
-      client
-        .from('mentor_bookings')
-        .select('id,request_id,slot_id,state')
-        .limit(100),
+      client.rpc('mentor_bookings_view'),
       client
         .from('mentor_evidence')
         .select('id,mentor_id,claim,state,retain_until')
@@ -253,6 +250,7 @@ export async function GET(request: Request) {
           resource: a.id,
           version: a.id,
           title: `${a.program_title_snapshot} · v${a.version}`,
+          expectedVersion: a.version,
           download: false,
         })),
       ],

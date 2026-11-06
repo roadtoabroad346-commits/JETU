@@ -380,6 +380,16 @@ export function MentorAdmin({
   return (
     <section className="mentor-stack">
       <h2>{t.admin}</h2>
+      {data.actor.stats && (
+        <dl className="mentor-rubric">
+          {Object.entries(data.actor.stats).map(([key, value]) => (
+            <div key={key}>
+              <dt>{label(t, key)}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {data.actor.verifier && (
         <>
           <h3>{t.queue}</h3>

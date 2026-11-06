@@ -6371,6 +6371,7 @@ export type Database = {
       };
       import_catalog_bundle: { Args: { p_bundle: Json }; Returns: Json };
       mentor_actor: { Args: Record<PropertyKey, never>; Returns: Json };
+      mentor_bookings_view: { Args: Record<PropertyKey, never>; Returns: Json };
       mentor_case_context: { Args: { p_case: string }; Returns: Json };
       mentor_command: { Args: { p_input: Json }; Returns: Json };
       mentor_directory: { Args: Record<PropertyKey, never>; Returns: Json };

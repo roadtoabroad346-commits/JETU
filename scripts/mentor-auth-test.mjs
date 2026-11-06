@@ -343,7 +343,9 @@ try {
     'off-platform contact request blocked',
   );
   // Actual Storage HTTP: grant checks never open direct bucket access or signing.
-  const bytes = new TextEncoder().encode('SYNTHETIC private transcript text'),
+  const bytes = new TextEncoder().encode(
+      'SYNTHETIC private transcript text · Әлем',
+    ),
     hash = createHash('sha256').update(bytes).digest('hex'),
     vaultId = randomUUID();
   const vault = data(
@@ -616,6 +618,31 @@ try {
   const studentContext = await context(a),
     mentorContext = await context(x),
     page = await studentContext.newPage();
+  const ownerPreview = await studentContext.request.get(
+    `http://127.0.0.1:3202/api/mentors/preview?type=writing&version=${version.id}`,
+  );
+  check(
+    ownerPreview.status() === 200 &&
+      (await ownerPreview.text()).includes(writing.content),
+    'owner can preview the exact immutable writing version before sharing',
+  );
+  check(
+    (
+      await mentorContext.request.get(
+        `http://127.0.0.1:3202/api/mentors/preview?type=writing&version=${version.id}`,
+      )
+    ).status() === 403,
+    'an assigned mentor cannot use the owner-only pre-consent preview',
+  );
+  const ownerFilePreview = await studentContext.request.get(
+    `http://127.0.0.1:3202/api/mentors/preview?type=vault&version=${vaultId}`,
+  );
+  check(
+    ownerFilePreview.status() === 200 &&
+      ownerFilePreview.headers()['content-type'].includes('charset=utf-8') &&
+      (await ownerFilePreview.text()) === new TextDecoder().decode(bytes),
+    'owner can preview exact clean Vault bytes before consent',
+  );
   const fileUrl = `http://127.0.0.1:3202/api/mentors/file?grant=${fileGrant.id}`;
   const preview = await mentorContext.request.get(fileUrl);
   check(

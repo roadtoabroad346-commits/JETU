@@ -70,7 +70,7 @@ function workspace(): Workspace {
 async function fixture(page: Page, data = workspace(), mentors = [mentor]) {
   const posts: Command[] = [];
   let failure = false;
-  await page.route('**/api/mentors*', async (route) => {
+  await page.context().route(/\/api\/mentors(?:[/?].*)?$/, async (route) => {
     const url = new URL(route.request().url());
     if (route.request().method() === 'POST') {
       const body = route.request().postDataJSON() as Command;
@@ -132,6 +132,11 @@ async function fixture(page: Page, data = workspace(), mentors = [mentor]) {
       }
       return route.fulfill({ json: { data: { id: R } } });
     }
+    if (url.pathname.endsWith('/preview'))
+      return route.fulfill({
+        contentType: 'text/plain',
+        body: 'SYNTHETIC exact version one preview',
+      });
     if (url.searchParams.get('directory'))
       return route.fulfill({ json: { data: { mentors } } });
     if (url.searchParams.get('case'))
@@ -415,4 +420,70 @@ test('moderator views only case-linked evidence and can freeze access', async ({
   await expect(
     page.getByRole('button', { name: t.saveDecision, exact: true }),
   ).toHaveCount(0);
+});
+
+test('selected writing version can be previewed before any consent is granted', async ({
+  page,
+}) => {
+  const f = await fixture(page),
+    t = mentorCopy.en;
+  await page.goto(
+    `/tests/journey/fixture.html?mentoring=1&query=${encodeURIComponent(`mentor=${X}&service=${S}`)}`,
+  );
+  const [popup] = await Promise.all([
+    page.waitForEvent('popup'),
+    page
+      .getByRole('link', {
+        name: `${t.preview} · SYNTHETIC essay · v1`,
+        exact: true,
+      })
+      .click(),
+  ]);
+  await expect(popup.locator('body')).toContainText(
+    'SYNTHETIC exact version one preview',
+  );
+  expect(new URL(popup.url()).searchParams.get('version')).toBe(V);
+  expect(f.posts).toHaveLength(0);
+  expect(f.data.grants).toHaveLength(0);
+  await popup.close();
+});
+
+test('booking time is shown in its labelled timezone instead of the browser timezone', async ({
+  page,
+}) => {
+  const data = workspace();
+  data.requests = [
+    {
+      id: R,
+      student_id: A,
+      mentor_id: X,
+      goal: 'SYNTHETIC session context',
+      status: 'accepted',
+      expires_at: '2027-01-01T00:00:00Z',
+      due_at: '2026-12-01T00:00:00Z',
+      revoked_at: null,
+      revision: 2,
+      terms_snapshot: mentor.services[0]!,
+      created_at: '2026-11-06T00:00:00Z',
+    },
+  ];
+  data.bookings = [
+    {
+      id: G,
+      request_id: R,
+      slot_id: S,
+      state: 'confirmed_link_pending',
+      starts_at: '2026-12-01T05:00:00Z',
+      ends_at: '2026-12-01T06:00:00Z',
+      timezone: 'Asia/Almaty',
+    },
+  ];
+  await fixture(page, data);
+  await page.goto(
+    `/tests/journey/fixture.html?mentoring=1&query=${encodeURIComponent(`request=${R}`)}`,
+  );
+  await expect(page.locator('.mentor-booking-time')).toContainText('10:00');
+  await expect(page.locator('.mentor-booking-time')).toContainText(
+    'Asia/Almaty',
+  );
 });

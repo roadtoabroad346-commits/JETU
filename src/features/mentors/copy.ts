@@ -1,5 +1,9 @@
 import type { Locale } from '@/lib/i18n/messages';
 const en = {
+  verificationPending: 'Applications awaiting human review',
+  reportsPending: 'Open safety cases',
+  overdueRequests: 'Reviews past their estimate',
+  expiredConsents: 'Expired access windows',
   materialWriting: 'Writing checkpoint',
   materialVault: 'Vault document',
   materialApplication: 'Application snapshot',
@@ -276,6 +280,10 @@ const en = {
 type Copy = typeof en;
 const ru: Copy = {
   ...en,
+  verificationPending: 'Заявки, ожидающие проверки человеком',
+  reportsPending: 'Открытые дела безопасности',
+  overdueRequests: 'Проверки с истёкшим ориентировочным сроком',
+  expiredConsents: 'Истёкшие окна доступа',
   materialWriting: 'Контрольная версия текста',
   materialVault: 'Документ Vault',
   materialApplication: 'Снимок заявки',
@@ -551,6 +559,10 @@ const ru: Copy = {
 };
 const kk: Copy = {
   ...ru,
+  verificationPending: 'Адамның тексеруін күткен өтінімдер',
+  reportsPending: 'Ашық қауіпсіздік істері',
+  overdueRequests: 'Болжамды мерзімі өткен тексерулер',
+  expiredConsents: 'Мерзімі өткен рұқсаттар',
   materialWriting: 'Мәтіннің бақылау нұсқасы',
   materialVault: 'Vault құжаты',
   materialApplication: 'Өтінім суреті',

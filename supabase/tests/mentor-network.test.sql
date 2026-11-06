@@ -67,6 +67,7 @@ select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000002'
 select is((select count(*)::int from public.mentor_requests),0,'student B cannot read A requests');
 select is((select count(*)::int from public.mentor_comments),0,'student B cannot read A comments');
 select is((select count(*)::int from public.mentor_evidence),0,'student cannot view identity evidence');
+select is(public.mentor_actor()->'stats','{}'::jsonb,'ordinary students cannot query private operational counts');
 select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000003',true);
 select is((public.mentor_resource((select v from mentor_ids where k='grant'))->>'content'),'My 🙂 essay version one','assigned mentor X reads exact consented v1');
 select is((select count(*)::int from public.writing_drafts),0,'assignment never opens direct draft table');
@@ -139,6 +140,7 @@ select lives_ok($$select public.mentor_command(jsonb_build_object('op','block','
 select is((select count(*)::int from public.mentor_blocks),1,'block persists');
 select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000007',true);
 select is((select count(*)::int from public.mentor_reports),1,'safeguarding moderator sees report');
+select is((public.mentor_actor()->'stats'->>'reportsPending')::int,1,'moderator operational count includes open cases without exposing student identities');
 select is(public.mentor_case_context((select id from public.mentor_reports limit 1))->>'body','Explain this specific experience.','moderator reads only the comment explicitly referenced by the case');
 select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
 select throws_ok($$select public.mentor_case_context(gen_random_uuid())$$,'42501',null,'verified mentor has no moderation evidence access');
@@ -183,6 +185,12 @@ select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001'
 select lives_ok($$select public.mentor_command(jsonb_build_object('op','book','request',(select v from mentor_ids where k='vaultRequest'),'slot',(select v from mentor_ids where k='slot'),'key','22110000-0000-4000-8000-000000000001'))$$,'student explicitly books within consent window');
 select lives_ok($$select public.mentor_command(jsonb_build_object('op','book','request',(select v from mentor_ids where k='vaultRequest'),'slot',(select v from mentor_ids where k='slot'),'key','22110000-0000-4000-8000-000000000001'))$$,'uncertain booking retry is idempotent');
 select is((select count(*)::int from public.mentor_bookings),1,'booking retry does not duplicate');
+select is(jsonb_array_length(public.mentor_bookings_view()),1,'student can retrieve the booked session after it disappears from public slots');
+select is(public.mentor_bookings_view()->0->>'timezone','Asia/Almaty','booking projection preserves the actual scheduling timezone');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000002',true);
+select is(jsonb_array_length(public.mentor_bookings_view()),0,'other student cannot retrieve private booking times');
+select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
+
 reset role;
 select throws_ok($$update public.mentor_requests set mentor_id='22000000-0000-4000-8000-000000000003' where id=(select v from mentor_ids where k='vaultRequest')$$,'23503',null,'request reassignment cannot preserve old-mentor grants');
 update public.mentor_student_clearances set approved_until=now()-interval '1 second' where student_id='22000000-0000-4000-8000-000000000001';
@@ -221,7 +229,9 @@ insert into public.application_checklist_items(application_id,user_id,title,orig
 insert into public.mentor_services(id,mentor_id,kind,summary,deliverables,turnaround_hours) values('22310000-0000-4000-8000-000000000001','22000000-0000-4000-8000-000000000004','readiness','SYNTHETIC readiness service','Checklist, provenance and next actions',24);
 set local role authenticated;
 select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000001',true);
-insert into mentor_ids values('readinessRequest',(public.mentor_command(jsonb_build_object('op','create','service','22310000-0000-4000-8000-000000000001','goal','Review the selected application checklist','expires',now()+interval '7 days','consent',true,'policy','mentor-consent-v1','items','[{"type":"application","resource":"22300000-0000-4000-8000-000000000001","version":"22300000-0000-4000-8000-000000000001","download":false}]'::jsonb,'key',gen_random_uuid()))->>'id')::uuid);
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','create','service','22310000-0000-4000-8000-000000000001','goal','Review stale selected application version','expires',now()+interval '7 days','consent',true,'policy','mentor-consent-v1','items','[{"type":"application","resource":"22300000-0000-4000-8000-000000000001","version":"22300000-0000-4000-8000-000000000001","download":false,"expectedVersion":2}]'::jsonb,'key',gen_random_uuid()))$$,'40001',null,'application consent rejects a stale or forged numeric version');
+select throws_ok($$select public.mentor_command(jsonb_build_object('op','create','service','22310000-0000-4000-8000-000000000001','goal','Review an unpinned application version','expires',now()+interval '7 days','consent',true,'policy','mentor-consent-v1','items','[{"type":"application","resource":"22300000-0000-4000-8000-000000000001","version":"22300000-0000-4000-8000-000000000001","download":false}]'::jsonb,'key',gen_random_uuid()))$$,'40001',null,'application consent requires an explicit numeric version');
+insert into mentor_ids values('readinessRequest',(public.mentor_command(jsonb_build_object('op','create','service','22310000-0000-4000-8000-000000000001','goal','Review the selected application checklist','expires',now()+interval '7 days','consent',true,'policy','mentor-consent-v1','items','[{"type":"application","resource":"22300000-0000-4000-8000-000000000001","version":"22300000-0000-4000-8000-000000000001","download":false,"expectedVersion":1}]'::jsonb,'key',gen_random_uuid()))->>'id')::uuid);
 insert into mentor_ids select 'readinessGrant',id from public.mentor_resource_grants where request_id=(select v from mentor_ids where k='readinessRequest');
 select set_config('request.jwt.claim.sub','22000000-0000-4000-8000-000000000004',true);
 select is(public.mentor_resource((select v from mentor_ids where k='readinessGrant'))->'snapshot'->>'state','preparing','readiness snapshot carries the selected application state');

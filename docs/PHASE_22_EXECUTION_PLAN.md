@@ -22,4 +22,5 @@ approval exists; self-declared age cannot authorize contact. No paid checkout, r
 mentor seed, synthetic credentials, external calendar or notification service.
 
 Release remains PARTIAL until real human verification, selected isolated staging,
-actual authenticated multi-identity tests and complete acceptance evidence exist.
+hosted staging acceptance and complete operational evidence exist. Disposable local
+Supabase CI already proves actual authenticated multi-identity tests; see the QA log.

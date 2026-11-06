@@ -44,7 +44,10 @@ export async function GET(request: Request) {
     checked(await client.rpc('mentor_resource', args));
     return new Response(bytes, {
       headers: {
-        'Content-Type': descriptor.mime,
+        'Content-Type':
+          descriptor.mime === 'text/plain'
+            ? 'text/plain; charset=utf-8'
+            : descriptor.mime,
         'Content-Length': String(object.size),
         'Content-Disposition': download
           ? 'attachment; filename="review-material"'

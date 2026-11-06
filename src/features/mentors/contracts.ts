@@ -35,8 +35,10 @@ const item = z
     resource: uuid,
     version: uuid,
     download: z.boolean().default(false),
+    expectedVersion: z.number().int().positive().optional(),
   })
-  .strict();
+  .strict()
+  .refine((v) => v.type !== 'application' || v.expectedVersion !== undefined);
 export const commandSchema = z.discriminatedUnion('op', [
   z
     .object({
@@ -335,6 +337,7 @@ export type Profile = {
   revision: number;
 };
 export type Material = {
+  expectedVersion?: number;
   type: 'writing' | 'vault' | 'application';
   resource: string;
   version: string;
@@ -366,11 +369,17 @@ export type Workspace = {
       resource: string;
       version: string;
       download: boolean;
+      expectedVersion?: number;
     }[];
     consent_until: string;
     revision: number;
   }[];
-  actor: { id: string; verifier: boolean; moderator: boolean };
+  actor: {
+    id: string;
+    verifier: boolean;
+    moderator: boolean;
+    stats?: Record<string, number>;
+  };
   profile: Profile | null;
   clearance: { approved_until: string } | null;
   requests: RequestRow[];
@@ -399,6 +408,9 @@ export type Workspace = {
     request_id: string;
     slot_id: string;
     state: string;
+    starts_at?: string;
+    ends_at?: string;
+    timezone?: string;
   }[];
   evidence: {
     id: string;

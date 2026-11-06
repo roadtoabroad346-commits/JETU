@@ -216,9 +216,14 @@ export function MentorWorkspace({
                         ?.slots.map((s) => (
                           <div className="mentor-actions" key={s.id}>
                             <time>
-                              {new Date(s.starts_at).toLocaleString(locale)} —{' '}
-                              {new Date(s.ends_at).toLocaleTimeString(locale)} ·{' '}
-                              {s.timezone}
+                              {new Date(s.starts_at).toLocaleString(locale, {
+                                timeZone: s.timezone,
+                              })}{' '}
+                              —{' '}
+                              {new Date(s.ends_at).toLocaleTimeString(locale, {
+                                timeZone: s.timezone,
+                              })}{' '}
+                              · {s.timezone}
                             </time>
                             <button
                               disabled={busy}
@@ -240,6 +245,18 @@ export function MentorWorkspace({
                       .filter((b) => b.request_id === r.id)
                       .map((b) => (
                         <div className="mentor-actions" key={b.id}>
+                          {b.starts_at && b.ends_at && b.timezone && (
+                            <p className="mentor-booking-time">
+                              {new Date(b.starts_at).toLocaleString(locale, {
+                                timeZone: b.timezone,
+                              })}{' '}
+                              —{' '}
+                              {new Date(b.ends_at).toLocaleTimeString(locale, {
+                                timeZone: b.timezone,
+                              })}{' '}
+                              · {b.timezone}
+                            </p>
+                          )}
                           <p>
                             {b.state === 'cancelled'
                               ? t.cancelled
@@ -412,6 +429,9 @@ function RequestWizard({
               resource: i.resource,
               version: i.version,
               download: i.download,
+              ...(i.type === 'application'
+                ? { expectedVersion: i.expectedVersion }
+                : {}),
             })),
             consent: true,
             policy: 'mentor-consent-v1',
@@ -459,6 +479,14 @@ function RequestWizard({
                         ? t.materialVault
                         : t.materialApplication}
                   </label>
+                  <a
+                    className="ui-button ui-button--secondary"
+                    target="_blank"
+                    rel="noreferrer"
+                    href={`/api/mentors/preview?type=${m.type}&version=${m.version}&locale=${locale}${m.expectedVersion ? `&expectedVersion=${m.expectedVersion}` : ''}`}
+                  >
+                    {t.preview} · {m.title}
+                  </a>
                   {m.type === 'vault' &&
                     items.some((i) => i.version === m.version) && (
                       <label className="mentor-check">
@@ -509,6 +537,9 @@ function RequestWizard({
                     resource: i.resource,
                     version: i.version,
                     download: i.download,
+                    ...(i.type === 'application'
+                      ? { expectedVersion: i.expectedVersion }
+                      : {}),
                   })),
                   expires: new Date(expires).toISOString(),
                   revision: draft?.revision ?? 0,

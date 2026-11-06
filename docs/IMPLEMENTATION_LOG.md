@@ -630,3 +630,14 @@ with the correct ownership cascade. The regression now includes a reported comme
 Vault metadata and cleared Auth claims. All eight native suites pass **267 assertions**
 after a clean **48-migration** replay. The final CI test keeps both real Auth deletion
 assertions; no failure is skipped or masked. Current remote outcomes live in PR #12.
+
+## 2026-11-06 — final consent preview and booking context
+
+Commit aef372f / CI 42182652354 passed all three jobs, including 35 actual Auth,
+Storage and browser checks and both GoTrue erasure cases. The fifth forward migration
+pins application consent to the selected numeric version and preserves immutable
+idempotent receipts. Added owner-only pre-consent previews, participant-only booked
+slot times, correct labelled timezone rendering and role-limited operational counts.
+Final local source: 163 unit/integration tests/build, 274 SQL assertions across eight
+suites/49 clean migrations and 27 component browser journeys. Final-head remote
+CI/preview evidence is maintained in draft PR #12; no hosted migration or promotion.
