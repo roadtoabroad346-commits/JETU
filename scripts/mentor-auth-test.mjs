@@ -742,6 +742,33 @@ try {
     ),
     'suspension prevents new assignments',
   );
+  data(await admin.auth.admin.deleteUser(X));
+  check(
+    data(
+      await a
+        .from('mentor_comments')
+        .select('author_id')
+        .eq('request_id', request.id)
+        .single(),
+    ).author_id === X,
+    'real mentor Auth deletion preserves student-owned review attribution',
+  );
+  check(
+    Boolean(
+      (await x.rpc('mentor_resource', { p_grant: secondGrant.id })).error,
+    ),
+    'already-issued JWT cannot read work after real Auth deletion',
+  );
+  if (paths.length) {
+    data(await admin.storage.from('student-vault').remove(paths));
+    paths.length = 0;
+  }
+  data(await admin.auth.admin.deleteUser(A));
+  check(
+    data(await admin.from('mentor_requests').select('id').eq('student_id', A))
+      .length === 0,
+    'real student Auth deletion erases owned request and consent data',
+  );
   console.log(
     `MENTOR AUTH/STORAGE/BROWSER: ${checks} checks passed; synthetic disposable identities only.`,
   );
@@ -752,7 +779,6 @@ try {
     data(await admin.storage.from('student-vault').remove(paths));
   if (evidencePaths.length)
     data(await admin.storage.from('mentor-evidence').remove(evidencePaths));
-  // Reviewer/author FKs retain accountability. Disposable DB is destroyed by the CI
-  // teardown; do not delete individual users through cyclic audit references.
+  // Remaining synthetic identities live only on the disposable CI runner.
   for (const client of clients) await client.auth.signOut();
 }

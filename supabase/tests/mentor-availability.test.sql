@@ -43,11 +43,13 @@ set local role service_role;
 select is(jsonb_array_length(public.mentor_retention_candidates()),1,'retention worker sees only expired evidence');
 select throws_ok($$select public.mentor_retention_finish('22220000-0000-4000-8000-000000000001')$$,'23514',null,'metadata cannot claim purge before Storage removal');
 reset role;
-delete from storage.objects where bucket_id='mentor-evidence' and name='22200000-0000-4000-8000-000000000001/22220000-0000-4000-8000-000000000001';
+-- A distinct already-absent object tests completion without bypassing Storage's
+-- protect_delete guard. Actual API removal is exercised in mentor-auth-test.mjs.
+insert into public.mentor_evidence(id,mentor_id,claim,object_path,mime,byte_size,state,retain_until) values('22220000-0000-4000-8000-000000000002','22200000-0000-4000-8000-000000000001','SYNTHETIC already-absent evidence','22200000-0000-4000-8000-000000000001/22220000-0000-4000-8000-000000000002','application/pdf',10,'reviewed',now()-interval '1 day');
 set local role service_role;
-select lives_ok($$select public.mentor_retention_finish('22220000-0000-4000-8000-000000000001')$$,'worker redacts metadata after actual object removal');
-select is(jsonb_array_length(public.mentor_retention_candidates()),0,'purged evidence is not reprocessed');
+select lives_ok($$select public.mentor_retention_finish('22220000-0000-4000-8000-000000000002')$$,'worker redacts metadata after actual object removal');
+select is(jsonb_array_length(public.mentor_retention_candidates()),1,'purged evidence is not reprocessed; blocked object remains pending');
 reset role;
-select is((select state from public.mentor_evidence where id='22220000-0000-4000-8000-000000000001'),'purged','purge state persists');
+select is((select state from public.mentor_evidence where id='22220000-0000-4000-8000-000000000002'),'purged','purge state persists');
 select * from finish();
 rollback;

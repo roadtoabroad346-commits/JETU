@@ -604,3 +604,19 @@ only selected application snapshots; no CRM/Roadmap writes occur from a review.
 Local source check passes 163 tests/build; seven SQL suites pass 241 assertions;
 25 component browser scenarios pass. Final remote/preview evidence belongs in
 PHASE_22_QA.md. No hosted migration, staff grant, real mentor approval or Phase 23.
+
+## 2026-11-06 — account lifecycle and provider-specific SQL regression
+
+Added the third forward migration and 24 SQL regression assertions: historical
+pseudonymous mentor/author/reviewer references no longer block real Auth deletion;
+private bio/claims are redacted, grants/slots/bookings revoked, evidence expired and
+stale JWT commands denied. Student-owned feedback remains attributable; student
+account deletion cascades as before. No real Auth account or blob was deleted.
+
+Follow-up CI 42179051313 passed 32 real Auth/Storage/browser checks. Its database
+job exposed Supabase's direct Storage deletion guard in the SQL test fixture. The
+positive fixture now represents an already-absent object; real Storage-API removal
+remains covered by the separate CI test. No guard is bypassed. Current local gates:
+163 unit/integration tests/build, 265 SQL assertions over eight suites/47 migrations,
+25 component journeys, 96 production-browser passes/four inherited configuration
+skips. Final remote SHA, CI and preview evidence is attached to PR #12.

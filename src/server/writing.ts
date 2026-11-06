@@ -23,7 +23,7 @@ export function checked<T>(result: {
     throw new WritingError(
       code === '42501'
         ? 'FORBIDDEN'
-        : code === '40001' || code === '23505'
+        : code === '40001' || code === '40P01' || code === '23505'
           ? 'CONFLICT'
           : code === 'P0001'
             ? 'RATE_LIMITED'

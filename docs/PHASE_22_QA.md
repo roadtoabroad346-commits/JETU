@@ -18,8 +18,8 @@ Local release evidence for the follow-up implementation:
 - `npm run check`: PASS, formatting, ESLint, strict types, **163 unit/integration
   tests** and production build. `git diff --check`: PASS. Added-line secret pattern
   scan passed before publication; no passwords, privileged keys or auth state committed.
-- Native PostgreSQL 17.11 clean replay: **46 migrations**, **seven pgTAP suites /
-  241 assertions**. The 145 new mentor assertions cover two students, two verified
+- Native PostgreSQL 17.11 clean replay: **47 migrations**, **eight pgTAP suites /
+  265 assertions**. The 169 new mentor assertions cover two students, two verified
   fixture mentors, unverified applicant, RLS/Storage policy denial, version/operation
   scope, Unicode anchors, expiry/revoke/suspension, consent/clearance, status CAS,
   private drafts, moderation context/freeze, readiness privacy/provenance, scheduling,
@@ -53,10 +53,14 @@ Open acceptance gates (explicit, not silently omitted):
 
 1. A selected, isolated authorized staging database and configured preview environment;
    real human staff/mentor evidence review and guardian/school policy operations.
-2. Final exact-source CI and preview checks after the follow-up migration. The initial
-   commit `41f3f96` passed all three jobs in CI 42176315716, including **25 real
-   GoTrue/REST/Storage/Next/browser checks** with two students, two verified mentor
-   fixtures, an applicant and distinct staff roles. Newer checks must pass separately.
+2. Final remote outcomes are linked to the current head in draft PR #12. Initial CI
+   42176315716 passed all three jobs (25 actual Auth/Storage/browser checks). Follow-up
+   CI 42179051313 passed **32 actual Auth/Storage/browser checks**; its SQL fixture
+   attempted a direct Storage metadata deletion blocked by Supabase's guard. The test
+   now uses a distinct already-absent object for the positive completion case, and
+   keeps actual physical deletion in the successful Storage-API test. No provider
+   guard or failing security assertion was disabled. Current head adds actual Auth
+   deletion tests and must pass its own complete CI.
 3. Production evidence purge scheduling, actual Vault malware scanner, Storage restore
    drill, moderation staffing/response times and operational privacy review. The local
    retention worker is executable; no hosted schedule or real identity deletion is claimed.
@@ -75,6 +79,22 @@ recover without consent. Reinstatement can require a fresh evidence cycle. Revie
 source URLs must match an explicitly shared application source; arbitrary off-platform
 contact links cannot be hidden as references.
 
+The third forward migration `20261106071826_phase_22_account_lifecycle.sql` fixes
+account deletion without deleting another student's feedback. Historical pseudonymous
+author/reviewer IDs are separate from current Auth membership. Auth deletion revokes
+access, redacts mentor bio/claims, cancels availability/bookings and expires evidence;
+old JWTs cannot reapply or retrieve materials. Twenty-four dedicated SQL assertions
+cover deletion of staff, mentor and student, preserved authorship and prior Writing
+cascades. A null resource operation is explicitly denied. No real identity was erased.
+
 ## Exact-source release evidence
 
-To be updated after final regression, remote CI, remote SHA and preview checks.
+Branch: `codex/phase22-mentor-network`. Draft PR:
+https://github.com/roadtoabroad346-commits/JETU/pull/12 . The PR body and per-head
+checks hold the exact final commit, CI run/job links, passed test counts and preview
+URL so these do not become circular commit metadata. Local final source check passed
+163 tests/build; production Chromium passed 96 with four inherited configured-Auth
+skips; all 25 component journeys passed. No hosted migration or production promotion.
+The selected Vercel project is `jetu` / Impact hub. Its preview environment has no
+Supabase configuration, so hosted private APIs must truthfully fail closed. Actual
+Auth/Storage acceptance is against disposable local Supabase in CI, not hosted staging.

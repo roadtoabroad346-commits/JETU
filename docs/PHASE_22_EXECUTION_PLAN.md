@@ -9,8 +9,8 @@ Scope: Verified Mentor Network and Review Workflow. Stop before Phase 23.
 - [x] Add anchored human comments, rubrics, student dispositions, application readiness and summaries.
 - [x] Add internal booking, capacity/concurrency guards, reports/block and moderation.
 - [x] Connect localized student/mentor/admin screens, Writing Studio and safety controls.
-- [ ] Run negative SQL/RLS, unit, browser/axe/mobile, full regression and generated types.
-- [ ] Commit/push, draft PR, exact-source CI and preview checks; record unresolved gates.
+- [x] Run negative SQL/RLS, unit, browser/axe/mobile, full regression and generated types.
+- [x] Commit/push, draft PR, exact-source CI and preview checks; record unresolved gates.
 
 Security invariants: identity comes from Auth; no client role grants; no self approval;
 each read checks active verified identity, active request, exact version and operation,

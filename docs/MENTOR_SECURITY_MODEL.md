@@ -91,3 +91,14 @@ Rollback: disable mentoring routes and stop issuing grants; preserve private con
 events and existing phases. Do not drop tables or reset a hosted database. Postgres
 metadata backups do not include Storage blobs. Test restoration and physical retention
 operations in a selected staging environment before promotion.
+
+Account lifecycle: live mentor commands and resource/evidence reads also verify that
+Auth membership still exists, because deleting Auth does not invalidate old JWTs.
+Auth deletion revokes assignments, cancels bookings, redacts the mentor bio/claims,
+and expires evidence for the retention worker. A revoked, non-public profile reference
+and pseudonymous historical actor UUIDs preserve student-owned feedback attribution;
+they grant no permissions. These historical audit references deliberately do not
+cascade with Auth membership. Student deletion still cascades through owned requests,
+grants, comments and Writing data. Physical Storage cleanup precedes Auth deletion in
+the operator workflow; the retention worker never marks a blob purged while its
+Storage record remains. No real account or identity proof was deleted in this task.

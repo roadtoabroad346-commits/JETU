@@ -12,11 +12,13 @@ Implementation files: `src/features/mentors/`, `src/app/api/mentors/`, localized
 `supabase/tests/mentor-network.test.sql`, `tests/{unit,integration,e2e,journey}/mentor*`,
 `scripts/mentor-auth-test.mjs` and the new disposable CI job.
 
-Current local checks: 163 unit/integration tests/build, 241 SQL assertions across
-seven suites / 46 migrations, and 25 synthetic component browser scenarios pass.
+Current local checks: 163 unit/integration tests/build, 265 SQL assertions across
+eight suites / 47 migrations, and 25 synthetic component browser scenarios pass.
 Actual initial-commit CI 42176315716 passed all three jobs and 25 real Auth/Storage/
-Next/browser checks. Follow-up source needs its own final remote check recorded in
-PHASE_22_QA.md. Second migration: `20261106064516_phase_22_availability_retention.sql`.
+Next/browser checks. Follow-up CI also passed 32 actual Auth/Storage/browser checks. Exact current-head
+results and final preview are linked in draft PR #12; read those before continuing. Second migration: `20261106064516_phase_22_availability_retention.sql`; third:
+`20261106071826_phase_22_account_lifecycle.sql`. The third fixes actor-deletion
+references, preserves student-owned feedback and rejects stale deleted-account JWTs.
 Native tooling/logs remain under `/workspace/scratch/phase22-*`; no real student
 content or authentication secrets are stored there.
 
