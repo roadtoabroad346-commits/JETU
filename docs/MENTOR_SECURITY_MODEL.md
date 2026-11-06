@@ -52,6 +52,12 @@ use revision checks. Audit events cannot be edited by browser roles. An initial
 cursor pagination at larger operational volume remains a release gate, not silent
 infinite-scroll support.
 
+Direct Data API RPC calls also validate required numeric CAS revisions, affirmative
+human attestations, complete integer rubric scores, bounded actions and non-null
+Unicode anchor fields in PostgreSQL. Web/API validation alone is not authoritative.
+Studio filters feedback by the selected draft's grant IDs even when a request shares
+multiple drafts; cached client feedback carries its originating draft identity.
+
 All student contact currently requires explicit moderator-recorded safeguarding
 clearance, including unknown-age users and minors. The moderator reviews local
 policy and required guardian/school consent; students cannot self-assert clearance.

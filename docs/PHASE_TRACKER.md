@@ -5,6 +5,13 @@
 old BACKLOG entries below are historical, not evidence of absence. No previous
 whole phase is upgraded. No Phase 23 work or production promotion.
 
+Continuation hardening: direct RPC CAS/rubric/anchor validation and per-draft human
+feedback isolation; local **164 unit/integration tests**, production build and
+**281 SQL assertions / 50 migrations** pass. Hosted staging and human operations
+remain open. Existing Phase 22 source `b1efd61` also has successful three-job CI
+and 38 actual disposable Auth/Storage/browser checks; see the current PR for the
+follow-up source's own results.
+
 # Phase 21 update — 2026-11-05
 
 **Phase 21 PARTIAL:** private Writing Studio extends the existing Phase 19 tables.

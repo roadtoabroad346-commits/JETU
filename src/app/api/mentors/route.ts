@@ -63,7 +63,7 @@ export async function GET(request: Request) {
         checked(
           await client
             .from('mentor_resource_grants')
-            .select('request_id,version_id')
+            .select('id,request_id,version_id')
             .eq('student_id', user.id)
             .eq('resource_type', 'writing')
             .eq('resource_id', writing)
@@ -87,7 +87,11 @@ export async function GET(request: Request) {
           .limit(20),
       ]);
       return successResponse({
-        comments: checked(comments),
+        comments: (checked(comments) ?? []).filter(
+          (comment) =>
+            comment.grant_id === null ||
+            grants.some((grant) => grant.id === comment.grant_id),
+        ),
         reviews: checked(reviews),
         grants,
       });

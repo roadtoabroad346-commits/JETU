@@ -1,5 +1,10 @@
 # Phase 22 precheck — 2026-11-06
 
+Continuation audit: recovered existing Phase 22 head `b1efd61` from GitHub,
+including its draft PR #12 and successful three-job CI run `42186393340`.
+The initial workspace was `main` (`5c30fe0`), not evidence that Phase 22 was absent.
+Continue on `codex/phase22-mentor-network`; preserve its complete implementation.
+
 Baseline: `codex/phase21-writing-studio` at `210fedb`, descendant of published
 main `5c30fe0`. New work: `codex/phase22-mentor-network`. Draft PRs #3–7 preserve
 additional Phase 17–19 UI; their schema is already in this baseline. Do not import

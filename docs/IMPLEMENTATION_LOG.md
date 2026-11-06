@@ -641,3 +641,15 @@ slot times, correct labelled timezone rendering and role-limited operational cou
 Final local source: 163 unit/integration tests/build, 274 SQL assertions across eight
 suites/49 clean migrations and 27 component browser journeys. Final-head remote
 CI/preview evidence is maintained in draft PR #12; no hosted migration or promotion.
+
+# 2026-11-06 — Phase 22 continuation hardening
+
+- Recovered existing Phase 22 branch/PR instead of rebuilding from older main;
+  verified `b1efd61` three-job CI success and 38 actual Auth/Storage/browser checks.
+- Reproduced direct RPC null/CAS/rubric/anchor bypasses in native PostgreSQL;
+  added forward migration `20261106111915_phase_22_rpc_integrity.sql` and seven
+  SQL regressions. Fixed per-draft comment scope and cached Studio feedback identity.
+- Added API/browser regressions and five actual REST rejection checks to the
+  disposable full-stack CI script. Local check: 164 tests/build; native SQL:
+  281 assertions/eight suites and 50 migrations. Final release evidence is in
+  PHASE_22_QA.md and draft PR #12. No hosted mutation or production promotion.

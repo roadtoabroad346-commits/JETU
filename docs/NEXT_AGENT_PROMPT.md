@@ -1,4 +1,27 @@
-# Current handoff — Phase 22, 2026-11-06
+# Continuation handoff — Phase 22, 2026-11-06
+
+Continue on `codex/phase22-mentor-network` / draft PR #12. Recovered existing
+`b1efd61` from the remote; its CI `42186393340` passed all three jobs and 38 actual
+Auth/Storage/browser checks. This continuation fixes direct RPC validation gaps
+and Studio cross-draft/stale feedback. New sixth Phase 22 migration:
+`20261106111915_phase_22_rpc_integrity.sql` (50 total). No hosted migration applied.
+
+Changed implementation: `src/app/api/mentors/route.ts`,
+`src/features/mentors/writing-feedback.tsx`. Regressions:
+`supabase/tests/mentor-network.test.sql`, `tests/integration/mentor-api.test.ts`,
+`tests/journey/mentor-feedback.spec.ts` with its test-only fixture, and five new
+actual REST checks in `scripts/mentor-auth-test.mjs`. `npm run check` passed
+164 tests/build; native PG17.11 passed 281 assertions across eight suites.
+Final browser/CI/preview outcomes: inspect draft PR #12 before continuing.
+Ignored logs/harness live under `/workspace/scratch/phase22-*` and may not survive
+another executor. Native SQL harness is not a full Auth/Storage HTTP runtime.
+
+Keep PARTIAL. No mentor/staff approval, production promotion, phase 23 work or
+paid provisioning. Next safe action: inspect exact-head CI and preview, then
+select isolated authorized hosted staging and establish human safety operations
+before enabling live mentorship. Earlier checkpoints below are historical.
+
+# Previous handoff — Phase 22, 2026-11-06
 
 Branch: `codex/phase22-mentor-network`, based on Phase 21 `210fedb`.
 Read `PHASE_22_QA.md`, `PHASE_22_PRECHECK.md`, `PHASE_22_EXECUTION_PLAN.md` and

@@ -293,6 +293,20 @@ try {
     ),
     'other mentor cannot read identity evidence',
   );
+  for (const revision of [undefined, null, '1']) {
+    const denied = await x.rpc('mentor_command', {
+      p_input: {
+        op: 'transition',
+        request: request.id,
+        revision,
+        state: 'accepted',
+      },
+    });
+    check(
+      denied.error?.code === '23514',
+      `direct REST rejects ${revision === undefined ? 'missing' : revision === null ? 'null' : 'string'} CAS revision`,
+    );
+  }
   await command(x, {
     op: 'transition',
     request: request.id,
@@ -305,6 +319,46 @@ try {
     revision: 2,
     state: 'in_review',
   });
+  check(
+    (
+      await x.rpc('mentor_command', {
+        p_input: {
+          op: 'review',
+          request: request.id,
+          outcome: 'more_work_needed',
+          summary: 'An incomplete rubric must not count as delivered feedback.',
+          rubric: {
+            clarity: null,
+            structure: 3,
+            specificity: 3,
+            evidence: 3,
+            voice: 3,
+            prompt_fit: 3,
+            grammar: 3,
+          },
+          actions: [],
+          key: randomUUID(),
+        },
+      })
+    ).error?.code === '23514',
+    'direct REST rejects null rubric without delivering a review',
+  );
+  check(
+    (
+      await x.rpc('mentor_command', {
+        p_input: {
+          op: 'comment',
+          request: request.id,
+          grant: grant.id,
+          parent: null,
+          body: 'Invalid anchor must not become a persisted suggestion.',
+          anchor: { start: null, end: null, quote: null },
+          key: randomUUID(),
+        },
+      })
+    ).error?.code === '23514',
+    'direct REST rejects malformed anchor without creating a comment',
+  );
   await command(x, {
     op: 'comment',
     request: request.id,

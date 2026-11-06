@@ -12,31 +12,36 @@ export function HumanFeedback({
   draftId: string;
 }) {
   const t = mentorCopy[locale];
-  const [feedback, setFeedback] = useState<{
-      comments: Comment[];
-      reviews: {
-        id: string;
-        request_id: string;
-        summary: string;
-        outcome: string;
-        author_id: string;
-        created_at: string;
-      }[];
+  const [result, setResult] = useState<{
+      draftId: string;
+      feedback: {
+        comments: Comment[];
+        reviews: {
+          id: string;
+          request_id: string;
+          summary: string;
+          outcome: string;
+          author_id: string;
+          created_at: string;
+        }[];
+      };
     } | null>(null),
-    [failed, setFailed] = useState(false);
+    [failedDraft, setFailedDraft] = useState<string | null>(null);
+  const feedback = result?.draftId === draftId ? result.feedback : null,
+    failed = failedDraft === draftId;
   useEffect(() => {
     let active = true;
-    void requestData<NonNullable<typeof feedback>>(
+    void requestData<NonNullable<typeof result>['feedback']>(
       `/api/mentors?writing=${draftId}`,
     )
       .then((v) => {
         if (active) {
-          setFeedback(v);
-          setFailed(false);
+          setResult({ draftId, feedback: v });
+          setFailedDraft(null);
         }
       })
       .catch(() => {
-        if (active) setFailed(true);
+        if (active) setFailedDraft(draftId);
       });
     return () => {
       active = false;

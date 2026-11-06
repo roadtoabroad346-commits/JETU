@@ -2,6 +2,11 @@
 
 Scope: Verified Mentor Network and Review Workflow. Stop before Phase 23.
 
+Continuation acceptance: reject malformed direct Data API commands at the DB
+boundary; keep Studio comments scoped to the selected draft; never display a
+previous draft's human feedback while another draft loads or fails. Add focused
+SQL/API/browser proof, rerun release gates and update the existing draft PR.
+
 - [x] Recover authoritative branch, exact master criteria, previous release evidence.
 - [x] Add private onboarding/evidence, explicit human reviewer membership, audited decisions and safe public projection.
 - [x] Add service catalog, verified mentor discovery, availability and honest empty/error states.

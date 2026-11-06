@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 const rpc = vi.fn();
+const from = vi.fn();
 vi.mock('@/lib/supabase/request', () => ({
   createRequestSupabaseClient: async () => ({ rpc }),
 }));
@@ -11,7 +12,7 @@ vi.mock('@/server/writing', async () => {
   return {
     ...actual,
     writingSession: vi.fn(async () => ({
-      client: { rpc },
+      client: { rpc, from },
       user: { id: 'fixture' },
     })),
   };
@@ -24,7 +25,53 @@ vi.mock('@/lib/supabase/admin', () => ({
   }),
 }));
 describe('mentor API guards', () => {
-  beforeEach(() => rpc.mockReset());
+  beforeEach(() => {
+    rpc.mockReset();
+    from.mockReset();
+  });
+  it('keeps Studio comments scoped to the selected draft in a multi-item request', async () => {
+    const grants = [
+      { id: 'selected-grant', request_id: 'request', version_id: 'v1' },
+    ];
+    const comments = [
+      { id: 'own', grant_id: 'selected-grant', body: 'Selected draft comment' },
+      {
+        id: 'other',
+        grant_id: 'other-grant',
+        body: 'Different private draft comment',
+      },
+      { id: 'general', grant_id: null, body: 'Request-wide clarification' },
+    ];
+    from.mockImplementation((table: string) => {
+      const builder = {
+        select: vi.fn().mockReturnThis(),
+        eq: vi.fn().mockReturnThis(),
+        in: vi.fn().mockReturnThis(),
+        order: vi.fn().mockReturnThis(),
+        limit: vi.fn().mockResolvedValue({
+          data:
+            table === 'mentor_resource_grants'
+              ? grants
+              : table === 'mentor_comments'
+                ? comments
+                : [],
+          error: null,
+        }),
+      };
+      return builder;
+    });
+    const response = await GET(
+      new Request(
+        'https://jetu.test/api/mentors?writing=22000000-0000-4000-8000-000000000001',
+      ),
+    );
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(
+      body.data.comments.map((comment: { id: string }) => comment.id),
+    ).toEqual(['own', 'general']);
+    expect(body.data.grants).toEqual(grants);
+  });
   it('rejects cross-origin mutations before opening a session', async () => {
     expect(
       (
