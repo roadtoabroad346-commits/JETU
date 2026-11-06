@@ -45,6 +45,16 @@ export async function GET(request: Request) {
         });
       return successResponse({ resource });
     }
+    const caseId = params.get('case');
+    if (caseId) {
+      if (!z.uuid().safeParse(caseId).success)
+        return errorResponse('VALIDATION_FAILED');
+      return successResponse({
+        context: checked(
+          await client.rpc('mentor_case_context', { p_case: caseId }),
+        ),
+      });
+    }
     const writing = params.get('writing');
     if (writing) {
       if (!z.uuid().safeParse(writing).success)
@@ -83,6 +93,9 @@ export async function GET(request: Request) {
       });
     }
     const [
+      slots,
+      availabilityRules,
+      blackouts,
       requestDrafts,
       actor,
       profile,
@@ -100,6 +113,22 @@ export async function GET(request: Request) {
       documents,
       applications,
     ] = await Promise.all([
+      client
+        .from('mentor_slots')
+        .select('id,starts_at,ends_at,timezone,cancelled_at')
+        .eq('mentor_id', user.id)
+        .order('starts_at')
+        .limit(200),
+      client
+        .from('mentor_availability_rules')
+        .select('*')
+        .eq('mentor_id', user.id)
+        .limit(100),
+      client
+        .from('mentor_blackouts')
+        .select('*')
+        .eq('mentor_id', user.id)
+        .limit(100),
       client
         .from('mentor_request_drafts')
         .select('*')
@@ -160,14 +189,14 @@ export async function GET(request: Request) {
       client
         .from('vault_versions')
         .select(
-          'id,document_id,state,vault_documents!vault_versions_document_id_user_id_fkey(display_name,category,sensitivity)',
+          'id,document_id,sequence,state,vault_documents!vault_versions_document_id_user_id_fkey(display_name,category,sensitivity)',
         )
         .eq('user_id', user.id)
         .eq('state', 'available')
         .limit(100),
       client
         .from('applications')
-        .select('id,program_title_snapshot')
+        .select('id,program_title_snapshot,version')
         .eq('user_id', user.id)
         .is('archived_at', null)
         .limit(100),
@@ -176,6 +205,9 @@ export async function GET(request: Request) {
     const materialDocs = checked(documents) ?? [];
     const materialApps = checked(applications) ?? [];
     return successResponse({
+      slots: checked(slots),
+      availabilityRules: checked(availabilityRules),
+      blackouts: checked(blackouts),
       requestDrafts: checked(requestDrafts),
       actor: checked(actor),
       profile: checked(profile),
@@ -213,14 +245,14 @@ export async function GET(request: Request) {
             type: 'vault',
             resource: v.document_id,
             version: v.id,
-            title: v.vault_documents?.display_name ?? 'Document',
+            title: `${v.vault_documents?.display_name ?? 'Document'} · v${v.sequence}`,
             download: false,
           })),
         ...materialApps.map((a) => ({
           type: 'application',
           resource: a.id,
           version: a.id,
-          title: a.program_title_snapshot,
+          title: `${a.program_title_snapshot} · v${a.version}`,
           download: false,
         })),
       ],

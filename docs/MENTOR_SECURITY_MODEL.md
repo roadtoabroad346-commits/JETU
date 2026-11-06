@@ -20,8 +20,9 @@ expires in 15 minutes; no browser SELECT or signed-link policy exists. Applicant
 verifier can fetch a guarded attachment proxy before retention expiry. Students and
 moderators cannot see raw identity evidence. Collect redacted minimum necessary proof;
 new evidence expires after 30 days, reviewed evidence after at most seven days.
-Expired access is enforced now; physical purge scheduling and restore remain operator
-release gates. Evidence is treated as a potentially hostile attachment; no malware
+Expired access is enforced now. A service-only candidate/finish contract and guarded
+local retention rehearsal remove Storage objects before redacting metadata. Production
+purge scheduling and restore remain operator release gates. Evidence is treated as a potentially hostile attachment; no malware
 scan or legal KYC certification is claimed. A human verifier must review identity,
 relevant claims, code of conduct and evidence before attesting. Public verified
 summary is distinct from self-declared expertise. Decisions preserve actor/reason/time.
@@ -59,24 +60,32 @@ communication is request-bound, rate-limited, plain text and moderatable, with
 coarse contact filtering plus report/block/revoke. Filtering cannot detect every
 obfuscated invitation; an accountable moderation operation remains necessary.
 Reports have a private new/triaged/investigating/actioned/closed/appealed lifecycle.
+A moderator can fetch only the specifically reported comment, with an access event,
+and freeze a case-linked mentor. A verifier can require fresh evidence after a
+suspension; old revoked grants never revive.
 Blocking revokes all assignments with that mentor; cancellation, suspension,
 completion and dispute also stop future reads and cancel pending internal bookings.
 
 Human comments pin Unicode code-point offsets and exact quotes on immutable writing
 versions, with attributable threaded replies and student-controlled dispositions.
-They never overwrite writing. Studio shows human feedback separately from its local
+They never overwrite writing. Private partial request drafts persist with revision
+checks and recover without granting consent. Studio shows human feedback separately from its local
 checks and unavailable AI feature. Rubrics cover clarity, structure, specificity,
 evidence, voice, prompt fit and grammar. Readiness outcomes are advice only; suggested
 steps never change CRM states or Roadmap tasks. Students revise through the existing
 version/compare/restore authority and explicitly share new checkpoints.
 
-Scheduling supports explicit timezone-offset slots, overlap rejection, atomic single
-booking, cancellation and truthful meeting-link-pending status. Recurrence, blackout
-rules and richer reschedule UI are not claimed implemented. No external calendar,
+Scheduling supports explicit timezone-offset slots, weekly recurrence, blackout
+exceptions, overlap rejection, atomic single booking, series/slot cancellation and
+truthful meeting-link-pending status. Nonexistent and ambiguous local DST times are
+rejected; explicit-offset slots remain available. Reschedule by cancelling and
+choosing another slot; these are separate audited actions. No external calendar,
 payment, email or notification provider is introduced. Published paid prices remain
 visible, but request creation rejects nonzero prices and never creates a charge.
-SLA is estimated elapsed time from submission, separate from consent expiry; no
-business-day calendar or paused-SLA accounting is claimed.
+SLA uses elapsed hours from submission, pauses during student action and resumes
+with recorded paused seconds. Up to two follow-ups on the same versions restart the
+estimate within the original consent window. Consent is never extended silently.
+No jurisdictional business-day calendar is claimed.
 
 Rollback: disable mentoring routes and stop issuing grants; preserve private content,
 events and existing phases. Do not drop tables or reset a hosted database. Postgres

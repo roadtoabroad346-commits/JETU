@@ -166,3 +166,15 @@ metadata. The new atomic command, receipts, source checks, versions, export and
 interview consent boundaries are described in `WRITING_STUDIO_ARCHITECTURE.md`.
 AI provider/gateway remains unavailable. Current phase state is PARTIAL, independent
 of the older roadmap/application feature branches and the historical text above.
+
+## Phase 22 — scoped human review
+
+`src/features/mentors` and `/api/mentors` add private request/review/safety workflows
+without widening owner policies on Writing, Vault or CRM. A public projection lists
+only human-approved mentors; private commands enforce current trust, per-version
+consent and time/operation bounds. Storage bytes use fresh-check authenticated
+proxies; no mentor signed URLs or blanket profile access. Separate verifier and
+moderator memberships never come from user metadata. Weekly availability, blackout
+exceptions and bounded follow-ups share transaction locks with revocation/capacity.
+See MENTOR_SECURITY_MODEL.md and PHASE_22_QA.md for exact contracts/evidence and
+remaining staging/human-operations gates. Phase 23 is unchanged.

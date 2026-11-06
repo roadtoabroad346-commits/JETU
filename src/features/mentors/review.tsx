@@ -47,6 +47,7 @@ export function MentorReview({
       preview?: string;
     } | null>(null),
     [resourceError, setResourceError] = useState(false),
+    [reportComment, setReportComment] = useState<string | null>(null),
     [parent, setParent] = useState<string | null>(null),
     [body, setBody] = useState(''),
     [selection, setSelection] = useState<{
@@ -101,6 +102,8 @@ export function MentorReview({
           <time>{new Date(r.expires_at).toLocaleString(locale)}</time>
         </p>
         <p>{t.versionNotice}</p>
+        <p>{t.followupLimit}</p>
+        {r.pause_started_at && <p className="mentor-notice">{t.slaPaused}</p>}
       </header>
       <div className="mentor-actions">
         {student ? (
@@ -147,14 +150,14 @@ export function MentorReview({
                   {t.complete}
                 </button>
                 <button
-                  disabled={busy}
+                  disabled={busy || (r.followup_rounds ?? 0) >= 2}
                   className="ui-button ui-button--secondary"
                   onClick={() =>
                     void safeRun({
                       op: 'transition',
                       request: r.id,
                       revision: r.revision,
-                      state: 'needs_student_action',
+                      state: 'in_review',
                     })
                   }
                 >
@@ -333,8 +336,22 @@ export function MentorReview({
                       .filter(([k]) => k !== 'checklist')
                       .map(([k, v]) => (
                         <div key={k}>
-                          <dt>{k}</dt>
-                          <dd>{String(v ?? t.unknown)}</dd>
+                          <dt>
+                            {(
+                              {
+                                title: t.programLabel,
+                                institution: t.institutionLabel,
+                                state: t.status,
+                                source: t.source,
+                                sourceCheckedAt: t.sourceChecked,
+                                deadlinePrecision: t.precisionLabel,
+                                deadline: t.due,
+                                timezone: t.timezone,
+                                version: t.versionLabel,
+                              } as Record<string, string>
+                            )[k] ?? t.unknown}
+                          </dt>
+                          <dd>{label(t, String(v ?? t.unknown))}</dd>
                         </div>
                       ))}
                   </dl>
@@ -348,7 +365,8 @@ export function MentorReview({
                         }[]
                       ).map((c, i) => (
                         <li key={i}>
-                          {c.title} · {c.status} · {c.verification}
+                          {c.title} · {label(t, c.status)} ·{' '}
+                          {label(t, c.verification)}
                         </li>
                       ))}
                     </ul>
@@ -400,6 +418,17 @@ export function MentorReview({
             <p>{c.body}</p>
             <p>{label(t, c.disposition)}</p>
             <div className="mentor-actions">
+              {student && (
+                <button
+                  className="ui-button ui-button--secondary"
+                  onClick={() => {
+                    setReportComment(c.id);
+                    document.getElementById('mentor-report-body')?.focus();
+                  }}
+                >
+                  {t.report}
+                </button>
+              )}
               {active && (
                 <button
                   className="ui-button ui-button--secondary"
@@ -545,6 +574,7 @@ export function MentorReview({
             const f = new FormData(e.currentTarget);
             void safeRun({
               op: 'report',
+              comment: reportComment,
               request: r.id,
               reason: String(f.get('reason')) as
                 'contact' | 'harassment' | 'privacy' | 'integrity' | 'other',
@@ -553,6 +583,11 @@ export function MentorReview({
           }}
         >
           <h3>{t.report}</h3>
+          {reportComment && (
+            <p>
+              {t.reportedComment}: {reportComment.slice(0, 8)}
+            </p>
+          )}
           <label>
             {t.reason}
             <select name="reason">
@@ -567,7 +602,11 @@ export function MentorReview({
           </label>
           <label>
             {t.explanation}
-            <textarea name="explanation" maxLength={2000} />
+            <textarea
+              id="mentor-report-body"
+              name="explanation"
+              maxLength={2000}
+            />
           </label>
           <button disabled={busy} className="ui-button ui-button--secondary">
             {t.send}

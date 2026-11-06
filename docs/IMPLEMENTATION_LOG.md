@@ -592,3 +592,15 @@ feedback, readiness snapshots, slots/queue and report/block/moderation. No staff
 verified mentor was seeded in a hosted project. Read-only Jetuu inspection confirmed
 production linkage and absence of an isolated staging branch. See PHASE_22_QA.md
 for actual test evidence, explicit omitted acceptance gates and pending CI status.
+
+## 2026-11-06 — Phase 22 follow-up and release verification
+
+Initial commit 41f3f96 / PR #12 passed all three CI jobs in run 42176315716,
+including 25 actual Auth/REST/Storage/browser checks. Added the second forward
+migration for weekly availability, blackouts, cancellation, DST ambiguity rejection,
+SLA pause/resume, bounded follow-ups, case-specific evidence/freeze and retention
+worker contracts. Private drafts recover without granting consent. Readiness shares
+only selected application snapshots; no CRM/Roadmap writes occur from a review.
+Local source check passes 163 tests/build; seven SQL suites pass 241 assertions;
+25 component browser scenarios pass. Final remote/preview evidence belongs in
+PHASE_22_QA.md. No hosted migration, staff grant, real mentor approval or Phase 23.

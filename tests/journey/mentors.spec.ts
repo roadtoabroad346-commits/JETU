@@ -40,6 +40,9 @@ const mentor: Mentor = {
 };
 function workspace(): Workspace {
   return {
+    slots: [],
+    availabilityRules: [],
+    blackouts: [],
     requestDrafts: [],
     actor: { id: A, verifier: false, moderator: false },
     profile: null,
@@ -78,6 +81,17 @@ async function fixture(page: Page, data = workspace(), mentors = [mentor]) {
           status: 503,
           json: { error: { code: 'PROVIDER_TIMEOUT' } },
         });
+      }
+      if (body.op === 'save_request_draft') {
+        data.requestDrafts = [
+          {
+            service_id: body.service,
+            goal: body.goal,
+            items: body.items,
+            consent_until: body.expires,
+            revision: body.revision + 1,
+          },
+        ];
       }
       if (body.op === 'create') {
         data.requests = [
@@ -120,6 +134,18 @@ async function fixture(page: Page, data = workspace(), mentors = [mentor]) {
     }
     if (url.searchParams.get('directory'))
       return route.fulfill({ json: { data: { mentors } } });
+    if (url.searchParams.get('case'))
+      return route.fulfill({
+        json: {
+          data: {
+            context: {
+              body: 'SYNTHETIC reported comment only',
+              quote: 'SYNTHETIC quote',
+              author: X,
+            },
+          },
+        },
+      });
     if (url.searchParams.get('grant'))
       return route.fulfill({
         json: {
@@ -277,4 +303,116 @@ test('populated directory shows transparent terms and no external contact', asyn
     path: 'work/phase22-ui/directory-en-1440.png',
     fullPage: true,
   });
+});
+
+test('private request draft recovers without granting consent', async ({
+  page,
+}) => {
+  const f = await fixture(page);
+  const t = mentorCopy.en;
+  await page.goto(
+    `/tests/journey/fixture.html?mentoring=1&query=${encodeURIComponent(`mentor=${X}&service=${S}`)}`,
+  );
+  await page
+    .getByLabel(t.goal, { exact: true })
+    .fill('Private unfinished review request');
+  await page.getByLabel(/SYNTHETIC essay · v1/).check();
+  await page.getByRole('button', { name: t.saveDraft, exact: true }).click();
+  await expect(page.getByRole('status')).toContainText(t.saved);
+  await page.reload();
+  await expect(
+    page.getByRole('textbox', { name: t.goal, exact: true }),
+  ).toHaveValue('Private unfinished review request');
+  await expect(page.getByLabel(/SYNTHETIC essay · v1/)).toBeChecked();
+  expect(f.data.requests).toHaveLength(0);
+  await page.getByRole('button', { name: t.next, exact: true }).click();
+  await expect(page.getByLabel(t.consent, { exact: true })).not.toBeChecked();
+});
+test('mentor weekly availability form records explicit local timezone rules', async ({
+  page,
+}) => {
+  const data = workspace();
+  data.actor.id = X;
+  data.profile = {
+    user_id: X,
+    display_name: mentor.name,
+    bio: mentor.bio,
+    expertise: mentor.expertise,
+    languages: mentor.languages,
+    countries: mentor.countries,
+    degrees: mentor.degrees,
+    timezone: mentor.timezone,
+    capacity: 2,
+    state: 'verified',
+    verified_summary: mentor.verifiedSummary,
+    decision_reason: 'SYNTHETIC fixture only',
+    revision: 1,
+  };
+  const f = await fixture(page, data),
+    t = mentorCopy.en;
+  await page.goto('/tests/journey/fixture.html?mentoring=1&query=tab%3Dapply');
+  await page.getByLabel(t.firstDate, { exact: true }).fill('2026-12-01');
+  await page.getByLabel(t.localStart, { exact: true }).fill('10:00');
+  await page.getByLabel(t.localEnd, { exact: true }).fill('11:00');
+  await page.getByLabel(t.weeks, { exact: true }).fill('4');
+  await page
+    .getByRole('heading', { name: t.weekly, exact: true })
+    .locator('..')
+    .getByRole('button', { name: t.saveSlot, exact: true })
+    .click();
+  await expect(page.getByRole('status')).toContainText(t.saved);
+  expect(f.posts[0]).toMatchObject({
+    op: 'weekly_slots',
+    firstDate: '2026-12-01',
+    startTime: '10:00',
+    endTime: '11:00',
+    weeks: 4,
+  });
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test('moderator views only case-linked evidence and can freeze access', async ({
+  page,
+}) => {
+  const data = workspace();
+  data.actor = {
+    id: '22000000-0000-4000-8000-000000000007',
+    moderator: true,
+    verifier: false,
+  };
+  data.reports = [
+    {
+      id: R,
+      request_id: R,
+      reason: 'privacy',
+      explanation: 'SYNTHETIC minimal case',
+      status: 'new',
+      resolution: '',
+      revision: 1,
+    },
+  ];
+  const f = await fixture(page, data),
+    t = mentorCopy.en;
+  await page.goto('/tests/journey/fixture.html?mentoring=1&query=tab%3Dadmin');
+  await page.getByRole('button', { name: t.caseEvidence, exact: true }).click();
+  await expect(
+    page.getByText('SYNTHETIC reported comment only', { exact: true }),
+  ).toBeVisible();
+  const caseForm = page.locator('form').filter({
+    has: page.getByRole('button', { name: t.caseEvidence, exact: true }),
+  });
+  await caseForm
+    .getByLabel(t.reason, { exact: true })
+    .fill('SYNTHETIC accountable safety freeze');
+  await caseForm.getByLabel(t.attest, { exact: true }).check();
+  await caseForm.getByRole('button', { name: t.freeze, exact: true }).click();
+  await expect(page.getByRole('status')).toContainText(t.saved);
+  expect(f.posts[0]).toMatchObject({
+    op: 'case_suspend',
+    case: R,
+    attest: true,
+  });
+  await expect(
+    page.getByRole('button', { name: t.saveDecision, exact: true }),
+  ).toHaveCount(0);
 });

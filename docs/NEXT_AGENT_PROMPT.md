@@ -12,11 +12,13 @@ Implementation files: `src/features/mentors/`, `src/app/api/mentors/`, localized
 `supabase/tests/mentor-network.test.sql`, `tests/{unit,integration,e2e,journey}/mentor*`,
 `scripts/mentor-auth-test.mjs` and the new disposable CI job.
 
-Initial native replay and 69 mentor SQL assertions pass; 162 unit/integration tests
-and eight synthetic UI scenarios passed at the implementation checkpoint. Final
-source/remote results must be read from PHASE_22_QA.md and actual CI, not inferred.
-No local full-stack GoTrue/Storage pass is claimed. Native tooling and logs are under
-`/workspace/scratch/phase22-*`; no credentials or real student files are stored there.
+Current local checks: 163 unit/integration tests/build, 241 SQL assertions across
+seven suites / 46 migrations, and 25 synthetic component browser scenarios pass.
+Actual initial-commit CI 42176315716 passed all three jobs and 25 real Auth/Storage/
+Next/browser checks. Follow-up source needs its own final remote check recorded in
+PHASE_22_QA.md. Second migration: `20261106064516_phase_22_availability_retention.sql`.
+Native tooling/logs remain under `/workspace/scratch/phase22-*`; no real student
+content or authentication secrets are stored there.
 
 Next safe action: finish exact-source regression, inspect CI/preview and close only
 gates proved by real evidence. Then obtain/select isolated staging and human safety

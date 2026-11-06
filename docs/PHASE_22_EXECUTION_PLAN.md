@@ -3,12 +3,12 @@
 Scope: Verified Mentor Network and Review Workflow. Stop before Phase 23.
 
 - [x] Recover authoritative branch, exact master criteria, previous release evidence.
-- [ ] Add private onboarding/evidence, explicit human reviewer membership, audited decisions and safe public projection.
-- [ ] Add service catalog, verified mentor discovery, availability and honest empty/error states.
-- [ ] Add idempotent requests, exact version grants, expiry/revocation and bounded service conversations.
-- [ ] Add anchored human comments, rubrics, student dispositions, application readiness and summaries.
-- [ ] Add internal booking, capacity/concurrency guards, reports/block and moderation.
-- [ ] Connect localized student/mentor/admin screens, Writing Studio and safety controls.
+- [x] Add private onboarding/evidence, explicit human reviewer membership, audited decisions and safe public projection.
+- [x] Add service catalog, verified mentor discovery, availability and honest empty/error states.
+- [x] Add idempotent requests, exact version grants, expiry/revocation and bounded service conversations.
+- [x] Add anchored human comments, rubrics, student dispositions, application readiness and summaries.
+- [x] Add internal booking, capacity/concurrency guards, reports/block and moderation.
+- [x] Connect localized student/mentor/admin screens, Writing Studio and safety controls.
 - [ ] Run negative SQL/RLS, unit, browser/axe/mobile, full regression and generated types.
 - [ ] Commit/push, draft PR, exact-source CI and preview checks; record unresolved gates.
 

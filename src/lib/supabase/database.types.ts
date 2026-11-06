@@ -2096,6 +2096,90 @@ export type Database = {
           },
         ];
       };
+      mentor_availability_rules: {
+        Row: {
+          cancelled_at: string | null;
+          created_at: string;
+          end_time: string;
+          first_date: string;
+          id: string;
+          idempotency_key: string;
+          mentor_id: string;
+          payload_hash: string;
+          start_time: string;
+          timezone: string;
+          weeks: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          cancelled_at?: string | null;
+          created_at?: string;
+          end_time: string;
+          first_date: string;
+          id?: string;
+          idempotency_key: string;
+          mentor_id: string;
+          payload_hash: string;
+          start_time: string;
+          timezone: string;
+          weeks: number;
+        };
+        Update: {
+          cancelled_at?: string | null;
+          created_at?: string;
+          end_time?: string;
+          first_date?: string;
+          id?: string;
+          idempotency_key?: string;
+          mentor_id?: string;
+          payload_hash?: string;
+          start_time?: string;
+          timezone?: string;
+          weeks?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_availability_rules_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
+      mentor_blackouts: {
+        Row: {
+          created_at: string;
+          ends_at: string;
+          id: string;
+          mentor_id: string;
+          starts_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          ends_at: string;
+          id?: string;
+          mentor_id: string;
+          starts_at: string;
+        };
+        Update: {
+          created_at?: string;
+          ends_at?: string;
+          id?: string;
+          mentor_id?: string;
+          starts_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_blackouts_mentor_id_fkey';
+            columns: ['mentor_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_profiles';
+            referencedColumns: ['user_id'];
+          },
+        ];
+      };
       mentor_blocks: {
         Row: {
           created_at: string;
@@ -2381,6 +2465,7 @@ export type Database = {
       };
       mentor_reports: {
         Row: {
+          comment_id: string | null;
           created_at: string;
           explanation: string;
           id: string;
@@ -2394,6 +2479,7 @@ export type Database = {
         };
         ComputedFields: never;
         Insert: {
+          comment_id?: string | null;
           created_at?: string;
           explanation?: string;
           id?: string;
@@ -2406,6 +2492,7 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          comment_id?: string | null;
           created_at?: string;
           explanation?: string;
           id?: string;
@@ -2418,6 +2505,13 @@ export type Database = {
           updated_at?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: 'mentor_reports_comment_id_fkey';
+            columns: ['comment_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_comments';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'mentor_reports_request_id_fkey';
             columns: ['request_id'];
@@ -2472,10 +2566,13 @@ export type Database = {
           created_at: string;
           due_at: string;
           expires_at: string;
+          followup_rounds: number;
           goal: string;
           id: string;
           idempotency_key: string;
           mentor_id: string;
+          pause_started_at: string | null;
+          paused_seconds: number;
           payload_hash: string;
           revision: number;
           revoked_at: string | null;
@@ -2491,10 +2588,13 @@ export type Database = {
           created_at?: string;
           due_at: string;
           expires_at: string;
+          followup_rounds?: number;
           goal: string;
           id?: string;
           idempotency_key: string;
           mentor_id: string;
+          pause_started_at?: string | null;
+          paused_seconds?: number;
           payload_hash: string;
           revision?: number;
           revoked_at?: string | null;
@@ -2509,10 +2609,13 @@ export type Database = {
           created_at?: string;
           due_at?: string;
           expires_at?: string;
+          followup_rounds?: number;
           goal?: string;
           id?: string;
           idempotency_key?: string;
           mentor_id?: string;
+          pause_started_at?: string | null;
+          paused_seconds?: number;
           payload_hash?: string;
           revision?: number;
           revoked_at?: string | null;
@@ -2706,6 +2809,7 @@ export type Database = {
           ends_at: string;
           id: string;
           mentor_id: string;
+          rule_id: string | null;
           starts_at: string;
           timezone: string;
         };
@@ -2715,6 +2819,7 @@ export type Database = {
           ends_at: string;
           id?: string;
           mentor_id: string;
+          rule_id?: string | null;
           starts_at: string;
           timezone: string;
         };
@@ -2723,6 +2828,7 @@ export type Database = {
           ends_at?: string;
           id?: string;
           mentor_id?: string;
+          rule_id?: string | null;
           starts_at?: string;
           timezone?: string;
         };
@@ -2733,6 +2839,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'mentor_profiles';
             referencedColumns: ['user_id'];
+          },
+          {
+            foreignKeyName: 'mentor_slots_rule_id_fkey';
+            columns: ['rule_id'];
+            isOneToOne: false;
+            referencedRelation: 'mentor_availability_rules';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -6258,6 +6371,7 @@ export type Database = {
       };
       import_catalog_bundle: { Args: { p_bundle: Json }; Returns: Json };
       mentor_actor: { Args: Record<PropertyKey, never>; Returns: Json };
+      mentor_case_context: { Args: { p_case: string }; Returns: Json };
       mentor_command: { Args: { p_input: Json }; Returns: Json };
       mentor_directory: { Args: Record<PropertyKey, never>; Returns: Json };
       mentor_evidence_access: { Args: { p_id: string }; Returns: Json };
@@ -6265,6 +6379,11 @@ export type Database = {
         Args: { p_grant: string; p_operation?: string };
         Returns: Json;
       };
+      mentor_retention_candidates: {
+        Args: Record<PropertyKey, never>;
+        Returns: Json;
+      };
+      mentor_retention_finish: { Args: { p_id: string }; Returns: undefined };
       mx_claim_ai_request: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;

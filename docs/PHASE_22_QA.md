@@ -13,51 +13,67 @@ readiness snapshots and suggestions; internal slots/bookings; safeguarding clear
 report/block/revoke and staff moderation; protected audit events and Studio feedback.
 No real mentor approval, public testimonial, payment or meeting link is fabricated.
 
-Local evidence at the implementation checkpoint:
+Local release evidence for the follow-up implementation:
 
-- Strict TypeScript, ESLint and production build passed. Unit/integration: 162 tests
-  before the additional ISO-date regression; final exact-source counts follow below.
-- Native PostgreSQL 17.11 with synthetic provider schemas replayed the 45 migration
-  chain. The new SQL suite passed 69 assertions: two students, two verified mentor
-  fixtures and unverified applicant; exact v1, v2 denial, owner isolation, private
-  evidence, spoofed trust, Unicode anchors, status CAS, student disposition,
-  expiry/revoke/suspend/block, moderator separation and audit write denial.
-- Native Postgres is actual SQL/RLS proof, not actual GoTrue or Storage HTTP proof.
-  Docker full-stack startup was blocked by image expansion/disk limits; task-owned
-  PostgreSQL image/container was removed and native PostgreSQL used instead.
-- Pinned CLI's postgres-meta v0.100.0 source generated actual DB types from the native
-  replay. No handwritten schema types or hosted-schema equivalence is claimed.
-- Eight new synthetic component/browser scenarios passed: exact consent, uncertain
-  retry preserving key/input, revocation removing preview, missing clearance,
-  staff denial, genuine empty state, populated fixture, RU/KK/EN at 320/768/1440,
-  keyboard, reduced motion and axe. Screenshots: `work/phase22-ui/` (synthetic).
-- Initial UI test exposed a resource-loading race; the fetch/reset sequencing was
-  repaired and the focused suite passed. Mobile screenshot was inspected; secondary
-  filters now collapse behind native details for a shorter first useful screen.
+- `npm run check`: PASS, formatting, ESLint, strict types, **163 unit/integration
+  tests** and production build. `git diff --check`: PASS. Added-line secret pattern
+  scan passed before publication; no passwords, privileged keys or auth state committed.
+- Native PostgreSQL 17.11 clean replay: **46 migrations**, **seven pgTAP suites /
+  241 assertions**. The 145 new mentor assertions cover two students, two verified
+  fixture mentors, unverified applicant, RLS/Storage policy denial, version/operation
+  scope, Unicode anchors, expiry/revoke/suspension, consent/clearance, status CAS,
+  private drafts, moderation context/freeze, readiness privacy/provenance, scheduling,
+  DST, SLA pauses/follow-up limits and retention authorization.
+- Native PostgreSQL is SQL/RLS proof; actual GoTrue/Storage/browser proof is in the
+  separate CI evidence below. Full-stack Docker image expansion exceeded workspace
+  storage; the task-owned temporary image/container was removed. No hosted data reset.
+- Actual DB types generated with pinned CLI 2.121.0's postgres-meta **v0.100.0**
+  source against the native replay match the committed file byte-for-byte after
+  formatting. Initial CI also passed its own generated-type drift check.
+- `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:journey-ui`:
+  **25 passed**, including **11 mentor** scenarios. Synthetic API fixtures cover
+  request consent/retry/revocation, private draft recovery, weekly rules, moderator
+  controls, clearance denial, truthful empty state, RU/KK/EN at 320/768/1440, keyboard,
+  reduced motion and axe. No real Auth is inferred from component mocks.
+- Production Chromium on initial source: **96 passed / four inherited configured-Auth
+  skips**. Final-source production regression and CI results are recorded below.
+- `npm audit --omit=dev --audit-level=high`: **zero vulnerabilities**. No dependency
+  or lockfile changes. Existing full audit is also enforced by CI.
+- Inspected synthetic screenshots: [Kazakh 320px](evidence/phase22/empty-kk-320.png)
+  and [fixture directory 1440px](evidence/phase22/directory-en-1440.png). Secondary
+  filters collapse behind native details; focus/touch targets and text wrapping
+  remain usable. No fictional mentor appears in the actual application seed.
 
 The separate `mentor-auth-storage` CI job starts only a disposable local Supabase
 stack, creates real GoTrue sessions and calls REST/Storage/Next with two students,
-two approved synthetic mentors, an applicant and separate staff fixtures. It tests
-browser revocation and actual guarded bytes without treating automated fixture
-verification as a real human approval. Pending run results must not be called passed.
+two approved synthetic mentors, an applicant and separate staff fixtures. Automated
+fixture approval is permission testing, never evidence of actual human verification.
 
 Open acceptance gates (explicit, not silently omitted):
 
 1. A selected, isolated authorized staging database and configured preview environment;
-   real human staff/mentor evidence review and actual guardian/school policy operations.
-2. Full actual Auth/Storage/browser CI completion and exact-head replay/type/advisor
-   gates; hosted cross-device journeys and operational safety response evidence.
-3. Guided evidence clarification/re-upload from submitted/needs-info, physical evidence
-   purge, actual malware scanner, Storage restore drill and retention job operations.
-4. Persisted partial request drafts; bounded-request edit/reassignment with renewed
-   consent (current product uses cancellation/new request); rich recommendation/task
-   adoption; recurrent availability, blackout exceptions, reschedule controls and paused
-   business-day SLA accounting. Explicit slots and cancellation work independently.
-5. Wider populated mentor/admin/mobile/keyboard/locale coverage and production-scale
-   cursor pagination. No complete acceptance claim is made from empty public pages.
-6. Prior Phase 17–20 screen integrations and AI provider gates remain separate PARTIAL
-   work. Existing selected application schema is used; old draft UI is not overwritten
-   onto current account/profile screens. No previous whole phase is relabeled VERIFIED.
+   real human staff/mentor evidence review and guardian/school policy operations.
+2. Final exact-source CI and preview checks after the follow-up migration. The initial
+   commit `41f3f96` passed all three jobs in CI 42176315716, including **25 real
+   GoTrue/REST/Storage/Next/browser checks** with two students, two verified mentor
+   fixtures, an applicant and distinct staff roles. Newer checks must pass separately.
+3. Production evidence purge scheduling, actual Vault malware scanner, Storage restore
+   drill, moderation staffing/response times and operational privacy review. The local
+   retention worker is executable; no hosted schedule or real identity deletion is claimed.
+4. Richer Roadmap task adoption and prior Phase 17–20 screen/provider integrations;
+   suggestions currently require the student to act independently. Existing selected
+   application schema is used; current account/profile screens are preserved.
+5. Production-scale cursor pagination and wider populated cross-device/browser
+   operational acceptance. Public discovery/queue reads have explicit finite caps;
+   no unlimited marketplace-scale search or queue completeness claim is made.
+
+The follow-up migration `20261106064516_phase_22_availability_retention.sql` adds
+weekly availability, blackout exceptions, slot/series cancellation, DST rejection,
+SLA pause/resume and bounded follow-ups, case-scoped moderation evidence/freeze and
+an evidence retention worker contract. Private request drafts are implemented and
+recover without consent. Reinstatement can require a fresh evidence cycle. Review
+source URLs must match an explicitly shared application source; arbitrary off-platform
+contact links cannot be hidden as references.
 
 ## Exact-source release evidence
 

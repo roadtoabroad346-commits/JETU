@@ -430,6 +430,121 @@ try {
       .eq('request_id', fileRequest.id)
       .single(),
   );
+  const bDraft = randomUUID();
+  data(
+    await b.rpc('writing_studio_save', {
+      p_input: {
+        ...writing,
+        id: bDraft,
+        requestId: randomUUID(),
+        title: 'SYNTHETIC B essay',
+      },
+    }),
+  );
+  const bVersion = data(
+    await b
+      .from('writing_versions')
+      .select('id')
+      .eq('draft_id', bDraft)
+      .single(),
+  );
+  const bRequest = await command(b, {
+    ...scope,
+    key: randomUUID(),
+    items: [
+      {
+        type: 'writing',
+        resource: bDraft,
+        version: bVersion.id,
+        download: false,
+      },
+    ],
+  });
+  await command(x, {
+    op: 'transition',
+    request: bRequest.id,
+    revision: 1,
+    state: 'accepted',
+  });
+  const slotStart = new Date(Date.now() + 4 * 3600000).toISOString(),
+    slotEnd = new Date(Date.now() + 5 * 3600000).toISOString();
+  await command(x, {
+    op: 'slot',
+    start: slotStart,
+    end: slotEnd,
+    timezone: 'Asia/Almaty',
+  });
+  const slot = data(
+    await x
+      .from('mentor_slots')
+      .select('id')
+      .eq('starts_at', slotStart)
+      .single(),
+  );
+  const bookings = await Promise.all([
+    a.rpc('mentor_command', {
+      p_input: {
+        op: 'book',
+        request: request.id,
+        slot: slot.id,
+        key: randomUUID(),
+      },
+    }),
+    b.rpc('mentor_command', {
+      p_input: {
+        op: 'book',
+        request: bRequest.id,
+        slot: slot.id,
+        key: randomUUID(),
+      },
+    }),
+  ]);
+  check(
+    bookings.filter((v) => !v.error).length === 1 &&
+      bookings.filter((v) => v.error?.code === '23505').length === 1,
+    'concurrent real students cannot double-book one slot',
+  );
+  await command(x, {
+    op: 'weekly_slots',
+    firstDate: new Date(Date.now() + 14 * 86400000).toISOString().slice(0, 10),
+    startTime: '10:00',
+    endTime: '11:00',
+    weeks: 2,
+    key: randomUUID(),
+  });
+  check(
+    data(await x.from('mentor_availability_rules').select('id')).length === 1,
+    'weekly availability persists through real REST',
+  );
+  await command(x, { op: 'blackout', start: slotStart, end: slotEnd });
+  check(
+    data(
+      await x
+        .from('mentor_slots')
+        .select('cancelled_at')
+        .eq('id', slot.id)
+        .single(),
+    ).cancelled_at !== null,
+    'blackout cancels a booked occurrence',
+  );
+  sql(
+    `update public.mentor_evidence set retain_until=now()-interval '1 day' where mentor_id='${X}';`,
+  );
+  execFileSync(
+    process.execPath,
+    [resolve(root, 'scripts/mentor-retention-local.mjs')],
+    { cwd: root, stdio: ['ignore', 'pipe', 'pipe'] },
+  );
+  check(
+    data(
+      await verifier
+        .from('mentor_evidence')
+        .select('state')
+        .eq('mentor_id', X)
+        .single(),
+    ).state === 'purged',
+    'retention removes real Storage evidence before marking metadata purged',
+  );
   // Application is served with real cookies derived from actual GoTrue sessions.
   const env = {
     ...process.env,
@@ -541,6 +656,41 @@ try {
   check(
     Boolean((await x.rpc('mentor_resource', { p_grant: grant.id })).error),
     'browser revocation blocks actual mentor REST read immediately',
+  );
+  const studioPage = await studentContext.newPage();
+  await studioPage.goto(`http://127.0.0.1:3202/en/writing?draft=${draftId}`);
+  await studioPage.getByRole('button', { name: 'Review', exact: true }).click();
+  await studioPage
+    .getByText('Explain this experience in your own voice.', { exact: true })
+    .waitFor();
+  check(
+    true,
+    'Writing Studio displays attributable human feedback after access revocation',
+  );
+  const commentId = data(
+    await a
+      .from('mentor_comments')
+      .select('id')
+      .eq('request_id', request.id)
+      .single(),
+  ).id;
+  const caseResult = await command(a, {
+    op: 'report',
+    request: request.id,
+    comment: commentId,
+    reason: 'privacy',
+    explanation: 'SYNTHETIC case fixture only',
+  });
+  check(
+    data(await moderator.rpc('mentor_case_context', { p_case: caseResult.id }))
+      .body === 'Explain this experience in your own voice.',
+    'moderator reads the exact reported comment through an actual role-checked RPC',
+  );
+  check(
+    Boolean(
+      (await y.rpc('mentor_case_context', { p_case: caseResult.id })).error,
+    ),
+    'verified unrelated mentor cannot inspect case evidence',
   );
   await mentorPage.reload();
   await mentorPage

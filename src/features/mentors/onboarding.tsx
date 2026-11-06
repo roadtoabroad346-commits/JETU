@@ -5,6 +5,7 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/browser';
 import { requestData } from '@/features/writing/client';
 import { mentorCopy, label } from './copy';
 import { type Command, type Workspace, serviceKinds } from './contracts';
+import { MentorAvailability } from './availability';
 import { csv } from './client';
 type Run = (value: Command) => Promise<void>;
 export function MentorOnboarding({
@@ -341,6 +342,9 @@ export function MentorOnboarding({
           </button>
         </form>
       )}
+      {p?.state === 'verified' && (
+        <MentorAvailability locale={locale} data={data} run={run} busy={busy} />
+      )}
     </section>
   );
 }
@@ -356,6 +360,21 @@ export function MentorAdmin({
   busy: boolean;
 }) {
   const t = mentorCopy[locale];
+  const [contexts, setContexts] = useState<
+    Record<string, { body?: string; quote?: string; author?: string }>
+  >({});
+  const [contextError, setContextError] = useState(false);
+  async function viewCase(id: string) {
+    try {
+      const result = await requestData<{
+        context: { body?: string; quote?: string; author?: string };
+      }>(`/api/mentors?case=${id}`);
+      setContexts((v) => ({ ...v, [id]: result.context }));
+      setContextError(false);
+    } catch {
+      setContextError(true);
+    }
+  }
   if (!data.actor.verifier && !data.actor.moderator)
     return <p>{t.staffOnly}</p>;
   return (
@@ -410,7 +429,7 @@ export function MentorAdmin({
                   {(p.state === 'verified'
                     ? ['suspended', 'revoked']
                     : p.state === 'suspended'
-                      ? ['verified', 'revoked']
+                      ? ['needs_info', 'verified', 'revoked']
                       : ['needs_info', 'verified', 'rejected']
                   ).map((s) => (
                     <option key={s} value={s}>
@@ -504,6 +523,19 @@ export function MentorAdmin({
               onSubmit={(e) => {
                 e.preventDefault();
                 const f = new FormData(e.currentTarget);
+                if (
+                  (e.nativeEvent as SubmitEvent).submitter?.getAttribute(
+                    'value',
+                  ) === 'freeze'
+                ) {
+                  void run({
+                    op: 'case_suspend',
+                    case: r.id,
+                    reason: String(f.get('reason')),
+                    attest: true,
+                  });
+                  return;
+                }
                 void run({
                   op: 'moderate',
                   id: r.id,
@@ -518,6 +550,22 @@ export function MentorAdmin({
                 {label(t, r.reason)} · {label(t, r.status)}
               </p>
               <p>{r.explanation}</p>
+              <button
+                type="button"
+                className="ui-button ui-button--secondary"
+                onClick={() => void viewCase(r.id)}
+              >
+                {t.caseEvidence}
+              </button>
+              {contextError && <p role="alert">{t.errorPermission}</p>}
+              {contexts[r.id] && (
+                <article>
+                  <h4>{t.reportedComment}</h4>
+                  <blockquote>{contexts[r.id]?.quote}</blockquote>
+                  <p>{contexts[r.id]?.body ?? t.none}</p>
+                </article>
+              )}
+
               <label>
                 {t.status}
                 <select name="state">
@@ -547,6 +595,19 @@ export function MentorAdmin({
                 className="ui-button ui-button--secondary"
               >
                 {t.moderate}
+              </button>
+              <label className="mentor-check">
+                <input type="checkbox" required />
+                {t.attest}
+              </label>
+              <button
+                disabled={busy}
+                className="ui-button ui-button--secondary"
+                type="submit"
+                name="action"
+                value="freeze"
+              >
+                {t.freeze}
               </button>
             </form>
           ))}

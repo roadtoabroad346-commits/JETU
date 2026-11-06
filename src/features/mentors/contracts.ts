@@ -40,6 +40,36 @@ const item = z
 export const commandSchema = z.discriminatedUnion('op', [
   z
     .object({
+      op: z.literal('case_suspend'),
+      case: uuid,
+      reason: z.string().trim().min(10).max(1000),
+      attest: z.literal(true),
+    })
+    .strict(),
+
+  z
+    .object({
+      op: z.literal('weekly_slots'),
+      firstDate: z.iso.date(),
+      startTime: z.string().regex(/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/),
+      endTime: z.string().regex(/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/),
+      weeks: z.number().int().min(1).max(12),
+      key,
+    })
+    .strict(),
+  z
+    .object({
+      op: z.literal('blackout'),
+      start: z.iso.datetime(),
+      end: z.iso.datetime(),
+    })
+    .strict(),
+  ...(['remove_blackout', 'cancel_slot', 'cancel_rule'] as const).map((op) =>
+    z.object({ op: z.literal(op), id: uuid }).strict(),
+  ),
+
+  z
+    .object({
       op: z.literal('save_request_draft'),
       service: uuid,
       goal: z.string().max(2000),
@@ -203,6 +233,7 @@ export const commandSchema = z.discriminatedUnion('op', [
   z
     .object({
       op: z.literal('report'),
+      comment: uuid.nullable().optional(),
       request,
       reason: z.enum([
         'contact',
@@ -250,6 +281,9 @@ export type Mentor = {
   slots: { id: string; starts_at: string; ends_at: string; timezone: string }[];
 };
 export type RequestRow = {
+  pause_started_at?: string | null;
+  paused_seconds?: number;
+  followup_rounds?: number;
   id: string;
   student_id: string;
   mentor_id: string;
@@ -308,6 +342,22 @@ export type Material = {
   download: boolean;
 };
 export type Workspace = {
+  slots: {
+    id: string;
+    starts_at: string;
+    ends_at: string;
+    timezone: string;
+    cancelled_at: string | null;
+  }[];
+  availabilityRules: {
+    id: string;
+    first_date: string;
+    start_time: string;
+    end_time: string;
+    weeks: number;
+    cancelled_at: string | null;
+  }[];
+  blackouts: { id: string; starts_at: string; ends_at: string }[];
   requestDrafts: {
     service_id: string;
     goal: string;

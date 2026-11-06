@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'motion/react';
 import type { Locale } from '@/lib/i18n/messages';
 import { requestData } from '@/features/writing/client';
 import { mentorCopy, label } from './copy';
+import { localDateTimeInput } from './domain';
 import { mentorCommand } from './client';
 import type { Command, Mentor, Workspace, Material } from './contracts';
 import { MentorOnboarding, MentorAdmin } from './onboarding';
@@ -354,9 +355,7 @@ function RequestWizard({
   const [clock] = useState(() => Date.now());
   const [goal, setGoal] = useState(draft?.goal ?? ''),
     [expires, setExpires] = useState(() =>
-      new Date(draft?.consent_until ?? Date.now() + 7 * 86400000)
-        .toISOString()
-        .slice(0, 16),
+      localDateTimeInput(draft?.consent_until ?? Date.now() + 7 * 86400000),
     ),
     [items, setItems] = useState<Material[]>(() =>
       (draft?.items ?? []).flatMap((i) => {
@@ -453,7 +452,12 @@ function RequestWizard({
                         )
                       }
                     />
-                    {m.title} · {m.type} · {m.version.slice(0, 8)}
+                    {m.title} ·{' '}
+                    {m.type === 'writing'
+                      ? t.materialWriting
+                      : m.type === 'vault'
+                        ? t.materialVault
+                        : t.materialApplication}
                   </label>
                   {m.type === 'vault' &&
                     items.some((i) => i.version === m.version) && (
@@ -486,7 +490,7 @@ function RequestWizard({
                 type="datetime-local"
                 value={expires}
                 onChange={(e) => setExpires(e.target.value)}
-                min={new Date(clock).toISOString().slice(0, 16)}
+                min={localDateTimeInput(clock)}
                 max={new Date(clock + 30 * 86400000).toISOString().slice(0, 16)}
                 required
               />
@@ -539,8 +543,7 @@ function RequestWizard({
                   <ul>
                     {items.map((i) => (
                       <li key={i.version}>
-                        {i.title} · {i.version} ·{' '}
-                        {i.download ? t.download : t.acceptedScope}
+                        {i.title} · {i.download ? t.download : t.acceptedScope}
                       </li>
                     ))}
                   </ul>
