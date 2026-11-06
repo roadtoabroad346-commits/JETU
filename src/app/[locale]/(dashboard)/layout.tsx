@@ -6,6 +6,7 @@ import { createRequestSupabaseClient } from '@/lib/supabase/request';
 import { signOut } from './actions';
 import { searchCopy } from '@/features/search/copy';
 import { matchingCopy } from '@/features/matching/copy';
+import { deadlineCopy } from '@/features/deadlines/copy';
 import { WorkspaceNav } from '@/features/onboarding/workspace-nav';
 
 export default async function DashboardLayout({
@@ -21,6 +22,12 @@ export default async function DashboardLayout({
   const { data } = await supabase.auth.getClaims();
   if (!data?.claims?.sub) redirect(`/${locale}/login`);
   const t = authCopy[locale];
+  const { count } = await supabase
+    .from('notifications')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', data.claims.sub)
+    .is('read_at', null)
+    .is('archived_at', null);
   return (
     <div className="dashboard-page">
       <a className="skip-link" href="#main">
@@ -39,6 +46,17 @@ export default async function DashboardLayout({
           <WorkspaceNav
             label={t.dashboard}
             items={[
+              {
+                href: `/${locale}/calendar`,
+                label: deadlineCopy[locale].calendar,
+                icon: 'calendar',
+              },
+              {
+                href: `/${locale}/notifications`,
+                label: deadlineCopy[locale].inbox,
+                count,
+                icon: 'bell',
+              },
               {
                 href: `/${locale}/dashboard`,
                 label: t.dashboard,
