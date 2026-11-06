@@ -570,3 +570,7 @@ journey component browser regression six passed. All five profile stages were
 checked at 320/768/1440 in RU/KK/EN with axe and reduced motion. Production audit
 zero vulnerabilities; thirteen inherited moderate development findings remain.
 Live Auth/REST remains CONNECT 403, so the complete MVP is still PARTIAL.
+
+## Phase 23 — 2026-11-06
+
+2026-11-06 Phase23: canonical deadline subscriptions and view, durable owner inbox/preferences/receipts, idempotent private worker, quiet hours/DST, source rescheduling, calendar/ICS, real dashboard counts and visual search filters. Jetuu migration20261106122552 applied; hosted rollback34 passed, local pgTAP100 and component UI28 passed. Full release gates remain recorded separately in PHASE_23_QA.md; Phase24 not started.

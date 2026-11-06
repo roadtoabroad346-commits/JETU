@@ -513,6 +513,40 @@ export type Database = {
           },
         ];
       };
+      calendar_custom_events: {
+        Row: {
+          created_at: string;
+          due_date: string;
+          id: string;
+          status: string;
+          title: string;
+          updated_at: string;
+          user_id: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          due_date: string;
+          id?: string;
+          status?: string;
+          title: string;
+          updated_at?: string;
+          user_id: string;
+          version?: number;
+        };
+        Update: {
+          created_at?: string;
+          due_date?: string;
+          id?: string;
+          status?: string;
+          title?: string;
+          updated_at?: string;
+          user_id?: string;
+          version?: number;
+        };
+        Relationships: [];
+      };
       campuses: {
         Row: {
           address_line: string | null;
@@ -1151,6 +1185,33 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'source_claims';
             referencedColumns: ['id', 'catalog_entity_id'];
+          },
+        ];
+      };
+      deadline_watches: {
+        Row: {
+          created_at: string;
+          deadline_id: number;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          deadline_id: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          deadline_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'deadline_watches_deadline_id_fkey';
+            columns: ['deadline_id'];
+            isOneToOne: false;
+            referencedRelation: 'deadlines';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -2142,6 +2203,233 @@ export type Database = {
             columns: ['scholarship_cycle_id'];
             isOneToOne: false;
             referencedRelation: 'scholarship_cycles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      notification_event_settings: {
+        Row: {
+          event_key: string;
+          muted: boolean;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          event_key: string;
+          muted?: boolean;
+          user_id: string;
+        };
+        Update: {
+          event_key?: string;
+          muted?: boolean;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      notification_jobs: {
+        Row: {
+          attempts: number;
+          channel: string;
+          created_at: string;
+          event_key: string;
+          id: string;
+          kind: string;
+          last_error_code: string | null;
+          lead_days: number;
+          planned_at: string;
+          revision: string;
+          sent_at: string | null;
+          status: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          attempts?: number;
+          channel?: string;
+          created_at?: string;
+          event_key: string;
+          id?: string;
+          kind: string;
+          last_error_code?: string | null;
+          lead_days: number;
+          planned_at: string;
+          revision: string;
+          sent_at?: string | null;
+          status?: string;
+          user_id: string;
+        };
+        Update: {
+          attempts?: number;
+          channel?: string;
+          created_at?: string;
+          event_key?: string;
+          id?: string;
+          kind?: string;
+          last_error_code?: string | null;
+          lead_days?: number;
+          planned_at?: string;
+          revision?: string;
+          sent_at?: string | null;
+          status?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      notification_preference_audit: {
+        Row: {
+          created_at: string;
+          id: number;
+          settings: NonNullable<Json>;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          id?: never;
+          settings: NonNullable<Json>;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: never;
+          settings?: NonNullable<Json>;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      notification_preferences: {
+        Row: {
+          categories: string[];
+          digest: string;
+          digest_time: string;
+          in_app: boolean;
+          lead_days: number[];
+          paused: boolean;
+          quiet_end: string;
+          quiet_start: string;
+          source_changes: boolean;
+          timezone: string;
+          updated_at: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          categories?: string[];
+          digest?: string;
+          digest_time?: string;
+          in_app?: boolean;
+          lead_days?: number[];
+          paused?: boolean;
+          quiet_end?: string;
+          quiet_start?: string;
+          source_changes?: boolean;
+          timezone?: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          categories?: string[];
+          digest?: string;
+          digest_time?: string;
+          in_app?: boolean;
+          lead_days?: number[];
+          paused?: boolean;
+          quiet_end?: string;
+          quiet_start?: string;
+          source_changes?: boolean;
+          timezone?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      notification_worker_runs: {
+        Row: {
+          failed: number;
+          finished_at: string | null;
+          id: number;
+          queued: number;
+          sent: number;
+          started_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          failed?: number;
+          finished_at?: string | null;
+          id?: never;
+          queued?: number;
+          sent?: number;
+          started_at?: string;
+        };
+        Update: {
+          failed?: number;
+          finished_at?: string | null;
+          id?: never;
+          queued?: number;
+          sent?: number;
+          started_at?: string;
+        };
+        Relationships: [];
+      };
+      notifications: {
+        Row: {
+          archived_at: string | null;
+          category: string;
+          created_at: string;
+          due_at: string | null;
+          due_date: string | null;
+          event_key: string;
+          id: string;
+          job_id: string;
+          kind: string;
+          lead_days: number;
+          previous_due_at: string | null;
+          previous_due_date: string | null;
+          read_at: string | null;
+          title: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          archived_at?: string | null;
+          category: string;
+          created_at?: string;
+          due_at?: string | null;
+          due_date?: string | null;
+          event_key: string;
+          id?: string;
+          job_id: string;
+          kind: string;
+          lead_days: number;
+          previous_due_at?: string | null;
+          previous_due_date?: string | null;
+          read_at?: string | null;
+          title: string;
+          user_id: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          category?: string;
+          created_at?: string;
+          due_at?: string | null;
+          due_date?: string | null;
+          event_key?: string;
+          id?: string;
+          job_id?: string;
+          kind?: string;
+          lead_days?: number;
+          previous_due_at?: string | null;
+          previous_due_date?: string | null;
+          read_at?: string | null;
+          title?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'notifications_job_id_fkey';
+            columns: ['job_id'];
+            isOneToOne: true;
+            referencedRelation: 'notification_jobs';
             referencedColumns: ['id'];
           },
         ];
@@ -4887,6 +5175,37 @@ export type Database = {
       };
     };
     Views: {
+      calendar_deadline_subscriptions: {
+        Row: {
+          deadline_id: number | null;
+          user_id: string | null;
+        };
+        ComputedFields: never;
+        Relationships: [];
+      };
+      calendar_events: {
+        Row: {
+          category: string | null;
+          checked_at: string | null;
+          due_at: string | null;
+          due_date: string | null;
+          event_key: string | null;
+          muted: boolean | null;
+          origin: string | null;
+          precision: string | null;
+          revision: string | null;
+          source_url: string | null;
+          status: string | null;
+          timezone: string | null;
+          title: string | null;
+          updated_at: string | null;
+          user_id: string | null;
+          verified: boolean | null;
+          version: number | null;
+        };
+        ComputedFields: never;
+        Relationships: [];
+      };
       mx_annual_facts: {
         Row: {
           filed_at: string | null;
@@ -5490,6 +5809,16 @@ export type Database = {
           isOneToOne: false;
           isSetofReturn: true;
         };
+      };
+      notification_allowed_at: {
+        Args: {
+          p: Omit<
+            Database['public']['Tables']['notification_preferences']['Row'],
+            Database['public']['Tables']['notification_preferences']['ComputedFields']
+          >;
+          p_at: string;
+        };
+        Returns: string;
       };
       opportunity_search: {
         Args: { p_filters?: Json };

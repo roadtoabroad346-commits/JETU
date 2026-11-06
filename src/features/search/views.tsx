@@ -264,6 +264,44 @@ export async function UnifiedSearchPage({
           <h1>{t.title}</h1>
           <p>{t.intro}</p>
         </header>
+        {filters && (
+          <nav
+            className="search-type-presets search-sort-presets"
+            aria-label={t.type}
+          >
+            {(['', 'program', 'scholarship', 'opportunity'] as const).map(
+              (type) => (
+                <a
+                  key={type}
+                  href={queryHref(locale, filters, { type, page: 1 })}
+                  aria-current={filters.type === type ? 'true' : undefined}
+                >
+                  {type ? t[type] : t.all}
+                </a>
+              ),
+            )}
+          </nav>
+        )}
+        {filters && (
+          <nav className="search-sort-presets" aria-label={t.sort}>
+            {(
+              [
+                ['relevance', t.relevance],
+                ['deadline', t.deadlineSort],
+                ['recent', t.recent],
+                ['title', t.titleSort],
+              ] as const
+            ).map(([sort, label]) => (
+              <a
+                key={sort}
+                href={queryHref(locale, filters, { sort, page: 1 })}
+                aria-current={filters.sort === sort ? 'true' : undefined}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        )}
         <form
           action={`/${locale}/search`}
           method="get"
@@ -298,74 +336,113 @@ export async function UnifiedSearchPage({
               defaultValue={filters?.country ?? ''}
             />
           </label>
-          <label>
-            {t.level}
-            <select name="level" defaultValue={filters?.level ?? ''}>
-              <option value="">—</option>
-              <option value="bachelor">{t.option.bachelor}</option>
-              <option value="master">{t.option.master}</option>
-              <option value="doctorate">{t.option.doctorate}</option>
-              <option value="associate">{t.option.associate}</option>
-              <option value="foundation">{t.option.foundation}</option>
-            </select>
-          </label>
-          <label>
-            {t.category}
-            <input
-              name="category"
-              maxLength={80}
-              defaultValue={filters?.category ?? ''}
-            />
-          </label>
-          <label>
-            {t.format}
-            <select name="format" defaultValue={filters?.format ?? ''}>
-              <option value="">—</option>
-              <option value="on_campus">{t.option.onCampus}</option>
-              <option value="in_person">{t.option.inPerson}</option>
-              <option value="online">{t.option.online}</option>
-              <option value="hybrid">{t.option.hybrid}</option>
-              <option value="unknown">{t.unknown}</option>
-            </select>
-          </label>
-          <label>
-            {t.funding}
-            <select name="funding" defaultValue={filters?.funding ?? ''}>
-              <option value="">—</option>
-              <option value="partial">{t.option.partial}</option>
-              <option value="full_tuition">{t.option.fullTuition}</option>
-              <option value="tuition_stipend">{t.option.tuitionStipend}</option>
-              <option value="comprehensive">{t.option.comprehensive}</option>
-              <option value="unknown">{t.unknown}</option>
-            </select>
-          </label>
-          <label>
-            {t.cost}
-            <select name="cost" defaultValue={filters?.cost ?? ''}>
-              <option value="">—</option>
-              <option value="free">{t.option.free}</option>
-              <option value="paid">{t.option.paid}</option>
-              <option value="fee_waiver_available">{t.option.feeWaiver}</option>
-              <option value="unknown">{t.unknown}</option>
-            </select>
-          </label>
-          <label>
-            {t.deadline}
-            <input
-              type="date"
-              name="deadline"
-              defaultValue={filters?.deadline ?? ''}
-            />
-          </label>
-          <label>
-            {t.sort}
-            <select name="sort" defaultValue={filters?.sort ?? 'relevance'}>
-              <option value="relevance">{t.relevance}</option>
-              <option value="recent">{t.recent}</option>
-              <option value="deadline">{t.deadlineSort}</option>
-              <option value="title">{t.titleSort}</option>
-            </select>
-          </label>
+          <details
+            className="search-advanced"
+            open={Boolean(
+              filters &&
+              [
+                'level',
+                'category',
+                'format',
+                'funding',
+                'cost',
+                'deadline',
+              ].some((key) => filters[key as keyof SearchFilters]),
+            )}
+          >
+            <summary>
+              {t.filters}{' '}
+              <span className="ui-badge">
+                {filters
+                  ? [
+                      'level',
+                      'category',
+                      'format',
+                      'funding',
+                      'cost',
+                      'deadline',
+                    ].filter((key) => filters[key as keyof SearchFilters])
+                      .length
+                  : 0}
+              </span>
+            </summary>
+            <div className="search-advanced-grid">
+              <label>
+                {t.level}
+                <select name="level" defaultValue={filters?.level ?? ''}>
+                  <option value="">—</option>
+                  <option value="bachelor">{t.option.bachelor}</option>
+                  <option value="master">{t.option.master}</option>
+                  <option value="doctorate">{t.option.doctorate}</option>
+                  <option value="associate">{t.option.associate}</option>
+                  <option value="foundation">{t.option.foundation}</option>
+                </select>
+              </label>
+              <label>
+                {t.category}
+                <input
+                  name="category"
+                  maxLength={80}
+                  defaultValue={filters?.category ?? ''}
+                />
+              </label>
+              <label>
+                {t.format}
+                <select name="format" defaultValue={filters?.format ?? ''}>
+                  <option value="">—</option>
+                  <option value="on_campus">{t.option.onCampus}</option>
+                  <option value="in_person">{t.option.inPerson}</option>
+                  <option value="online">{t.option.online}</option>
+                  <option value="hybrid">{t.option.hybrid}</option>
+                  <option value="unknown">{t.unknown}</option>
+                </select>
+              </label>
+              <label>
+                {t.funding}
+                <select name="funding" defaultValue={filters?.funding ?? ''}>
+                  <option value="">—</option>
+                  <option value="partial">{t.option.partial}</option>
+                  <option value="full_tuition">{t.option.fullTuition}</option>
+                  <option value="tuition_stipend">
+                    {t.option.tuitionStipend}
+                  </option>
+                  <option value="comprehensive">
+                    {t.option.comprehensive}
+                  </option>
+                  <option value="unknown">{t.unknown}</option>
+                </select>
+              </label>
+              <label>
+                {t.cost}
+                <select name="cost" defaultValue={filters?.cost ?? ''}>
+                  <option value="">—</option>
+                  <option value="free">{t.option.free}</option>
+                  <option value="paid">{t.option.paid}</option>
+                  <option value="fee_waiver_available">
+                    {t.option.feeWaiver}
+                  </option>
+                  <option value="unknown">{t.unknown}</option>
+                </select>
+              </label>
+              <label>
+                {t.deadline}
+                <input
+                  type="date"
+                  name="deadline"
+                  defaultValue={filters?.deadline ?? ''}
+                />
+              </label>
+              <label>
+                {t.sort}
+                <select name="sort" defaultValue={filters?.sort ?? 'relevance'}>
+                  <option value="relevance">{t.relevance}</option>
+                  <option value="recent">{t.recent}</option>
+                  <option value="deadline">{t.deadlineSort}</option>
+                  <option value="title">{t.titleSort}</option>
+                </select>
+              </label>
+            </div>
+          </details>
           {filters?.compare && (
             <input type="hidden" name="compare" value={filters.compare} />
           )}

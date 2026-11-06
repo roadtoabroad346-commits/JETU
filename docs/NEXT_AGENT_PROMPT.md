@@ -1,3 +1,30 @@
+# Phase 23 checkpoint — 2026-11-06
+
+Read `docs/PHASE_23_QA.md` and `docs/DEADLINE_ENGINE.md` first. Current user scope
+explicitly authorizes Phase 23 plus existing dashboard/search polish, and scoped
+GitHub/Supabase/Vercel publication. Do not start Phase 24 or change older labels.
+
+Branch `codex/phase-23-deadlines` starts from current main `5c30fe0`. New migration
+`20261106122552_phase_23_deadlines_notifications.sql` is already applied to the
+existing Jetuu development project `edpuovkgoisyzpguksdi`; do not replay it there.
+Cron `jetu-deadlines` (job 2) is enabled every minute. Hosted rollback assertions
+34/34 pass; no test identities persist. External email/push remain unavailable.
+
+Implementation: `src/features/deadlines/`, `/api/deadlines`, `/api/calendar/export`,
+private calendar/inbox/settings/dashboard routes, search chips/advanced filters,
+owner RLS views and transactional private worker. Existing snapshots are preserved.
+Standalone PostgreSQL `jetu-phase23-db` contains disposable replay databases only;
+actual generated public types come from pinned CLI. SQL suite100, component UI28,
+unit/integration140 passed at checkpoints. Final release gate/results and links
+must be read from the QA record, not inferred from these provisional counts.
+
+Next: finish serial production `check` / E2E, publish scoped commit/PR and verify
+preview SHA/health. Real hosted authenticated two-account browser acceptance is
+still required before VERIFIED. CLI `gh` reports an invalid GH_TOKEN; connected
+GitHub tools remain available if git push fails. Never print or retrieve secrets.
+
+Older handoff follows as historical context.
+
 # Publication handoff — 2026-11-04
 
 The user explicitly authorized GitHub/Supabase/Vercel publication after the UI

@@ -1,6 +1,12 @@
 import type { SVGProps } from 'react';
 
 const paths = {
+  calendar:
+    'M8 2v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14H3V6a2 2 0 0 1 2-2M7 14h2m4 0h2m-8 4h2',
+  bell: 'M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4',
+  settings: 'M4 6h16M4 12h16M4 18h16M8 3v6m8 0v6m-6 0v6',
+  plus: 'M12 5v14M5 12h14',
+  download: 'M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4',
   arrow: 'M5 12h14m-6-6 6 6-6 6',
   search: 'M21 21l-5-5M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
   close: 'm6 6 12 12M6 18 18 6',

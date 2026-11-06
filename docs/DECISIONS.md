@@ -177,3 +177,7 @@
 33. **No invented funding or cost conversions.** Only source-backed benefit components display as verified coverage; no full-funding inference. Budget points require verified annual USD tuition and are separate from living cost and eligibility.
 34. **Versioned owner-scoped runs.** Additive private RLS tables and DB rate/entity guards preserve existing schemas. GET recomputes current source-backed facts from a validated run preference snapshot; incomplete run writes are rejected by count. Atomic multirow persistence remains future work.
 35. **Deterministic explanation fallback.** No AI provider is configured, so external generation is disabled. The localized UI translates fixed rule reasons. Phase 16 is PARTIAL because zero live programs/scholarships and blocked Auth/REST prevent genuine student journey verification. Phase 17 remains untouched.
+
+## Phase 23 — 2026-11-06
+
+Phase 23 uses existing official deadlines and subscription projections rather than a parallel official-event store. DATE-ONLY never becomes a cutoff instant. PostgreSQL/Temporal use later DST disambiguation. External channels fail closed; separate per-message delivery windows are labelled honestly. Phase24 remains separate.

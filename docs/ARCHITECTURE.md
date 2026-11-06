@@ -157,3 +157,7 @@ The cloud SQL call worked; a direct REST tunnel from this workspace returned HTT
 ## Phase 16 matching addition — 2026-10-25
 
 The private `/{locale}/match` route calls `GET/POST /api/matching/run`. A request-scoped authenticated Supabase client reads owner-RLS profile/preferences and bounded published catalog rows. `src/features/matching/service.ts` batches normalized requirement, deadline, scholarship-benefit and official-source reads; `engine.ts` evaluates source-gated mandatory rules separately from fixed-weight preference ranking. `matching_preferences`, `matching_runs`, `matching_results` and versioned `matching_configuration` are additive development tables. No browser privileged key or external AI service is used. See `AI_MATCHING_ARCHITECTURE.md` for trust, rule, cache, freshness and transaction limits. The opening diagram includes the current private flow.
+
+## Phase 23 — 2026-11-06
+
+Phase 23 adds canonical SECURITY INVOKER calendar projections, owner personal dates, preferences, audited consent and transactional in-app jobs/receipts. Private SQL worker and explicit Cron activation; see DEADLINE_ENGINE.md. External providers remain unavailable.
